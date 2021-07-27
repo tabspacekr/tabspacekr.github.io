@@ -79,7 +79,7 @@ h6 {
 p {
 	font-size: 14px;
 	font-family: "Montserrat", sans-serif;
-	color: #444444;
+	/* color: #444444; */ /* Remove bottom gray font color, 20210727 ceo@tabspace.kr */
 	font-weight: 400;
 	line-height: 26px;
 	margin: 0 0 15px 0;
