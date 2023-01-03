@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="사물인터넷 자동화 솔루션 탭스페이스">
+  <meta name="keywords" content="IoT, 사물인터넷, 오픈소스, 홈어시스턴트, HomeAssistant, Tasmota, MQTT, 스타트업, startup">
+  <meta name="author" content="탭스페이스">
+  <title>탭스페이스 - 사물인터넷 자동화 솔루션</title>
+  <link rel="shortcut icon" href="./assets/img/favicon.png">
+  <link rel="stylesheet" href="./assets/css/plugins.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/colors/grape.css">
+  <link rel="preload" href="./assets/css/fonts/urbanist.css" as="style" onload="this.rel='stylesheet'">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TNGS7LHP2X"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TNGS7LHP2X');
+  </script>
+</head>
+
+<body>
+  <div class="content-wrapper">
+    <header class="wrapper">
+      <nav class="navbar navbar-expand-lg center-nav transparent navbar-light caret-none">
+        <div class="container flex-lg-row flex-nowrap align-items-center">
+          <div class="navbar-brand w-100">
+            <a href="./index.html">
+              <img src="./assets/img/logo-dark.svg" srcset="./assets/img/logo-dark@2x.svg 2x" alt="탭스페이스 로고 다크" height="52"/>
+            </a>
+          </div>
+          <div class="navbar-collapse offcanvas-nav">
+            <div class="offcanvas-header d-lg-none d-xl-none">
+              <!-- <a href="./index.html"><img src="./assets/img/logo-light.svg" srcset="./assets/img/logo-light@2x.svg 2x" alt="탭스페이스 로고 투명 화이트" height="52"/></a>
+              <button type="button" class="btn-close btn-close-white offcanvas-close offcanvas-nav-close" aria-label="Close"></button> -->
+            </div>
+            <ul class="navbar-nav">
+
+              <!-- <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#!">회사 소개</a> -->
+
+              </li>
+
+            </ul>
+            <!-- /.navbar-nav -->
+          </div>
+          <!-- /.navbar-collapse -->
+          <div class="navbar-other w-100 d-flex ms-auto">
+            <ul class="navbar-nav flex-row align-items-center ms-auto" data-sm-skip="true">
+              <li class="nav-item">
+                <nav class="nav social social-muted justify-content-end text-end">
+                  <a href="https://github.com/tabspacekr/" target="_blank"><i class="uil uil-github"></i></a>
+                  <!-- <a href="#"><i class="uil uil-facebook-f"></i></a>
+                  <a href="#"><i class="uil uil-dribbble"></i></a>
+                  <a href="#"><i class="uil uil-instagram"></i></a> -->
+                </nav>
+                <!-- /.social -->
+              </li>
+              <li class="nav-item d-lg-none">
+                <!-- <div class="navbar-hamburger"><button class="hamburger animate plain" data-toggle="offcanvas-nav"><span></span></button></div> -->
+              </li>
+            </ul>
+            <!-- /.navbar-nav -->
+          </div>
+          <!-- /.navbar-other -->
+        </div>
+        <!-- /.container -->
+      </nav>
+      <!-- /.navbar -->
+    </header>
+    <!-- /header -->
+    <section class="wrapper bg-light">
+      <div class="container-card">
+      
+        <div class="card image-wrapper bg-full bg-image bg-overlay bg-overlay-light-500 mt-2 mb-5" data-image-src="./assets/img/photos/bg22.png">
+          <div class="card-body py-14 px-0">
+            <div class="container">
+              <div class="row gx-md-8 gx-xl-12 gy-10 align-items-center text-center text-lg-start">
+                <div class="col-lg-6" data-cues="slideInDown" data-group="page-title" data-delay="10">
+                <!-- <div class="col-lg-6" data-cues="slideInDown" data-group="page-title" data-delay="900"> -->
+                  <h1 class="display-2 mb-4 me-xl-5 me-xxl-0" style="word-break: keep-all;">비즈니스 맞춤형 <span class="text-gradient gradient-1">IoT</span> 솔루션</h1>
+                  <p class="lead fs-23 lh-sm mb-7 pe-xxl-15" style="word-break: keep-all;"></br>탭스페이스는 에너지, 환경, 기상, 기후, 보안 등 비즈니스와 관련된 다양한 문제를 분석하여 고객 맞춤 솔루션을 제공하는 IoT 전문기업입니다.<!-- </br></br>상업시설, 주거공간, 무인매장, 원격설비제어, 시설자동화제어 등 다양한 산업분야에 적용가능한 탭스페이스만의 차별화된 IoT 토탈 솔루션을 경험해보세요.--></p>
+                  <!-- <a href="#" class="btn btn-lg btn-gradient gradient-1 rounded">Explore Now</a> -->
+                  <!-- IoT 프로젝트와 관련된 S/W 프로그래밍, H/W 금형 및 설계, 플랫폼 연동까지 모두 처리 가능한 전문기업입니다. -->
+                </div>
+                <!--/column -->
+                <div class="col-lg-6">
+                  <img class="img-fluid mb-n18" src="./assets/img/illustrations/3d6.png" srcset="./assets/img/illustrations/3d6@2x.png 2x" data-cue="fadeIn" data-delay="300" alt="" />
+                </div>
+                <!--/column -->
+              </div>
+              <!-- /.row -->
+            </div>
+            
+            <!-- /.container -->
+          </div>
+          <!--/.card-body -->
+        </div>
+        <!--/.card -->
+      </div>
+      <!-- /.container-card -->
+    </section>
+    <!-- /section -->
+    
+    <section class="wrapper bg-light">
+      <div class="container pb-lg-1">
+      <!-- <div class="container pt-14 pt-md-17 pb-14 pb-md-18"> -->
+        <div class="row text-center">
+          <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+            <hr>
+            <h2 class="fs-16 text-uppercase text-gradient gradient-1 mb-3">주요 특징</h2>
+            <h3 class="display-4 mb-9 px-xl-11" style="word-break: keep-all;">고객의 요구사항을 충족하도록 특별하게 설계된 다양한 서비스를 제공합니다.</h3>
+          </div>
+          <!-- /column -->
+        </div>
+      </br>
+        <!-- /.row -->
+        <div class="row gy-8 mb-10">
+        <!-- <div class="row gy-8 mb-17"> -->
+          <div class="col-md-6 col-lg-4">
+            <div class="d-flex flex-row">
+              <div>
+                <img src="./assets/img/icons/solid/script.svg" class="svg-inject icon-svg icon-svg-sm solid-duo text-grape-fuchsia me-4" alt="" />
+              </div>
+              <div>
+                <h3 class="fs-22 mb-1">오픈소스 + 자체개발</h3>
+                <p class="mb-0" style="word-break: keep-all;">오픈소스 IoT 플랫폼인 &apos;Home Assistant&apos;를 기반으로 자체개발 컴포넌트 모듈을 적용하여, 지속가능한 기능개선 및 유지관리 서비스를 제공합니다.</p>
+              </div>
+            </div>
+          </div>
+          <!--/column -->
+          <div class="col-md-6 col-lg-4">
+            <div class="d-flex flex-row">
+              <div>
+                <img src="./assets/img/icons/solid/verify.svg" class="svg-inject icon-svg icon-svg-sm solid-duo text-grape-fuchsia me-4" alt="" />
+              </div>
+              <div>
+                <h3 class="fs-22 mb-1">네트워크 보안</h3>
+                <p class="mb-0" style="word-break: keep-all;">VPN과 SD-WAN의 기능을 결합한 &apos;ZeroTier&apos;의 제로 트러스트 네트워킹 솔루션을 자체 운영하여, 256비트 종단 간 암호화로 IoT 장비의 독립적인 네트워크 보안을 제공합니다.</p>
+              </div>
+            </div>
+          </div>
+          <!--/column -->
+          <div class="col-md-6 col-lg-4">
+            <div class="d-flex flex-row">
+              <div>
+                <img src="./assets/img/icons/solid/cloud-network.svg" class="svg-inject icon-svg icon-svg-sm solid-duo text-grape-fuchsia me-4" alt="" />
+              </div>
+              <div>
+                <h3 class="fs-22 mb-1">클라우드 서비스</h3>
+                <p class="mb-0" style="word-break: keep-all;">나스닥 상장 글로벌 데이터 센터 기업인 &apos;Equinix&apos;의 서울 리전 &apos;SL1(상암DMC 삼성SDS IDC)&apos;을 사용하여 안정적인 무중단* 클라우드 서비스를 제공합니다. (*약관 적용)</p>
+              </div>
+            </div>
+          </div>
+          <!--/column -->
+          <div class="col-md-6 col-lg-4">
+            <div class="d-flex flex-row">
+              <div>
+                <img src="./assets/img/icons/solid/director.svg" class="svg-inject icon-svg icon-svg-sm solid-duo text-grape-fuchsia me-4" alt="" />
+              </div>
+              <div>
+                <h3 class="fs-22 mb-1">유/무선 통신기술</h3>
+                <p class="mb-0" style="word-break: keep-all;">TCP/IP, RS485, KNX, WiFi Mesh, Zigbee, BLE, RF, IR, SIP, MQTT 등 IoT에 사용되는 유/무선 통신기술로 설비, 장비, 센서를 통합 및 제공합니다.</p>
+              </div>
+            </div>
+          </div>
+          <!--/column -->
+          <div class="col-md-6 col-lg-4">
+            <div class="d-flex flex-row">
+              <div>
+                <img src="./assets/img/icons/solid/setting.svg" class="svg-inject icon-svg icon-svg-sm solid-duo text-grape-fuchsia me-4" alt="" />
+              </div>
+              <div>
+                <h3 class="fs-22 mb-1">3D 모델링, 금형사출 설계</h3>
+                <p class="mb-0" style="word-break: keep-all;">자사 직원에 의한 샘플 모델링 설계(3D프린터 활용), 당사 협력 프로젝트 시제품 제작을 위한 3D 모델링 및 금형사출 전반에 대한 위탁 제작 서비스를 제공합니다.</p>
+              </div>
+            </div>
+          </div>
+          <!--/column -->
+          <div class="col-md-6 col-lg-4">
+            <div class="d-flex flex-row">
+              <div>
+                <img src="./assets/img/icons/solid/server.svg" class="svg-inject icon-svg icon-svg-sm solid-duo text-grape-fuchsia me-4" alt="" />
+              </div>
+              <div>
+                <h3 class="fs-22 mb-1">하드웨어 및 펌웨어 설계</h3>
+                <p class="mb-0" style="word-break: keep-all;">&apos;ESP32, ESP8266&apos; SoC기반의 저전력 무선 통신 MCU 하드웨어 설계 및 &apos;Tasmota&apos; 펌웨어 커스터마이징 기술을 통해 IoT 산업 전반에 사용되는 센싱, 제어, 통신 기술을 제공합니다.</p>
+              </div>
+            </div>
+          </div>
+          <!--/column -->
+        </div>
+        <hr>
+        <div class="row text-center">
+          <div class="col-lg-9 col-xl-8 col-xxl-7 mx-auto">
+            <h2 class="fs-16 text-uppercase text-gradient gradient-1 mb-3">도입 및 구축 사례</h2>
+            <h3 class="display-4 mb-9 me-lg-n5" style="word-break: keep-all;">창의적인 아이디어와 멋진 디자인이 적용된 프로젝트를 확인해보세요.</h3>
+          </div>
+          <!-- /column -->
+        </div>
+        <!-- /.row -->
+        <div class="carousel owl-carousel blog grid-view mb-0" data-margin="30" data-dots="true" data-autoplay="false" data-autoplay-timeout="2500" data-responsive='{"0":{"items": "1"}, "768":{"items": "2"}, "992":{"items": "2"}, "1200":{"items": "3"}}'>
+        <!-- <div class="carousel owl-carousel blog grid-view mb-17 mb-md-20" data-margin="30" data-dots="true" data-autoplay="false" data-autoplay-timeout="2500" data-responsive='{"0":{"items": "1"}, "768":{"items": "2"}, "992":{"items": "2"}, "1200":{"items": "3"}}'> -->
+          <div class="item">
+            <article>
+              <figure class="overlay overlay-1 hover-scale rounded mb-6"><a href="https://blog.naver.com/tabspacekr/222973734078" target="_blank"> <img src="./assets/img/photos/20221229.jpg" alt="" /></a>
+                <figcaption>
+                  <h5 class="from-top mb-0">네이버블로그에서</br>내용 더 보기</h5>
+                </figcaption>
+              </figure>
+              <div class="post-header">
+                <h2 class="post-title h3 mb-3"><a class="link-dark" href="https://blog.naver.com/tabspacekr/222973734078" target="_blank">지안에스앤디 쇼룸 (청주)</a></h2>
+              </div>
+              <!-- /.post-header -->
+              <div class="post-footer">
+                <ul class="post-meta">
+                  <li class="post-date"><i class="uil uil-calendar-alt"></i><span>2022.12.29.</span></li>
+                  <li class="post-comments"><i class="uil uil-file-alt fs-15"></i>무인매장</li>
+                </ul>
+                <!-- /.post-meta -->
+              </div>
+              <!-- /.post-footer -->
+            </article>
+            <!-- /article -->
+          </div>
+          <!-- /.item -->
+          <div class="item">
+            <article>
+              <figure class="overlay overlay-1 hover-scale rounded mb-6"><a href="https://blog.naver.com/tabspacekr/222966027319" target="_blank"> <img src="./assets/img/photos/20221222.jpg" alt="" /></a>
+                <figcaption>
+                  <h5 class="from-top mb-0">네이버블로그에서</br>내용 더 보기</h5>
+                </figcaption>
+              </figure>
+              <div class="post-header">
+                <h2 class="post-title h3 mb-3"><a class="link-dark" href="https://blog.naver.com/tabspacekr/222966027319" target="_blank">착한꽃집 (하남미사)</a></h2>
+              </div>
+              <!-- /.post-header -->
+              <div class="post-footer">
+                <ul class="post-meta">
+                  <li class="post-date"><i class="uil uil-calendar-alt"></i><span>2022.12.22.</span></li>
+                  <li class="post-comments"><i class="uil uil-file-alt fs-15"></i>복합매장(유인+무인)</li>
+                </ul>
+                <!-- /.post-meta -->
+              </div>
+              <!-- /.post-footer -->
+            </article>
+            <!-- /article -->
+          </div>
+          <!-- /.item -->
+          <div class="item">
+            <article>
+              <figure class="overlay overlay-1 hover-scale rounded mb-6"><a href="https://blog.naver.com/tabspacekr/222934148310" target="_blank"> <img src="./assets/img/photos/20221121.jpg" alt="" /></a>
+                <figcaption>
+                  <h5 class="from-top mb-0">네이버블로그에서</br>내용 더 보기</h5>
+                </figcaption>
+              </figure>
+              <div class="post-header">
+                <h2 class="post-title h3 mb-3"><a class="link-dark" href="https://blog.naver.com/tabspacekr/222934148310" target="_blank">빈티지요 구제의류 무인매장 (세종)</a></h2>
+              </div>
+              <!-- /.post-header -->
+              <div class="post-footer">
+                <ul class="post-meta">
+                  <li class="post-date"><i class="uil uil-calendar-alt"></i><span>2022.11.21.</span></li>
+                  <li class="post-comments"><i class="uil uil-file-alt fs-15"></i>무인매장</li>
+                </ul>
+                <!-- /.post-meta -->
+              </div>
+              <!-- /.post-footer -->
+            </article>
+            <!-- /article -->
+          </div>
+          <!-- /.item -->
+          <div class="item">
+            <article>
+              <figure class="overlay overlay-1 hover-scale rounded mb-6"><a href="https://blog.naver.com/tabspacekr/222924919281" target="_blank"><img src="./assets/img/photos/20221110.jpg" alt="" /></a>
+                <figcaption>
+                  <h5 class="from-top mb-0">네이버블로그에서</br>내용 더 보기</h5>
+                </figcaption>
+              </figure>
+              <div class="post-header">
+                <h2 class="post-title h3 mb-3"><a class="link-dark" href="https://blog.naver.com/tabspacekr/222924919281" target="_blank">워시팡팡 의정부민락점 (의정부)</a></h2>
+              </div>
+              <div class="post-footer">
+                <ul class="post-meta">
+                  <li class="post-date"><i class="uil uil-calendar-alt"></i><span>2022.11.10.</span></li>
+                  <li class="post-comments"><i class="uil uil-file-alt fs-15"></i>무인매장</li>
+                </ul>
+                <!-- /.post-meta -->
+              </div>
+              <!-- /.post-footer -->
+            </article>
+            <!-- /article -->
+          </div>
+          <!-- /.item -->
+          <div class="item">
+            <article>
+              <figure class="overlay overlay-1 hover-scale rounded mb-6"><a href="https://blog.naver.com/tabspacekr/222922298213" target="_blank"> <img src="./assets/img/photos/20221107.jpg" alt="" /></a>
+                <figcaption>
+                  <h5 class="from-top mb-0">네이버블로그에서</br>내용 더 보기</h5>
+                </figcaption>
+              </figure>
+              <div class="post-header">
+                <h2 class="post-title h3 mb-3"><a class="link-dark" href="https://blog.naver.com/tabspacekr/222922298213" target="_blank">눈치보지말개 (서울 강동)</a></h2>
+              </div>
+              <div class="post-footer">
+                <ul class="post-meta">
+                  <li class="post-date"><i class="uil uil-calendar-alt"></i><span>2022.11.07.</span></li>
+                  <li class="post-comments"><i class="uil uil-file-alt fs-15"></i>무인매장</a></li>
+                </ul>
+                <!-- /.post-meta -->
+              </div>
+              <!-- /.post-footer -->
+            </article>
+            <!-- /article -->
+          </div>
+          <!-- /.item -->
+          <div class="item">
+            <article>
+              <figure class="overlay overlay-1 hover-scale rounded mb-6"><a href="https://blog.naver.com/tabspacekr/222916575024" target="_blank"> <img src="./assets/img/photos/20221101.jpg" alt="" /></a>
+                <figcaption>
+                  <h5 class="from-top mb-0">네이버블로그에서</br>내용 더 보기</h5>
+                </figcaption>
+              </figure>
+              <div class="post-header">
+                <h2 class="post-title h3 mb-3"><a class="link-dark" href="https://blog.naver.com/tabspacekr/222916575024" target="_blank">24시 무인빈티지샵 (부천)</a></h2>
+              </div>
+              <div class="post-footer">
+                <ul class="post-meta">
+                  <li class="post-date"><i class="uil uil-calendar-alt"></i><span>2022.11.01.</span></li>
+                  <li class="post-comments"><a href="#"><i class="uil uil-file-alt fs-15"></i>무인매장</a></li>
+                </ul>
+                <!-- /.post-meta -->
+              </div>
+              <!-- /.post-footer -->
+            </article>
+            <!-- /article -->
+          </div>
+          <!-- /.item -->
+          <div class="item">
+            <article>
+              <figure class="overlay overlay-1 hover-scale rounded mb-6"><a href="https://blog.naver.com/tabspacekr/222891599350" target="_blank"> <img src="./assets/img/photos/20221004.jpg" alt="" /></a>
+                <figcaption>
+                  <h5 class="from-top mb-0">네이버블로그에서</br>내용 더 보기</h5>
+                </figcaption>
+              </figure>
+              <div class="post-header">
+                <h2 class="post-title h3 mb-3"><a class="link-dark" href="https://blog.naver.com/tabspacekr/222891599350" target="_blank">모임공간 배움자리 (서울 강남)</a></h2>
+              </div>
+              <div class="post-footer">
+                <ul class="post-meta">
+                  <li class="post-date"><i class="uil uil-calendar-alt"></i><span>2022.10.04.</span></li>
+                  <li class="post-comments"><i class="uil uil-file-alt fs-15"></i>상업시설 (공간임대)</li>
+                </ul>
+                <!-- /.post-meta -->
+              </div>
+              <!-- /.post-footer -->
+            </article>
+            <!-- /article -->
+          </div>
+          <!-- /.item -->
+          <div class="item">
+            <article>
+              <figure class="overlay overlay-1 hover-scale rounded mb-6"><a href="https://blog.naver.com/tabspacekr/222860970405" target="_blank"> <img src="./assets/img/photos/20220829.jpg" alt="" /></a>
+                <figcaption>
+                  <h5 class="from-top mb-0">네이버블로그에서</br>내용 더 보기</h5>
+                </figcaption>
+              </figure>
+              <div class="post-header">
+                <h2 class="post-title h3 mb-3"><a class="link-dark" href="https://blog.naver.com/tabspacekr/222860970405" target="_blank">아무도없개 신가점 (광주)</a></h2>
+              </div>
+              <div class="post-footer">
+                <ul class="post-meta">
+                  <li class="post-date"><i class="uil uil-calendar-alt"></i><span>2022.08.29.</span></li>
+                  <li class="post-comments"><i class="uil uil-file-alt fs-15"></i>무인매장</li>
+                </ul>
+                <!-- /.post-meta -->
+              </div>
+              <!-- /.post-footer -->
+            </article>
+            <!-- /article -->
+          </div>
+          <!-- /.item -->          
+        </div>
+        <!-- /.owl-carousel -->
+      </div>
+    </br><hr>
+
+      <!-- /.container -->
+    </section>
+    <!-- /section -->
+      <div class="container">
+        <!--/.row -->
+        <div class="row gx-3 gy-10 mb-15 align-items-center">
+        <!-- <div class="row gx-3 gy-10 mb-15 mb-md-18 align-items-center"> -->
+          <div class="col-lg-6">
+            <figure><img class="w-auto" src="./assets/img/illustrations/3d3.png" srcset="./assets/img/illustrations/3d3@2x.png 2x" alt="" /></figure>
+          </div>
+          <!--/column -->
+          <div class="col-lg-5 offset-lg-1">
+            <h2 class="fs-16 text-uppercase text-gradient gradient-1 mb-3">솔루션 및 도입 문의</h2>
+            <h3 class="display-4 mb-8">문의사항이 있으신가요?</br>아래로 연락주세요!</h3>
+            <div class="d-flex flex-row">
+              <div>
+                <img src="./assets/img/icons/solid/pin.svg" class="svg-inject icon-svg icon-svg-xs solid-duo text-grape-fuchsia mt-1 me-4" style="width: 1.5rem; height: 1.5rem;" alt="" />
+              </div>
+              <div>
+                <h5 class="mb-0">주소</h5>
+                <address>서울특별시 서대문구 경기대로47, 306호</address>
+              </div>
+            </div>
+            <div class="d-flex flex-row">
+              <div>
+                <img src="./assets/img/icons/solid/rotary.svg" class="svg-inject icon-svg icon-svg-xs solid-duo text-grape-fuchsia mt-1 me-4" style="width: 1.5rem; height: 1.5rem;" alt="" />
+              </div>
+              <div>
+                <h5 class="mb-0">전화</h5>
+                <p><a href="tel:07077805577">070-7780-5577</a></p>
+              </div>
+            </div>
+
+            <div class="d-flex flex-row">
+              <div>
+                <img src="./assets/img/icons/solid/emails.svg" class="svg-inject icon-svg icon-svg-xs solid-duo text-grape-fuchsia mt-1 me-4" style="width: 1.5rem; height: 1.5rem;" alt="" />
+              </div>
+              <div>
+                <h5 class="mb-0">이메일 - 기술문의</h5>
+                <p><a href="mailto:ceo@tabspace.kr" class="link-body">ceo@tabspace.kr</a></p>
+              </div>
+            </div>
+
+            <div class="d-flex flex-row">
+              <div>
+                <img src="./assets/img/icons/solid/emails.svg" class="svg-inject icon-svg icon-svg-xs solid-duo text-grape-fuchsia mt-1 me-4" style="width: 1.5rem; height: 1.5rem;" alt="" />
+              </div>
+              <div>
+                <h5 class="mb-0">이메일 - 영업문의</h5>
+                <p><a href="mailto:braintoy@tabspace.kr" class="link-body">braintoy@tabspace.kr</a></p>
+              </div>
+            </div>
+
+          </div>
+          <!--/column -->
+        </div>
+        <!--/.row -->
+      </div>
+      <!-- /.container -->
+      <hr>
+    </section>
+    <!-- /section -->
+  </div>
+
+  <!-- /.content-wrapper -->
+  <footer class="bg-light">
+    <!-- /.container-card -->
+    <div class="container pb-lg-1">
+    <!-- <div class="container pb-13 pb-md-15"></div> -->
+        <div class=" row gy-6 gy-lg-0">
+      <div class="col-md-4 col-lg-3">
+        <div class="widget">
+          <img class="mb-4" src="./assets/img/logo-dark.svg" srcset="./assets/img/logo-dark@2x.svg 2x" alt="탭스페이스 로고" height="52"/>
+          <p class="mb-4">© 2021-2023 TabSpace. <br class="d-none d-lg-block" />All rights reserved.</p>
+          <!-- <nav class="nav social ">
+            <a href="#"><i class="uil uil-twitter"></i></a>
+            <a href="#"><i class="uil uil-facebook-f"></i></a>
+            <a href="#"><i class="uil uil-dribbble"></i></a>
+            <a href="#"><i class="uil uil-instagram"></i></a>
+            <a href="#"><i class="uil uil-youtube"></i></a>
+          </nav> -->
+          <!-- /.social -->
+        </div>
+        <!-- /.widget -->
+      </div>
+  </footer>
+  <div class="progress-wrap">
+    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+      <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+    </svg>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+  <script src="./assets/js/plugins.js"></script>
+  <script src="./assets/js/theme.js"></script>
+</body>
+
+</html>
