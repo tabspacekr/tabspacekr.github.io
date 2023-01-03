@@ -371,6 +371,7 @@
           margin: $carousel.data("margin"),
           autoplay: $carousel.data("autoplay"),
           autoplayTimeout: $carousel.data("autoplay-timeout"),
+          autoplayHoverPause: $carousel.data("autoplay-hover-pause"),
           responsive: $carousel.data("responsive")
         });
       });
