@@ -1,9 +1,5 @@
-탭스페이스 홈페이지입니다.
-- 탭스페이스는 사물인터넷(IoT) 기반 공간 관리 미들웨어 솔루션을 제공하고 있습니다.
-- ZeroEnergyBuildingManagementSystem
-- HomeAutomation
-- SmartHome
-- SmartBuilding
+비즈니스 맞춤형 IoT 솔루션
+- 탭스페이스는 에너지, 환경, 기상, 기후, 보안 등 비즈니스와 관련된 다양한 문제를 분석하여 고객 맞춤 솔루션을 제공하는 IoT 전문기업입니다.
 
 CONTACT
-- sales@tabspace.kr
+- ceo@tabspace.kr
