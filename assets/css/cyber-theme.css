@@ -529,6 +529,15 @@ body.cyber-mode::before {
   .predictive-maintenance-card .small {
     font-size: 0.9rem;
   }
+
+  /* Environment Stat Cards */
+  .environment-stat-card .cyber-stat-value {
+    font-size: 2rem;
+  }
+
+  .environment-stat-card .small {
+    font-size: 0.85rem;
+  }
 }
 
 /* Tablet screens */
@@ -557,6 +566,15 @@ body.cyber-mode::before {
 
   .predictive-maintenance-card .small {
     font-size: 0.7rem;
+  }
+
+  /* Environment Stat Cards - Tablet */
+  .environment-stat-card .cyber-stat-value {
+    font-size: 1.4rem;
+  }
+
+  .environment-stat-card .small {
+    font-size: 0.75rem;
   }
 }
 
@@ -594,6 +612,15 @@ body.cyber-mode::before {
   }
 
   .predictive-maintenance-card .small {
+    font-size: 0.7rem;
+  }
+
+  /* Environment Stat Cards - Mobile */
+  .environment-stat-card .cyber-stat-value {
+    font-size: 1.3rem;
+  }
+
+  .environment-stat-card .small {
     font-size: 0.7rem;
   }
 }
