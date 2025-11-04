@@ -104,6 +104,7 @@
       $navbar_offcanvas_toggle.on("click", function(e) {
         e.stopPropagation();
         $navbar_offcanvas.toggleClass('open');
+        $('body').toggleClass('offcanvas-open');
       });
       $navbar_offcanvas.on("click", function(e) {
         e.stopPropagation();
@@ -111,6 +112,7 @@
       $navbar_offcanvas_close.on("click", function(e) {
         $navbar_offcanvas.removeClass('open');
         $header_hamburger.removeClass('active');
+        $('body').removeClass('offcanvas-open');
       });
       $info_offcanvas_toggle.on("click", function(e) {
         e.stopPropagation();
@@ -123,6 +125,7 @@
         $navbar_offcanvas.removeClass('open');
         $info_offcanvas.removeClass('open');
         $header_hamburger.removeClass('active');
+        $('body').removeClass('offcanvas-open');
       });
       $info_offcanvas_close.on("click", function(e) {
         $info_offcanvas.removeClass('open');
@@ -130,6 +133,13 @@
       $('.onepage .navbar li a.scroll').on('click', function() {
         $navbar_offcanvas.removeClass('open');
         $header_hamburger.removeClass('active');
+        $('body').removeClass('offcanvas-open');
+      });
+      // Close offcanvas when any nav link is clicked
+      $('.offcanvas-nav .nav-link').on('click', function() {
+        $navbar_offcanvas.removeClass('open');
+        $header_hamburger.removeClass('active');
+        $('body').removeClass('offcanvas-open');
       });
     },
     /**

@@ -1,0 +1,1079 @@
+/**
+ * Cyber Theme CSS
+ * 사이버틱 디자인 시스템 - AI 시대 IoT 회사 전용
+ * Features: 3D Effects, Neon Colors, Holographic UI
+ */
+
+/* ===================================
+   1. CSS Variables - Cyber Color Palette
+   =================================== */
+:root {
+  /* Primary Cyber Colors */
+  --cyber-cyan: #5ff4ff;
+  --cyber-magenta: #ff00ff;
+  --cyber-electric-blue: #0080ff;
+  --cyber-purple: #8000ff;
+  --cyber-neon-green: #00ff88;
+
+  /* Dark Background Palette */
+  --cyber-dark-bg: #0a0e27;
+  --cyber-dark-surface: #131829;
+  --cyber-dark-card: #1a1f3a;
+  --cyber-dark-elevated: #252b4a;
+
+  /* Gradient Colors */
+  --cyber-gradient-1: linear-gradient(135deg, var(--cyber-cyan) 0%, var(--cyber-electric-blue) 100%);
+  --cyber-gradient-2: linear-gradient(135deg, var(--cyber-magenta) 0%, var(--cyber-purple) 100%);
+  --cyber-gradient-3: linear-gradient(135deg, var(--cyber-electric-blue) 0%, var(--cyber-purple) 100%);
+  --cyber-gradient-tech: linear-gradient(135deg, #5ff4ff 0%, #ff00ff 50%, #0080ff 100%);
+
+  /* Glow Effects */
+  --glow-cyan: 0 0 20px rgba(95, 244, 255, 0.5), 0 0 40px rgba(95, 244, 255, 0.3);
+  --glow-magenta: 0 0 20px rgba(255, 0, 255, 0.5), 0 0 40px rgba(255, 0, 255, 0.3);
+  --glow-blue: 0 0 20px rgba(0, 128, 255, 0.5), 0 0 40px rgba(0, 128, 255, 0.3);
+
+  /* Typography */
+  --cyber-font-primary: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+  --cyber-font-mono: 'Courier New', Courier, monospace;
+}
+
+/* ===================================
+   2. Global Cyber Styles
+   =================================== */
+body.cyber-mode {
+  background: var(--cyber-dark-bg);
+  color: #e0e6ed;
+  font-family: var(--cyber-font-primary);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Animated Background Grid */
+body.cyber-mode::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    linear-gradient(rgba(95, 244, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(95, 244, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: 0;
+  animation: gridScroll 20s linear infinite;
+}
+
+@keyframes gridScroll {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(50px); }
+}
+
+/* ===================================
+   3. Cyber Cards & Surfaces
+   =================================== */
+.cyber-card {
+  background: var(--cyber-dark-card);
+  border: 1px solid rgba(95, 244, 255, 0.2);
+  border-radius: 16px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+}
+
+.cyber-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(95, 244, 255, 0.1), transparent);
+  transition: left 0.6s ease;
+}
+
+.cyber-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--cyber-cyan);
+  box-shadow: var(--glow-cyan), 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.cyber-card:hover::before {
+  left: 100%;
+}
+
+/* Holographic Card Effect */
+.cyber-card-holographic {
+  background: linear-gradient(
+    135deg,
+    rgba(95, 244, 255, 0.05) 0%,
+    rgba(255, 0, 255, 0.05) 50%,
+    rgba(0, 128, 255, 0.05) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.cyber-card-holographic::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg 340deg,
+    var(--cyber-cyan) 340deg 360deg
+  );
+  animation: rotate 4s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cyber-card-holographic:hover::after {
+  opacity: 0.3;
+}
+
+@keyframes rotate {
+  100% { transform: rotate(360deg); }
+}
+
+/* ===================================
+   4. Neon Text & Typography
+   =================================== */
+.cyber-title {
+  font-weight: 700;
+  background: var(--cyber-gradient-tech);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(95, 244, 255, 0.5);
+  position: relative;
+  display: inline-block;
+}
+
+.cyber-text-glow {
+  color: var(--cyber-cyan);
+  text-shadow: var(--glow-cyan);
+  /* Removed pulse animation to prevent opacity conflicts */
+}
+
+.cyber-text-cyan {
+  color: #fab758;
+  text-shadow: 0 0 20px rgba(250, 183, 88, 0.5), 0 0 40px rgba(250, 183, 88, 0.3);
+}
+
+.cyber-text-magenta {
+  color: var(--cyber-magenta);
+  text-shadow: var(--glow-magenta);
+}
+
+/* Optional subtle pulse for specific elements only */
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.95; }
+}
+
+/* Glitch Effect for Headers */
+.cyber-glitch {
+  position: relative;
+  display: inline-block;
+}
+
+.cyber-glitch::before,
+.cyber-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.cyber-glitch::before {
+  color: var(--cyber-cyan);
+  animation: glitch-1 2.5s infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+}
+
+.cyber-glitch::after {
+  color: var(--cyber-magenta);
+  animation: glitch-2 2.5s infinite;
+  clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+}
+
+@keyframes glitch-1 {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+}
+
+@keyframes glitch-2 {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(2px, -2px); }
+  40% { transform: translate(2px, 2px); }
+  60% { transform: translate(-2px, -2px); }
+  80% { transform: translate(-2px, 2px); }
+}
+
+/* ===================================
+   5. Buttons & Interactive Elements
+   =================================== */
+.cyber-btn {
+  position: relative;
+  padding: 0.75rem 2rem;
+  font-weight: 600;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--cyber-cyan);
+  background: transparent;
+  border: 2px solid var(--cyber-cyan);
+  border-radius: 0;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  z-index: 10;
+}
+
+.cyber-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--cyber-gradient-1);
+  transition: left 0.4s ease;
+  z-index: -1;
+}
+
+.cyber-btn:hover {
+  color: #0a0e27;
+  box-shadow: var(--glow-cyan);
+  transform: translateY(-2px);
+}
+
+.cyber-btn:hover::before {
+  left: 0;
+}
+
+/* Alternative Button Style */
+.cyber-btn-filled {
+  background: var(--cyber-gradient-1);
+  color: #0a0e27;
+  border: none;
+  box-shadow: 0 4px 20px rgba(95, 244, 255, 0.3);
+  position: relative;
+  z-index: 10;
+}
+
+.cyber-btn-filled:hover {
+  box-shadow: var(--glow-cyan), 0 8px 30px rgba(95, 244, 255, 0.4);
+  transform: translateY(-3px);
+}
+
+/* ===================================
+   6. 3D Transform Effects
+   =================================== */
+.cyber-3d-card {
+  /* 3D rotation effects removed for project cards */
+  transition: transform 0.3s ease;
+}
+
+.cyber-3d-inner {
+  transition: transform 0.3s ease;
+}
+
+/* Floating Animation */
+.cyber-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotateZ(0deg); }
+  50% { transform: translateY(-20px) rotateZ(2deg); }
+}
+
+/* ===================================
+   7. Project Gallery with 3D Effects
+   =================================== */
+.cyber-project-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cyber-project-card {
+  position: relative;
+  background: var(--cyber-dark-card);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(95, 244, 255, 0.1);
+  height: 100%;
+}
+
+.cyber-project-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(95, 244, 255, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.cyber-project-card-link:hover .cyber-project-card {
+  transform: translateY(-8px);
+  border-color: var(--cyber-cyan);
+  box-shadow: 0 15px 40px rgba(95, 244, 255, 0.25);
+}
+
+.cyber-project-card-link:hover .cyber-project-card::before {
+  opacity: 1;
+}
+
+@keyframes ripple {
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(1); opacity: 0; }
+}
+
+.cyber-project-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.cyber-project-image img {
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: brightness(0.8) contrast(1.2);
+}
+
+.cyber-project-card-link:hover .cyber-project-image img {
+  transform: scale(1.05);
+  filter: brightness(1) contrast(1.3);
+}
+
+/* Project Category Badge */
+.cyber-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: var(--cyber-gradient-1);
+  color: #0a0e27;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(95, 244, 255, 0.3);
+}
+
+/* ===================================
+   8. Particle Background Container
+   =================================== */
+.cyber-particles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ===================================
+   9. Scanline Effect
+   =================================== */
+.cyber-scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.cyber-scanline::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--cyber-cyan), transparent);
+  animation: scan 3s linear infinite;
+  opacity: 0.3;
+  box-shadow: 0 0 10px var(--cyber-cyan);
+}
+
+@keyframes scan {
+  0% { top: 0; }
+  100% { top: 100%; }
+}
+
+/* ===================================
+   10. Loading & Progress Elements
+   =================================== */
+.cyber-loader {
+  width: 60px;
+  height: 60px;
+  border: 3px solid transparent;
+  border-top-color: var(--cyber-cyan);
+  border-right-color: var(--cyber-magenta);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  box-shadow: var(--glow-cyan);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.cyber-progress-bar {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  background: rgba(95, 244, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.cyber-progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: var(--cyber-gradient-1);
+  box-shadow: 0 0 10px var(--cyber-cyan);
+  transition: width 0.3s ease;
+}
+
+/* ===================================
+   11. Data Visualization Styles
+   =================================== */
+.cyber-chart-container {
+  background: var(--cyber-dark-card);
+  border: 1px solid rgba(95, 244, 255, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.cyber-stat-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1rem;
+  background: var(--cyber-dark-surface);
+  border: 1px solid rgba(95, 244, 255, 0.15);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  aspect-ratio: 1 / 1;
+  min-height: 120px;
+}
+
+.cyber-stat-card:hover {
+  border-color: var(--cyber-cyan);
+  box-shadow: var(--glow-cyan);
+  transform: translateY(-5px);
+}
+
+.cyber-stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  background: var(--cyber-gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+
+.cyber-stat-card .small {
+  font-size: 0.75rem;
+  line-height: 1.2;
+  word-break: keep-all;
+}
+
+/* ===================================
+   12. Responsive Design
+   =================================== */
+/* Tablet screens */
+@media (max-width: 991px) {
+  .cyber-stat-card {
+    min-height: 110px;
+    padding: 0.875rem;
+  }
+
+  .cyber-stat-value {
+    font-size: 1.75rem;
+  }
+
+  .cyber-stat-card .small {
+    font-size: 0.72rem;
+  }
+}
+
+/* Mobile screens */
+@media (max-width: 768px) {
+  .cyber-card {
+    padding: 1.5rem;
+  }
+
+  .cyber-btn {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .cyber-stat-card {
+    min-height: 100px;
+    padding: 0.75rem;
+  }
+
+  .cyber-stat-value {
+    font-size: 1.5rem;
+  }
+
+  .cyber-stat-card .small {
+    font-size: 0.7rem;
+  }
+}
+
+/* ===================================
+   13. Utility Classes
+   =================================== */
+.cyber-bg-dark { background: var(--cyber-dark-bg); }
+.cyber-bg-surface { background: var(--cyber-dark-surface); }
+.cyber-bg-card { background: var(--cyber-dark-card); }
+.cyber-bg-elevated { background: var(--cyber-dark-elevated); }
+
+.cyber-border-cyan { border-color: var(--cyber-cyan) !important; }
+.cyber-border-magenta { border-color: var(--cyber-magenta) !important; }
+
+.cyber-shadow-cyan { box-shadow: var(--glow-cyan); }
+.cyber-shadow-magenta { box-shadow: var(--glow-magenta); }
+.cyber-shadow-blue { box-shadow: var(--glow-blue); }
+
+.cyber-gradient-bg-1 { background: var(--cyber-gradient-1); }
+.cyber-gradient-bg-2 { background: var(--cyber-gradient-2); }
+.cyber-gradient-bg-3 { background: var(--cyber-gradient-3); }
+
+/* Text Alignment */
+.text-cyber-center { text-align: center; }
+.text-cyber-left { text-align: left; }
+.text-cyber-right { text-align: right; }
+
+/* Spacing */
+.cyber-mt-1 { margin-top: 0.5rem; }
+.cyber-mt-2 { margin-top: 1rem; }
+.cyber-mt-3 { margin-top: 1.5rem; }
+.cyber-mt-4 { margin-top: 2rem; }
+
+.cyber-mb-1 { margin-bottom: 0.5rem; }
+.cyber-mb-2 { margin-bottom: 1rem; }
+.cyber-mb-3 { margin-bottom: 1.5rem; }
+.cyber-mb-4 { margin-bottom: 2rem; }
+
+/* ===================================
+   14. Animation Delays
+   =================================== */
+.cyber-delay-100 { animation-delay: 0.1s; }
+.cyber-delay-200 { animation-delay: 0.2s; }
+.cyber-delay-300 { animation-delay: 0.3s; }
+.cyber-delay-400 { animation-delay: 0.4s; }
+.cyber-delay-500 { animation-delay: 0.5s; }
+
+/* ===================================
+   15. Navigation Styles for Dark Mode
+   =================================== */
+.navbar {
+  background: rgba(10, 14, 39, 0.7) !important;
+  backdrop-filter: blur(10px);
+}
+
+/* Navigation Links - Override all navbar styles */
+.navbar .nav-link {
+  color: #ffffff !important;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.navbar .nav-link:hover {
+  color: var(--cyber-cyan) !important;
+  text-shadow: 0 0 10px rgba(95, 244, 255, 0.5);
+}
+
+.navbar .nav-link:active {
+  color: var(--cyber-magenta) !important;
+}
+
+/* Social icons in navbar - Override social-muted */
+.navbar .social a,
+.navbar .social i,
+.navbar .social.social-muted a:not(.btn-circle):not([class*=link-]) i {
+  color: #ffffff !important;
+  transition: all 0.3s ease;
+}
+
+.navbar .social a:hover,
+.navbar .social a:hover i {
+  color: var(--cyber-cyan) !important;
+}
+
+/* Hamburger menu icon - Force white color */
+/* Hamburger menu - all states white */
+button.hamburger:before,
+button.hamburger span,
+button.hamburger:after,
+.navbar-hamburger .hamburger:before,
+.navbar-hamburger .hamburger span,
+.navbar-hamburger .hamburger:after,
+.navbar .hamburger.plain:before,
+.navbar .hamburger.plain span,
+.navbar .hamburger.plain:after {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+/* ===================================
+   15. Offcanvas Navigation
+   =================================== */
+
+/* Body scroll lock when offcanvas is open */
+body.offcanvas-open {
+  overflow: hidden !important;
+  position: fixed !important;
+  width: 100% !important;
+}
+
+/* Mobile view only - Offcanvas navigation overlay */
+@media (max-width: 991.98px) {
+  .navbar-collapse.offcanvas-nav {
+    position: fixed !important;
+    top: 0 !important;
+    left: -100% !important;
+    right: 100% !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
+    background: rgba(10, 14, 39, 0.98) !important;
+    backdrop-filter: blur(20px);
+    z-index: 99999 !important;
+    transition: left 0.3s ease-in-out, right 0.3s ease-in-out !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    padding: 2rem !important;
+    margin: 0 !important;
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  /* Show offcanvas when opened */
+  .navbar-collapse.offcanvas-nav.open {
+    left: 0 !important;
+    right: 0 !important;
+  }
+}
+
+/* Offcanvas header styling - Mobile only */
+@media (max-width: 991.98px) {
+  .offcanvas-nav .offcanvas-header {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(95, 244, 255, 0.2);
+  }
+
+  /* Offcanvas navigation links */
+  .offcanvas-nav .navbar-nav {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+
+  .offcanvas-nav .nav-item {
+    margin: 0.25rem 0 !important;
+  }
+
+  .offcanvas-nav .nav-link {
+    font-size: 0.95rem !important;
+    padding: 0.5rem 0 !important;
+    border-bottom: 1px solid rgba(95, 244, 255, 0.1) !important;
+    color: #ffffff !important;
+    transition: all 0.3s ease;
+  }
+
+  .offcanvas-nav .nav-link:hover {
+    color: var(--cyber-cyan) !important;
+    text-shadow: 0 0 10px rgba(95, 244, 255, 0.5);
+    padding-left: 0.5rem !important;
+  }
+
+  /* Close button styling */
+  .offcanvas-nav .btn-close {
+    background-color: transparent;
+    opacity: 1;
+    filter: brightness(0) invert(1);
+  }
+
+  .offcanvas-nav .btn-close:hover {
+    opacity: 0.8;
+  }
+}
+
+/* Desktop view - reset offcanvas styles */
+@media (min-width: 992px) {
+  .navbar-collapse.offcanvas-nav {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: auto !important;
+    height: auto !important;
+    background: transparent !important;
+    backdrop-filter: none;
+    transform: translateX(0) !important;
+    overflow-y: visible;
+    padding: 0;
+  }
+
+  .offcanvas-nav .navbar-nav {
+    flex-direction: row;
+  }
+
+  .offcanvas-nav .nav-item {
+    margin: 0;
+  }
+
+  .offcanvas-nav .nav-link {
+    font-size: 1rem !important;
+    padding: 0.5rem 1rem !important;
+    border-bottom: none;
+  }
+
+  .offcanvas-nav .nav-link:hover {
+    padding-left: 1rem !important;
+  }
+}
+
+/* ===================================
+   16. Owl Carousel Cyber Theme
+   =================================== */
+.project-carousel-container {
+  position: relative;
+  padding: 0 60px;
+}
+
+/* Owl Carousel Navigation */
+.owl-carousel .owl-nav button.owl-prev,
+.owl-carousel .owl-nav button.owl-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: var(--cyber-dark-card) !important;
+  border: 2px solid var(--cyber-cyan) !important;
+  border-radius: 50%;
+  color: var(--cyber-cyan) !important;
+  font-size: 24px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(95, 244, 255, 0.3);
+}
+
+.owl-carousel .owl-nav button.owl-prev {
+  left: -60px;
+}
+
+.owl-carousel .owl-nav button.owl-next {
+  right: -60px;
+}
+
+.owl-carousel .owl-nav button.owl-prev:hover,
+.owl-carousel .owl-nav button.owl-next:hover {
+  background: var(--cyber-cyan) !important;
+  color: var(--cyber-dark-bg) !important;
+  box-shadow: 0 0 30px rgba(95, 244, 255, 0.6);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.owl-carousel .owl-nav button i {
+  line-height: 46px;
+}
+
+/* Owl Carousel Dots */
+.owl-carousel .owl-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  padding: 0;
+}
+
+.owl-carousel .owl-dot {
+  width: 12px;
+  height: 12px;
+  margin: 0 6px;
+  background: var(--cyber-dark-card);
+  border: 2px solid var(--cyber-cyan);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  transform-origin: center center;
+  flex-shrink: 0;
+}
+
+.owl-carousel .owl-dot.active {
+  background: var(--cyber-cyan);
+  box-shadow: 0 0 15px rgba(95, 244, 255, 0.8);
+  transform: scale(1.2);
+  transform-origin: center center;
+}
+
+.owl-carousel .owl-dot:hover {
+  background: var(--cyber-magenta);
+  border-color: var(--cyber-magenta);
+  box-shadow: 0 0 15px rgba(255, 0, 255, 0.6);
+}
+
+/* Responsive Navigation */
+@media (max-width: 991px) {
+  .project-carousel-container {
+    padding: 0 50px;
+  }
+
+  .owl-carousel .owl-nav button.owl-prev {
+    left: -50px;
+  }
+
+  .owl-carousel .owl-nav button.owl-next {
+    right: -50px;
+  }
+}
+
+@media (max-width: 768px) {
+  .project-carousel-container {
+    padding: 0;
+  }
+
+  .owl-carousel .owl-nav button.owl-prev,
+  .owl-carousel .owl-nav button.owl-next {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .owl-carousel .owl-nav button.owl-prev {
+    left: 10px;
+  }
+
+  .owl-carousel .owl-nav button.owl-next {
+    right: 10px;
+  }
+}
+
+/* ===================================
+   15. Animation Overrides - Prevent Flickering
+   =================================== */
+/* Override fadeIn animation to run only once and not flicker */
+[data-cue="fadeIn"],
+[data-cues] [data-cue="fadeIn"],
+.animate__fadeIn {
+  animation-duration: 400ms !important;
+  animation-timing-function: ease !important;
+  animation-iteration-count: 1 !important;
+  animation-fill-mode: forwards !important;
+  animation-play-state: running !important;
+}
+
+/* Ensure elements stay visible after animation completes */
+[data-cue="fadeIn"].animate__animated,
+[data-cues] [data-cue="fadeIn"].animate__animated {
+  opacity: 1 !important;
+}
+
+/* ===================================
+   16. Link Styles
+   =================================== */
+.cyber-link {
+  color: #ffffff !important;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.cyber-link:hover {
+  color: var(--cyber-cyan) !important;
+  text-decoration: underline;
+}
+
+/* ===================================
+   17. Footer Styles
+   =================================== */
+.cyber-footer {
+  position: relative;
+  background: rgba(10, 14, 39, 0.7);
+}
+
+.cyber-footer a {
+  color: #ffffff !important;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.cyber-footer a:hover {
+  color: var(--cyber-cyan) !important;
+  text-decoration: underline;
+}
+
+/* ===================================
+   19. Chatbot Demo Animation
+   =================================== */
+
+/* 타이핑 인디케이터 */
+.chatbot-typing-indicator {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--cyber-dark-card);
+  border: 1px solid rgba(95, 244, 255, 0.3);
+  border-radius: 4px;
+}
+
+.chatbot-typing-indicator span {
+  width: 8px;
+  height: 8px;
+  background: var(--cyber-cyan);
+  border-radius: 50%;
+  animation: typing-bounce 1.4s infinite ease-in-out;
+  box-shadow: 0 0 8px rgba(95, 244, 255, 0.5);
+}
+
+.chatbot-typing-indicator span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.chatbot-typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.chatbot-typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typing-bounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+  30% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+}
+
+/* 메시지 페이드인 애니메이션 */
+.chatbot-demo-message {
+  animation: chatbot-message-in 0.3s ease-out;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+@keyframes chatbot-message-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* AI 메시지 버블 */
+.chatbot-demo-ai-bubble {
+  position: relative;
+}
+
+.chatbot-demo-ai-bubble::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 8px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 6px 8px 6px 0;
+  border-color: transparent rgba(95, 244, 255, 0.3) transparent transparent;
+}
+
+/* 사용자 메시지 버블 */
+.chatbot-demo-user-bubble {
+  position: relative;
+  box-shadow: 0 2px 8px rgba(95, 244, 255, 0.3);
+}
+
+.chatbot-demo-user-bubble::after {
+  content: '';
+  position: absolute;
+  right: -8px;
+  top: 8px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 6px 0 6px 8px;
+  border-color: transparent transparent transparent #5ff4ff;
+}
+
+/* 스크롤바 스타일 (챗봇 데모) */
+#chatbot-demo-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+#chatbot-demo-messages::-webkit-scrollbar-track {
+  background: rgba(95, 244, 255, 0.1);
+  border-radius: 3px;
+}
+
+#chatbot-demo-messages::-webkit-scrollbar-thumb {
+  background: rgba(95, 244, 255, 0.4);
+  border-radius: 3px;
+}
+
+#chatbot-demo-messages::-webkit-scrollbar-thumb:hover {
+  background: rgba(95, 244, 255, 0.6);
+}
+
+/* 데모 타이핑 애니메이션 부드럽게 */
+.chatbot-demo-typing {
+  animation: chatbot-typing-in 0.2s ease-out;
+}
+
+@keyframes chatbot-typing-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
