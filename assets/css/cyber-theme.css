@@ -514,6 +514,23 @@ body.cyber-mode::before {
 /* ===================================
    12. Responsive Design
    =================================== */
+/* Desktop screens - Predictive Maintenance Cards */
+@media (min-width: 992px) {
+  .predictive-maintenance-card {
+    padding: 1rem;
+    min-height: 95px;
+    aspect-ratio: auto;
+  }
+
+  .predictive-maintenance-card .cyber-stat-value {
+    font-size: 2.2rem;
+  }
+
+  .predictive-maintenance-card .small {
+    font-size: 0.9rem;
+  }
+}
+
 /* Tablet screens */
 @media (max-width: 991px) {
   .cyber-stat-card {
@@ -527,6 +544,19 @@ body.cyber-mode::before {
 
   .cyber-stat-card .small {
     font-size: 0.72rem;
+  }
+
+  .predictive-maintenance-card {
+    padding: 0.75rem;
+    min-height: 85px;
+  }
+
+  .predictive-maintenance-card .cyber-stat-value {
+    font-size: 1.4rem;
+  }
+
+  .predictive-maintenance-card .small {
+    font-size: 0.7rem;
   }
 }
 
@@ -551,6 +581,19 @@ body.cyber-mode::before {
   }
 
   .cyber-stat-card .small {
+    font-size: 0.7rem;
+  }
+
+  .predictive-maintenance-card {
+    padding: 0.75rem;
+    min-height: 85px;
+  }
+
+  .predictive-maintenance-card .cyber-stat-value {
+    font-size: 1.4rem;
+  }
+
+  .predictive-maintenance-card .small {
     font-size: 0.7rem;
   }
 }
@@ -605,6 +648,8 @@ body.cyber-mode::before {
 .navbar {
   background: rgba(10, 14, 39, 0.7) !important;
   backdrop-filter: blur(10px);
+  min-height: 80px;
+  padding: 1rem 0;
 }
 
 /* Navigation Links - Override all navbar styles */
@@ -612,6 +657,8 @@ body.cyber-mode::before {
   color: #ffffff !important;
   transition: all 0.3s ease;
   font-weight: 600;
+  padding: 0.75rem 1.25rem !important;
+  font-size: 0.95rem !important;
 }
 
 .navbar .nav-link:hover {
@@ -765,13 +812,13 @@ body.offcanvas-open {
   }
 
   .offcanvas-nav .nav-link {
-    font-size: 1rem !important;
-    padding: 0.5rem 1rem !important;
+    font-size: 0.95rem !important;
+    padding: 0.75rem 1.25rem !important;
     border-bottom: none;
   }
 
   .offcanvas-nav .nav-link:hover {
-    padding-left: 1rem !important;
+    padding-left: 1.25rem !important;
   }
 }
 
@@ -930,6 +977,8 @@ body.offcanvas-open {
 .cyber-footer {
   position: relative;
   background: rgba(10, 14, 39, 0.7);
+  margin-top: 4rem;
+  padding-top: 3rem;
 }
 
 .cyber-footer a {
@@ -1013,6 +1062,11 @@ body.offcanvas-open {
   position: relative;
 }
 
+.chatbot-demo-ai-bubble small {
+  font-size: 0.9rem !important;
+  line-height: 1.5;
+}
+
 .chatbot-demo-ai-bubble::before {
   content: '';
   position: absolute;
@@ -1029,6 +1083,11 @@ body.offcanvas-open {
 .chatbot-demo-user-bubble {
   position: relative;
   box-shadow: 0 2px 8px rgba(95, 244, 255, 0.3);
+}
+
+.chatbot-demo-user-bubble small {
+  font-size: 0.9rem !important;
+  line-height: 1.5;
 }
 
 .chatbot-demo-user-bubble::after {
