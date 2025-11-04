@@ -22,6 +22,12 @@ class CyberEffects {
    */
   init(containerId = 'cyber-3d-background') {
     try {
+      // Disable on mobile and tablet devices for performance
+      if (window.innerWidth < 992) {
+        console.log('3D effects disabled on mobile/tablet for performance');
+        return false;
+      }
+
       const container = document.getElementById(containerId);
       if (!container) {
         console.error(`Container element #${containerId} not found.`);
@@ -40,14 +46,19 @@ class CyberEffects {
       );
       this.camera.position.z = 50;
 
-      // Setup renderer
+      // Setup renderer with performance optimizations
       this.renderer = new THREE.WebGLRenderer({
         alpha: true,
-        antialias: true
+        antialias: false,  // Disable antialiasing for better performance
+        powerPreference: 'low-power'  // Prefer low power mode
       });
       this.renderer.setSize(container.clientWidth, container.clientHeight);
-      this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));  // Limit pixel ratio
       container.appendChild(this.renderer.domElement);
+
+      // Frame rate limiting
+      this.lastFrameTime = Date.now();
+      this.frameInterval = 1000 / 30;  // 30 FPS instead of 60
 
       // Create particle system
       this.createParticleSystem();
@@ -75,7 +86,7 @@ class CyberEffects {
    * Create cyber-themed particle system
    */
   createParticleSystem() {
-    const particleCount = 1500;
+    const particleCount = 400;  // Reduced from 1500 for better performance
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
@@ -165,34 +176,42 @@ class CyberEffects {
   }
 
   /**
-   * Animation loop
+   * Animation loop with frame rate limiting
    */
   animate() {
     this.animationId = requestAnimationFrame(() => this.animate());
 
+    // Frame rate limiting (30 FPS)
+    const now = Date.now();
+    const elapsed = now - this.lastFrameTime;
+
+    if (elapsed < this.frameInterval) {
+      return;  // Skip this frame
+    }
+
+    this.lastFrameTime = now - (elapsed % this.frameInterval);
+
     const time = Date.now() * 0.0005;
 
-    // Animate particles
+    // Animate particles with reduced complexity
     if (this.particles) {
       const positions = this.particles.geometry.attributes.position.array;
 
-      for (let i = 0; i < positions.length; i += 3) {
+      // Update only every other particle for better performance
+      for (let i = 0; i < positions.length; i += 6) {
         // Wave motion
         positions[i + 1] = this.particlePositions[i + 1] + Math.sin(time + i) * 2;
 
-        // Gentle drift
+        // Simplified drift (removed second drift calculation)
         positions[i] += Math.sin(time + i * 0.1) * 0.01;
-        positions[i + 2] += Math.cos(time + i * 0.1) * 0.01;
 
-        // Wrap around
+        // Simplified wrap around
         if (positions[i] > 50) positions[i] = -50;
         if (positions[i] < -50) positions[i] = 50;
-        if (positions[i + 2] > 50) positions[i + 2] = -50;
-        if (positions[i + 2] < -50) positions[i + 2] = 50;
       }
 
       this.particles.geometry.attributes.position.needsUpdate = true;
-      this.particles.rotation.y += 0.0005;
+      this.particles.rotation.y += 0.0003;  // Slower rotation
     }
 
     // Animate geometric elements
@@ -204,9 +223,9 @@ class CyberEffects {
       });
     }
 
-    // Camera slight movement (parallax effect)
-    this.camera.position.x = Math.sin(time * 0.5) * 5;
-    this.camera.position.y = Math.cos(time * 0.3) * 5;
+    // Simplified camera movement
+    this.camera.position.x = Math.sin(time * 0.3) * 3;
+    this.camera.position.y = Math.cos(time * 0.2) * 3;
     this.camera.lookAt(this.scene.position);
 
     this.renderer.render(this.scene, this.camera);
