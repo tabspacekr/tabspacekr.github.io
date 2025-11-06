@@ -131,7 +131,7 @@ class ChatbotDemoAnimation {
         },
         {
           type: 'ai',
-          text: '보통 18-24개월이면 투자금 회수가 가능합니다. 상세 ROI 분석은 ceo@tabspace.kr로 문의 주세요.',
+          text: '보통 18-24개월이면 투자금 회수가 가능합니다. 상세 ROI 분석은 he086@tabspace.kr로 문의 주세요.',
           delay: 800,
           typingDelay: 1200
         }
