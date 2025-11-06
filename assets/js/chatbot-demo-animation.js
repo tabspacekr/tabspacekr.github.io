@@ -79,65 +79,7 @@ class ChatbotDemoAnimation {
         }
       ],
 
-      // 시나리오 2: 무인 매장 솔루션 문의
-      [
-        {
-          type: 'ai',
-          text: '안녕하세요! TabSpace IoT 솔루션에 관심 가져주셔서 감사합니다. 무엇을 도와드릴까요?',
-          delay: 800,
-          typingDelay: 1000
-        },
-        {
-          type: 'user',
-          text: '무인 매장을 운영하려고 하는데 어떤 솔루션이 필요할까요?',
-          delay: 1200,
-          typingDelay: 0
-        },
-        {
-          type: 'ai',
-          text: '무인 매장에는 출입 관리, 결제 시스템, 재고 관리가 핵심입니다. 매장 규모는 어느 정도이신가요?',
-          delay: 1000,
-          typingDelay: 1200
-        },
-        {
-          type: 'user',
-          text: '약 20평 규모의 편의점입니다',
-          delay: 1000,
-          typingDelay: 0
-        },
-        {
-          type: 'ai',
-          text: '20평 규모라면 스마트 출입 게이트, QR/NFC 결제 시스템, RFID 재고 관리를 추천드립니다.',
-          delay: 1200,
-          typingDelay: 1300
-        },
-        {
-          type: 'user',
-          text: '비용은 얼마나 드나요?',
-          delay: 800,
-          typingDelay: 0
-        },
-        {
-          type: 'ai',
-          text: '정확한 견적은 현장 조사 후 제공되지만, 일반적으로 2,000만원대부터 시작됩니다. 상세 견적은 he086@tabspace.kr로 문의 주세요.',
-          delay: 1000,
-          typingDelay: 1200
-        },
-        {
-          type: 'user',
-          text: '데모를 볼 수 있을까요?',
-          delay: 800,
-          typingDelay: 0
-        },
-        {
-          type: 'ai',
-          text: '물론입니다! 실제 작동하는 시스템 데모를 제공합니다. 070-7780-5577로 연락 주시면 일정을 조율하겠습니다.',
-          delay: 800,
-          typingDelay: 1200
-        }
-      ],
-
-      // 시나리오 3: 에너지 관리 시스템 문의
+      // 시나리오 2: 에너지 관리 시스템 문의
       [
         {
           type: 'ai',
@@ -195,7 +137,7 @@ class ChatbotDemoAnimation {
         }
       ],
 
-      // 시나리오 4: CCTV 보안 시스템 문의
+      // 시나리오 3: CCTV 보안 시스템 문의
       [
         {
           type: 'ai',
@@ -253,65 +195,7 @@ class ChatbotDemoAnimation {
         }
       ],
 
-      // 시나리오 5: 재고 관리 시스템 문의
-      [
-        {
-          type: 'ai',
-          text: '안녕하세요! TabSpace IoT 솔루션입니다. 무엇을 도와드릴까요?',
-          delay: 800,
-          typingDelay: 1000
-        },
-        {
-          type: 'user',
-          text: '창고 재고 관리가 너무 복잡해요',
-          delay: 1200,
-          typingDelay: 0
-        },
-        {
-          type: 'ai',
-          text: '스마트 재고 관리 시스템이 도움이 되실 것 같습니다. 어떤 품목을 관리하시나요?',
-          delay: 1000,
-          typingDelay: 1200
-        },
-        {
-          type: 'user',
-          text: '전자제품 부품들이라 종류가 수백 가지입니다',
-          delay: 1000,
-          typingDelay: 0
-        },
-        {
-          type: 'ai',
-          text: 'RFID 기반 시스템을 추천드립니다. 실시간 재고 추적, 입출고 자동 기록, 재고 부족 알림이 가능합니다.',
-          delay: 1200,
-          typingDelay: 1300
-        },
-        {
-          type: 'user',
-          text: '바코드 시스템과 어떻게 다른가요?',
-          delay: 800,
-          typingDelay: 0
-        },
-        {
-          type: 'ai',
-          text: 'RFID는 일일이 스캔할 필요 없이 여러 제품을 동시에 인식합니다. 작업 효율이 10배 이상 향상됩니다.',
-          delay: 1000,
-          typingDelay: 1200
-        },
-        {
-          type: 'user',
-          text: '기존 ERP 시스템과 연동 가능한가요?',
-          delay: 800,
-          typingDelay: 0
-        },
-        {
-          type: 'ai',
-          text: '네! REST API를 통해 대부분의 ERP 시스템과 연동 가능합니다. 데모 요청은 070-7780-5577로 연락 주세요.',
-          delay: 800,
-          typingDelay: 1200
-        }
-      ],
-
-      // 시나리오 6: 스마트 조명 제어 문의
+      // 시나리오 4: 스마트 조명 제어 문의
       [
         {
           type: 'ai',
