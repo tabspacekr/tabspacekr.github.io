@@ -268,9 +268,14 @@
           <!-- AI Chatbot Demo -->
           <div class="col-lg-6">
             <div class="cyber-card cyber-card-holographic p-4">
-              <div class="d-flex align-items-center mb-4">
-                <div class="cyber-badge me-3">NEW</div>
-                <h3 class="mb-0" style="color: #ffffff; font-weight: bold;">AI 챗봇 고객 지원</h3>
+              <div class="d-flex align-items-center justify-content-between mb-4">
+                <div class="d-flex align-items-center">
+                  <div class="cyber-badge me-3">NEW</div>
+                  <h3 class="mb-0" style="color: #ffffff; font-weight: bold;">AI 챗봇 고객 지원</h3>
+                </div>
+                <button class="btn btn-sm p-0" onclick="refreshChatbotDemo()" style="border: none; background: transparent; cursor: pointer;" title="새로고침">
+                  <i class="uil uil-sync" style="color: #5ff4ff; font-size: 1.5rem; transition: transform 0.3s ease;" onmouseover="this.style.transform='rotate(180deg)'" onmouseout="this.style.transform='rotate(0deg)'"></i>
+                </button>
               </div>
               <p class="mb-4" style="color: #9499a3;">
                 24시간 자동 응대 시스템으로 고객 문의에 즉시 대응합니다.
@@ -889,6 +894,32 @@
 
   <!-- Chatbot Demo Animation -->
   <script src="./assets/js/chatbot-demo-animation.js"></script>
+
+  <!-- Chatbot Demo Refresh Function -->
+  <script>
+    /**
+     * 챗봇 데모 새로고침 함수
+     * 새로고침 아이콘 클릭 시 호출됨
+     */
+    function refreshChatbotDemo() {
+      if (window.chatbotDemoInstance) {
+        // 아이콘 회전 애니메이션
+        const icon = event.currentTarget.querySelector('i');
+        if (icon) {
+          icon.style.transform = 'rotate(360deg)';
+          setTimeout(() => {
+            icon.style.transform = 'rotate(0deg)';
+          }, 300);
+        }
+
+        // 챗봇 데모 새로고침
+        window.chatbotDemoInstance.refresh();
+        console.log('🔄 Chatbot demo refreshed');
+      } else {
+        console.error('Chatbot demo instance not found');
+      }
+    }
+  </script>
 </body>
 
 </html>

@@ -420,6 +420,26 @@ class ChatbotDemoAnimation {
   }
 
   /**
+   * 새로고침 - 새로운 랜덤 시나리오로 다시 시작
+   */
+  async refresh() {
+    // 현재 진행 중이면 중단
+    if (this.isPlaying) {
+      return;
+    }
+
+    // 새로운 랜덤 시나리오 선택
+    const scenarios = this.getScenarios();
+    this.messages = scenarios[Math.floor(Math.random() * scenarios.length)];
+
+    // 리셋 후 애니메이션 시작
+    this.reset();
+    await this.startAnimation();
+
+    console.log('✓ Chatbot demo refreshed with new scenario');
+  }
+
+  /**
    * 정리
    */
   destroy() {
