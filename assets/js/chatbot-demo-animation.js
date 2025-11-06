@@ -179,7 +179,7 @@ class ChatbotDemoAnimation {
       messageDiv.innerHTML = `
         <div class="d-flex align-items-start mb-2">
           <div class="cyber-avatar me-2" style="width: 32px; height: 32px; font-size: 0.8rem; background: linear-gradient(135deg, #5ff4ff 0%, #0080ff 100%); color: #0a0e27; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold;">AI</div>
-          <div class="flex-1 cyber-bg-dark-card p-2 rounded chatbot-demo-ai-bubble" style="border: 1px solid rgba(95, 244, 255, 0.3); max-width: 80%;">
+          <div class="cyber-bg-dark-card p-2 rounded chatbot-demo-ai-bubble" style="border: 1px solid rgba(95, 244, 255, 0.3); max-width: 80%;">
             <small style="color: #e0e6ed;">${message.text}</small>
           </div>
         </div>
