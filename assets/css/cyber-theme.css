@@ -1087,6 +1087,8 @@ body.offcanvas-open {
 /* AI 메시지 버블 */
 .chatbot-demo-ai-bubble {
   position: relative;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .chatbot-demo-ai-bubble small {
@@ -1110,6 +1112,8 @@ body.offcanvas-open {
 .chatbot-demo-user-bubble {
   position: relative;
   box-shadow: 0 2px 8px rgba(95, 244, 255, 0.3);
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .chatbot-demo-user-bubble small {
