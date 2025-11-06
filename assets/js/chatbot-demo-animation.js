@@ -10,61 +10,249 @@ class ChatbotDemoAnimation {
     this.hasPlayed = false;
     this.isPlaying = false;
 
-    // 기술 지원 요청 시나리오 메시지 (8개)
-    this.messages = [
-      {
-        type: 'ai',
-        text: '안녕하세요! TabSpace 기술 지원팀입니다. 무엇을 도와드릴까요?',
-        delay: 800,
-        typingDelay: 1000
-      },
-      {
-        type: 'user',
-        text: '출입 게이트 디바이스가 작동하지 않아요',
-        delay: 1200,
-        typingDelay: 0
-      },
-      {
-        type: 'ai',
-        text: '출입 게이트 문제를 확인하겠습니다. 어떤 증상인가요?',
-        delay: 1000,
-        typingDelay: 1200
-      },
-      {
-        type: 'user',
-        text: '카드를 인식하지 못하고 빨간불이 계속 켜져있어요',
-        delay: 1500,
-        typingDelay: 0
-      },
-      {
-        type: 'ai',
-        text: '디바이스 상태를 원격으로 확인하겠습니다... 잠시만 기다려 주세요.',
-        delay: 1000,
-        typingDelay: 1500
-      },
-      {
-        type: 'ai',
-        text: '센서 연결이 끊어진 것으로 확인됩니다. 디바이스 재부팅을 시도해주세요.',
-        delay: 1200,
-        typingDelay: 1300
-      },
-      {
-        type: 'user',
-        text: '재부팅 후 정상 작동합니다! 감사합니다 😊',
-        delay: 1000,
-        typingDelay: 0
-      },
-      {
-        type: 'ai',
-        text: '해결되어 다행입니다! 추가 문제 발생 시 언제든 070-7780-5577로 연락 주세요.',
-        delay: 800,
-        typingDelay: 1200
-      }
-    ];
+    // 다양한 시나리오 정의
+    this.scenarios = this.getScenarios();
+
+    // 랜덤하게 하나의 시나리오 선택
+    this.messages = this.scenarios[Math.floor(Math.random() * this.scenarios.length)];
 
     if (this.container) {
       this.init();
     }
+  }
+
+  /**
+   * 다양한 대화 시나리오 정의
+   * @returns {Array} 시나리오 배열
+   */
+  getScenarios() {
+    return [
+      // 시나리오 1: 기술 지원 요청
+      [
+        {
+          type: 'ai',
+          text: '안녕하세요! TabSpace 기술 지원팀입니다. 무엇을 도와드릴까요?',
+          delay: 800,
+          typingDelay: 1000
+        },
+        {
+          type: 'user',
+          text: '출입 게이트 디바이스가 작동하지 않아요',
+          delay: 1200,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '출입 게이트 문제를 확인하겠습니다. 어떤 증상인가요?',
+          delay: 1000,
+          typingDelay: 1200
+        },
+        {
+          type: 'user',
+          text: '카드를 인식하지 못하고 빨간불이 계속 켜져있어요',
+          delay: 1500,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '디바이스 상태를 원격으로 확인하겠습니다... 잠시만 기다려 주세요.',
+          delay: 1000,
+          typingDelay: 1500
+        },
+        {
+          type: 'ai',
+          text: '센서 연결이 끊어진 것으로 확인됩니다. 디바이스 재부팅을 시도해주세요.',
+          delay: 1200,
+          typingDelay: 1300
+        },
+        {
+          type: 'user',
+          text: '재부팅 후 정상 작동합니다! 감사합니다 😊',
+          delay: 1000,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '해결되어 다행입니다! 추가 문제 발생 시 언제든 070-7780-5577로 연락 주세요.',
+          delay: 800,
+          typingDelay: 1200
+        }
+      ],
+
+      // 시나리오 2: 에너지 관리 시스템 문의
+      [
+        {
+          type: 'ai',
+          text: '안녕하세요! TabSpace IoT 솔루션입니다. 무엇을 도와드릴까요?',
+          delay: 800,
+          typingDelay: 1000
+        },
+        {
+          type: 'user',
+          text: '오피스 빌딩의 전기료가 너무 높게 나와서요',
+          delay: 1200,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '에너지 관리 시스템(EMS)이 도움이 될 것 같습니다. 현재 월 평균 전기료가 어느 정도이신가요?',
+          delay: 1000,
+          typingDelay: 1200
+        },
+        {
+          type: 'user',
+          text: '월 약 500만원 정도 나옵니다',
+          delay: 1000,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: 'IoT 기반 EMS 도입 시 실시간 전력 모니터링과 자동 제어로 20-30% 절감 가능합니다.',
+          delay: 1200,
+          typingDelay: 1300
+        },
+        {
+          type: 'user',
+          text: '어떤 기능이 있나요?',
+          delay: 800,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '실시간 전력 모니터링, 스마트 조명/냉난방 자동 제어, 피크 시간대 부하 분산, 모바일 대시보드를 제공합니다.',
+          delay: 1000,
+          typingDelay: 1200
+        },
+        {
+          type: 'user',
+          text: '투자 회수 기간은 얼마나 걸리나요?',
+          delay: 1000,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '보통 18-24개월이면 투자금 회수가 가능합니다. 상세 ROI 분석은 ceo@tabspace.kr로 문의 주세요.',
+          delay: 800,
+          typingDelay: 1200
+        }
+      ],
+
+      // 시나리오 3: CCTV 보안 시스템 문의
+      [
+        {
+          type: 'ai',
+          text: '안녕하세요! TabSpace 보안 솔루션팀입니다. 무엇을 도와드릴까요?',
+          delay: 800,
+          typingDelay: 1000
+        },
+        {
+          type: 'user',
+          text: 'IoT 기반 CCTV 시스템이 기존 CCTV와 어떻게 다른가요?',
+          delay: 1200,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: 'IoT CCTV는 AI 영상 분석, 실시간 알림, 원격 모니터링이 가능합니다. 어떤 시설에 설치하실 예정이신가요?',
+          delay: 1000,
+          typingDelay: 1200
+        },
+        {
+          type: 'user',
+          text: '상업 빌딩 주차장과 로비입니다',
+          delay: 1000,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '주차장과 로비라면 사람 감지, 차량 번호판 인식, 침입 탐지 AI 기능이 유용하겠네요.',
+          delay: 1200,
+          typingDelay: 1300
+        },
+        {
+          type: 'user',
+          text: '이상 상황 발생 시 자동으로 알림이 오나요?',
+          delay: 1000,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '네! 모바일 앱 푸시 알림, 이메일, SMS로 즉시 알림을 받을 수 있습니다.',
+          delay: 1000,
+          typingDelay: 1200
+        },
+        {
+          type: 'user',
+          text: '기존 CCTV와 통합도 가능한가요?',
+          delay: 800,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '대부분의 기존 CCTV와 통합 가능합니다. 현장 조사를 통해 정확한 방안을 제시해드립니다. he086@tabspace.kr로 문의 주세요.',
+          delay: 800,
+          typingDelay: 1200
+        }
+      ],
+
+      // 시나리오 4: 스마트 조명 제어 문의
+      [
+        {
+          type: 'ai',
+          text: '안녕하세요! TabSpace IoT 솔루션입니다. 무엇을 도와드릴까요?',
+          delay: 800,
+          typingDelay: 1000
+        },
+        {
+          type: 'user',
+          text: '사무실 조명을 스마트하게 제어하고 싶어요',
+          delay: 1200,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '스마트 조명 제어 시스템에 관심 가져주셔서 감사합니다. 사무실 규모가 어떻게 되시나요?',
+          delay: 1000,
+          typingDelay: 1200
+        },
+        {
+          type: 'user',
+          text: '100평 정도의 사무 공간입니다',
+          delay: 1000,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '자동 일정 제어, 조도 센서 기반 밝기 조절, 재실 감지 자동 제어를 제공합니다. 전기료 20% 이상 절감 가능합니다.',
+          delay: 1200,
+          typingDelay: 1300
+        },
+        {
+          type: 'user',
+          text: '모바일로도 제어할 수 있나요?',
+          delay: 800,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '네! 모바일 앱으로 언제 어디서나 조명을 제어하고 상태를 확인할 수 있습니다.',
+          delay: 1000,
+          typingDelay: 1200
+        },
+        {
+          type: 'user',
+          text: '설치는 어떻게 진행되나요?',
+          delay: 800,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '기존 조명 활용 또는 신규 설치 모두 가능합니다. 전문 엔지니어가 현장 방문하여 설치를 진행합니다. 070-7780-5577로 연락 주세요.',
+          delay: 800,
+          typingDelay: 1200
+        }
+      ]
+    ];
   }
 
   /**
