@@ -353,21 +353,21 @@ class DataVisualization {
         datasets: [
           {
             label: '무인매장',
-            data: [18, 12, 4, 2],
+            data: [22, 26, 12, 10],
             backgroundColor: this.cyberColors.cyan,
             borderColor: this.cyberColors.cyan,
             borderWidth: 2
           },
           {
             label: '상업시설',
-            data: [9, 1, 0, 1],
+            data: [10, 19, 63, 70],
             backgroundColor: this.cyberColors.magenta,
             borderColor: this.cyberColors.magenta,
             borderWidth: 2
           },
           {
-            label: '복합매장',
-            data: [1, 0, 0, 0],
+            label: '공공영역',
+            data: [3, 3, 2, 3],
             backgroundColor: this.cyberColors.electricBlue,
             borderColor: this.cyberColors.electricBlue,
             borderWidth: 2
