@@ -13,8 +13,12 @@ class ChatbotDemoAnimation {
     // 다양한 시나리오 정의
     this.scenarios = this.getScenarios();
 
-    // 랜덤하게 하나의 시나리오 선택
-    this.messages = this.scenarios[Math.floor(Math.random() * this.scenarios.length)];
+    // 사용된 시나리오 인덱스 추적 (중복 방지)
+    this.usedScenarioIndices = [];
+
+    // 랜덤하게 하나의 시나리오 선택 (중복 방지)
+    const scenarioIndex = this.getNextScenarioIndex();
+    this.messages = this.scenarios[scenarioIndex];
 
     if (this.container) {
       this.init();
@@ -576,7 +580,39 @@ class ChatbotDemoAnimation {
   }
 
   /**
-   * 새로고침 - 새로운 랜덤 시나리오로 다시 시작
+   * 다음 시나리오 인덱스 선택 (중복 방지)
+   * @returns {number} 시나리오 인덱스
+   */
+  getNextScenarioIndex() {
+    const totalScenarios = this.scenarios.length;
+
+    // 모든 시나리오를 다 사용했으면 초기화
+    if (this.usedScenarioIndices.length >= totalScenarios) {
+      this.usedScenarioIndices = [];
+      console.log('✓ All scenarios shown, resetting scenario pool');
+    }
+
+    // 아직 사용하지 않은 인덱스 찾기
+    const availableIndices = [];
+    for (let i = 0; i < totalScenarios; i++) {
+      if (!this.usedScenarioIndices.includes(i)) {
+        availableIndices.push(i);
+      }
+    }
+
+    // 사용 가능한 인덱스 중 랜덤 선택
+    const selectedIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
+
+    // 사용된 인덱스 목록에 추가
+    this.usedScenarioIndices.push(selectedIndex);
+
+    console.log(`✓ Selected scenario ${selectedIndex + 1}/${totalScenarios}, Remaining: ${totalScenarios - this.usedScenarioIndices.length}`);
+
+    return selectedIndex;
+  }
+
+  /**
+   * 새로고침 - 새로운 랜덤 시나리오로 다시 시작 (중복 방지)
    */
   async refresh() {
     // 현재 진행 중이면 중단
@@ -584,9 +620,9 @@ class ChatbotDemoAnimation {
       return;
     }
 
-    // 새로운 랜덤 시나리오 선택
-    const scenarios = this.getScenarios();
-    this.messages = scenarios[Math.floor(Math.random() * scenarios.length)];
+    // 중복되지 않는 새로운 시나리오 선택
+    const scenarioIndex = this.getNextScenarioIndex();
+    this.messages = this.scenarios[scenarioIndex];
 
     // 리셋 후 애니메이션 시작
     this.reset();
