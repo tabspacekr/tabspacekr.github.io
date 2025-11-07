@@ -251,6 +251,162 @@ class ChatbotDemoAnimation {
           delay: 800,
           typingDelay: 1200
         }
+      ],
+
+      // 시나리오 5: CCTV 카메라 영상 끊김 장애
+      [
+        {
+          type: 'ai',
+          text: '안녕하세요! TabSpace 기술 지원팀입니다. 무엇을 도와드릴까요?',
+          delay: 800,
+          typingDelay: 1000
+        },
+        {
+          type: 'user',
+          text: 'CCTV 카메라 영상이 자꾸 끊기는데 확인 부탁드려요',
+          delay: 1200,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: 'CCTV 카메라 영상 끊김 증상을 확인하겠습니다. 몇 번 카메라인가요? 다른 장비를 추가하신 적 있나요?',
+          delay: 1000,
+          typingDelay: 1200
+        },
+        {
+          type: 'user',
+          text: '주차장 3번 카메라요. 어제 새 도어락 설치 후부터 끊겼다 연결돼요',
+          delay: 1500,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '원격으로 3번 카메라 상태를 확인 중입니다... 네트워크 IP 주소 할당 상태를 점검하겠습니다.',
+          delay: 1000,
+          typingDelay: 1500
+        },
+        {
+          type: 'ai',
+          text: '네트워크에서 IP 주소 충돌이 감지됩니다. 카메라에 새로운 고정 IP를 할당했습니다.',
+          delay: 1200,
+          typingDelay: 1300
+        },
+        {
+          type: 'user',
+          text: '이제 영상이 안정적으로 나오네요! 빠른 해결 감사합니다',
+          delay: 1000,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '문제가 해결되어 다행입니다. 모든 IoT 장비는 고정 IP로 관리되어 안정적입니다. 추가 문의는 070-7780-5577로 연락 주세요.',
+          delay: 800,
+          typingDelay: 1200
+        }
+      ],
+
+      // 시나리오 6: 온도/습도 센서 통신 장애
+      [
+        {
+          type: 'ai',
+          text: '안녕하세요! TabSpace 기술 지원팀입니다. 무엇을 도와드릴까요?',
+          delay: 800,
+          typingDelay: 1000
+        },
+        {
+          type: 'user',
+          text: '창고 온습도 센서 데이터가 업데이트되지 않아요',
+          delay: 1200,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '온습도 센서 통신 문제를 확인하겠습니다. 마지막 데이터 수신이 언제였나요?',
+          delay: 1000,
+          typingDelay: 1200
+        },
+        {
+          type: 'user',
+          text: '어제 오후 3시가 마지막이에요. 그 이후로 멈춰있어요',
+          delay: 1500,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '해당 센서의 통신 로그를 확인 중입니다... 센서 배터리 잔량과 게이트웨이 연결 상태를 점검하겠습니다.',
+          delay: 1000,
+          typingDelay: 1500
+        },
+        {
+          type: 'ai',
+          text: '게이트웨이와 센서 간 연결이 끊어졌습니다. 게이트웨이를 원격으로 재시작했으니 센서가 자동으로 재연결됩니다.',
+          delay: 1200,
+          typingDelay: 1300
+        },
+        {
+          type: 'user',
+          text: '데이터가 다시 들어오기 시작했습니다! 감사합니다 👍',
+          delay: 1000,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '해결되어 다행입니다. 센서 상태는 대시보드에서 실시간으로 확인하실 수 있습니다. 추가 문의는 070-7780-5577로 연락 주세요.',
+          delay: 800,
+          typingDelay: 1200
+        }
+      ],
+
+      // 시나리오 7: 스마트 조명 자동 제어 오작동
+      [
+        {
+          type: 'ai',
+          text: '안녕하세요! TabSpace 기술 지원팀입니다. 무엇을 도와드릴까요?',
+          delay: 800,
+          typingDelay: 1000
+        },
+        {
+          type: 'user',
+          text: '사무실 조명이 계속 껐다 켜졌다를 반복해요',
+          delay: 1200,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '조명 제어 이상 증상을 확인하겠습니다. 특정 구역만 그런가요, 아니면 전체 구역인가요?',
+          delay: 1000,
+          typingDelay: 1200
+        },
+        {
+          type: 'user',
+          text: '회의실 B 구역만 그래요. 1-2분마다 반복됩니다',
+          delay: 1500,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '회의실 B 구역 조명 제어 로그를 확인 중입니다... 재실 감지 센서 상태를 점검하겠습니다.',
+          delay: 1000,
+          typingDelay: 1500
+        },
+        {
+          type: 'ai',
+          text: '재실 센서가 오작동하여 계속 사람 감지를 반복하고 있습니다. 센서 민감도를 조정하고 펌웨어를 업데이트했습니다.',
+          delay: 1200,
+          typingDelay: 1300
+        },
+        {
+          type: 'user',
+          text: '조명이 이제 정상적으로 작동하네요. 빠른 조치 감사합니다!',
+          delay: 1000,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '문제가 해결되어 다행입니다. 조명 일정 및 센서 설정은 모바일 앱에서 조정 가능합니다. 추가 문의는 he086@tabspace.kr로 연락 주세요.',
+          delay: 800,
+          typingDelay: 1200
+        }
       ]
     ];
   }
