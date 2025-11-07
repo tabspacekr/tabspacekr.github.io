@@ -411,6 +411,180 @@ class ChatbotDemoAnimation {
           delay: 800,
           typingDelay: 1200
         }
+      ],
+
+      // 시나리오 8: 쇼핑몰 실시간 방문객 수 집계
+      [
+        {
+          type: 'ai',
+          text: '안녕하세요! TabSpace IoT 솔루션입니다. 무엇을 도와드릴까요?',
+          delay: 800,
+          typingDelay: 1000
+        },
+        {
+          type: 'user',
+          text: '쇼핑몰 매장별 실시간 방문객 수를 집계하고 싶은데 가능한가요?',
+          delay: 1200,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '카운터 센서 기반 방문객 카운팅 시스템으로 가능합니다. 쇼핑몰 규모가 어떻게 되시나요?',
+          delay: 1000,
+          typingDelay: 1200
+        },
+        {
+          type: 'user',
+          text: '지하 1층부터 지상 5층까지 약 150개 매장이 있습니다',
+          delay: 1500,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '각 매장 입구에 카운터 센서를 설치하여 실시간 방문객 수, 체류시간, 동선 분석이 가능합니다.',
+          delay: 1200,
+          typingDelay: 1300
+        },
+        {
+          type: 'user',
+          text: '시간대별, 요일별 통계도 볼 수 있나요?',
+          delay: 1000,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '네! 대시보드에서 시간대별/요일별/월별 통계, 히트맵, 매출 연계 분석을 실시간으로 확인하실 수 있습니다.',
+          delay: 1000,
+          typingDelay: 1200
+        },
+        {
+          type: 'user',
+          text: '개인정보 보호는 어떻게 되나요?',
+          delay: 800,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '센서 방식으로 사람 수만 카운팅하여 개인정보 이슈가 없습니다. 상세 상담은 he086@tabspace.kr로 문의 주세요.',
+          delay: 800,
+          typingDelay: 1200
+        }
+      ],
+
+      // 시나리오 9: 매장 냉장/냉동 설비 온도 관리
+      [
+        {
+          type: 'ai',
+          text: '안녕하세요! TabSpace IoT 솔루션입니다. 무엇을 도와드릴까요?',
+          delay: 800,
+          typingDelay: 1000
+        },
+        {
+          type: 'user',
+          text: '편의점 냉장고와 냉동고 온도를 실시간으로 관리하고 싶어요',
+          delay: 1200,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '온도 모니터링 IoT 센서 솔루션이 적합하겠습니다. 몇 대의 냉장/냉동 설비를 관리하시나요?',
+          delay: 1000,
+          typingDelay: 1200
+        },
+        {
+          type: 'user',
+          text: '냉장고 5대, 냉동고 3대입니다. 밤에도 온도 확인이 필요해요',
+          delay: 1500,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '각 설비에 무선 온도 센서를 부착하여 24시간 자동으로 온도를 기록하고 모니터링합니다.',
+          delay: 1200,
+          typingDelay: 1300
+        },
+        {
+          type: 'user',
+          text: '온도가 이상하면 알림이 오나요?',
+          delay: 1000,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '네! 설정한 임계값을 초과하면 모바일 앱 푸시, 문자, 이메일로 즉시 알림을 받아 제품 손실을 방지할 수 있습니다.',
+          delay: 1000,
+          typingDelay: 1200
+        },
+        {
+          type: 'user',
+          text: '고장 예측도 가능한가요?',
+          delay: 800,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '온도 변화 패턴을 분석하여 설비 이상 징후를 사전에 감지합니다. 상세 상담은 070-7780-5577로 연락 주세요.',
+          delay: 800,
+          typingDelay: 1200
+        }
+      ],
+
+      // 시나리오 10: 음식점 주방 환경 모니터링
+      [
+        {
+          type: 'ai',
+          text: '안녕하세요! TabSpace 안전 관리 솔루션팀입니다. 무엇을 도와드릴까요?',
+          delay: 800,
+          typingDelay: 1000
+        },
+        {
+          type: 'user',
+          text: '레스토랑 주방의 온도, 습도, 가스 누출을 실시간으로 모니터링하고 싶어요',
+          delay: 1200,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '주방 환경 통합 모니터링 시스템이 적합합니다. 주방 면적과 가스 사용 설비가 어떻게 되시나요?',
+          delay: 1000,
+          typingDelay: 1200
+        },
+        {
+          type: 'user',
+          text: '주방 면적은 약 30평이고 가스레인지 4구, 오븐 2대 사용합니다',
+          delay: 1500,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '온습도 센서와 가스 감지 센서를 설치하여 실시간으로 주방 환경을 모니터링하고 안전 기록을 자동 생성합니다.',
+          delay: 1200,
+          typingDelay: 1300
+        },
+        {
+          type: 'user',
+          text: '가스 누출 시 자동으로 알림이 오나요?',
+          delay: 1000,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '네! 가스 감지 즉시 모바일 알림과 현장 경보음이 울리며, 선택적으로 자동 차단 시스템 연동도 가능합니다.',
+          delay: 1000,
+          typingDelay: 1200
+        },
+        {
+          type: 'user',
+          text: '온습도 기록도 자동으로 저장되나요?',
+          delay: 800,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '모든 환경 데이터가 클라우드에 자동 저장되어 언제든 조회 및 리포트 출력이 가능합니다. 상세 상담은 he086@tabspace.kr로 문의 주세요.',
+          delay: 800,
+          typingDelay: 1200
+        }
       ]
     ];
   }
