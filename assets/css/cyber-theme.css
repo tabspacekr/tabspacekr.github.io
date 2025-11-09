@@ -1167,3 +1167,142 @@ body.offcanvas-open {
     transform: scale(1);
   }
 }
+
+/* ===================================
+   20. Energy Management Animation
+   =================================== */
+
+/* Energy Feature List Items */
+.energy-feature-list li {
+  position: relative;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+  transition: all 0.5s ease;
+  opacity: 0.7;
+}
+
+/* Highlight Animation for Active Item */
+.energy-feature-list li.highlight {
+  opacity: 1;
+  transform: translateX(10px);
+  animation: highlight-pulse 0.5s ease;
+}
+
+/* Individual Glow Colors for Each Item */
+.energy-feature-list li.highlight[data-color="#5ff4ff"] {
+  background: linear-gradient(90deg, rgba(95, 244, 255, 0.15), rgba(95, 244, 255, 0.05));
+  box-shadow: 0 0 20px rgba(95, 244, 255, 0.4), inset 0 0 20px rgba(95, 244, 255, 0.1);
+  border-left: 3px solid #5ff4ff;
+}
+
+.energy-feature-list li.highlight[data-color="#ff00ff"] {
+  background: linear-gradient(90deg, rgba(255, 0, 255, 0.15), rgba(255, 0, 255, 0.05));
+  box-shadow: 0 0 20px rgba(255, 0, 255, 0.4), inset 0 0 20px rgba(255, 0, 255, 0.1);
+  border-left: 3px solid #ff00ff;
+}
+
+.energy-feature-list li.highlight[data-color="#0080ff"] {
+  background: linear-gradient(90deg, rgba(0, 128, 255, 0.15), rgba(0, 128, 255, 0.05));
+  box-shadow: 0 0 20px rgba(0, 128, 255, 0.4), inset 0 0 20px rgba(0, 128, 255, 0.1);
+  border-left: 3px solid #0080ff;
+}
+
+.energy-feature-list li.highlight[data-color="#00ff88"] {
+  background: linear-gradient(90deg, rgba(0, 255, 136, 0.15), rgba(0, 255, 136, 0.05));
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.4), inset 0 0 20px rgba(0, 255, 136, 0.1);
+  border-left: 3px solid #00ff88;
+}
+
+.energy-feature-list li.highlight[data-color="#ffd700"] {
+  background: linear-gradient(90deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.05));
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4), inset 0 0 20px rgba(255, 215, 0, 0.1);
+  border-left: 3px solid #ffd700;
+}
+
+.energy-feature-list li.highlight[data-color="#ff6b6b"] {
+  background: linear-gradient(90deg, rgba(255, 107, 107, 0.15), rgba(255, 107, 107, 0.05));
+  box-shadow: 0 0 20px rgba(255, 107, 107, 0.4), inset 0 0 20px rgba(255, 107, 107, 0.1);
+  border-left: 3px solid #ff6b6b;
+}
+
+.energy-feature-list li.highlight[data-color="#8000ff"] {
+  background: linear-gradient(90deg, rgba(128, 0, 255, 0.15), rgba(128, 0, 255, 0.05));
+  box-shadow: 0 0 20px rgba(128, 0, 255, 0.4), inset 0 0 20px rgba(128, 0, 255, 0.1);
+  border-left: 3px solid #8000ff;
+}
+
+@keyframes highlight-pulse {
+  0%, 100% {
+    transform: translateX(10px) scale(1);
+  }
+  50% {
+    transform: translateX(10px) scale(1.02);
+  }
+}
+
+/* Energy Icon Display */
+.energy-icon-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  position: relative;
+}
+
+.energy-icon-display i {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 0 30px currentColor);
+}
+
+/* Icon Animation Classes */
+.energy-icon-display i.fade-in {
+  animation: icon-fade-in 0.5s ease forwards;
+}
+
+.energy-icon-display i.fade-out {
+  animation: icon-fade-out 0.3s ease forwards;
+}
+
+@keyframes icon-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8) rotate(-10deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes icon-fade-out {
+  from {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.8) rotate(10deg);
+  }
+}
+
+/* Responsive Icon Size */
+@media (max-width: 991px) {
+  .energy-icon-display {
+    min-height: 200px;
+  }
+
+  .energy-icon-display i {
+    font-size: 120px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .energy-icon-display {
+    min-height: 150px;
+  }
+
+  .energy-icon-display i {
+    font-size: 100px !important;
+  }
+}

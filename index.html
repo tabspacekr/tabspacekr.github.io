@@ -348,7 +348,7 @@
           </div>
 
           <!-- Energy Optimization -->
-          <div class="col-lg-6">
+          <div class="col-lg-12">
             <div class="cyber-card cyber-card-holographic p-4">
               <div class="d-flex align-items-center mb-4">
                 <div class="cyber-badge me-3">AI</div>
@@ -358,15 +358,26 @@
                 사용 패턴을 학습하여 에너지 소비를 최적화합니다.
                 자동으로 피크 시간대를 예측하고 스마트 제어를 수행합니다.
               </p>
-              <ul class="icon-list bullet-bg bullet-soft-cyan" style="color: #e0e6ed; margin-bottom: 0;">
-                <li><i class="uil uil-check"></i>실시간 에너지 사용량 모니터링</li>
-                <li><i class="uil uil-check"></i>AI 기반 사용 패턴 분석</li>
-                <li><i class="uil uil-check"></i>자동 피크 시간대 회피</li>
-                <li><i class="uil uil-check"></i>월 단위 에너지 절감 리포트</li>
-                <li><i class="uil uil-check"></i>스마트 조명 자동 제어</li>
-                <li><i class="uil uil-check"></i>냉난방 시스템 최적화</li>
-                <li><i class="uil uil-check"></i>대기전력 자동 차단</li>
-              </ul>
+              <div class="row align-items-center">
+                <!-- Left: Feature List -->
+                <div class="col-lg-6">
+                  <ul class="icon-list bullet-bg bullet-soft-cyan energy-feature-list" style="color: #e0e6ed; margin-bottom: 0;">
+                    <li data-icon="uil-chart-line" data-color="#5ff4ff"><i class="uil uil-check"></i>실시간 에너지 사용량 모니터링</li>
+                    <li data-icon="uil-brain" data-color="#ff00ff"><i class="uil uil-check"></i>AI 기반 사용 패턴 분석</li>
+                    <li data-icon="uil-clock" data-color="#0080ff"><i class="uil uil-check"></i>자동 피크 시간대 회피</li>
+                    <li data-icon="uil-file-chart-line" data-color="#00ff88"><i class="uil uil-check"></i>월 단위 에너지 절감 리포트</li>
+                    <li data-icon="uil-lightbulb-alt" data-color="#ffd700"><i class="uil uil-check"></i>스마트 조명 자동 제어</li>
+                    <li data-icon="uil-temperature" data-color="#ff6b6b"><i class="uil uil-check"></i>냉난방 시스템 최적화</li>
+                    <li data-icon="uil-plug" data-color="#8000ff"><i class="uil uil-check"></i>대기전력 자동 차단</li>
+                  </ul>
+                </div>
+                <!-- Right: Icon Display Area -->
+                <div class="col-lg-6">
+                  <div class="energy-icon-display text-center">
+                    <i id="energy-feature-icon" class="uil" style="font-size: 150px; transition: all 0.5s ease; opacity: 0;"></i>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -894,6 +905,9 @@
 
   <!-- Chatbot Demo Animation -->
   <script src="./assets/js/chatbot-demo-animation.js"></script>
+
+  <!-- Energy Management Animation -->
+  <script src="./assets/js/energy-management-animation.js"></script>
 
   <!-- Chatbot Demo Refresh Function -->
   <script>
