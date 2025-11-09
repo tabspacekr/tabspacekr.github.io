@@ -10,6 +10,10 @@ class ChatbotDemoAnimation {
     this.hasPlayed = false;
     this.isPlaying = false;
 
+    // 새로고침 버튼 참조
+    this.refreshBtn = document.getElementById('chatbot-refresh-btn');
+    this.refreshIcon = document.getElementById('chatbot-refresh-icon');
+
     // 다양한 시나리오 정의
     this.scenarios = this.getScenarios();
 
@@ -1799,6 +1803,26 @@ class ChatbotDemoAnimation {
   }
 
   /**
+   * 새로고침 버튼 상태 업데이트
+   * @param {boolean} isAnimating - 애니메이션 진행 중 여부
+   */
+  updateRefreshButton(isAnimating) {
+    if (!this.refreshBtn || !this.refreshIcon) return;
+
+    if (isAnimating) {
+      // 애니메이션 진행 중 - 버튼 비활성화 (회색)
+      this.refreshBtn.disabled = true;
+      this.refreshBtn.style.cursor = 'not-allowed';
+      this.refreshIcon.style.color = '#9499a3'; // 회색
+    } else {
+      // 애니메이션 완료 - 버튼 활성화 (하늘색)
+      this.refreshBtn.disabled = false;
+      this.refreshBtn.style.cursor = 'pointer';
+      this.refreshIcon.style.color = '#5ff4ff'; // 하늘색
+    }
+  }
+
+  /**
    * 애니메이션 시작
    */
   async startAnimation() {
@@ -1806,6 +1830,9 @@ class ChatbotDemoAnimation {
 
     this.isPlaying = true;
     this.hasPlayed = true;
+
+    // 새로고침 버튼 비활성화
+    this.updateRefreshButton(true);
 
     // 컨테이너 비우기
     this.container.innerHTML = '';
@@ -1835,6 +1862,8 @@ class ChatbotDemoAnimation {
       console.error('Chatbot animation error:', error);
     } finally {
       this.isPlaying = false;
+      // 새로고침 버튼 활성화
+      this.updateRefreshButton(false);
     }
   }
 
