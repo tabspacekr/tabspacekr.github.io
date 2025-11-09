@@ -585,6 +585,162 @@ class ChatbotDemoAnimation {
           delay: 800,
           typingDelay: 1200
         }
+      ],
+
+      // 시나리오 11: 출입 게이트 시스템 정전 복구 후 재시작 문제
+      [
+        {
+          type: 'ai',
+          text: '안녕하세요! TabSpace 기술 지원팀입니다. 무엇을 도와드릴까요?',
+          delay: 800,
+          typingDelay: 1000
+        },
+        {
+          type: 'user',
+          text: '어제 정전 이후 출입 게이트가 제대로 작동하지 않아요',
+          delay: 1200,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '정전 복구 후 출입 게이트 문제를 확인하겠습니다. 어떤 증상인가요?',
+          delay: 1000,
+          typingDelay: 1200
+        },
+        {
+          type: 'user',
+          text: '일부 게이트만 작동하고 나머지는 응답이 없어요',
+          delay: 1500,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '정전 후 시스템 상태를 원격으로 점검 중입니다... 게이트 컨트롤러 재시작 상태를 확인하겠습니다.',
+          delay: 1000,
+          typingDelay: 1500
+        },
+        {
+          type: 'ai',
+          text: '3대의 게이트 컨트롤러가 부팅 시퀀스를 완료하지 못했습니다. 원격으로 강제 재부팅과 펌웨어 체크를 진행합니다.',
+          delay: 1200,
+          typingDelay: 1300
+        },
+        {
+          type: 'user',
+          text: '이제 모든 게이트가 정상 작동하네요. 빠른 대응 감사합니다!',
+          delay: 1000,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '해결되어 다행입니다. 정전 대비 UPS 설치를 권장드립니다. 추가 문의는 070-7780-5577로 연락 주세요.',
+          delay: 800,
+          typingDelay: 1200
+        }
+      ],
+
+      // 시나리오 12: 냉난방 제어 시스템 센서 오류
+      [
+        {
+          type: 'ai',
+          text: '안녕하세요! TabSpace 기술 지원팀입니다. 무엇을 도와드릴까요?',
+          delay: 800,
+          typingDelay: 1000
+        },
+        {
+          type: 'user',
+          text: '사무실 냉난방이 설정 온도를 무시하고 계속 가동돼요',
+          delay: 1200,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '냉난방 제어 시스템 오작동을 확인하겠습니다. 설정 온도는 몇 도이고 현재 실내 온도는 어떻게 표시되나요?',
+          delay: 1000,
+          typingDelay: 1200
+        },
+        {
+          type: 'user',
+          text: '22도로 설정했는데 현재 온도가 27도로 표시되고 냉방이 멈추지 않아요',
+          delay: 1500,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '온도 센서 값을 원격으로 확인 중입니다... 센서 캘리브레이션 데이터를 점검하겠습니다.',
+          delay: 1000,
+          typingDelay: 1500
+        },
+        {
+          type: 'ai',
+          text: '온도 센서가 실제 온도를 잘못 읽고 있습니다. 센서 캘리브레이션을 재설정하고 정확도를 조정했습니다.',
+          delay: 1200,
+          typingDelay: 1300
+        },
+        {
+          type: 'user',
+          text: '온도가 정확하게 표시되고 냉방도 정상적으로 제어되네요!',
+          delay: 1000,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '문제가 해결되어 다행입니다. 센서는 6개월마다 자동 캘리브레이션됩니다. 추가 문의는 he086@tabspace.kr로 연락 주세요.',
+          delay: 800,
+          typingDelay: 1200
+        }
+      ],
+
+      // 시나리오 13: 실시간 재고 데이터 동기화 장애
+      [
+        {
+          type: 'ai',
+          text: '안녕하세요! TabSpace 기술 지원팀입니다. 무엇을 도와드릴까요?',
+          delay: 800,
+          typingDelay: 1000
+        },
+        {
+          type: 'user',
+          text: '무인 매장 재고 데이터가 실시간으로 업데이트되지 않아요',
+          delay: 1200,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '재고 데이터 동기화 문제를 확인하겠습니다. 마지막 동기화가 언제였나요?',
+          delay: 1000,
+          typingDelay: 1200
+        },
+        {
+          type: 'user',
+          text: '오늘 오전 9시 이후로 재고가 전혀 변하지 않아요. 판매는 계속 되고 있는데요',
+          delay: 1500,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '재고 관리 시스템 통신 로그를 확인 중입니다... 데이터베이스 연결 상태와 RFID 리더기를 점검하겠습니다.',
+          delay: 1000,
+          typingDelay: 1500
+        },
+        {
+          type: 'ai',
+          text: '데이터베이스 연결 풀이 고갈되어 새로운 데이터를 받지 못했습니다. 연결 풀을 초기화하고 대기 중인 데이터를 동기화했습니다.',
+          delay: 1200,
+          typingDelay: 1300
+        },
+        {
+          type: 'user',
+          text: '실시간 재고가 다시 정확하게 표시됩니다. 감사합니다!',
+          delay: 1000,
+          typingDelay: 0
+        },
+        {
+          type: 'ai',
+          text: '해결되어 다행입니다. 시스템 모니터링을 강화했으니 동일 문제 재발 시 자동으로 복구됩니다. 추가 문의는 070-7780-5577로 연락 주세요.',
+          delay: 800,
+          typingDelay: 1200
+        }
       ]
     ];
   }
