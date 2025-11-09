@@ -1175,70 +1175,41 @@ body.offcanvas-open {
 /* Energy Feature List Items */
 .energy-feature-list li {
   position: relative;
-  padding: 0.75rem 1rem;
-  margin-bottom: 0.5rem;
-  border-radius: 8px;
-  transition: all 0.5s ease;
-  opacity: 0.7;
+  transition: all 0.3s ease;
 }
 
-/* Highlight Animation for Active Item */
+/* Highlight Animation for Active Item - Text Color Only */
 .energy-feature-list li.highlight {
-  opacity: 1;
-  transform: translateX(10px);
-  animation: highlight-pulse 0.5s ease;
+  font-weight: 600;
 }
 
-/* Individual Glow Colors for Each Item */
+/* Individual Text Colors for Each Item */
 .energy-feature-list li.highlight[data-color="#5ff4ff"] {
-  background: linear-gradient(90deg, rgba(95, 244, 255, 0.15), rgba(95, 244, 255, 0.05));
-  box-shadow: 0 0 20px rgba(95, 244, 255, 0.4), inset 0 0 20px rgba(95, 244, 255, 0.1);
-  border-left: 3px solid #5ff4ff;
+  color: #5ff4ff !important;
 }
 
 .energy-feature-list li.highlight[data-color="#ff00ff"] {
-  background: linear-gradient(90deg, rgba(255, 0, 255, 0.15), rgba(255, 0, 255, 0.05));
-  box-shadow: 0 0 20px rgba(255, 0, 255, 0.4), inset 0 0 20px rgba(255, 0, 255, 0.1);
-  border-left: 3px solid #ff00ff;
+  color: #ff00ff !important;
 }
 
 .energy-feature-list li.highlight[data-color="#0080ff"] {
-  background: linear-gradient(90deg, rgba(0, 128, 255, 0.15), rgba(0, 128, 255, 0.05));
-  box-shadow: 0 0 20px rgba(0, 128, 255, 0.4), inset 0 0 20px rgba(0, 128, 255, 0.1);
-  border-left: 3px solid #0080ff;
+  color: #0080ff !important;
 }
 
 .energy-feature-list li.highlight[data-color="#00ff88"] {
-  background: linear-gradient(90deg, rgba(0, 255, 136, 0.15), rgba(0, 255, 136, 0.05));
-  box-shadow: 0 0 20px rgba(0, 255, 136, 0.4), inset 0 0 20px rgba(0, 255, 136, 0.1);
-  border-left: 3px solid #00ff88;
+  color: #00ff88 !important;
 }
 
 .energy-feature-list li.highlight[data-color="#ffd700"] {
-  background: linear-gradient(90deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.05));
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4), inset 0 0 20px rgba(255, 215, 0, 0.1);
-  border-left: 3px solid #ffd700;
+  color: #ffd700 !important;
 }
 
 .energy-feature-list li.highlight[data-color="#ff6b6b"] {
-  background: linear-gradient(90deg, rgba(255, 107, 107, 0.15), rgba(255, 107, 107, 0.05));
-  box-shadow: 0 0 20px rgba(255, 107, 107, 0.4), inset 0 0 20px rgba(255, 107, 107, 0.1);
-  border-left: 3px solid #ff6b6b;
+  color: #ff6b6b !important;
 }
 
 .energy-feature-list li.highlight[data-color="#8000ff"] {
-  background: linear-gradient(90deg, rgba(128, 0, 255, 0.15), rgba(128, 0, 255, 0.05));
-  box-shadow: 0 0 20px rgba(128, 0, 255, 0.4), inset 0 0 20px rgba(128, 0, 255, 0.1);
-  border-left: 3px solid #8000ff;
-}
-
-@keyframes highlight-pulse {
-  0%, 100% {
-    transform: translateX(10px) scale(1);
-  }
-  50% {
-    transform: translateX(10px) scale(1.02);
-  }
+  color: #8000ff !important;
 }
 
 /* Energy Icon Display - Compact Version */
