@@ -1241,26 +1241,27 @@ body.offcanvas-open {
   }
 }
 
-/* Energy Icon Display */
-.energy-icon-display {
+/* Energy Icon Display - Compact Version */
+.energy-icon-display-compact {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 300px;
+  min-height: 100%;
   position: relative;
+  padding: 1rem 0;
 }
 
-.energy-icon-display i {
+.energy-icon-display-compact i {
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  filter: drop-shadow(0 0 30px currentColor);
+  filter: drop-shadow(0 0 20px currentColor);
 }
 
 /* Icon Animation Classes */
-.energy-icon-display i.fade-in {
+.energy-icon-display-compact i.fade-in {
   animation: icon-fade-in 0.5s ease forwards;
 }
 
-.energy-icon-display i.fade-out {
+.energy-icon-display-compact i.fade-out {
   animation: icon-fade-out 0.3s ease forwards;
 }
 
@@ -1288,21 +1289,13 @@ body.offcanvas-open {
 
 /* Responsive Icon Size */
 @media (max-width: 991px) {
-  .energy-icon-display {
-    min-height: 200px;
-  }
-
-  .energy-icon-display i {
-    font-size: 120px !important;
+  .energy-icon-display-compact i {
+    font-size: 70px !important;
   }
 }
 
 @media (max-width: 768px) {
-  .energy-icon-display {
-    min-height: 150px;
-  }
-
-  .energy-icon-display i {
-    font-size: 100px !important;
+  .energy-icon-display-compact i {
+    font-size: 60px !important;
   }
 }

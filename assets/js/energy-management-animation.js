@@ -8,7 +8,7 @@
 
   // 애니메이션 설정
   const ANIMATION_CONFIG = {
-    itemDelay: 300, // 각 항목당 딜레이 (밀리초)
+    itemDelay: 2500, // 각 항목당 딜레이 (밀리초)
     iconTransitionDelay: 200, // 아이콘 전환 딜레이
     loopDelay: 1000, // 루프 반복 전 딜레이
   };
