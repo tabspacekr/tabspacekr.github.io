@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#4FC3F7">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="description" content="로보카 폴리 구조대 친구들 이름 맞추기 게임">
+
+  <title>구조대 친구들</title>
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚒</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Home Screen -->
+    <div id="home-screen" class="screen active">
+      <div class="header">
+        <h1>🚗 구조대 친구들 🚗</h1>
+        <p class="subtitle">재미있는 게임을 골라보세요!</p>
+      </div>
+
+      <div class="menu-grid">
+        <button class="game-button blue" onclick="app.startQuiz()">
+          <span class="game-emoji">📝</span>
+          <span class="game-name">설명 퀴즈</span>
+        </button>
+
+        <button class="game-button red" onclick="app.startMatching()">
+          <span class="game-emoji">🃏</span>
+          <span class="game-name">카드 매칭</span>
+        </button>
+
+        <button class="game-button orange" onclick="app.startColorQuiz()">
+          <span class="game-emoji">🎨</span>
+          <span class="game-name">색깔 퀴즈</span>
+        </button>
+
+        <button class="game-button purple" onclick="app.startTypeQuiz()">
+          <span class="game-emoji">🚗</span>
+          <span class="game-name">타입 퀴즈</span>
+        </button>
+
+        <button class="game-button green" onclick="app.startSpeedTouch()">
+          <span class="game-emoji">⚡</span>
+          <span class="game-name">빠른 터치</span>
+        </button>
+
+        <button class="game-button pink" onclick="app.startOXQuiz()">
+          <span class="game-emoji">⭕</span>
+          <span class="game-name">OX 퀴즈</span>
+        </button>
+
+        <button class="game-button cyan" onclick="app.startMemory()">
+          <span class="game-emoji">🧠</span>
+          <span class="game-name">기억력</span>
+        </button>
+      </div>
+
+      <button class="sound-toggle" onclick="app.toggleSound()">
+        <span id="sound-icon">🔊</span>
+        <span id="sound-text">소리 켜기</span>
+      </button>
+    </div>
+
+    <!-- Quiz Screen (설명 퀴즈) -->
+    <div id="quiz-screen" class="screen">
+      <div class="game-header">
+        <button class="back-button" onclick="app.goHome()">🏠</button>
+        <div id="quiz-progress" class="progress-stars"></div>
+        <div class="spacer"></div>
+      </div>
+
+      <div id="quiz-content" class="quiz-content">
+        <div class="description-card">
+          <div class="description-emoji">❓</div>
+          <p id="quiz-description" class="description-text"></p>
+        </div>
+
+        <div id="quiz-options" class="options-grid"></div>
+      </div>
+
+      <div id="quiz-feedback" class="feedback hidden"></div>
+    </div>
+
+    <!-- Matching Screen (카드 매칭) -->
+    <div id="matching-screen" class="screen">
+      <div class="game-header">
+        <button class="back-button" onclick="app.goHome()">🏠</button>
+        <div class="matching-stats">
+          <span>시도: <strong id="matching-moves">0</strong>회</span>
+          <span>매칭: <strong id="matching-pairs">0</strong>/4</span>
+        </div>
+        <div class="spacer"></div>
+      </div>
+
+      <div id="matching-grid" class="matching-grid"></div>
+    </div>
+
+    <!-- Color Quiz Screen (색깔 퀴즈) -->
+    <div id="color-screen" class="screen">
+      <div class="game-header">
+        <button class="back-button" onclick="app.goHome()">🏠</button>
+        <div id="color-progress" class="progress-stars"></div>
+        <div class="spacer"></div>
+      </div>
+
+      <div class="quiz-content">
+        <div class="description-card">
+          <div id="color-emoji" class="description-emoji">🚒</div>
+          <p class="description-text">이 친구의 색깔은?</p>
+        </div>
+
+        <div id="color-options" class="options-grid"></div>
+      </div>
+
+      <div id="color-feedback" class="feedback hidden"></div>
+    </div>
+
+    <!-- Type Quiz Screen (타입 퀴즈) -->
+    <div id="type-screen" class="screen">
+      <div class="game-header">
+        <button class="back-button" onclick="app.goHome()">🏠</button>
+        <div id="type-progress" class="progress-stars"></div>
+        <div class="spacer"></div>
+      </div>
+
+      <div class="quiz-content">
+        <div class="description-card">
+          <div id="type-emoji" class="description-emoji">🚒</div>
+          <p class="description-text">이것은 어떤 차량일까요?</p>
+        </div>
+
+        <div id="type-options" class="options-grid"></div>
+      </div>
+
+      <div id="type-feedback" class="feedback hidden"></div>
+    </div>
+
+    <!-- Speed Touch Screen (빠른 터치) -->
+    <div id="speed-screen" class="screen">
+      <div class="game-header">
+        <button class="back-button" onclick="app.goHome()">🏠</button>
+        <div class="speed-stats">
+          <span>점수: <strong id="speed-score">0</strong></span>
+          <span>시간: <strong id="speed-timer">10</strong>초</span>
+        </div>
+        <div class="spacer"></div>
+      </div>
+
+      <div class="speed-content">
+        <div id="speed-target" class="speed-target">
+          <span class="target-emoji">🚒</span>
+          <span class="target-name">로이를 찾아요!</span>
+        </div>
+
+        <div id="speed-grid" class="speed-grid"></div>
+      </div>
+    </div>
+
+    <!-- OX Quiz Screen -->
+    <div id="ox-screen" class="screen">
+      <div class="game-header">
+        <button class="back-button" onclick="app.goHome()">🏠</button>
+        <div id="ox-progress" class="progress-stars"></div>
+        <div class="spacer"></div>
+      </div>
+
+      <div class="quiz-content">
+        <div class="description-card ox-card">
+          <div id="ox-emoji" class="description-emoji">🚒</div>
+          <p id="ox-question" class="description-text ox-question"></p>
+        </div>
+
+        <div class="ox-buttons">
+          <button class="ox-button correct-btn" onclick="oxQuiz.answer(true)">
+            <span>⭕</span>
+            <span>맞아요</span>
+          </button>
+          <button class="ox-button wrong-btn" onclick="oxQuiz.answer(false)">
+            <span>❌</span>
+            <span>아니에요</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="ox-feedback" class="feedback hidden"></div>
+    </div>
+
+    <!-- Memory Game Screen (기억력) -->
+    <div id="memory-screen" class="screen">
+      <div class="game-header">
+        <button class="back-button" onclick="app.goHome()">🏠</button>
+        <div class="memory-stats">
+          <span>레벨: <strong id="memory-level">1</strong></span>
+          <span>점수: <strong id="memory-score">0</strong></span>
+        </div>
+        <div class="spacer"></div>
+      </div>
+
+      <div class="memory-content">
+        <p id="memory-instruction" class="memory-instruction">순서를 기억하세요!</p>
+        <div id="memory-display" class="memory-display"></div>
+        <div id="memory-grid" class="memory-grid"></div>
+      </div>
+    </div>
+
+    <!-- Result Screen -->
+    <div id="result-screen" class="screen">
+      <div class="result-content">
+        <div id="result-emoji" class="result-emoji">🎉</div>
+        <h2 id="result-message" class="result-message">잘했어요!</h2>
+        <div id="result-stars" class="result-stars"></div>
+        <p id="result-detail" class="result-detail"></p>
+
+        <div class="result-buttons">
+          <button class="big-button green" onclick="app.restart()">
+            <span class="button-emoji">🔄</span>
+            <span class="button-text">다시하기</span>
+          </button>
+
+          <button class="big-button gray" onclick="app.goHome()">
+            <span class="button-emoji">🏠</span>
+            <span class="button-text">홈으로</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/matching.js"></script>
+  <script src="js/colorQuiz.js"></script>
+  <script src="js/typeQuiz.js"></script>
+  <script src="js/speedTouch.js"></script>
+  <script src="js/oxQuiz.js"></script>
+  <script src="js/memory.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    // Service Worker Registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then(reg => console.log('SW registered'))
+          .catch(err => console.log('SW registration failed:', err));
+      });
+    }
+  </script>
+</body>
+</html>

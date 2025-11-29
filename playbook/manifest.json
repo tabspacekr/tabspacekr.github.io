@@ -1,0 +1,21 @@
+{
+  "name": "구조대 친구들 - 이름 맞추기 게임",
+  "short_name": "구조대 친구들",
+  "description": "로보카 폴리 구조대 친구들 이름 맞추기 게임",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#E3F2FD",
+  "theme_color": "#4FC3F7",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚒</text></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["games", "kids", "education"],
+  "lang": "ko",
+  "dir": "ltr"
+}
