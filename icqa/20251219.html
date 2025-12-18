@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스마트홈 구축의 성공과 실패 인사이트 | 탭스페이스</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #1d1d1f;
+            --gray-dark: #424245;
+            --gray: #86868b;
+            --gray-light: #d2d2d7;
+            --white: #ffffff;
+            --blue: #0071e3;
+            --blue-light: #2997ff;
+            --red: #ff3b30;
+            --green: #34c759;
+            --orange: #ff9500;
+            --purple: #af52de;
+            --bg-light: #fbfbfd;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #000;
+            color: var(--black);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .presentation {
+            width: 100vw;
+            height: 56.25vw;
+            max-height: 100vh;
+            max-width: 177.78vh;
+            position: relative;
+            background: var(--white);
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 6% 8%;
+            background: var(--white);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .slide.active { display: flex; opacity: 1; }
+
+        /* Typography */
+        .headline {
+            font-size: 4.5vw;
+            font-weight: 700;
+            color: var(--black);
+            text-align: center;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+        }
+
+        .headline-large { font-size: 6vw; font-weight: 800; }
+
+        .headline-gradient {
+            background: linear-gradient(90deg, var(--blue) 0%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subheadline {
+            font-size: 1.6vw;
+            font-weight: 400;
+            color: var(--gray);
+            text-align: center;
+            margin-top: 1.5vw;
+            line-height: 1.5;
+        }
+
+        .eyebrow {
+            font-size: 1.1vw;
+            font-weight: 600;
+            color: var(--blue);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1vw;
+        }
+
+        .eyebrow.red { color: var(--red); }
+        .eyebrow.green { color: var(--green); }
+
+        .stat-huge {
+            font-size: 12vw;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.04em;
+        }
+
+        .stat-label {
+            font-size: 1.6vw;
+            font-weight: 500;
+            color: var(--gray);
+            margin-top: 1vw;
+        }
+
+        /* Colors */
+        .text-blue { color: var(--blue); }
+        .text-red { color: var(--red); }
+        .text-green { color: var(--green); }
+        .text-orange { color: var(--orange); }
+        .text-gray { color: var(--gray); }
+
+        /* Backgrounds */
+        .bg-black {
+            background: linear-gradient(180deg, #1d1d1f 0%, #000 100%);
+            color: var(--white);
+        }
+        .bg-black .headline, .bg-black .eyebrow { color: var(--white); }
+        .bg-black .subheadline { color: var(--gray-light); }
+
+        .bg-gradient {
+            background: linear-gradient(180deg, var(--white) 0%, #f5f5f7 100%);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--white);
+            border: 1px solid var(--gray-light);
+            border-radius: 1.2vw;
+            padding: 2vw;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--blue);
+            box-shadow: 0 0.5vw 2vw rgba(0,0,0,0.08);
+        }
+
+        .card-dark {
+            background: var(--black);
+            border: none;
+            color: var(--white);
+        }
+
+        .card-blue {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%);
+            border: none;
+            color: var(--white);
+        }
+
+        .card-red {
+            background: linear-gradient(135deg, var(--red) 0%, #ff6b6b 100%);
+            border: none;
+            color: var(--white);
+        }
+
+        .card-green {
+            background: linear-gradient(135deg, var(--green) 0%, #4cd964 100%);
+            border: none;
+            color: var(--white);
+        }
+
+        /* Grid Layouts */
+        .grid-row {
+            display: flex;
+            gap: 2vw;
+            margin-top: 3vw;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .grid-item {
+            flex: 1;
+            text-align: center;
+            padding: 2vw;
+            background: var(--bg-light);
+            border-radius: 1vw;
+            max-width: 22vw;
+        }
+
+        .grid-item-icon {
+            font-size: 4vw;
+            margin-bottom: 1vw;
+        }
+
+        .grid-item-title {
+            font-size: 1.8vw;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 0.5vw;
+        }
+
+        .grid-item-desc {
+            font-size: 1vw;
+            color: var(--gray);
+            line-height: 1.4;
+        }
+
+        /* Two Column */
+        .two-col {
+            display: flex;
+            gap: 4vw;
+            width: 100%;
+            align-items: stretch;
+            margin-top: 2vw;
+        }
+
+        .two-col > div { flex: 1; }
+
+        .col-left { text-align: left; }
+        .col-right { text-align: left; }
+
+        /* Quote */
+        .quote {
+            font-size: 2.8vw;
+            font-weight: 500;
+            color: var(--black);
+            text-align: center;
+            line-height: 1.4;
+            max-width: 85%;
+            position: relative;
+            padding: 0 2vw;
+        }
+
+        .quote::before, .quote::after {
+            font-size: 4vw;
+            color: var(--gray-light);
+            font-weight: 300;
+        }
+        .quote::before { content: '"'; }
+        .quote::after { content: '"'; }
+
+        /* Comparison */
+        .compare {
+            display: flex;
+            align-items: center;
+            gap: 3vw;
+            margin-top: 3vw;
+        }
+
+        .compare-item {
+            text-align: center;
+            padding: 2vw 3vw;
+            background: var(--bg-light);
+            border-radius: 1vw;
+        }
+
+        .compare-number {
+            font-size: 5vw;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .compare-label {
+            font-size: 1.1vw;
+            color: var(--gray);
+            margin-top: 0.5vw;
+        }
+
+        .compare-vs {
+            font-size: 1.8vw;
+            color: var(--gray-light);
+            font-weight: 300;
+        }
+
+        /* List */
+        .list-enhanced {
+            list-style: none;
+            width: 100%;
+            max-width: 50vw;
+        }
+
+        .list-enhanced li {
+            display: flex;
+            align-items: center;
+            gap: 1.5vw;
+            padding: 1.5vw 2vw;
+            background: var(--bg-light);
+            border-radius: 1vw;
+            margin-bottom: 1vw;
+            font-size: 1.8vw;
+            font-weight: 500;
+        }
+
+        .list-enhanced .icon {
+            font-size: 2.5vw;
+            width: 3vw;
+            text-align: center;
+        }
+
+        .list-enhanced .detail {
+            font-size: 1.3vw;
+            color: var(--gray);
+            font-weight: 400;
+            margin-left: auto;
+        }
+
+        /* Flow */
+        .flow {
+            display: flex;
+            align-items: center;
+            gap: 1vw;
+            margin-top: 2.5vw;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .flow-item {
+            font-size: 1.2vw;
+            font-weight: 500;
+            color: var(--gray-dark);
+            padding: 1vw 1.8vw;
+            background: var(--bg-light);
+            border-radius: 0.8vw;
+        }
+
+        .flow-arrow {
+            font-size: 1.2vw;
+            color: var(--gray-light);
+        }
+
+        .flow-item.highlight {
+            background: var(--red);
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        /* Key Point */
+        .key-point {
+            background: var(--black);
+            color: var(--white);
+            padding: 1.8vw 3.5vw;
+            border-radius: 1vw;
+            margin-top: 2.5vw;
+            text-align: center;
+            font-size: 1.8vw;
+            font-weight: 500;
+        }
+
+        .key-point.red { background: var(--red); }
+        .key-point.green { background: var(--green); }
+        .key-point.blue { background: var(--blue); }
+
+        /* Pills */
+        .pills {
+            display: flex;
+            gap: 0.8vw;
+            margin-top: 2vw;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .pill {
+            font-size: 1vw;
+            font-weight: 500;
+            padding: 0.6vw 1.4vw;
+            border-radius: 5vw;
+            background: var(--bg-light);
+            color: var(--gray-dark);
+            border: 1px solid var(--gray-light);
+        }
+
+        .pill.blue { background: var(--blue); color: var(--white); border: none; }
+        .pill.green { background: var(--green); color: var(--white); border: none; }
+        .pill.red { background: var(--red); color: var(--white); border: none; }
+        .pill.orange { background: var(--orange); color: var(--white); border: none; }
+
+        /* Section */
+        .section-number {
+            font-size: 6vw;
+            font-weight: 800;
+            color: var(--gray-light);
+            line-height: 1;
+        }
+
+        .section-title {
+            font-size: 3.5vw;
+            font-weight: 700;
+            color: var(--black);
+            margin-top: 1vw;
+        }
+
+        .section-desc {
+            font-size: 1.4vw;
+            color: var(--gray);
+            margin-top: 1vw;
+        }
+
+        /* Message Box */
+        .message-box {
+            font-size: 2vw;
+            font-weight: 600;
+            color: var(--black);
+            padding: 1.8vw 3vw;
+            background: var(--bg-light);
+            border-radius: 1vw;
+            text-align: center;
+        }
+
+        .message-box.green { background: #e8f5e9; color: var(--green); }
+        .message-box.red { background: #ffebee; color: var(--red); }
+
+        /* Diagram */
+        .diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1vw;
+            margin-top: 2vw;
+        }
+
+        .diagram-box {
+            font-size: 1.2vw;
+            font-weight: 500;
+            padding: 1.2vw 2.5vw;
+            background: var(--black);
+            color: var(--white);
+            border-radius: 0.6vw;
+        }
+
+        .diagram-box.outline {
+            background: transparent;
+            border: 2px solid var(--gray-light);
+            color: var(--black);
+        }
+
+        .diagram-arrow {
+            font-size: 1.5vw;
+            color: var(--gray);
+        }
+
+        .diagram-row {
+            display: flex;
+            gap: 1vw;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* Stats Row */
+        .stats-row {
+            display: flex;
+            gap: 3vw;
+            margin-top: 2vw;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3vw;
+            font-weight: 800;
+            color: var(--blue);
+        }
+
+        .stat-text {
+            font-size: 1vw;
+            color: var(--gray);
+            margin-top: 0.3vw;
+        }
+
+        /* Navigation */
+        .nav-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 1000;
+            background: rgba(0,0,0,0.85);
+            padding: 8px 16px;
+            border-radius: 50px;
+            backdrop-filter: blur(20px);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--white);
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover { background: rgba(255,255,255,0.2); }
+
+        .slide-counter {
+            color: var(--gray);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+        }
+
+        .presentation:fullscreen .nav-controls { display: none; }
+
+        /* Feature Card */
+        .feature-card {
+            background: var(--white);
+            border: 1px solid var(--gray-light);
+            border-radius: 1vw;
+            padding: 1.5vw 2vw;
+            text-align: center;
+        }
+
+        .feature-card .number {
+            font-size: 2.5vw;
+            font-weight: 800;
+            color: var(--blue);
+        }
+
+        .feature-card .label {
+            font-size: 1vw;
+            color: var(--gray);
+            margin-top: 0.3vw;
+        }
+
+        /* Warning Box */
+        .warning-box {
+            display: flex;
+            align-items: center;
+            gap: 1.5vw;
+            padding: 1.5vw 2vw;
+            background: #fff3e0;
+            border-left: 4px solid var(--orange);
+            border-radius: 0.5vw;
+            margin-top: 2vw;
+        }
+
+        .warning-box .icon { font-size: 3.5vw; }
+        .warning-box .text { font-size: 1.6vw; color: var(--black); }
+    </style>
+</head>
+<body>
+    <div class="presentation" id="presentation">
+
+        <!-- Slide 1: Title -->
+        <div class="slide bg-black active" data-slide="1">
+            <div class="eyebrow" style="color: var(--gray-light); letter-spacing: 0.2em;">TABSPACE INSIGHTS</div>
+            <h1 class="headline headline-large" style="color: var(--white); margin-top: 1vw;">
+                스마트홈 구축의<br>
+                <span class="headline-gradient">성공과 실패</span>
+            </h1>
+            <p class="subheadline" style="font-size: 2.2vw; margin-top: 5vw;">200개 이상의 프로젝트에서 배운 현장 이야기</p>
+        </div>
+
+        <!-- Slide 2: Experience Overview -->
+        <div class="slide" data-slide="2">
+            <h2 class="headline">다양한 분야의 경험</h2>
+            <p class="subheadline">주거부터 산업 현장까지</p>
+            <div class="grid-row" style="margin-top: 3vw;">
+                <div class="grid-item">
+                    <div class="grid-item-icon">🏠</div>
+                    <div class="grid-item-title">주거 공간</div>
+                    <div class="grid-item-desc">아파트, 빌라, 단독주택<br>일반 가정의 스마트화</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-icon">☕</div>
+                    <div class="grid-item-title">상업 공간</div>
+                    <div class="grid-item-desc">카페, 음식점, 소매점<br>매장 자동화 솔루션</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-icon">⚡</div>
+                    <div class="grid-item-title">산업 시설</div>
+                    <div class="grid-item-desc">공장, 발전소, 연구소<br>IoT 모니터링 시스템</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-icon">🏛️</div>
+                    <div class="grid-item-title">공공 시설</div>
+                    <div class="grid-item-desc">스마트쉘터, 버스정류장<br>공공 인프라 연동</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Our Failures Intro -->
+        <div class="slide" data-slide="3">
+            <div class="eyebrow red">REAL STORIES</div>
+            <h2 class="headline">우리가 실제로<br><span class="text-red">무릎 꿇었던</span> 순간들</h2>
+            <p class="subheadline">고객에게 욕먹고, 밤새 수습하고, 환불해드린 이야기</p>
+            <div style="display: flex; gap: 2vw; margin-top: 3vw;">
+                <div class="card" style="flex: 1; border-left: 4px solid var(--red); text-align: center;">
+                    <div style="font-size: 4vw; margin-bottom: 1vw;">💀</div>
+                    <div style="font-size: 1.4vw; color: var(--gray); line-height: 1.6;">
+                        "새벽 3시에 전화 받고<br>현장 출동한 적 있습니다"
+                    </div>
+                </div>
+                <div class="card" style="flex: 1; border-left: 4px solid var(--red); text-align: center;">
+                    <div style="font-size: 4vw; margin-bottom: 1vw;">😤</div>
+                    <div style="font-size: 1.4vw; color: var(--gray); line-height: 1.6;">
+                        "이게 스마트홈이야?<br>스투핏홈이지!" 라는 말도 들었습니다
+                    </div>
+                </div>
+                <div class="card" style="flex: 1; border-left: 4px solid var(--red); text-align: center;">
+                    <div style="font-size: 4vw; margin-bottom: 1vw;">💸</div>
+                    <div style="font-size: 1.4vw; color: var(--gray); line-height: 1.6;">
+                        "전액 환불해드릴게요"<br>라고 말한 적도 있습니다
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 2.5vw; font-size: 1.8vw; color: var(--black); font-weight: 500;">
+                그래서 오늘, <span class="text-blue">실패에서 배운 것들</span>을 공유합니다
+            </div>
+        </div>
+
+        <!-- Slide 4: Section - Failures -->
+        <div class="slide bg-gradient" data-slide="4">
+            <div class="section-number">01</div>
+            <div class="section-title">우리가 겪은 실패들</div>
+            <div class="section-desc">비싼 수업료를 내고 배운 교훈 5가지</div>
+        </div>
+
+        <!-- Slide 5: Failure 1 -->
+        <div class="slide" data-slide="5">
+            <div class="eyebrow red">실패 #1 — 스위치를 없앤 그 날</div>
+            <h2 class="headline">벽 스위치를<br>모두 없앴습니다</h2>
+            <p class="subheadline">"음성과 앱만으로 충분하지 않을까?"</p>
+            <div class="card" style="text-align: center; margin-top: 3vw; padding: 2.5vw 4vw;">
+                <div style="font-size: 4vw; margin-bottom: 1vw;">😎</div>
+                <div style="font-size: 1.8vw; font-weight: 600;">우리의 생각</div>
+                <div style="font-size: 1.4vw; color: var(--gray); margin-top: 0.5vw;">"미래지향적이고 깔끔해!"</div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Failure 1 Result -->
+        <div class="slide" data-slide="6">
+            <div class="eyebrow red">고객의 전화</div>
+            <h2 class="headline" style="font-size: 3.5vw;">"화장실 가려는데 불이 안 켜져요"</h2>
+            <p class="subheadline">새벽 3시, 어둠 속에서 걸려온 전화</p>
+            <div class="warning-box" style="margin-top: 3vw;">
+                <div class="icon">⚠️</div>
+                <div class="text">WiFi 장애, 클라우드 서버 일시 장애, 앱 업데이트... 스마트 기기가 먹통이 되는 순간은 반드시 옵니다</div>
+            </div>
+            <div class="key-point" style="margin-top: 2vw;">
+                💥 Fail-safe 없는 스마트홈 = 재앙
+            </div>
+        </div>
+
+        <!-- Slide 7: Failure 1 - Boiler Issue -->
+        <div class="slide" data-slide="7">
+            <div class="eyebrow red">또 다른 고객의 전화</div>
+            <h2 class="headline" style="font-size: 3.5vw;">"보일러가 자꾸 꺼졌다 켜져요"</h2>
+            <p class="subheadline">한겨울, 새벽에 집이 냉골이 된 날</p>
+            <div class="warning-box" style="margin-top: 3vw;">
+                <div class="icon">📡</div>
+                <div class="text">무선 Zigbee 온도센서 연결 끊김 → 온도값 수신 불가 → 자동화 오작동</div>
+            </div>
+            <div class="key-point" style="margin-top: 2vw;">
+                🛡️ 무선 센서는 반드시 백업 플랜이 필요
+            </div>
+        </div>
+
+        <!-- Slide 8: Failure 1 - Door Lock Issue -->
+        <div class="slide" data-slide="8">
+            <div class="eyebrow red">신월동 무인매장 점주의 전화</div>
+            <h2 class="headline" style="font-size: 3.2vw;">"119 불러서 유리문 깨고 탈출했답니다"</h2>
+            <p class="subheadline">"손해배상하세요!" — 새벽에 걸려온 전화</p>
+            <div class="warning-box" style="margin-top: 3vw;">
+                <div class="icon">🚪</div>
+                <div class="text">IoT 출입통제기 통신 두절 → 잠금 해제 불가 → 고객 갇힘 → 119 출동</div>
+            </div>
+            <div class="key-point" style="margin-top: 2vw;">
+                🚨 출입/안전 시스템은 반드시 수동 비상 해제 장치가 필요
+            </div>
+        </div>
+
+        <!-- Slide 9: Failure 2 -->
+        <div class="slide" data-slide="9">
+            <div class="eyebrow red">실패 #2 — 순서의 비극</div>
+            <h2 class="headline">마지막에 들어가는<br>업체가 되지 마세요</h2>
+            <div class="flow" style="margin-top: 3vw;">
+                <div class="flow-item">철거</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">전기</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">목공</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">도배</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">통신</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item highlight">스마트홈?</div>
+            </div>
+            <div class="message-box red" style="margin-top: 3vw;">
+                🤦 사무실에선 완벽했다. 현장은 달랐다.
+            </div>
+        </div>
+
+        <!-- Slide 10: N-Wire Problem -->
+        <div class="slide" data-slide="10">
+            <div class="stat-huge text-red">70%</div>
+            <div class="stat-label">현장 문제의 원인</div>
+            <div class="message-box" style="margin-top: 2vw; font-size: 2.5vw;">
+                중성선(N선) 누락
+            </div>
+            <p class="subheadline" style="margin-top: 1.5vw;">
+                스마트 스위치는 전원이 필요합니다. 하지만 구형 배선에는 N선이 없습니다.
+            </p>
+            <div class="key-point green" style="margin-top: 2vw;">
+                💡 해결책: 전기 시공 전 "N선 넣어주세요" 한 마디
+            </div>
+        </div>
+
+        <!-- Slide 11: Failure 3 -->
+        <div class="slide" data-slide="11">
+            <div class="eyebrow red">실패 #3 — 커스텀의 늪</div>
+            <h2 class="headline">커스텀은 더 많은<br>커스텀을 낳습니다</h2>
+            <div style="display: flex; gap: 3vw; margin-top: 2.5vw; justify-content: center;">
+                <div class="card" style="text-align: center; width: 22vw;">
+                    <div style="font-size: 4vw; margin-bottom: 1vw;">🙋</div>
+                    <div style="font-size: 1.8vw; font-weight: 600;">고객 요청</div>
+                    <div style="font-size: 1.3vw; color: var(--gray); margin-top: 0.8vw; line-height: 1.5;">"IoT 안되는 주문제작 블라인드를<br>스마트하게 제어하고 싶어요"</div>
+                </div>
+                <div class="card" style="text-align: center; width: 22vw;">
+                    <div style="font-size: 4vw; margin-bottom: 1vw;">😎</div>
+                    <div style="font-size: 1.8vw; font-weight: 600;">우리 생각</div>
+                    <div style="font-size: 1.3vw; color: var(--gray); margin-top: 0.8vw; line-height: 1.5;">"블라인드 컨트롤러 IoT 커스텀요청이네요?"<br>'단순 접점제어네. 쉽겠다!'</div>
+                </div>
+            </div>
+            <div class="message-box red" style="margin-top: 2.5vw;">
+                😱 그 "쉽겠네"가 수개월간 악몽의 시작이었습니다
+            </div>
+        </div>
+
+        <!-- Slide 12: Basic Functions -->
+        <div class="slide" data-slide="12">
+            <div class="eyebrow">올리기, 정지, 내리기.. 물리 버튼만 IoT제어가 되게 해달라는거지?</div>
+            <h2 class="headline">블라인드 기본 기능 3가지.. 이것만?</h2>
+            <div style="display: flex; gap: 3vw; margin-top: 3vw; justify-content: center;">
+                <div class="card" style="text-align: center; width: 14vw; padding: 2.5vw 2vw;">
+                    <div style="font-size: 3vw; margin-bottom: 1vw;">⬆️</div>
+                    <div style="font-size: 1.5vw; font-weight: 600;">올리기</div>
+                </div>
+                <div class="card" style="text-align: center; width: 14vw; padding: 2.5vw 2vw;">
+                    <div style="font-size: 3vw; margin-bottom: 1vw;">⬇️</div>
+                    <div style="font-size: 1.5vw; font-weight: 600;">내리기</div>
+                </div>
+                <div class="card" style="text-align: center; width: 14vw; padding: 2.5vw 2vw;">
+                    <div style="font-size: 3vw; margin-bottom: 1vw;">⏹️</div>
+                    <div style="font-size: 1.5vw; font-weight: 600;">정지</div>
+                </div>
+            </div>
+            <div class="message-box green" style="margin-top: 3vw;">
+                😎 "기존 컨트롤러 대신 IoT SPDT 릴레이로 구성하면 되겠네. 이 정도는 금방이지!"
+            </div>
+        </div>
+
+        <!-- Slide 13: Failure 3 - Complaints -->
+        <div class="slide" data-slide="13">
+            <div class="eyebrow red">그리고 수개월 간...</div>
+            <h2 class="headline">제어 성공! 그러나...</h2>
+            <div style="display: flex; gap: 1.5vw; margin-top: 2.5vw;">
+                <div class="card" style="flex: 1; border-left: 4px solid var(--red); text-align: center;">
+                    <div style="font-size: 5vw; margin-bottom: 1vw;">😤</div>
+                    <div style="font-size: 1.3vw; font-weight: 500;">"블라인드가 동시에 안 내려가요"</div>
+                    <div style="font-size: 1.1vw; color: var(--gray); margin-top: 0.8vw;">→ 모터마다 회전 속도가 다름.<br>정상인데 고장으로 인식.</div>
+                </div>
+                <div class="card" style="flex: 1; border-left: 4px solid var(--red); text-align: center;">
+                    <div style="font-size: 5vw; margin-bottom: 1vw;">😠</div>
+                    <div style="font-size: 1.3vw; font-weight: 500;">"연속으로 누르면 중간에 멈춰요"</div>
+                    <div style="font-size: 1.1vw; color: var(--gray); margin-top: 0.8vw;">→ 모터 보호 회로 문제.<br>블라인드 업체 문제인데 우리한테 전화.</div>
+                </div>
+                <div class="card" style="flex: 1; border-left: 4px solid var(--red); text-align: center;">
+                    <div style="font-size: 5vw; margin-bottom: 1vw;">🤔</div>
+                    <div style="font-size: 1.3vw; font-weight: 500;">"30%만 내릴 수 있어요?"</div>
+                    <div style="font-size: 1.1vw; color: var(--gray); margin-top: 0.8vw;">→ 위치 센서 + 펌웨어 수정 + 앱 연동<br>= 처음 견적의 몇 배</div>
+                </div>
+            </div>
+            <div style="display: flex; gap: 2vw; margin-top: 2vw; justify-content: center;">
+                <div class="message-box green">
+                    💡 "됩니다" ❌<br>→ "확인 후 안내드릴게요" ✓
+                </div>
+                <div class="message-box red">
+                    🗯️ (마음의 소리)<br>아.. 그냥 기성품 쓸껄...
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Failure 4 -->
+        <div class="slide" data-slide="14">
+            <div class="eyebrow red">실패 #4 — 직구의 유혹</div>
+            <h2 class="headline">가격의 함정</h2>
+            <div class="compare" style="margin-top: 3vw;">
+                <div class="compare-item" style="background: #ffebee;">
+                    <div class="compare-number text-red">₩15,000</div>
+                    <div class="compare-label">해외 직구 제품</div>
+                    <div class="pills" style="margin-top: 1vw;">
+                        <div class="pill red">KC 없음</div>
+                    </div>
+                </div>
+                <div class="compare-vs">vs</div>
+                <div class="compare-item" style="background: #e8f5e9;">
+                    <div class="compare-number text-green">₩50,000</div>
+                    <div class="compare-label">KC 인증 제품</div>
+                    <div class="pills" style="margin-top: 1vw;">
+                        <div class="pill green">똑같아요?</div>
+                    </div>
+                </div>
+            </div>
+            <p class="subheadline" style="margin-top: 2vw;">3배 차이... 정말 비싼 걸까요?</p>
+        </div>
+
+        <!-- Slide 15: KC Warning -->
+        <div class="slide bg-black" data-slide="15">
+            <h2 class="headline" style="color: var(--white);">화재 발생 시<br>보험 처리 불가</h2>
+            <p class="subheadline">KC인증 없는 제품은 불법입니다. 사고 시 손해배상까지.</p>
+            <div class="key-point" style="background: var(--red); margin-top: 3vw;">
+                KC인증은 스티커가 아닙니다. 그것은 보험입니다.
+            </div>
+        </div>
+
+        <!-- Slide 16: Failure 5 -->
+        <div class="slide" data-slide="16">
+            <div class="eyebrow red">실패 #5 — 플랫폼의 배신</div>
+            <h2 class="headline">앱 5개를 깔아야 하는<br>스마트홈?</h2>
+            <div class="pills" style="margin-top: 2.5vw; gap: 1vw;">
+                <div class="pill" style="font-size: 1.2vw; padding: 1vw 2vw;">LG ThinQ</div>
+                <div class="pill" style="font-size: 1.2vw; padding: 1vw 2vw;">SmartThings</div>
+                <div class="pill" style="font-size: 1.2vw; padding: 1vw 2vw;">Tuya</div>
+                <div class="pill" style="font-size: 1.2vw; padding: 1vw 2vw;">보일러앱</div>
+                <div class="pill" style="font-size: 1.2vw; padding: 1vw 2vw;">???</div>
+            </div>
+            <div class="message-box green" style="margin-top: 3vw;">
+                💪 제조사마다 다른 앱, 다른 생태계? 저희가 통합해 드리겠습니다.
+            </div>
+        </div>
+
+        <!-- Slide 17: Platform Lock-in -->
+        <div class="slide" data-slide="17">
+            <div class="quote">API 정책이 바뀌면<br>이미 설치된 현장 전부 재작업</div>
+            <div class="flow" style="margin-top: 3vw;">
+                <div class="flow-item">클라우드 연동</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item highlight" style="background: var(--orange);">정책 변경!</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">로컬 전환</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item highlight">무료 재작업</div>
+            </div>
+            <p class="subheadline" style="margin-top: 2vw;">돈 한 푼 못 받고 재개발. '제발 철거해주었으면... 이사 언제 가세요?'</p>
+        </div>
+
+        <!-- Slide 18: Section - Success -->
+        <div class="slide bg-gradient" data-slide="18">
+            <div class="section-number">02</div>
+            <div class="section-title">성공으로 가는 패턴</div>
+            <div class="section-desc">실패에서 배운 3가지 핵심 원칙</div>
+        </div>
+
+        <!-- Slide 19: Success 1 -->
+        <div class="slide" data-slide="19">
+            <div class="eyebrow green">성공 패턴 #1 — 타이밍</div>
+            <h2 class="headline">전기 시공 전에 만나세요</h2>
+            <div class="message-box green" style="margin-top: 2.5vw; font-size: 2.2vw;">
+                📞 10분짜리 전화 한 통 → 문제의 70% 예방
+            </div>
+            <ul class="list-enhanced" style="margin-top: 2.5vw;">
+                <li><span class="icon">☑️</span> 중성선(N선) 확보 요청 <span class="detail">필수</span></li>
+                <li><span class="icon">📶</span> WiFi 커버리지 확인 <span class="detail">AP 위치</span></li>
+                <li><span class="icon">🔌</span> 센서/허브 위치 전원 <span class="detail">콘센트 추가</span></li>
+            </ul>
+        </div>
+
+        <!-- Slide 20: Success 2 -->
+        <div class="slide" data-slide="20">
+            <div class="eyebrow green">성공 패턴 #2 — 범위</div>
+            <h2 class="headline">검증된 조합을<br>선택하세요</h2>
+            <div class="grid-row" style="margin-top: 3vw;">
+                <div class="card card-green" style="flex: 1; text-align: center;">
+                    <div style="font-size: 1.8vw; font-weight: 700;">1순위</div>
+                    <div style="font-size: 1.3vw; margin-top: 0.5vw;">검증된 기성품</div>
+                    <div style="font-size: 1vw; margin-top: 0.5vw; opacity: 0.9;">수천 대 판매 = 검증됨</div>
+                </div>
+                <div class="card" style="flex: 1; text-align: center; background: #fff3e0; border-color: var(--orange);">
+                    <div style="font-size: 1.8vw; font-weight: 700; color: var(--orange);">2순위</div>
+                    <div style="font-size: 1.3vw; margin-top: 0.5vw;">기성품 조합</div>
+                    <div style="font-size: 1vw; margin-top: 0.5vw; color: var(--gray);">A + B 연동으로 해결</div>
+                </div>
+                <div class="card" style="flex: 1; text-align: center; background: #ffebee; border-color: var(--red);">
+                    <div style="font-size: 1.8vw; font-weight: 700; color: var(--red);">3순위</div>
+                    <div style="font-size: 1.3vw; margin-top: 0.5vw;">커스텀</div>
+                    <div style="font-size: 1vw; margin-top: 0.5vw; color: var(--gray);">불가피할 때만 + 추가 비용</div>
+                </div>
+            </div>
+            <div class="key-point" style="margin-top: 2vw;">
+                "됩니다" ❌ → "되는데, 이만큼 더 듭니다" ✓
+            </div>
+        </div>
+
+        <!-- Slide 21: Success 3 -->
+        <div class="slide" data-slide="21">
+            <div class="eyebrow green">성공 패턴 #3 — 구조</div>
+            <h2 class="headline">호텔에서 배우세요</h2>
+            <p class="subheadline">수십 년간 검증된 RCU(Room Control Unit) 아키텍처</p>
+            <div class="grid-row" style="margin-top: 3vw;">
+                <div class="grid-item">
+                    <div class="grid-item-icon">🎛️</div>
+                    <div class="grid-item-title">표준화된 허브</div>
+                    <div class="grid-item-desc">제조사가 달라도<br>하나로 통합 제어</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-icon">🏠</div>
+                    <div class="grid-item-title">로컬 제어</div>
+                    <div class="grid-item-desc">인터넷 끊겨도<br>기본 기능 작동</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-icon">🔘</div>
+                    <div class="grid-item-title">물리 버튼</div>
+                    <div class="grid-item-desc">터치 먹통이면<br>버튼으로 제어</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 22: HomeAssistant -->
+        <div class="slide" data-slide="22">
+            <div style="font-size: 4vw; margin-bottom: 1vw;">🏠</div>
+            <h2 class="headline">HomeAssistant</h2>
+            <p class="subheadline">제조사가 달라도, 프로토콜이 달라도<br>하나의 앱으로 통합 제어</p>
+            <div class="diagram" style="margin-top: 2.5vw;">
+                <div class="diagram-row">
+                    <div class="diagram-box outline">Google Home</div>
+                    <div class="diagram-box outline">Alexa</div>
+                    <div class="diagram-box outline">Siri</div>
+                </div>
+                <div class="diagram-arrow">↓</div>
+                <div class="diagram-box" style="font-size: 1.4vw; padding: 1.5vw 4vw; background: var(--blue);">HomeAssistant 허브</div>
+                <div class="diagram-arrow">↓</div>
+                <div class="diagram-row">
+                    <div class="diagram-box outline">LG ThinQ</div>
+                    <div class="diagram-box outline">Tuya</div>
+                    <div class="diagram-box outline">Zigbee</div>
+                    <div class="diagram-box outline">Tasmota</div>
+                </div>
+            </div>
+            <div class="stats-row" style="margin-top: 2vw;">
+                <div class="stat-item"><div class="stat-number">2,000+</div><div class="stat-text">통합 지원</div></div>
+                <div class="stat-item"><div class="stat-number">100%</div><div class="stat-text">오픈소스</div></div>
+                <div class="stat-item"><div class="stat-number">0원</div><div class="stat-text">라이선스</div></div>
+            </div>
+        </div>
+
+        <!-- Slide 23: Physical Buttons -->
+        <div class="slide bg-black" data-slide="23">
+            <h2 class="headline" style="color: var(--white);">물리 버튼은<br>반드시 남기세요</h2>
+            <p class="subheadline" style="margin-top: 2vw;">편의는 스마트하게, 안전은 아날로그로</p>
+            <div class="grid-row" style="margin-top: 3vw;">
+                <div class="card" style="background: rgba(255,255,255,0.1); border: none; color: var(--white); text-align: center;">
+                    <div style="font-size: 2vw; margin-bottom: 0.5vw;">💡</div>
+                    <div style="font-size: 1.2vw;">조명</div>
+                    <div style="font-size: 1vw; color: var(--gray-light); margin-top: 0.3vw;">스마트 + 물리 스위치</div>
+                </div>
+                <div class="card" style="background: rgba(255,255,255,0.1); border: none; color: var(--white); text-align: center;">
+                    <div style="font-size: 2vw; margin-bottom: 0.5vw;">🔥</div>
+                    <div style="font-size: 1.2vw;">화재 비상</div>
+                    <div style="font-size: 1vw; color: var(--gray-light); margin-top: 0.3vw;">물리 차단기 필수</div>
+                </div>
+                <div class="card" style="background: rgba(255,255,255,0.1); border: none; color: var(--white); text-align: center;">
+                    <div style="font-size: 2vw; margin-bottom: 0.5vw;">🚪</div>
+                    <div style="font-size: 1.2vw;">도어락</div>
+                    <div style="font-size: 1vw; color: var(--gray-light); margin-top: 0.3vw;">비밀번호 + 물리키</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 24: Section - Proposals -->
+        <div class="slide bg-gradient" data-slide="24">
+            <div class="section-number">03</div>
+            <div class="section-title">여러분께 드리는 제안</div>
+            <div class="section-desc">업종별 맞춤 협업 방안</div>
+        </div>
+
+        <!-- Slide 25: For Interior -->
+        <div class="slide" data-slide="25">
+            <div class="eyebrow">인테리어 업체를 위한 제안</div>
+            <h2 class="headline" style="font-size: 3.5vw;">딱 27글자만 기억하세요</h2>
+            <div class="grid-row" style="margin-top: 3vw;">
+                <div class="card" style="flex: 1; text-align: center;">
+                    <div style="font-size: 2vw; font-weight: 600; color: var(--blue);">"N선 넣어주세요"</div>
+                    <div style="font-size: 1vw; color: var(--gray); margin-top: 0.5vw;">7글자</div>
+                    <div style="font-size: 0.9vw; color: var(--gray); margin-top: 0.5vw;">전기 시공팀에게</div>
+                </div>
+                <div class="card" style="flex: 1; text-align: center;">
+                    <div style="font-size: 2vw; font-weight: 600; color: var(--blue);">"확인 후 안내드릴게요"</div>
+                    <div style="font-size: 1vw; color: var(--gray); margin-top: 0.5vw;">10글자</div>
+                    <div style="font-size: 0.9vw; color: var(--gray); margin-top: 0.5vw;">커스텀 요청 시</div>
+                </div>
+                <div class="card" style="flex: 1; text-align: center;">
+                    <div style="font-size: 2vw; font-weight: 600; color: var(--blue);">"전기 시공 전 통화"</div>
+                    <div style="font-size: 1vw; color: var(--gray); margin-top: 0.5vw;">10글자</div>
+                    <div style="font-size: 0.9vw; color: var(--gray); margin-top: 0.5vw;">스마트홈 업체와</div>
+                </div>
+            </div>
+            <div class="key-point blue" style="margin-top: 2.5vw;">
+                프로젝트당 +100~500만원 추가 매출, 민원 리스크 없이
+            </div>
+        </div>
+
+        <!-- Slide 26: For Industry -->
+        <div class="slide" data-slide="26">
+            <div class="eyebrow">산업계를 위한 제안</div>
+            <h2 class="headline">집에서 먼저<br>테스트하세요</h2>
+            <div class="compare" style="margin-top: 3vw;">
+                <div class="compare-item" style="background: #ffebee;">
+                    <div class="compare-number text-red">₩100K+</div>
+                    <div class="compare-label">산업용 온습도 센서</div>
+                </div>
+                <div class="compare-vs">vs</div>
+                <div class="compare-item" style="background: #e8f5e9;">
+                    <div class="compare-number text-green">₩20K</div>
+                    <div class="compare-label">가정용 Zigbee 센서</div>
+                </div>
+            </div>
+            <p class="subheadline" style="margin-top: 2vw;">같은 원리, 1/5 가격. 실패해도 2만원짜리 센서 하나.</p>
+            <div class="key-point" style="margin-top: 2vw;">
+                스마트홈 = 산업 자동화의 저비용 테스트베드
+            </div>
+        </div>
+
+        <!-- Slide 27: For Teachers -->
+        <div class="slide" data-slide="27">
+            <div class="eyebrow">교사를 위한 제안</div>
+            <h2 class="headline">"불 꺼줘"로<br>시작하세요</h2>
+            <p class="subheadline">학생들이 매일 경험하는 공간 = 최고의 IoT 교재</p>
+            <div class="grid-row" style="margin-top: 2.5vw;">
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 1.5vw; font-weight: 600;">정보 수업</div>
+                    <div style="font-size: 1vw; color: var(--gray); margin-top: 0.5vw;">YAML 자동화 코드 작성</div>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 1.5vw; font-weight: 600;">기술·가정</div>
+                    <div style="font-size: 1vw; color: var(--gray); margin-top: 0.5vw;">IoT 개념, 스마트시티 연계</div>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 1.5vw; font-weight: 600;">진로 탐구</div>
+                    <div style="font-size: 1vw; color: var(--gray); margin-top: 0.5vw;">스마트홈 엔지니어 직업</div>
+                </div>
+            </div>
+            <div class="message-box" style="margin-top: 2vw;">
+                💡 실습 키트 예산: 약 10~30만원 (라즈베리파이 + 센서)
+            </div>
+        </div>
+
+        <!-- Slide 28: Key Takeaways -->
+        <div class="slide" data-slide="28">
+            <h2 class="headline" style="font-size: 3.5vw;">오늘의 핵심 4가지</h2>
+            <div class="grid-row" style="margin-top: 3vw;">
+                <div class="card" style="text-align: center; flex: 1;">
+                    <div style="font-size: 2.5vw; font-weight: 800; color: var(--blue);">01</div>
+                    <div style="font-size: 1.4vw; font-weight: 600; margin-top: 0.5vw;">타이밍</div>
+                    <div style="font-size: 1vw; color: var(--gray); margin-top: 0.5vw;">전기 시공 전에 만나라</div>
+                </div>
+                <div class="card" style="text-align: center; flex: 1;">
+                    <div style="font-size: 2.5vw; font-weight: 800; color: var(--orange);">02</div>
+                    <div style="font-size: 1.4vw; font-weight: 600; margin-top: 0.5vw;">범위</div>
+                    <div style="font-size: 1vw; color: var(--gray); margin-top: 0.5vw;">검증된 조합을 선택하라</div>
+                </div>
+                <div class="card" style="text-align: center; flex: 1;">
+                    <div style="font-size: 2.5vw; font-weight: 800; color: var(--green);">03</div>
+                    <div style="font-size: 1.4vw; font-weight: 600; margin-top: 0.5vw;">구조</div>
+                    <div style="font-size: 1vw; color: var(--gray); margin-top: 0.5vw;">표준 허브 아키텍처</div>
+                </div>
+                <div class="card" style="text-align: center; flex: 1;">
+                    <div style="font-size: 2.5vw; font-weight: 800; color: var(--red);">04</div>
+                    <div style="font-size: 1.4vw; font-weight: 600; margin-top: 0.5vw;">안전</div>
+                    <div style="font-size: 1vw; color: var(--gray); margin-top: 0.5vw;">물리 버튼은 필수</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 29: Final Quote -->
+        <div class="slide bg-black" data-slide="29">
+            <div class="quote" style="color: var(--white); font-size: 3.2vw;">실패를 공유해야<br>모두가 성공합니다</div>
+            <p class="subheadline" style="margin-top: 2vw;">오늘 나눈 이야기가 여러분의 시행착오를 줄여드리길 바랍니다</p>
+        </div>
+
+        <!-- Slide 30: Thank You -->
+        <div class="slide" data-slide="30">
+            <h2 class="headline headline-gradient" style="font-size: 5vw;">감사합니다</h2>
+            <div class="stats-row" style="margin-top: 4vw;">
+                <div class="card" style="text-align: center; padding: 2vw 3vw;">
+                    <div style="font-size: 2vw; margin-bottom: 0.5vw;">🏠</div>
+                    <div style="font-size: 1.2vw; font-weight: 600;">인테리어 협업</div>
+                </div>
+                <div class="card" style="text-align: center; padding: 2vw 3vw;">
+                    <div style="font-size: 2vw; margin-bottom: 0.5vw;">⚡</div>
+                    <div style="font-size: 1.2vw; font-weight: 600;">산업 컨설팅</div>
+                </div>
+                <div class="card" style="text-align: center; padding: 2vw 3vw;">
+                    <div style="font-size: 2vw; margin-bottom: 0.5vw;">📚</div>
+                    <div style="font-size: 1.2vw; font-weight: 600;">교육 솔루션</div>
+                </div>
+            </div>
+            <div style="margin-top: 3vw; text-align: center;">
+                <div style="font-size: 2vw; font-weight: 700; color: var(--black);">TABSPACE</div>
+                <div style="font-size: 1.2vw; color: var(--blue); margin-top: 0.5vw;">blog.naver.com/tabspacekr</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-controls">
+        <button class="nav-btn" onclick="prevSlide()">←</button>
+        <span class="slide-counter"><span id="currentSlide">1</span> / <span id="totalSlides">30</span></span>
+        <button class="nav-btn" onclick="nextSlide()">→</button>
+        <button class="nav-btn" onclick="toggleFullscreen()">⛶</button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 30;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            if (n > totalSlides) currentSlide = 1;
+            if (n < 1) currentSlide = totalSlides;
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide - 1].classList.add('active');
+            document.getElementById('currentSlide').textContent = currentSlide;
+        }
+
+        function nextSlide() { currentSlide++; showSlide(currentSlide); }
+        function prevSlide() { currentSlide--; showSlide(currentSlide); }
+
+        function toggleFullscreen() {
+            const p = document.getElementById('presentation');
+            if (!document.fullscreenElement) p.requestFullscreen();
+            else document.exitFullscreen();
+        }
+
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowRight': case ' ': case 'PageDown': e.preventDefault(); nextSlide(); break;
+                case 'ArrowLeft': case 'PageUp': e.preventDefault(); prevSlide(); break;
+                case 'Home': e.preventDefault(); currentSlide = 1; showSlide(currentSlide); break;
+                case 'End': e.preventDefault(); currentSlide = totalSlides; showSlide(currentSlide); break;
+                case 'f': case 'F': toggleFullscreen(); break;
+            }
+        });
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
+        document.addEventListener('touchend', (e) => {
+            const diff = touchStartX - e.changedTouches[0].screenX;
+            if (Math.abs(diff) > 50) diff > 0 ? nextSlide() : prevSlide();
+        });
+
+        document.getElementById('presentation').addEventListener('click', (e) => {
+            if (e.target.closest('.nav-controls') || e.target.closest('button')) return;
+            const rect = e.target.closest('.presentation').getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            if (x < rect.width * 0.2) prevSlide();
+            else if (x > rect.width * 0.8) nextSlide();
+        });
+
+        document.getElementById('totalSlides').textContent = totalSlides;
+    </script>
+</body>
+</html>
