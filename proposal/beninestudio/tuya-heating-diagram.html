@@ -3,25 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tuya 각방 난방제어 시스템 안내</title>
+<title>TuYa 각방 난방제어 시스템 안내</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0f1117;
-    --surface: #1a1d27;
-    --surface2: #232735;
-    --border: #2e3346;
-    --text: #e8eaf0;
-    --text-dim: #8b90a5;
-    --accent-warm: #ff6b3d;
-    --accent-warm-glow: rgba(255,107,61,0.15);
-    --accent-blue: #4da6ff;
-    --accent-blue-glow: rgba(77,166,255,0.12);
-    --accent-green: #3ddc84;
-    --accent-green-glow: rgba(61,220,132,0.12);
-    --accent-yellow: #ffd43b;
-    --accent-yellow-glow: rgba(255,212,59,0.12);
-    --danger: #ff4d6a;
+    --bg: #f5f7fa;
+    --surface: #ffffff;
+    --surface2: #f0f2f5;
+    --border: #dfe3ea;
+    --text: #1a1d27;
+    --text-dim: #5f6778;
+    --accent-warm: #e05a2b;
+    --accent-warm-glow: rgba(224,90,43,0.08);
+    --accent-blue: #2563eb;
+    --accent-blue-glow: rgba(37,99,235,0.07);
+    --accent-green: #16a34a;
+    --accent-green-glow: rgba(22,163,74,0.07);
+    --accent-yellow: #b47d08;
+    --accent-yellow-glow: rgba(180,125,8,0.08);
+    --accent-purple: #7c3aed;
+    --accent-purple-glow: rgba(124,58,237,0.07);
+    --danger: #dc2626;
     --radius: 12px;
   }
 
@@ -33,6 +35,8 @@
     color: var(--text);
     line-height: 1.7;
     min-height: 100vh;
+    -webkit-text-size-adjust: 100%;
+    font-size: 15px;
   }
 
   .container {
@@ -41,828 +45,595 @@
     padding: 40px 24px 80px;
   }
 
-  /* ── Header ── */
-  .header {
-    text-align: center;
-    margin-bottom: 48px;
-  }
-  .header-badge {
-    display: inline-block;
-    background: var(--accent-warm-glow);
-    color: var(--accent-warm);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    padding: 6px 16px;
-    border-radius: 20px;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-    border: 1px solid rgba(255,107,61,0.25);
-  }
-  .header h1 {
-    font-size: 28px;
-    font-weight: 900;
-    letter-spacing: -0.5px;
-    margin-bottom: 10px;
-  }
-  .header p {
-    font-size: 15px;
-    color: var(--text-dim);
-    max-width: 540px;
-    margin: 0 auto;
-  }
+  /* ── Visibility ── */
+  .desktop-only { display: block; }
+  .mobile-only { display: none; }
 
-  /* ── Concept Section ── */
+  /* ── Header ── */
+  .header { text-align: center; margin-bottom: 48px; }
+  .header-badge {
+    display: inline-block; background: var(--accent-warm-glow); color: var(--accent-warm);
+    font-size: 13px; font-weight: 700; letter-spacing: 1.5px; padding: 6px 16px;
+    border-radius: 20px; text-transform: uppercase; margin-bottom: 16px;
+    border: 1px solid rgba(224,90,43,0.2);
+  }
+  .header h1 { font-size: 26px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 10px; word-break: keep-all; line-height: 1.4; }
+  .header p { font-size: 16px; color: var(--text-dim); max-width: 600px; margin: 0 auto; line-height: 1.8; }
+
+  /* ── Section ── */
   .section-title {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--accent-blue);
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-size: 15px; font-weight: 700; color: var(--accent-blue); letter-spacing: 1.2px;
+    text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
   }
-  .section-title::before {
-    content: '';
-    width: 18px;
-    height: 2px;
-    background: var(--accent-blue);
-    border-radius: 2px;
-  }
+  .section-title::before { content: ''; width: 18px; height: 2px; background: var(--accent-blue); border-radius: 2px; }
 
   /* ── Flow Diagram ── */
   .flow-diagram {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 32px 24px;
-    margin-bottom: 40px;
-    overflow-x: auto;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 32px 20px; margin-bottom: 40px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
   }
   .flow-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    flex-wrap: nowrap;
-    min-width: 700px;
+    display: flex; align-items: center; justify-content: center;
+    gap: 0; flex-wrap: nowrap;
   }
   .flow-node {
-    flex-shrink: 0;
-    text-align: center;
-    padding: 16px 20px;
-    border-radius: var(--radius);
-    border: 2px solid;
-    position: relative;
-    min-width: 150px;
+    flex: 1; min-width: 0; text-align: center; padding: 14px 12px; border-radius: var(--radius);
+    border: 2px solid; position: relative;
   }
-  .flow-node.sensor {
-    background: var(--accent-blue-glow);
-    border-color: rgba(77,166,255,0.35);
-  }
-  .flow-node.controller {
-    background: var(--accent-warm-glow);
-    border-color: rgba(255,107,61,0.35);
-  }
-  .flow-node.valve {
-    background: var(--accent-green-glow);
-    border-color: rgba(61,220,132,0.35);
-  }
-  .flow-node.boiler {
-    background: var(--accent-yellow-glow);
-    border-color: rgba(255,212,59,0.35);
-  }
-  .flow-node-icon { font-size: 28px; margin-bottom: 6px; }
-  .flow-node-label { font-size: 14px; font-weight: 700; }
-  .flow-node-sub {
-    font-size: 11px;
-    color: var(--text-dim);
-    margin-top: 2px;
-    font-family: 'JetBrains Mono', monospace;
-  }
-  .flow-arrow {
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0 8px;
-    min-width: 80px;
-  }
-  .flow-arrow-line {
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, var(--border), var(--text-dim), var(--border));
-    position: relative;
-  }
-  .flow-arrow-line::after {
-    content: '▶';
-    position: absolute;
-    right: -4px;
-    top: -8px;
-    font-size: 10px;
-    color: var(--text-dim);
-  }
-  .flow-arrow-text {
-    font-size: 10px;
-    color: var(--text-dim);
-    margin-top: 6px;
-    white-space: nowrap;
-    font-family: 'JetBrains Mono', monospace;
-  }
+  .flow-node.sensor { background: var(--accent-blue-glow); border-color: rgba(37,99,235,0.25); }
+  .flow-node.controller { background: var(--accent-warm-glow); border-color: rgba(224,90,43,0.25); }
+  .flow-node.valve { background: var(--accent-green-glow); border-color: rgba(22,163,74,0.25); }
+  .flow-node.boiler { background: var(--accent-yellow-glow); border-color: rgba(180,125,8,0.25); }
+  .flow-node-icon { font-size: 26px; margin-bottom: 6px; }
+  .flow-node-label { font-size: 14px; font-weight: 700; word-break: keep-all; }
+  .flow-node-sub { font-size: 11px; color: var(--text-dim); margin-top: 2px; font-family: 'JetBrains Mono', monospace; word-break: keep-all; }
+  .flow-arrow { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; padding: 0 6px; min-width: 60px; max-width: 100px; }
+  .flow-arrow-line { width: 100%; height: 2px; background: linear-gradient(90deg, var(--border), var(--text-dim), var(--border)); position: relative; }
+  .flow-arrow-line::after { content: '\25B6'; position: absolute; right: -4px; top: -8px; font-size: 10px; color: var(--text-dim); }
+  .flow-arrow-text { font-size: 11px; color: var(--text-dim); margin-top: 6px; white-space: nowrap; font-family: 'JetBrains Mono', monospace; }
+
+  /* ── Mobile: vertical flow ── */
+  .flow-vertical { display: none; flex-direction: column; align-items: center; gap: 0; padding: 8px 0; }
+  .flow-v-node { text-align: center; padding: 14px 24px; border-radius: var(--radius); border: 2px solid; width: 100%; max-width: 280px; }
+  .flow-v-node.sensor { background: var(--accent-blue-glow); border-color: rgba(37,99,235,0.25); }
+  .flow-v-node.controller { background: var(--accent-warm-glow); border-color: rgba(224,90,43,0.25); }
+  .flow-v-node.valve { background: var(--accent-green-glow); border-color: rgba(22,163,74,0.25); }
+  .flow-v-node.boiler { background: var(--accent-yellow-glow); border-color: rgba(180,125,8,0.25); }
+  .flow-v-node-icon { font-size: 26px; margin-bottom: 4px; }
+  .flow-v-node-label { font-size: 15px; font-weight: 700; }
+  .flow-v-node-sub { font-size: 12px; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; }
+  .flow-v-arrow { display: flex; flex-direction: column; align-items: center; padding: 6px 0; color: var(--text-dim); }
+  .flow-v-arrow-line { width: 2px; height: 20px; background: linear-gradient(180deg, var(--border), var(--text-dim)); }
+  .flow-v-arrow-text { font-size: 12px; font-family: 'JetBrains Mono', monospace; margin-top: 2px; color: var(--text-dim); }
+  .flow-v-arrow::after { content: '\25BC'; font-size: 8px; color: var(--text-dim); margin-top: -2px; }
 
   /* ── Key Points ── */
-  .key-points {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 48px;
-  }
+  .key-points { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 48px; }
   .key-point {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 18px 20px;
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 18px 20px; display: flex; gap: 14px; align-items: flex-start;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
   }
-  .key-point-icon {
-    font-size: 20px;
-    flex-shrink: 0;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-  }
-  .key-point-icon.warn { background: rgba(255,77,106,0.12); }
+  .key-point-icon { font-size: 22px; flex-shrink: 0; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
+  .key-point-icon.warn { background: rgba(220,38,38,0.08); }
   .key-point-icon.info { background: var(--accent-blue-glow); }
-  .key-point-title {
-    font-size: 13px;
-    font-weight: 700;
-    margin-bottom: 2px;
-  }
-  .key-point-desc {
-    font-size: 12px;
-    color: var(--text-dim);
-    line-height: 1.6;
-  }
+  .key-point-title { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+  .key-point-desc { font-size: 14px; color: var(--text-dim); line-height: 1.7; }
 
-  /* ── Tab System ── */
-  .tab-group {
-    margin-bottom: 48px;
+  /* ── Method Card ── */
+  .method-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 32px 28px; margin-bottom: 32px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
   }
-  .tab-header {
-    display: flex;
-    gap: 4px;
-    margin-bottom: 0;
-    background: var(--surface);
-    border-radius: var(--radius) var(--radius) 0 0;
-    border: 1px solid var(--border);
-    border-bottom: none;
-    padding: 6px 6px 0;
-  }
-  .tab-btn {
-    flex: 1;
-    padding: 14px 16px;
-    border: none;
-    background: transparent;
-    color: var(--text-dim);
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    border-radius: 8px 8px 0 0;
-    transition: all 0.2s;
-    position: relative;
-  }
-  .tab-btn:hover { color: var(--text); background: var(--surface2); }
-  .tab-btn.active {
-    color: var(--text);
-    background: var(--surface2);
-    font-weight: 700;
-  }
-  .tab-btn.active::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 20%;
-    width: 60%;
-    height: 2px;
-    background: var(--accent-warm);
-    border-radius: 2px;
-  }
-  .tab-btn .tab-tag {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 700;
-    padding: 2px 8px;
-    border-radius: 10px;
-    margin-left: 8px;
-    vertical-align: middle;
-  }
-  .tab-tag.easy { background: rgba(61,220,132,0.15); color: var(--accent-green); }
-  .tab-tag.pro { background: var(--accent-blue-glow); color: var(--accent-blue); }
-
-  .tab-content {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-top: none;
-    border-radius: 0 0 var(--radius) var(--radius);
-    padding: 32px 28px;
-    display: none;
-  }
-  .tab-content.active { display: block; }
-
-  /* ── Schematic Diagram ── */
-  .schematic {
-    position: relative;
-    width: 100%;
-    min-height: 380px;
-    margin: 12px 0 24px;
-  }
-  .schematic svg {
-    width: 100%;
-    height: 100%;
-  }
-
-  .method-desc {
-    font-size: 14px;
-    color: var(--text-dim);
-    line-height: 1.8;
-    margin-bottom: 20px;
-  }
+  .method-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+  .method-card-header h3 { font-size: 18px; font-weight: 800; }
+  .method-tag { display: inline-block; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 10px; }
+  .method-tag.easy { background: rgba(22,163,74,0.1); color: var(--accent-green); }
+  .method-tag.pro { background: var(--accent-purple-glow); color: var(--accent-purple); }
+  .method-desc { font-size: 15px; color: var(--text-dim); line-height: 1.9; margin-bottom: 24px; }
   .method-desc strong { color: var(--text); font-weight: 600; }
 
-  .step-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
+  /* ── Tech Detail (always visible) ── */
+  .tech-detail {
+    padding: 18px 20px; background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 10px; font-family: 'JetBrains Mono', monospace; font-size: 13px;
+    color: var(--text-dim); line-height: 2.1; margin-bottom: 24px;
   }
-  .step-item {
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
-    padding: 14px 18px;
-    background: rgba(0,0,0,0.2);
-    border-radius: 10px;
-    border-left: 3px solid var(--accent-warm);
-  }
-  .step-num {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--accent-warm);
-    background: var(--accent-warm-glow);
-    padding: 2px 8px;
-    border-radius: 6px;
-    flex-shrink: 0;
-  }
-  .step-text {
-    font-size: 13px;
-    line-height: 1.7;
-  }
-  .step-text .tech {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: var(--accent-blue);
-    background: var(--accent-blue-glow);
-    padding: 1px 6px;
-    border-radius: 4px;
-  }
+  .tech-detail-title { font-family: 'Noto Sans KR', sans-serif; font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: 0.5px; }
 
-  /* ── Comparison Table ── */
-  .compare-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 16px;
-    font-size: 13px;
-  }
-  .compare-table th {
-    background: var(--surface);
-    padding: 12px 16px;
-    text-align: left;
-    font-weight: 700;
-    font-size: 12px;
-    color: var(--text-dim);
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    border-bottom: 2px solid var(--border);
-  }
-  .compare-table td {
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--border);
-    vertical-align: top;
-  }
-  .compare-table tr:last-child td { border-bottom: none; }
-  .compare-table .label-col { color: var(--text-dim); font-weight: 500; width: 120px; }
-  .badge-a {
-    background: var(--accent-green-glow);
-    color: var(--accent-green);
-    padding: 2px 8px;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: 600;
-  }
-  .badge-b {
-    background: var(--accent-blue-glow);
-    color: var(--accent-blue);
-    padding: 2px 8px;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: 600;
-  }
+  /* ── Schematic Diagram ── */
+  .schematic { position: relative; width: 100%; margin: 16px 0 24px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .schematic svg { width: 100%; height: 100%; min-width: 600px; }
+
+  .step-list { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+  .step-item { display: flex; gap: 14px; align-items: flex-start; padding: 14px 18px; background: var(--surface2); border-radius: 10px; border-left: 3px solid var(--accent-warm); }
+  .step-num { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: var(--accent-warm); background: var(--accent-warm-glow); padding: 2px 8px; border-radius: 6px; flex-shrink: 0; }
+  .step-text { font-size: 14px; line-height: 1.8; }
+  .step-text .tech { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--accent-blue); background: var(--accent-blue-glow); padding: 1px 6px; border-radius: 4px; }
 
   /* ── Legend ── */
-  .legend {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin: 16px 0 8px;
-    padding: 14px 18px;
-    background: rgba(0,0,0,0.2);
-    border-radius: 8px;
+  .legend { display: flex; gap: 20px; flex-wrap: wrap; margin: 16px 0 8px; padding: 14px 18px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-dim); }
+  .legend-line { width: 24px; height: 3px; border-radius: 2px; }
+
+  /* ── Comparison Table ── */
+  .compare-section {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 32px 28px; margin-bottom: 32px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
   }
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 12px;
-    color: var(--text-dim);
+  .compare-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .compare-table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 520px; }
+  .compare-table th { background: var(--surface2); padding: 14px 16px; text-align: left; font-weight: 700; font-size: 13px; color: var(--text-dim); letter-spacing: 0.5px; text-transform: uppercase; border-bottom: 2px solid var(--border); }
+  .compare-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.7; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .label-col { color: var(--text-dim); font-weight: 600; width: 120px; }
+  .badge-a { background: var(--accent-green-glow); color: var(--accent-green); padding: 3px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; }
+  .badge-b { background: var(--accent-purple-glow); color: var(--accent-purple); padding: 3px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; }
+
+  /* ── Mobile Compare Cards ── */
+  .compare-cards { display: none; }
+  .compare-card {
+    border: 1px solid var(--border); border-radius: 10px; margin-bottom: 12px;
+    overflow: hidden; background: var(--surface2);
   }
-  .legend-line {
-    width: 24px;
-    height: 3px;
-    border-radius: 2px;
+  .compare-card-label {
+    font-size: 13px; font-weight: 700; color: var(--text-dim); padding: 10px 16px;
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    letter-spacing: 0.5px;
+  }
+  .compare-card-body { display: flex; gap: 0; }
+  .compare-card-col {
+    flex: 1; padding: 12px 14px; font-size: 14px; line-height: 1.7;
+  }
+  .compare-card-col:first-child { border-right: 1px solid var(--border); }
+  .compare-card-col .col-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 5px; margin-bottom: 6px; }
+  .compare-card-col .col-badge.a { background: var(--accent-green-glow); color: var(--accent-green); }
+  .compare-card-col .col-badge.b { background: var(--accent-purple-glow); color: var(--accent-purple); }
+  .compare-card-full {
+    padding: 12px 16px; font-size: 14px; text-align: center;
+    color: var(--danger); font-weight: 600; line-height: 1.7;
   }
 
-  /* ── Toggle Detail ── */
-  .detail-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    color: var(--text-dim);
-    font-size: 12px;
-    cursor: pointer;
-    margin-bottom: 20px;
-    transition: all 0.2s;
-    font-family: 'Noto Sans KR', sans-serif;
+  /* ── Mobile Diagram (CSS-based) ── */
+  .m-diagram { display: none; }
+  .m-zone {
+    border: 1px dashed var(--border); border-radius: 10px; padding: 12px;
+    margin-bottom: 8px; position: relative;
   }
-  .detail-toggle:hover { border-color: var(--accent-blue); color: var(--text); }
-  .detail-toggle .toggle-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--accent-blue);
-    transition: 0.2s;
+  .m-zone-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 8px;
+    padding: 2px 8px; border-radius: 6px; display: inline-block;
   }
-  .detail-toggle.active .toggle-dot { background: var(--accent-warm); }
+  .m-zone.blue { background: rgba(37,99,235,0.03); }
+  .m-zone.blue .m-zone-label { color: #2563eb; background: rgba(37,99,235,0.08); }
+  .m-zone.green { background: rgba(22,163,74,0.03); }
+  .m-zone.green .m-zone-label { color: #16a34a; background: rgba(22,163,74,0.08); }
+  .m-zone.purple { background: rgba(124,58,237,0.03); }
+  .m-zone.purple .m-zone-label { color: #7c3aed; background: rgba(124,58,237,0.08); }
 
-  .tech-detail {
-    display: none;
-    padding: 16px 18px;
-    background: rgba(0,0,0,0.25);
-    border: 1px dashed var(--border);
-    border-radius: 10px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: var(--text-dim);
-    line-height: 2;
-    margin-bottom: 20px;
+  .m-box {
+    background: var(--surface); border: 1.5px solid; border-radius: 8px;
+    padding: 10px 14px; margin-bottom: 6px; display: flex; align-items: center; gap: 10px;
   }
-  .tech-detail.show { display: block; }
+  .m-box:last-child { margin-bottom: 0; }
+  .m-box-icon { font-size: 20px; flex-shrink: 0; }
+  .m-box-text { font-size: 13px; font-weight: 700; }
+  .m-box-sub { font-size: 11px; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; }
+  .m-box.warm { border-color: rgba(224,90,43,0.3); }
+  .m-box.warm .m-box-text { color: #e05a2b; }
+  .m-box.green-b { border-color: rgba(22,163,74,0.3); }
+  .m-box.green-b .m-box-text { color: #16a34a; }
+  .m-box.blue-b { border-color: rgba(37,99,235,0.3); }
+  .m-box.blue-b .m-box-text { color: #2563eb; }
+  .m-box.purple-b { border-color: rgba(124,58,237,0.3); }
+  .m-box.purple-b .m-box-text { color: #7c3aed; }
+  .m-box.yellow-b { border-color: rgba(180,125,8,0.3); }
+  .m-box.yellow-b .m-box-text { color: #b47d08; }
+
+  .m-arrow {
+    display: flex; flex-direction: column; align-items: center; padding: 4px 0; color: var(--text-dim);
+  }
+  .m-arrow-line { width: 2px; height: 16px; background: var(--border); }
+  .m-arrow-label {
+    font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--text-dim);
+    padding: 2px 10px; border-radius: 10px; background: var(--surface2); border: 1px solid var(--border);
+    margin: 4px 0;
+  }
+  .m-arrow::after { content: '\25BC'; font-size: 8px; color: var(--text-dim); }
+
+  .m-signal-summary {
+    font-size: 12px; font-family: 'JetBrains Mono', monospace; color: var(--text-dim);
+    background: rgba(124,58,237,0.04); border: 1px solid rgba(124,58,237,0.12);
+    border-radius: 8px; padding: 10px 14px; margin-top: 8px; line-height: 1.8;
+    text-align: center; word-break: keep-all;
+  }
 
   /* ── Footer ── */
-  .footer {
-    text-align: center;
-    margin-top: 48px;
-    padding-top: 24px;
-    border-top: 1px solid var(--border);
-    font-size: 12px;
-    color: var(--text-dim);
+  .footer { text-align: center; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 14px; color: var(--text-dim); }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    body { font-size: 16px; }
+    .container { padding: 24px 16px 60px; }
+    .desktop-only { display: none !important; }
+    .mobile-only { display: block !important; }
+    .header { margin-bottom: 32px; }
+    .header h1 { font-size: 22px; }
+    .header p { font-size: 16px; }
+    .section-title { font-size: 15px; }
+    .key-points { grid-template-columns: 1fr; gap: 10px; margin-bottom: 32px; }
+    .key-point-title { font-size: 16px; }
+    .key-point-desc { font-size: 15px; }
+    .flow-diagram { padding: 20px 16px; margin-bottom: 28px; overflow-x: hidden; }
+    .flow-row { display: none; }
+    .flow-vertical { display: flex; }
+    .method-card { padding: 24px 16px; }
+    .method-card-header h3 { font-size: 17px; }
+    .method-desc { font-size: 16px; }
+    .tech-detail { font-size: 14px; padding: 16px; }
+    .m-diagram { display: block; }
+    .schematic { display: none; }
+    .step-item { padding: 14px 16px; gap: 12px; }
+    .step-text { font-size: 15px; }
+    .step-text .tech { font-size: 14px; }
+    .step-num { font-size: 14px; }
+    .legend { gap: 14px; padding: 14px 16px; }
+    .legend-item { font-size: 14px; }
+    .compare-section { padding: 24px 16px; }
+    .compare-table-wrap { display: none; }
+    .compare-cards { display: block; }
+    .footer { font-size: 14px; }
+    .flow-v-node-label { font-size: 16px; }
+    .flow-v-node-sub { font-size: 13px; }
+    .flow-v-arrow-text { font-size: 13px; }
+    .m-box-text { font-size: 14px; }
+    .m-box-sub { font-size: 12px; }
+    .m-zone-label { font-size: 12px; }
+    .m-arrow-label { font-size: 12px; }
+    .compare-card-col { font-size: 15px; }
+    .compare-card-label { font-size: 14px; }
   }
 
-  @media (max-width: 640px) {
-    .key-points { grid-template-columns: 1fr; }
-    .flow-row { min-width: 600px; }
-    .tab-btn { font-size: 12px; padding: 10px 8px; }
-    .tab-btn .tab-tag { display: none; }
-    .legend { gap: 12px; }
+  @media (max-width: 480px) {
+    .container { padding: 20px 14px 48px; }
+    .header h1 { font-size: 20px; }
+    .method-card { padding: 20px 12px; }
+    .compare-section { padding: 20px 12px; }
+    .flow-v-node { max-width: 260px; padding: 14px 18px; }
   }
 </style>
 </head>
 <body>
 <div class="container">
+
   <!-- Header -->
   <div class="header">
     <div class="header-badge">스마트홈 난방 시스템</div>
-    <h1>Tuya 기반 각방 난방제어 시스템</h1>
-    <p>각 방에 설치된 Tuya 온도제어기가 220V 인서트밸브를 개별 제어하여 방별 온도를 독립적으로 관리합니다.</p>
+    <h1>TuYa 기반 각방 난방제어 시스템<br>(제품명 : 스마트 온도조절기 TGR86)</h1>
+    <p>각 방에 설치된 TuYa 온도제어기가 220V 인서트밸브를 개별 제어하여 방별 온도를 독립적으로 관리합니다.</p>
   </div>
 
-  <!-- 동작 원리 -->
+  <!-- 기본 동작 원리 -->
   <div class="section-title">기본 동작 원리</div>
   <div class="flow-diagram">
+    <!-- Desktop: horizontal -->
     <div class="flow-row">
-      <div class="flow-node sensor">
-        <div class="flow-node-icon">🌡️</div>
-        <div class="flow-node-label">방 온도 감지</div>
-        <div class="flow-node-sub">Tuya 내장 센서</div>
-      </div>
-      <div class="flow-arrow">
-        <div class="flow-arrow-line"></div>
-        <div class="flow-arrow-text">설정 온도 비교</div>
-      </div>
-      <div class="flow-node controller">
-        <div class="flow-node-icon">📟</div>
-        <div class="flow-node-label">각방 온도제어기</div>
-        <div class="flow-node-sub">Tuya / 220V 릴레이</div>
-      </div>
-      <div class="flow-arrow">
-        <div class="flow-arrow-line"></div>
-        <div class="flow-arrow-text">220V ON/OFF</div>
-      </div>
-      <div class="flow-node valve">
-        <div class="flow-node-icon">🔧</div>
-        <div class="flow-node-label">인서트밸브</div>
-        <div class="flow-node-sub">220V 전자식 구동기</div>
-      </div>
-      <div class="flow-arrow">
-        <div class="flow-arrow-line"></div>
-        <div class="flow-arrow-text">온수 흐름 제어</div>
-      </div>
-      <div class="flow-node boiler">
-        <div class="flow-node-icon">🔥</div>
-        <div class="flow-node-label">보일러 배관</div>
-        <div class="flow-node-sub">난방 온수 순환</div>
-      </div>
+      <div class="flow-node sensor"><div class="flow-node-icon">🌡️</div><div class="flow-node-label">방 온도 감지</div><div class="flow-node-sub">TuYa 내장 센서</div></div>
+      <div class="flow-arrow"><div class="flow-arrow-line"></div><div class="flow-arrow-text">설정 온도 비교</div></div>
+      <div class="flow-node controller"><div class="flow-node-icon">📟</div><div class="flow-node-label">각방 온도제어기</div><div class="flow-node-sub">TGR86 / 220V 릴레이</div></div>
+      <div class="flow-arrow"><div class="flow-arrow-line"></div><div class="flow-arrow-text">220V ON/OFF</div></div>
+      <div class="flow-node valve"><div class="flow-node-icon">🔧</div><div class="flow-node-label">인서트밸브</div><div class="flow-node-sub">220V 전자식 구동기</div></div>
+      <div class="flow-arrow"><div class="flow-arrow-line"></div><div class="flow-arrow-text">온수 흐름 제어</div></div>
+      <div class="flow-node boiler"><div class="flow-node-icon">🔥</div><div class="flow-node-label">보일러 배관</div><div class="flow-node-sub">난방 온수 순환</div></div>
+    </div>
+    <!-- Mobile: vertical -->
+    <div class="flow-vertical">
+      <div class="flow-v-node sensor"><div class="flow-v-node-icon">🌡️</div><div class="flow-v-node-label">방 온도 감지</div><div class="flow-v-node-sub">TuYa 내장 센서</div></div>
+      <div class="flow-v-arrow"><div class="flow-v-arrow-line"></div><div class="flow-v-arrow-text">설정 온도 비교</div></div>
+      <div class="flow-v-node controller"><div class="flow-v-node-icon">📟</div><div class="flow-v-node-label">각방 온도제어기</div><div class="flow-v-node-sub">TGR86 / 220V 릴레이</div></div>
+      <div class="flow-v-arrow"><div class="flow-v-arrow-line"></div><div class="flow-v-arrow-text">220V ON/OFF</div></div>
+      <div class="flow-v-node valve"><div class="flow-v-node-icon">🔧</div><div class="flow-v-node-label">인서트밸브</div><div class="flow-v-node-sub">220V 전자식 구동기</div></div>
+      <div class="flow-v-arrow"><div class="flow-v-arrow-line"></div><div class="flow-v-arrow-text">온수 흐름 제어</div></div>
+      <div class="flow-v-node boiler"><div class="flow-v-node-icon">🔥</div><div class="flow-v-node-label">보일러 배관</div><div class="flow-v-node-sub">난방 온수 순환</div></div>
     </div>
   </div>
 
   <!-- 핵심 포인트 -->
   <div class="key-points">
-    <div class="key-point">
-      <div class="key-point-icon warn">⚠️</div>
-      <div>
-        <div class="key-point-title">기존 밸브 교체 필수</div>
-        <div class="key-point-desc">기존 21V 전자식 밸브구동기는 호환 불가 → <strong style="color:var(--danger)">220V 구동기</strong>(경동 등)로 교체 필요</div>
+    <div class="key-point"><div class="key-point-icon warn">⚠️</div><div><div class="key-point-title">기존 밸브 교체 필수</div><div class="key-point-desc">기존 21V 전자식 밸브구동기는 호환 불가 → <strong style="color:var(--danger)">220V 구동기</strong>(경동 등)로 교체 필요</div></div></div>
+    <div class="key-point"><div class="key-point-icon info">💡</div><div><div class="key-point-title">설치 방식 선택 가능</div><div class="key-point-desc">배선 난이도에 따라 직접배선 방식 또는 릴레이보드 방식 중 선택</div></div></div>
+    <div class="key-point"><div class="key-point-icon info">📱</div><div><div class="key-point-title">TuYa 앱 연동</div><div class="key-point-desc">스마트폰으로 각 방 온도 설정, 스케줄, 원격 제어 가능</div></div></div>
+    <div class="key-point"><div class="key-point-icon warn">🔌</div><div><div class="key-point-title">220V 전원 필요</div><div class="key-point-desc">각방 제어기 동작을 위해 220V 전원 공급 배선이 필수</div></div></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- 방식 A · 직접 배선 -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section-title">설치 방식</div>
+
+  <div class="method-card">
+    <div class="method-card-header">
+      <h3>방식 A · 직접 배선</h3>
+      <span class="method-tag easy">간편</span>
+    </div>
+
+    <p class="method-desc">
+      각 방에서 보일러 밸브함(보통 <strong>주방 싱크대 하부</strong>)까지 <strong>220V 전선을 직접 배선</strong>하는 방식입니다.<br>
+      TuYa 제어기(TGR86)가 직접 해당 방의 밸브 구동기 전원을 ON/OFF합니다.
+    </p>
+
+    <div class="tech-detail">
+      <div class="tech-detail-title">기술 상세</div>
+      ▸ 전원: AC 220V (L + N) 2선<br>
+      ▸ 각 제어기(TGR86) → 밸브함까지 개별 배선 (방 수 × 2선)<br>
+      ▸ 밸브 구동기: 220V 전자식 인서트밸브 (경동 등)<br>
+      ▸ 제어 방식: TuYa 릴레이 접점 → 밸브 구동기 직접 구동<br>
+      ▸ 별도 릴레이보드 불필요
+    </div>
+
+    <!-- Desktop SVG -->
+    <div class="schematic">
+      <svg viewBox="0 0 860 360" xmlns="http://www.w3.org/2000/svg" style="font-family:'Noto Sans KR',sans-serif;">
+        <rect x="20" y="10" width="340" height="340" rx="14" fill="rgba(37,99,235,0.04)" stroke="rgba(37,99,235,0.15)" stroke-width="1" stroke-dasharray="6 3"/>
+        <text x="40" y="38" font-size="12" fill="#2563eb" font-weight="700">각 방 (거실 · 안방 · 아이방)</text>
+        <rect x="500" y="10" width="340" height="340" rx="14" fill="rgba(22,163,74,0.04)" stroke="rgba(22,163,74,0.15)" stroke-width="1" stroke-dasharray="6 3"/>
+        <text x="520" y="38" font-size="12" fill="#16a34a" font-weight="700">보일러 밸브함 (주방 싱크대 하부)</text>
+        <rect x="60" y="60" width="260" height="60" rx="10" fill="#fff" stroke="rgba(224,90,43,0.35)" stroke-width="1.5"/><text x="80" y="86" font-size="13" fill="#e05a2b" font-weight="700">🌡️ 거실 TGR86 제어기</text><text x="80" y="106" font-size="11" fill="#5f6778" font-family="JetBrains Mono">220V 릴레이 OUT → 밸브 직접 제어</text>
+        <rect x="60" y="150" width="260" height="60" rx="10" fill="#fff" stroke="rgba(224,90,43,0.35)" stroke-width="1.5"/><text x="80" y="176" font-size="13" fill="#e05a2b" font-weight="700">🌡️ 안방 TGR86 제어기</text><text x="80" y="196" font-size="11" fill="#5f6778" font-family="JetBrains Mono">220V 릴레이 OUT → 밸브 직접 제어</text>
+        <rect x="60" y="240" width="260" height="60" rx="10" fill="#fff" stroke="rgba(224,90,43,0.35)" stroke-width="1.5"/><text x="80" y="266" font-size="13" fill="#e05a2b" font-weight="700">🌡️ 아이방 TGR86 제어기</text><text x="80" y="286" font-size="11" fill="#5f6778" font-family="JetBrains Mono">220V 릴레이 OUT → 밸브 직접 제어</text>
+        <rect x="540" y="60" width="260" height="60" rx="10" fill="#fff" stroke="rgba(22,163,74,0.35)" stroke-width="1.5"/><text x="560" y="86" font-size="13" fill="#16a34a" font-weight="700">🔧 거실 인서트밸브</text><text x="560" y="106" font-size="11" fill="#5f6778" font-family="JetBrains Mono">220V 전자식 구동기</text>
+        <rect x="540" y="150" width="260" height="60" rx="10" fill="#fff" stroke="rgba(22,163,74,0.35)" stroke-width="1.5"/><text x="560" y="176" font-size="13" fill="#16a34a" font-weight="700">🔧 안방 인서트밸브</text><text x="560" y="196" font-size="11" fill="#5f6778" font-family="JetBrains Mono">220V 전자식 구동기</text>
+        <rect x="540" y="240" width="260" height="60" rx="10" fill="#fff" stroke="rgba(22,163,74,0.35)" stroke-width="1.5"/><text x="560" y="266" font-size="13" fill="#16a34a" font-weight="700">🔧 아이방 인서트밸브</text><text x="560" y="286" font-size="11" fill="#5f6778" font-family="JetBrains Mono">220V 전자식 구동기</text>
+        <line x1="320" y1="90" x2="540" y2="90" stroke="#e05a2b" stroke-width="2.5" stroke-dasharray="8 4"><animate attributeName="stroke-dashoffset" values="0;-24" dur="1.5s" repeatCount="indefinite"/></line>
+        <line x1="320" y1="180" x2="540" y2="180" stroke="#e05a2b" stroke-width="2.5" stroke-dasharray="8 4"><animate attributeName="stroke-dashoffset" values="0;-24" dur="1.5s" repeatCount="indefinite"/></line>
+        <line x1="320" y1="270" x2="540" y2="270" stroke="#e05a2b" stroke-width="2.5" stroke-dasharray="8 4"><animate attributeName="stroke-dashoffset" values="0;-24" dur="1.5s" repeatCount="indefinite"/></line>
+        <text x="398" y="78" font-size="10" fill="#e05a2b" font-family="JetBrains Mono" text-anchor="middle">220V (L+N)</text>
+        <text x="398" y="168" font-size="10" fill="#e05a2b" font-family="JetBrains Mono" text-anchor="middle">220V (L+N)</text>
+        <text x="398" y="258" font-size="10" fill="#e05a2b" font-family="JetBrains Mono" text-anchor="middle">220V (L+N)</text>
+      </svg>
+    </div>
+
+    <!-- Mobile Diagram A -->
+    <div class="m-diagram">
+      <div class="m-zone blue">
+        <div class="m-zone-label">각 방 (거실 · 안방 · 아이방)</div>
+        <div class="m-box warm"><div class="m-box-icon">🌡️</div><div><div class="m-box-text">거실 TGR86 제어기</div><div class="m-box-sub">220V 릴레이 OUT</div></div></div>
+        <div class="m-box warm"><div class="m-box-icon">🌡️</div><div><div class="m-box-text">안방 TGR86 제어기</div><div class="m-box-sub">220V 릴레이 OUT</div></div></div>
+        <div class="m-box warm"><div class="m-box-icon">🌡️</div><div><div class="m-box-text">아이방 TGR86 제어기</div><div class="m-box-sub">220V 릴레이 OUT</div></div></div>
+      </div>
+      <div class="m-arrow"><div class="m-arrow-line"></div><div class="m-arrow-label">220V (L+N) 개별 배선</div></div>
+      <div class="m-zone green">
+        <div class="m-zone-label">보일러 밸브함 (주방 싱크대 하부)</div>
+        <div class="m-box green-b"><div class="m-box-icon">🔧</div><div><div class="m-box-text">거실 인서트밸브</div><div class="m-box-sub">220V 전자식 구동기</div></div></div>
+        <div class="m-box green-b"><div class="m-box-icon">🔧</div><div><div class="m-box-text">안방 인서트밸브</div><div class="m-box-sub">220V 전자식 구동기</div></div></div>
+        <div class="m-box green-b"><div class="m-box-icon">🔧</div><div><div class="m-box-text">아이방 인서트밸브</div><div class="m-box-sub">220V 전자식 구동기</div></div></div>
       </div>
     </div>
-    <div class="key-point">
-      <div class="key-point-icon info">💡</div>
-      <div>
-        <div class="key-point-title">설치 방식 선택 가능</div>
-        <div class="key-point-desc">배선 난이도에 따라 직접배선 방식 또는 릴레이보드 방식 중 선택</div>
-      </div>
+
+    <div class="legend">
+      <div class="legend-item"><div class="legend-line" style="background:#e05a2b;"></div> 220V 배선 (방 수만큼 개별)</div>
+      <div class="legend-item"><div class="legend-line" style="background:rgba(37,99,235,0.4);"></div> 각 방 영역</div>
+      <div class="legend-item"><div class="legend-line" style="background:rgba(22,163,74,0.4);"></div> 밸브함 영역</div>
     </div>
-    <div class="key-point">
-      <div class="key-point-icon info">📱</div>
-      <div>
-        <div class="key-point-title">Tuya 앱 연동</div>
-        <div class="key-point-desc">스마트폰으로 각 방 온도 설정, 스케줄, 원격 제어 가능</div>
-      </div>
-    </div>
-    <div class="key-point">
-      <div class="key-point-icon warn">🔌</div>
-      <div>
-        <div class="key-point-title">220V 전원 필요</div>
-        <div class="key-point-desc">각방 제어기 동작을 위해 220V 전원 공급 배선이 필수</div>
-      </div>
+
+    <div class="step-list">
+      <div class="step-item"><span class="step-num">01</span><span class="step-text">각 방 → 밸브함까지 <span class="tech">220V (L+N) 2선</span>을 <strong>방 수만큼</strong> 개별 배선</span></div>
+      <div class="step-item"><span class="step-num">02</span><span class="step-text">밸브함의 인서트밸브 구동기를 <span class="tech">220V 전자식</span>(경동 등)으로 교체</span></div>
+      <div class="step-item"><span class="step-num">03</span><span class="step-text">TuYa 제어기(TGR86) 릴레이 출력 → 밸브 구동기 전원 직결 (별도 장비 불필요)</span></div>
     </div>
   </div>
 
-  <!-- 설치 방식 탭 -->
-  <div class="section-title">설치 방식 비교</div>
-  <div class="tab-group">
-    <div class="tab-header">
-      <button class="tab-btn active" onclick="switchTab('a')">
-        방식 A · 직접 배선<span class="tab-tag easy">간편</span>
-      </button>
-      <button class="tab-btn" onclick="switchTab('b')">
-        방식 B · 릴레이보드<span class="tab-tag pro">고급</span>
-      </button>
-      <button class="tab-btn" onclick="switchTab('compare')">
-        비교표
-      </button>
+  <!-- ═══════════════════════════════════════ -->
+  <!-- 방식 B · 릴레이보드 (공유기 + Home Assistant) -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="method-card">
+    <div class="method-card-header">
+      <h3>방식 B · 릴레이보드 (HA 연동)</h3>
+      <span class="method-tag pro">고급</span>
     </div>
 
-    <!-- 방식 A -->
-    <div class="tab-content active" id="tab-a">
-      <p class="method-desc">
-        각 방에서 보일러 밸브함(보통 <strong>주방 싱크대 하부</strong>)까지 <strong>220V 전선을 직접 배선</strong>하는 방식입니다.<br>
-        Tuya 제어기가 직접 해당 방의 밸브 구동기 전원을 ON/OFF합니다.
-      </p>
+    <p class="method-desc">
+      각 방의 TuYa 제어기(TGR86)가 <strong>Wi-Fi를 통해 공유기에 연결</strong>되고,
+      <strong>Home Assistant 서버</strong>가 <strong>TuYa Integration</strong>을 통해 각 방의 온도 상태를 통합 수집합니다.<br><br>
+      Home Assistant가 설정된 자동화 규칙에 따라 밸브함의 <strong>릴레이보드에 제어 신호를 전송</strong>하여
+      각 방의 인서트밸브를 개별적으로 ON/OFF합니다.<br>
+      220V 전원 배선은 <strong>1쌍(L+N)만</strong> 밸브함까지 배선하면 됩니다.
+    </p>
 
-      <button class="detail-toggle" onclick="toggleDetail('detail-a')">
-        <span class="toggle-dot"></span> 기술 상세 보기
-      </button>
-      <div class="tech-detail" id="detail-a">
-        ▸ 전원: AC 220V (L + N) 2선<br>
-        ▸ 각 제어기 → 밸브함까지 개별 배선 (방 수 × 2선)<br>
-        ▸ 밸브 구동기: 220V 전자식 인서트밸브 (경동 등)<br>
-        ▸ 제어 방식: Tuya 릴레이 접점 → 직접 구동<br>
-        ▸ 별도 릴레이보드 불필요
+    <div class="tech-detail">
+      <div class="tech-detail-title">기술 상세</div>
+      ▸ 배선: AC 220V (L + N) 1쌍만 밸브함까지<br>
+      ▸ TuYa 제어기(TGR86) → Wi-Fi → <strong style="color:var(--accent-blue)">공유기(Wi-Fi Router)</strong> 접속<br>
+      ▸ 공유기 → <strong style="color:var(--accent-purple)">Home Assistant 서버</strong> (TuYa Integration으로 각 방 온도 상태 수집)<br>
+      ▸ Home Assistant → 자동화 규칙에 따라 릴레이보드 제어 명령 전송<br>
+      ▸ 릴레이보드: HA 신호 수신 → 각 밸브별 220V ON/OFF 분배<br>
+      ▸ 밸브 구동기: 220V 전자식 인서트밸브 (경동 등)<br>
+      ▸ 필요 장비: 공유기, Home Assistant 서버, 릴레이보드<br>
+      ▸ 배선 최소화, 대신 추가 장비(서버, 릴레이보드) 비용 발생
+    </div>
+
+    <!-- Desktop SVG -->
+    <div class="schematic">
+      <svg viewBox="0 0 780 480" xmlns="http://www.w3.org/2000/svg" style="font-family:'Noto Sans KR',sans-serif;">
+        <rect x="15" y="10" width="210" height="410" rx="14" fill="rgba(37,99,235,0.04)" stroke="rgba(37,99,235,0.15)" stroke-width="1" stroke-dasharray="6 3"/><text x="35" y="38" font-size="12" fill="#2563eb" font-weight="700">각 방</text>
+        <rect x="260" y="10" width="230" height="410" rx="14" fill="rgba(124,58,237,0.04)" stroke="rgba(124,58,237,0.15)" stroke-width="1" stroke-dasharray="6 3"/><text x="280" y="38" font-size="12" fill="#7c3aed" font-weight="700">네트워크 / 서버</text>
+        <rect x="525" y="10" width="240" height="410" rx="14" fill="rgba(22,163,74,0.04)" stroke="rgba(22,163,74,0.15)" stroke-width="1" stroke-dasharray="6 3"/><text x="545" y="38" font-size="12" fill="#16a34a" font-weight="700">보일러 밸브함</text>
+        <rect x="30" y="60" width="180" height="55" rx="10" fill="#fff" stroke="rgba(224,90,43,0.35)" stroke-width="1.5"/><text x="48" y="85" font-size="12" fill="#e05a2b" font-weight="700">🌡️ 거실 TGR86</text><text x="48" y="103" font-size="10" fill="#5f6778" font-family="JetBrains Mono">온도 감지 + 표시</text>
+        <rect x="30" y="135" width="180" height="55" rx="10" fill="#fff" stroke="rgba(224,90,43,0.35)" stroke-width="1.5"/><text x="48" y="160" font-size="12" fill="#e05a2b" font-weight="700">🌡️ 안방 TGR86</text><text x="48" y="178" font-size="10" fill="#5f6778" font-family="JetBrains Mono">온도 감지 + 표시</text>
+        <rect x="30" y="210" width="180" height="55" rx="10" fill="#fff" stroke="rgba(224,90,43,0.35)" stroke-width="1.5"/><text x="48" y="235" font-size="12" fill="#e05a2b" font-weight="700">🌡️ 아이방 TGR86</text><text x="48" y="253" font-size="10" fill="#5f6778" font-family="JetBrains Mono">온도 감지 + 표시</text>
+        <rect x="278" y="65" width="195" height="70" rx="12" fill="#fff" stroke="rgba(37,99,235,0.4)" stroke-width="2"/><text x="300" y="93" font-size="13" fill="#2563eb" font-weight="700">📡 공유기 (Wi-Fi Router)</text><text x="300" y="118" font-size="10" fill="#5f6778" font-family="JetBrains Mono">TuYa 기기 Wi-Fi 연결 허브</text>
+        <rect x="278" y="170" width="195" height="90" rx="12" fill="#fff" stroke="rgba(124,58,237,0.4)" stroke-width="2"/><text x="300" y="198" font-size="13" fill="#7c3aed" font-weight="700">🖥️ Home Assistant</text><text x="300" y="218" font-size="10" fill="#5f6778" font-family="JetBrains Mono">TuYa Integration 연동</text><text x="300" y="236" font-size="10" fill="#5f6778" font-family="JetBrains Mono">자동화 규칙 → 밸브 제어</text><text x="300" y="254" font-size="10" fill="#7c3aed" font-family="JetBrains Mono" font-weight="600">Home Assistant 서버</text>
+        <rect x="540" y="65" width="210" height="70" rx="12" fill="#fff" stroke="rgba(180,125,8,0.4)" stroke-width="2"/><text x="562" y="93" font-size="13" fill="#b47d08" font-weight="700">⚡ 릴레이보드</text><text x="562" y="118" font-size="10" fill="#5f6778" font-family="JetBrains Mono">HA 신호 → 220V 분배 제어</text>
+        <rect x="540" y="165" width="210" height="42" rx="8" fill="#fff" stroke="rgba(22,163,74,0.35)" stroke-width="1.5"/><text x="560" y="191" font-size="12" fill="#16a34a" font-weight="600">🔧 거실 밸브 (220V)</text>
+        <rect x="540" y="217" width="210" height="42" rx="8" fill="#fff" stroke="rgba(22,163,74,0.35)" stroke-width="1.5"/><text x="560" y="243" font-size="12" fill="#16a34a" font-weight="600">🔧 안방 밸브 (220V)</text>
+        <rect x="540" y="269" width="210" height="42" rx="8" fill="#fff" stroke="rgba(22,163,74,0.35)" stroke-width="1.5"/><text x="560" y="295" font-size="12" fill="#16a34a" font-weight="600">🔧 아이방 밸브 (220V)</text>
+        <line x1="210" y1="88" x2="278" y2="88" stroke="#2563eb" stroke-width="1.8" stroke-dasharray="5 3" opacity="0.7"><animate attributeName="stroke-dashoffset" values="0;-16" dur="1s" repeatCount="indefinite"/></line>
+        <line x1="210" y1="163" x2="240" y2="163" stroke="#2563eb" stroke-width="1.8" stroke-dasharray="5 3" opacity="0.7"><animate attributeName="stroke-dashoffset" values="0;-16" dur="1s" repeatCount="indefinite"/></line>
+        <line x1="240" y1="163" x2="240" y2="100" stroke="#2563eb" stroke-width="1.8" stroke-dasharray="5 3" opacity="0.7"><animate attributeName="stroke-dashoffset" values="0;-16" dur="1s" repeatCount="indefinite"/></line>
+        <line x1="240" y1="100" x2="278" y2="100" stroke="#2563eb" stroke-width="1.8" stroke-dasharray="5 3" opacity="0.7"><animate attributeName="stroke-dashoffset" values="0;-16" dur="1s" repeatCount="indefinite"/></line>
+        <line x1="210" y1="238" x2="248" y2="238" stroke="#2563eb" stroke-width="1.8" stroke-dasharray="5 3" opacity="0.7"><animate attributeName="stroke-dashoffset" values="0;-16" dur="1s" repeatCount="indefinite"/></line>
+        <line x1="248" y1="238" x2="248" y2="112" stroke="#2563eb" stroke-width="1.8" stroke-dasharray="5 3" opacity="0.7"><animate attributeName="stroke-dashoffset" values="0;-16" dur="1s" repeatCount="indefinite"/></line>
+        <line x1="248" y1="112" x2="278" y2="112" stroke="#2563eb" stroke-width="1.8" stroke-dasharray="5 3" opacity="0.7"><animate attributeName="stroke-dashoffset" values="0;-16" dur="1s" repeatCount="indefinite"/></line>
+        <text x="232" y="72" font-size="9" fill="#2563eb" font-family="JetBrains Mono" text-anchor="middle">Wi-Fi</text>
+        <line x1="375" y1="135" x2="375" y2="170" stroke="#7c3aed" stroke-width="2.5"/><text x="395" y="158" font-size="9" fill="#7c3aed" font-family="JetBrains Mono">LAN</text>
+        <line x1="473" y1="210" x2="500" y2="210" stroke="#7c3aed" stroke-width="2" stroke-dasharray="6 3"><animate attributeName="stroke-dashoffset" values="0;-18" dur="1s" repeatCount="indefinite"/></line>
+        <line x1="500" y1="210" x2="500" y2="100" stroke="#7c3aed" stroke-width="2" stroke-dasharray="6 3"><animate attributeName="stroke-dashoffset" values="0;-18" dur="1s" repeatCount="indefinite"/></line>
+        <line x1="500" y1="100" x2="540" y2="100" stroke="#7c3aed" stroke-width="2" stroke-dasharray="6 3"><animate attributeName="stroke-dashoffset" values="0;-18" dur="1s" repeatCount="indefinite"/></line>
+        <text x="510" y="150" font-size="9" fill="#7c3aed" font-family="JetBrains Mono" text-anchor="middle" transform="rotate(-90,510,150)">제어 신호</text>
+        <line x1="645" y1="135" x2="645" y2="165" stroke="#16a34a" stroke-width="2"/>
+        <line x1="645" y1="207" x2="645" y2="217" stroke="#16a34a" stroke-width="2"/>
+        <line x1="645" y1="259" x2="645" y2="269" stroke="#16a34a" stroke-width="2"/>
+        <line x1="120" y1="370" x2="540" y2="370" stroke="#e05a2b" stroke-width="3" stroke-dasharray="10 5"><animate attributeName="stroke-dashoffset" values="0;-30" dur="2s" repeatCount="indefinite"/></line>
+        <rect x="40" y="355" width="148" height="30" rx="6" fill="rgba(224,90,43,0.06)" stroke="rgba(224,90,43,0.25)" stroke-width="1"/><text x="58" y="375" font-size="11" fill="#e05a2b" font-weight="600">🔌 220V 전원 1쌍</text>
+        <text x="340" y="362" font-size="10" fill="#e05a2b" font-family="JetBrains Mono" text-anchor="middle">220V (L+N) 단일 배선</text>
+        <line x1="645" y1="311" x2="645" y2="355" stroke="#e05a2b" stroke-width="2"/>
+        <rect x="570" y="355" width="150" height="30" rx="6" fill="rgba(224,90,43,0.06)" stroke="rgba(224,90,43,0.25)" stroke-width="1"/><text x="592" y="375" font-size="10" fill="#e05a2b" font-family="JetBrains Mono">전원 공급 (220V)</text>
+        <rect x="15" y="435" width="750" height="35" rx="8" fill="rgba(124,58,237,0.04)" stroke="rgba(124,58,237,0.12)" stroke-width="1"/><text x="30" y="457" font-size="11" fill="#5f6778" font-family="JetBrains Mono">신호 흐름: TGR86 → Wi-Fi → 공유기 → Home Assistant(TuYa Integration) → 릴레이보드 → 밸브 ON/OFF</text>
+      </svg>
+    </div>
+
+    <!-- Mobile Diagram B -->
+    <div class="m-diagram">
+      <div class="m-zone blue">
+        <div class="m-zone-label">각 방</div>
+        <div class="m-box warm"><div class="m-box-icon">🌡️</div><div><div class="m-box-text">거실 TGR86</div><div class="m-box-sub">온도 감지 + 표시</div></div></div>
+        <div class="m-box warm"><div class="m-box-icon">🌡️</div><div><div class="m-box-text">안방 TGR86</div><div class="m-box-sub">온도 감지 + 표시</div></div></div>
+        <div class="m-box warm"><div class="m-box-icon">🌡️</div><div><div class="m-box-text">아이방 TGR86</div><div class="m-box-sub">온도 감지 + 표시</div></div></div>
       </div>
 
-      <!-- SVG Diagram A -->
-      <div class="schematic">
-        <svg viewBox="0 0 860 360" xmlns="http://www.w3.org/2000/svg" style="font-family:'Noto Sans KR',sans-serif;">
-          <!-- Background zones -->
-          <rect x="20" y="10" width="340" height="340" rx="14" fill="rgba(77,166,255,0.05)" stroke="rgba(77,166,255,0.15)" stroke-width="1" stroke-dasharray="6 3"/>
-          <text x="40" y="38" font-size="12" fill="#4da6ff" font-weight="700">각 방 (거실 · 안방 · 아이방)</text>
+      <div class="m-arrow"><div class="m-arrow-line"></div><div class="m-arrow-label">Wi-Fi 무선 신호</div></div>
 
-          <rect x="500" y="10" width="340" height="340" rx="14" fill="rgba(61,220,132,0.05)" stroke="rgba(61,220,132,0.15)" stroke-width="1" stroke-dasharray="6 3"/>
-          <text x="520" y="38" font-size="12" fill="#3ddc84" font-weight="700">보일러 밸브함 (주방 싱크대 하부)</text>
-
-          <!-- Room 1 -->
-          <rect x="60" y="60" width="260" height="60" rx="10" fill="#1a1d27" stroke="rgba(255,107,61,0.4)" stroke-width="1.5"/>
-          <text x="80" y="86" font-size="13" fill="#ff6b3d" font-weight="700">🌡️ 거실 Tuya 제어기</text>
-          <text x="80" y="106" font-size="11" fill="#8b90a5" font-family="JetBrains Mono">220V 릴레이 OUT → 밸브 직접 제어</text>
-
-          <!-- Room 2 -->
-          <rect x="60" y="150" width="260" height="60" rx="10" fill="#1a1d27" stroke="rgba(255,107,61,0.4)" stroke-width="1.5"/>
-          <text x="80" y="176" font-size="13" fill="#ff6b3d" font-weight="700">🌡️ 안방 Tuya 제어기</text>
-          <text x="80" y="196" font-size="11" fill="#8b90a5" font-family="JetBrains Mono">220V 릴레이 OUT → 밸브 직접 제어</text>
-
-          <!-- Room 3 -->
-          <rect x="60" y="240" width="260" height="60" rx="10" fill="#1a1d27" stroke="rgba(255,107,61,0.4)" stroke-width="1.5"/>
-          <text x="80" y="266" font-size="13" fill="#ff6b3d" font-weight="700">🌡️ 아이방 Tuya 제어기</text>
-          <text x="80" y="286" font-size="11" fill="#8b90a5" font-family="JetBrains Mono">220V 릴레이 OUT → 밸브 직접 제어</text>
-
-          <!-- Valve 1 -->
-          <rect x="540" y="60" width="260" height="60" rx="10" fill="#1a1d27" stroke="rgba(61,220,132,0.4)" stroke-width="1.5"/>
-          <text x="560" y="86" font-size="13" fill="#3ddc84" font-weight="700">🔧 거실 인서트밸브</text>
-          <text x="560" y="106" font-size="11" fill="#8b90a5" font-family="JetBrains Mono">220V 전자식 구동기</text>
-
-          <!-- Valve 2 -->
-          <rect x="540" y="150" width="260" height="60" rx="10" fill="#1a1d27" stroke="rgba(61,220,132,0.4)" stroke-width="1.5"/>
-          <text x="560" y="176" font-size="13" fill="#3ddc84" font-weight="700">🔧 안방 인서트밸브</text>
-          <text x="560" y="196" font-size="11" fill="#8b90a5" font-family="JetBrains Mono">220V 전자식 구동기</text>
-
-          <!-- Valve 3 -->
-          <rect x="540" y="240" width="260" height="60" rx="10" fill="#1a1d27" stroke="rgba(61,220,132,0.4)" stroke-width="1.5"/>
-          <text x="560" y="266" font-size="13" fill="#3ddc84" font-weight="700">🔧 아이방 인서트밸브</text>
-          <text x="560" y="286" font-size="11" fill="#8b90a5" font-family="JetBrains Mono">220V 전자식 구동기</text>
-
-          <!-- Wiring lines -->
-          <line x1="320" y1="90" x2="540" y2="90" stroke="#ff6b3d" stroke-width="2.5" stroke-dasharray="8 4">
-            <animate attributeName="stroke-dashoffset" values="0;-24" dur="1.5s" repeatCount="indefinite"/>
-          </line>
-          <line x1="320" y1="180" x2="540" y2="180" stroke="#ff6b3d" stroke-width="2.5" stroke-dasharray="8 4">
-            <animate attributeName="stroke-dashoffset" values="0;-24" dur="1.5s" repeatCount="indefinite"/>
-          </line>
-          <line x1="320" y1="270" x2="540" y2="270" stroke="#ff6b3d" stroke-width="2.5" stroke-dasharray="8 4">
-            <animate attributeName="stroke-dashoffset" values="0;-24" dur="1.5s" repeatCount="indefinite"/>
-          </line>
-
-          <!-- Wire labels -->
-          <text x="398" y="78" font-size="10" fill="#ff6b3d" font-family="JetBrains Mono" text-anchor="middle">220V (L+N)</text>
-          <text x="398" y="168" font-size="10" fill="#ff6b3d" font-family="JetBrains Mono" text-anchor="middle">220V (L+N)</text>
-          <text x="398" y="258" font-size="10" fill="#ff6b3d" font-family="JetBrains Mono" text-anchor="middle">220V (L+N)</text>
-        </svg>
+      <div class="m-zone purple">
+        <div class="m-zone-label">네트워크 / 서버</div>
+        <div class="m-box blue-b"><div class="m-box-icon">📡</div><div><div class="m-box-text">공유기 (Wi-Fi Router)</div><div class="m-box-sub">TuYa 기기 Wi-Fi 연결 허브</div></div></div>
+        <div class="m-arrow" style="padding:2px 0;"><div class="m-arrow-line" style="height:10px;"></div><div style="font-size:11px;color:#7c3aed;font-family:'JetBrains Mono',monospace;">LAN</div></div>
+        <div class="m-box purple-b"><div class="m-box-icon">🖥️</div><div><div class="m-box-text">Home Assistant 서버</div><div class="m-box-sub">TuYa Integration 연동</div><div class="m-box-sub">자동화 규칙 → 밸브 제어</div></div></div>
       </div>
 
-      <div class="legend">
-        <div class="legend-item">
-          <div class="legend-line" style="background:#ff6b3d;"></div> 220V 배선 (방 수만큼 개별)
-        </div>
-        <div class="legend-item">
-          <div class="legend-line" style="background:rgba(77,166,255,0.5);"></div> 각 방 영역
-        </div>
-        <div class="legend-item">
-          <div class="legend-line" style="background:rgba(61,220,132,0.5);"></div> 밸브함 영역
-        </div>
+      <div class="m-arrow"><div class="m-arrow-line"></div><div class="m-arrow-label">HA 제어 신호</div></div>
+
+      <div class="m-zone green">
+        <div class="m-zone-label">보일러 밸브함</div>
+        <div class="m-box yellow-b"><div class="m-box-icon">⚡</div><div><div class="m-box-text">릴레이보드</div><div class="m-box-sub">HA 신호 → 220V 분배 제어</div></div></div>
+        <div class="m-arrow" style="padding:2px 0;"><div class="m-arrow-line" style="height:8px;"></div><div style="font-size:10px;color:var(--text-dim);">220V</div></div>
+        <div class="m-box green-b"><div class="m-box-icon">🔧</div><div><div class="m-box-text">거실 밸브 (220V)</div></div></div>
+        <div class="m-box green-b"><div class="m-box-icon">🔧</div><div><div class="m-box-text">안방 밸브 (220V)</div></div></div>
+        <div class="m-box green-b"><div class="m-box-icon">🔧</div><div><div class="m-box-text">아이방 밸브 (220V)</div></div></div>
       </div>
 
-      <div class="step-list">
-        <div class="step-item">
-          <span class="step-num">01</span>
-          <span class="step-text">각 방 → 밸브함까지 <span class="tech">220V (L+N) 2선</span>을 <strong>방 수만큼</strong> 개별 배선</span>
-        </div>
-        <div class="step-item">
-          <span class="step-num">02</span>
-          <span class="step-text">밸브함의 인서트밸브 구동기를 <span class="tech">220V 전자식</span>(경동 등)으로 교체</span>
-        </div>
-        <div class="step-item">
-          <span class="step-num">03</span>
-          <span class="step-text">Tuya 제어기 릴레이 출력 → 밸브 구동기 전원 직결 (별도 장비 불필요)</span>
-        </div>
+      <div class="m-signal-summary">
+        TGR86 → Wi-Fi → 공유기 →<br>
+        Home Assistant → 릴레이보드 → 밸브 ON/OFF
       </div>
     </div>
 
-    <!-- 방식 B -->
-    <div class="tab-content" id="tab-b">
-      <p class="method-desc">
-        220V 전선 <strong>1쌍(L+N)만</strong> 보일러 컨트롤러 쪽으로 배선하고,<br>
-        밸브함에 <strong>릴레이보드를 추가 설치</strong>하여 Tuya 신호를 동기화하는 방식입니다.
-      </p>
-
-      <button class="detail-toggle" onclick="toggleDetail('detail-b')">
-        <span class="toggle-dot"></span> 기술 상세 보기
-      </button>
-      <div class="tech-detail" id="detail-b">
-        ▸ 배선: AC 220V (L + N) 1쌍만 밸브함까지<br>
-        ▸ Tuya 제어기 → Wi-Fi/Zigbee → 릴레이보드 신호 수신<br>
-        ▸ 릴레이보드: Tuya 신호 → 각 밸브별 220V ON/OFF 분배<br>
-        ▸ 밸브 구동기: 220V 전자식 인서트밸브 (경동 등)<br>
-        ▸ 배선 최소화, 대신 릴레이보드 추가 비용 발생
-      </div>
-
-      <!-- SVG Diagram B -->
-      <div class="schematic">
-        <svg viewBox="0 0 860 400" xmlns="http://www.w3.org/2000/svg" style="font-family:'Noto Sans KR',sans-serif;">
-          <!-- Background zones -->
-          <rect x="20" y="10" width="240" height="380" rx="14" fill="rgba(77,166,255,0.05)" stroke="rgba(77,166,255,0.15)" stroke-width="1" stroke-dasharray="6 3"/>
-          <text x="40" y="38" font-size="12" fill="#4da6ff" font-weight="700">각 방</text>
-
-          <rect x="310" y="10" width="200" height="380" rx="14" fill="rgba(255,107,61,0.05)" stroke="rgba(255,107,61,0.15)" stroke-width="1" stroke-dasharray="6 3"/>
-          <text x="330" y="38" font-size="12" fill="#ff6b3d" font-weight="700">신호 전달 (무선)</text>
-
-          <rect x="560" y="10" width="280" height="380" rx="14" fill="rgba(61,220,132,0.05)" stroke="rgba(61,220,132,0.15)" stroke-width="1" stroke-dasharray="6 3"/>
-          <text x="580" y="38" font-size="12" fill="#3ddc84" font-weight="700">보일러 밸브함</text>
-
-          <!-- Rooms -->
-          <rect x="40" y="60" width="200" height="50" rx="10" fill="#1a1d27" stroke="rgba(255,107,61,0.4)" stroke-width="1.5"/>
-          <text x="60" y="90" font-size="13" fill="#ff6b3d" font-weight="700">🌡️ 거실 Tuya 제어기</text>
-
-          <rect x="40" y="130" width="200" height="50" rx="10" fill="#1a1d27" stroke="rgba(255,107,61,0.4)" stroke-width="1.5"/>
-          <text x="60" y="160" font-size="13" fill="#ff6b3d" font-weight="700">🌡️ 안방 Tuya 제어기</text>
-
-          <rect x="40" y="200" width="200" height="50" rx="10" fill="#1a1d27" stroke="rgba(255,107,61,0.4)" stroke-width="1.5"/>
-          <text x="60" y="230" font-size="13" fill="#ff6b3d" font-weight="700">🌡️ 아이방 Tuya 제어기</text>
-
-          <!-- Wireless signals -->
-          <line x1="240" y1="85" x2="380" y2="200" stroke="#ffd43b" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.6">
-            <animate attributeName="stroke-dashoffset" values="0;-16" dur="1s" repeatCount="indefinite"/>
-          </line>
-          <line x1="240" y1="155" x2="380" y2="200" stroke="#ffd43b" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.6">
-            <animate attributeName="stroke-dashoffset" values="0;-16" dur="1s" repeatCount="indefinite"/>
-          </line>
-          <line x1="240" y1="225" x2="380" y2="200" stroke="#ffd43b" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.6">
-            <animate attributeName="stroke-dashoffset" values="0;-16" dur="1s" repeatCount="indefinite"/>
-          </line>
-
-          <text x="340" y="135" font-size="10" fill="#ffd43b" font-family="JetBrains Mono" text-anchor="middle">Wi-Fi</text>
-          <text x="340" y="150" font-size="10" fill="#ffd43b" font-family="JetBrains Mono" text-anchor="middle">/Zigbee</text>
-
-          <!-- Relay board -->
-          <rect x="580" y="80" width="240" height="70" rx="12" fill="#1a1d27" stroke="rgba(255,212,59,0.5)" stroke-width="2"/>
-          <text x="604" y="108" font-size="14" fill="#ffd43b" font-weight="700">⚡ 릴레이보드</text>
-          <text x="604" y="130" font-size="11" fill="#8b90a5" font-family="JetBrains Mono">Tuya 신호 → 220V 분배</text>
-
-          <!-- Connection: Signal to Relay -->
-          <line x1="400" y1="200" x2="510" y2="200" stroke="#ffd43b" stroke-width="2" stroke-dasharray="6 3">
-            <animate attributeName="stroke-dashoffset" values="0;-18" dur="1s" repeatCount="indefinite"/>
-          </line>
-          <line x1="510" y1="200" x2="510" y2="115" stroke="#ffd43b" stroke-width="2" stroke-dasharray="6 3">
-            <animate attributeName="stroke-dashoffset" values="0;-18" dur="1s" repeatCount="indefinite"/>
-          </line>
-          <line x1="510" y1="115" x2="580" y2="115" stroke="#ffd43b" stroke-width="2" stroke-dasharray="6 3">
-            <animate attributeName="stroke-dashoffset" values="0;-18" dur="1s" repeatCount="indefinite"/>
-          </line>
-
-          <!-- 220V power line (single) -->
-          <line x1="140" y1="290" x2="580" y2="290" stroke="#ff6b3d" stroke-width="3" stroke-dasharray="10 5">
-            <animate attributeName="stroke-dashoffset" values="0;-30" dur="2s" repeatCount="indefinite"/>
-          </line>
-          <rect x="70" y="275" width="140" height="30" rx="6" fill="rgba(255,107,61,0.1)" stroke="rgba(255,107,61,0.3)" stroke-width="1"/>
-          <text x="88" y="295" font-size="11" fill="#ff6b3d" font-weight="600">🔌 220V 전원 1쌍</text>
-          <text x="350" y="282" font-size="10" fill="#ff6b3d" font-family="JetBrains Mono" text-anchor="middle">220V (L+N) 단일 배선</text>
-
-          <!-- Valves -->
-          <rect x="580" y="180" width="240" height="40" rx="8" fill="#1a1d27" stroke="rgba(61,220,132,0.4)" stroke-width="1.5"/>
-          <text x="600" y="205" font-size="12" fill="#3ddc84" font-weight="600">🔧 거실 밸브 (220V)</text>
-
-          <rect x="580" y="230" width="240" height="40" rx="8" fill="#1a1d27" stroke="rgba(61,220,132,0.4)" stroke-width="1.5"/>
-          <text x="600" y="255" font-size="12" fill="#3ddc84" font-weight="600">🔧 안방 밸브 (220V)</text>
-
-          <rect x="580" y="280" width="240" height="40" rx="8" fill="#1a1d27" stroke="rgba(61,220,132,0.4)" stroke-width="1.5"/>
-          <text x="600" y="305" font-size="12" fill="#3ddc84" font-weight="600">🔧 아이방 밸브 (220V)</text>
-
-          <!-- Relay to Valves -->
-          <line x1="700" y1="150" x2="700" y2="180" stroke="#3ddc84" stroke-width="2"/>
-          <line x1="700" y1="220" x2="700" y2="230" stroke="#3ddc84" stroke-width="2"/>
-          <line x1="700" y1="270" x2="700" y2="280" stroke="#3ddc84" stroke-width="2"/>
-
-          <!-- Power to Relay -->
-          <line x1="700" y1="290" x2="700" y2="340" stroke="#ff6b3d" stroke-width="2"/>
-          <rect x="620" y="340" width="160" height="30" rx="6" fill="rgba(255,107,61,0.1)" stroke="rgba(255,107,61,0.3)" stroke-width="1"/>
-          <text x="646" y="360" font-size="10" fill="#ff6b3d" font-family="JetBrains Mono">전원 공급 (220V)</text>
-        </svg>
-      </div>
-
-      <div class="legend">
-        <div class="legend-item">
-          <div class="legend-line" style="background:#ffd43b;"></div> 무선 신호 (Wi-Fi/Zigbee)
-        </div>
-        <div class="legend-item">
-          <div class="legend-line" style="background:#ff6b3d;"></div> 220V 전원 배선 (1쌍)
-        </div>
-        <div class="legend-item">
-          <div class="legend-line" style="background:#3ddc84;"></div> 밸브 제어선
-        </div>
-      </div>
-
-      <div class="step-list">
-        <div class="step-item">
-          <span class="step-num">01</span>
-          <span class="step-text">밸브함까지 <span class="tech">220V (L+N) 1쌍만</span> 배선 (전원 공급용)</span>
-        </div>
-        <div class="step-item">
-          <span class="step-num">02</span>
-          <span class="step-text">밸브함에 <span class="tech">릴레이보드</span> 설치 — Tuya 무선 신호를 수신하여 각 밸브별 전원 분배</span>
-        </div>
-        <div class="step-item">
-          <span class="step-num">03</span>
-          <span class="step-text">인서트밸브 구동기를 <span class="tech">220V 전자식</span>(경동 등)으로 교체</span>
-        </div>
-        <div class="step-item">
-          <span class="step-num">04</span>
-          <span class="step-text">릴레이보드 ↔ Tuya 제어기 신호 동기화 설정 (비나인 시공)</span>
-        </div>
-      </div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-line" style="background:#2563eb;"></div> Wi-Fi 무선 신호</div>
+      <div class="legend-item"><div class="legend-line" style="background:#7c3aed;"></div> Home Assistant 제어 신호</div>
+      <div class="legend-item"><div class="legend-line" style="background:#e05a2b;"></div> 220V 전원 배선 (1쌍)</div>
+      <div class="legend-item"><div class="legend-line" style="background:#16a34a;"></div> 밸브 제어선</div>
     </div>
 
-    <!-- 비교표 -->
-    <div class="tab-content" id="tab-compare">
+    <div class="step-list">
+      <div class="step-item"><span class="step-num">01</span><span class="step-text">밸브함까지 <span class="tech">220V (L+N) 1쌍만</span> 배선 (전원 공급용)</span></div>
+      <div class="step-item"><span class="step-num">02</span><span class="step-text"><span class="tech">공유기(Wi-Fi Router)</span> 설치 및 각 방 TGR86 제어기 Wi-Fi 연결</span></div>
+      <div class="step-item"><span class="step-num">03</span><span class="step-text"><span class="tech">Home Assistant 서버</span> 설치 및 <span class="tech">TuYa Integration</span> 설정으로 각 방 온도 제어기 연동</span></div>
+      <div class="step-item"><span class="step-num">04</span><span class="step-text">밸브함에 <span class="tech">릴레이보드</span> 설치 — Home Assistant가 각 밸브별 제어 신호 전송</span></div>
+      <div class="step-item"><span class="step-num">05</span><span class="step-text">인서트밸브 구동기를 <span class="tech">220V 전자식</span>(경동 등)으로 교체</span></div>
+      <div class="step-item"><span class="step-num">06</span><span class="step-text">Home Assistant <span class="tech">자동화(Automation)</span> 설정 — 각 방 온도 기반 밸브 개별 제어 (탭스페이스 시공)</span></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- 비교표 -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section-title">방식 비교표</div>
+  <div class="compare-section">
+
+    <!-- Desktop Table -->
+    <div class="compare-table-wrap">
       <table class="compare-table">
         <thead>
           <tr>
             <th>항목</th>
             <th><span class="badge-a">방식 A</span> 직접 배선</th>
-            <th><span class="badge-b">방식 B</span> 릴레이보드</th>
+            <th><span class="badge-b">방식 B</span> 릴레이보드 (HA)</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="label-col">배선량</td>
-            <td>방 수 × 220V 2선<br><em style="color:var(--text-dim);font-size:12px;">(예: 3방 = 6선)</em></td>
-            <td>220V 1쌍만<br><em style="color:var(--text-dim);font-size:12px;">(2선)</em></td>
-          </tr>
-          <tr>
-            <td class="label-col">추가 장비</td>
-            <td>없음</td>
-            <td>릴레이보드 1개</td>
-          </tr>
-          <tr>
-            <td class="label-col">시공 난이도</td>
-            <td>배선 작업 多<br><em style="color:var(--text-dim);font-size:12px;">전선 밀어넣기 필요</em></td>
-            <td>배선 간편, 장비 설정 필요</td>
-          </tr>
-          <tr>
-            <td class="label-col">시공 주체</td>
-            <td>전기배선: 시공사<br>연동: 비나인</td>
-            <td>배선: 시공사<br>릴레이+연동: 비나인</td>
-          </tr>
-          <tr>
-            <td class="label-col">안정성</td>
-            <td style="color:var(--accent-green);">✦ 직결 방식으로 높음</td>
-            <td>무선 연동 의존<br><em style="color:var(--text-dim);font-size:12px;">신호 간섭 가능성</em></td>
-          </tr>
-          <tr>
-            <td class="label-col">추천 상황</td>
-            <td>신축/리모델링<br>(배선 여유 있을 때)</td>
-            <td>기존 거주 중<br>(추가 배선 어려울 때)</td>
-          </tr>
-          <tr>
-            <td class="label-col">공통 필수</td>
-            <td colspan="2" style="text-align:center;color:var(--danger);font-weight:600;">기존 21V 밸브구동기 → 220V 구동기 교체</td>
-          </tr>
+          <tr><td class="label-col">배선량</td><td>방 수 × 220V 2선<br><em style="color:var(--text-dim);font-size:13px;">(예: 3방 = 6선)</em></td><td>220V 1쌍만<br><em style="color:var(--text-dim);font-size:13px;">(2선)</em></td></tr>
+          <tr><td class="label-col">추가 장비</td><td>없음</td><td>공유기, Home Assistant 서버,<br>릴레이보드</td></tr>
+          <tr><td class="label-col">시공 난이도</td><td>배선 작업 多<br><em style="color:var(--text-dim);font-size:13px;">전선 밀어넣기 필요</em></td><td>배선 간편,<br><em style="color:var(--text-dim);font-size:13px;">서버 + 릴레이 설정 필요</em></td></tr>
+          <tr><td class="label-col">시공 주체</td><td>전기배선: 비나인<br>연동: 탭스페이스</td><td>배선: 비나인<br>서버+릴레이+연동: 탭스페이스</td></tr>
+          <tr><td class="label-col">안정성</td><td style="color:var(--accent-green);font-weight:600;">✦ 직결 방식으로 높음</td><td>Wi-Fi + 서버 의존<br><em style="color:var(--text-dim);font-size:13px;">공유기/HA 서버 장애 시 영향</em></td></tr>
+          <tr><td class="label-col">확장성</td><td>방 추가 시 배선 추가 필요</td><td style="color:var(--accent-purple);font-weight:600;">✦ HA 기반 다양한 자동화 확장 용이</td></tr>
+          <tr><td class="label-col">추천 상황</td><td>신축/리모델링<br>(배선 여유 있을 때)</td><td>기존 거주 중<br>(추가 배선 어려울 때)</td></tr>
+          <tr><td class="label-col">공통 필수</td><td colspan="2" style="text-align:center;color:var(--danger);font-weight:600;">기존 21V 밸브구동기 → 220V 구동기 교체</td></tr>
         </tbody>
       </table>
+    </div>
+
+    <!-- Mobile Cards -->
+    <div class="compare-cards">
+      <div class="compare-card">
+        <div class="compare-card-label">배선량</div>
+        <div class="compare-card-body">
+          <div class="compare-card-col"><div class="col-badge a">방식 A</div><div>방 수 × 220V 2선<br><em style="color:var(--text-dim);font-size:13px;">(예: 3방 = 6선)</em></div></div>
+          <div class="compare-card-col"><div class="col-badge b">방식 B</div><div>220V 1쌍만<br><em style="color:var(--text-dim);font-size:13px;">(2선)</em></div></div>
+        </div>
+      </div>
+      <div class="compare-card">
+        <div class="compare-card-label">추가 장비</div>
+        <div class="compare-card-body">
+          <div class="compare-card-col"><div class="col-badge a">방식 A</div><div>없음</div></div>
+          <div class="compare-card-col"><div class="col-badge b">방식 B</div><div>공유기, HA 서버, 릴레이보드</div></div>
+        </div>
+      </div>
+      <div class="compare-card">
+        <div class="compare-card-label">시공 난이도</div>
+        <div class="compare-card-body">
+          <div class="compare-card-col"><div class="col-badge a">방식 A</div><div>배선 작업 多<br><em style="color:var(--text-dim);font-size:13px;">전선 밀어넣기</em></div></div>
+          <div class="compare-card-col"><div class="col-badge b">방식 B</div><div>배선 간편<br><em style="color:var(--text-dim);font-size:13px;">서버+릴레이 설정</em></div></div>
+        </div>
+      </div>
+      <div class="compare-card">
+        <div class="compare-card-label">시공 주체</div>
+        <div class="compare-card-body">
+          <div class="compare-card-col"><div class="col-badge a">방식 A</div><div>배선: 비나인<br>연동: 탭스페이스</div></div>
+          <div class="compare-card-col"><div class="col-badge b">방식 B</div><div>배선: 비나인<br>서버+연동: 탭스페이스</div></div>
+        </div>
+      </div>
+      <div class="compare-card">
+        <div class="compare-card-label">안정성</div>
+        <div class="compare-card-body">
+          <div class="compare-card-col"><div class="col-badge a">방식 A</div><div style="color:var(--accent-green);font-weight:600;">✦ 직결 방식으로 높음</div></div>
+          <div class="compare-card-col"><div class="col-badge b">방식 B</div><div>Wi-Fi + 서버 의존<br><em style="color:var(--text-dim);font-size:13px;">장애 시 영향</em></div></div>
+        </div>
+      </div>
+      <div class="compare-card">
+        <div class="compare-card-label">확장성</div>
+        <div class="compare-card-body">
+          <div class="compare-card-col"><div class="col-badge a">방식 A</div><div>방 추가 시<br>배선 추가 필요</div></div>
+          <div class="compare-card-col"><div class="col-badge b">방식 B</div><div style="color:var(--accent-purple);font-weight:600;">✦ HA 자동화 확장 용이</div></div>
+        </div>
+      </div>
+      <div class="compare-card">
+        <div class="compare-card-label">추천 상황</div>
+        <div class="compare-card-body">
+          <div class="compare-card-col"><div class="col-badge a">방식 A</div><div>신축/리모델링<br>(배선 여유 있을 때)</div></div>
+          <div class="compare-card-col"><div class="col-badge b">방식 B</div><div>기존 거주 중<br>(추가 배선 어려울 때)</div></div>
+        </div>
+      </div>
+      <div class="compare-card">
+        <div class="compare-card-label">공통 필수</div>
+        <div class="compare-card-full">기존 21V 밸브구동기 → 220V 구동기 교체</div>
+      </div>
     </div>
   </div>
 
   <div class="footer">
-    ※ 구체적인 시공 방식은 비나인과 협의하여 결정합니다.
+    ※ 구체적인 시공 방식은 비나인 · 탭스페이스와 협의하여 결정합니다.
   </div>
 </div>
-
-<script>
-  function switchTab(tabId) {
-    document.querySelectorAll('.tab-btn').forEach((btn, i) => btn.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-
-    const tabs = ['a', 'b', 'compare'];
-    const idx = tabs.indexOf(tabId);
-    document.querySelectorAll('.tab-btn')[idx].classList.add('active');
-    document.getElementById('tab-' + tabId).classList.add('active');
-  }
-
-  function toggleDetail(id) {
-    const el = document.getElementById(id);
-    const btn = el.previousElementSibling;
-    el.classList.toggle('show');
-    btn.classList.toggle('active');
-    btn.querySelector('.toggle-dot').style.background = el.classList.contains('show') ? '#ff6b3d' : '#4da6ff';
-  }
-</script>
 </body>
 </html>
