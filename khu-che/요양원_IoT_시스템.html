@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스마트 요양원 IoT 모니터링 시스템 — TABSPACE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0b0f; --bg2: #12141a; --bg3: #1a1d25;
+            --border: #252830; --border2: #2e3140;
+            --text: #e4e4e7; --text2: #a1a1aa; --text3: #71717a; --text4: #52525b;
+            --blue: #3b82f6; --green: #22c55e; --red: #ef4444; --orange: #f59e0b; --purple: #a855f7; --cyan: #06b6d4;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans KR', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow: hidden; }
+
+        /* ========== 헤더 ========== */
+        .header {
+            background: var(--bg2); border-bottom: 1px solid var(--border);
+            padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; height: 48px;
+        }
+        .h-left { display: flex; align-items: center; gap: 16px; }
+        .h-logo { font-size: 16px; font-weight: 700; color: #fff; }
+        .h-logo span { color: var(--blue); }
+        .h-facility { font-size: 12px; color: var(--text3); display: flex; align-items: center; gap: 8px; }
+        .h-right { display: flex; align-items: center; gap: 16px; }
+        .h-status { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--green); }
+        .h-status::before { content:''; width:7px; height:7px; background:var(--green); border-radius:50%; animation:pulse 2s infinite; }
+        .h-time { font-size: 20px; font-weight: 700; color: #fff; letter-spacing: 0.05em; }
+        .h-date { font-size: 11px; color: var(--text3); }
+        .h-shift { font-size: 11px; padding: 3px 10px; border-radius: 10px; background: rgba(59,130,246,0.15); color: var(--blue); font-weight: 600; }
+        @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.3} }
+
+        /* ========== 메인 그리드 ========== */
+        .main {
+            display: grid;
+            grid-template-columns: 260px 1fr 300px;
+            grid-template-rows: 1fr;
+            height: calc(100vh - 48px);
+        }
+
+        /* ========== 좌측: 입소자 ========== */
+        .sidebar { background: var(--bg2); border-right: 1px solid var(--border); overflow-y: auto; }
+        .sb-title { padding: 12px 14px 6px; font-size: 11px; font-weight: 600; color: var(--text3); letter-spacing: 0.08em; }
+        .sb-search { margin: 0 10px 8px; padding: 7px 10px; background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 12px; width: calc(100% - 20px); outline: none; }
+        .sb-search:focus { border-color: var(--blue); }
+        .res-card {
+            padding: 10px 14px; border-bottom: 1px solid #1a1c22; cursor: pointer; transition: all .2s;
+            border-left: 3px solid transparent;
+        }
+        .res-card:hover { background: var(--bg3); }
+        .res-card.selected { background: var(--bg3); border-left-color: var(--blue); }
+        .res-card.alert-card { border-left-color: var(--red); background: rgba(239,68,68,0.05); }
+        .res-card.warn-card { border-left-color: var(--orange); }
+        .res-top { display: flex; justify-content: space-between; align-items: center; }
+        .res-name { font-size: 13px; font-weight: 600; }
+        .res-room { font-size: 11px; color: var(--text3); }
+        .res-tags { display: flex; gap: 6px; margin-top: 5px; flex-wrap: wrap; }
+        .tag { font-size: 10px; padding: 2px 7px; border-radius: 8px; font-weight: 500; }
+        .tag-ok { background: #14532d; color: #4ade80; }
+        .tag-warn { background: #713f12; color: #fbbf24; }
+        .tag-alert { background: #7f1d1d; color: #f87171; animation: blink 1s infinite; }
+        .tag-sleep { background: #1e1b4b; color: #a78bfa; }
+        .tag-loc { background: #172554; color: #60a5fa; }
+        .tag-ai { background: #3b0764; color: #c084fc; font-size: 9px; }
+        @keyframes blink { 50%{opacity:.5} }
+        .res-vitals { display: flex; gap: 10px; margin-top: 6px; font-size: 10px; color: var(--text4); }
+        .res-vitals span { display: flex; align-items: center; gap: 3px; }
+
+        /* ========== 중앙 ========== */
+        .center { display: flex; flex-direction: column; gap: 10px; padding: 10px; overflow: hidden; }
+
+        /* 평면도 */
+        .floor-wrap {
+            flex: 1; background: var(--bg2); border-radius: 10px; border: 1px solid var(--border);
+            position: relative; overflow: hidden; min-height: 0;
+        }
+        .floor-header {
+            position: absolute; top: 0; left: 0; right: 0;
+            padding: 8px 14px; display: flex; justify-content: space-between; align-items: center;
+            background: linear-gradient(180deg, var(--bg2) 60%, transparent); z-index: 10;
+        }
+        .floor-title { font-size: 12px; font-weight: 600; color: var(--text3); }
+        .floor-legend { display: flex; gap: 12px; font-size: 10px; color: var(--text4); }
+        .floor-legend span { display: flex; align-items: center; gap: 4px; }
+        .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+        .floor-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1.2fr;
+            grid-template-rows: 1fr 1fr 0.5fr;
+            gap: 2px; height: 100%; padding: 36px 8px 8px;
+        }
+        .room {
+            background: var(--bg3); border: 1px solid var(--border); border-radius: 6px;
+            position: relative; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; padding: 6px;
+            transition: all .3s;
+        }
+        .room:hover { border-color: var(--blue); background: #1e2130; }
+        .room-name { font-size: 11px; font-weight: 600; color: var(--text3); }
+        .room-sub { font-size: 9px; color: var(--text4); margin-top: 2px; }
+        .room-env { position: absolute; top: 4px; right: 6px; font-size: 9px; color: var(--text4); }
+        .room-sensors { position: absolute; bottom: 4px; left: 6px; font-size: 8px; color: var(--text4); display: flex; gap: 4px; }
+
+        /* 입소자 마커 */
+        .marker {
+            position: absolute; width: 26px; height: 26px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 10px; font-weight: 700; color: #fff; z-index: 5;
+            transition: all 2s cubic-bezier(.4,0,.2,1);
+            cursor: pointer;
+        }
+        .marker::after {
+            content: ''; position: absolute; width: 100%; height: 100%;
+            border-radius: 50%; animation: markerPulse 3s infinite;
+        }
+        .marker.m-green { background: var(--green); box-shadow: 0 0 10px rgba(34,197,94,.4); }
+        .marker.m-green::after { border: 2px solid var(--green); }
+        .marker.m-blue { background: var(--blue); box-shadow: 0 0 10px rgba(59,130,246,.4); }
+        .marker.m-blue::after { border: 2px solid var(--blue); }
+        .marker.m-orange { background: var(--orange); box-shadow: 0 0 10px rgba(245,158,11,.4); }
+        .marker.m-orange::after { border: 2px solid var(--orange); }
+        .marker.m-red { background: var(--red); box-shadow: 0 0 16px rgba(239,68,68,.6); animation: alertBounce 1s infinite; }
+        .marker.m-red::after { border: 2px solid var(--red); }
+        .marker.m-purple { background: var(--purple); box-shadow: 0 0 10px rgba(168,85,247,.4); opacity: .6; }
+        .marker.m-purple::after { border: 2px solid var(--purple); }
+        @keyframes markerPulse { 0%{transform:scale(1);opacity:.6}50%{transform:scale(1.8);opacity:0}100%{transform:scale(1);opacity:0} }
+        @keyframes alertBounce { 0%,100%{transform:scale(1)}50%{transform:scale(1.15)} }
+
+        .marker-tooltip {
+            position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+            background: var(--bg2); border: 1px solid var(--border2); border-radius: 6px;
+            padding: 6px 10px; font-size: 10px; white-space: nowrap; display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,.5); z-index: 20;
+        }
+        .marker:hover .marker-tooltip { display: block; }
+
+        /* 하단 차트 + 통계 */
+        .bottom-row { display: flex; gap: 10px; flex-shrink: 0; height: 140px; }
+        .chart-card {
+            flex: 2; background: var(--bg2); border: 1px solid var(--border);
+            border-radius: 10px; padding: 10px 14px; position: relative;
+        }
+        .chart-title { font-size: 11px; font-weight: 600; color: var(--text3); margin-bottom: 6px; }
+        .chart-area { width: 100%; height: calc(100% - 20px); }
+        canvas { width: 100% !important; height: 100% !important; }
+
+        .stats-row { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+        .mini-stat {
+            flex: 1; background: var(--bg2); border: 1px solid var(--border);
+            border-radius: 8px; padding: 8px 12px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .mini-stat-left { display: flex; align-items: center; gap: 8px; }
+        .mini-stat-icon { font-size: 16px; }
+        .mini-stat-label { font-size: 11px; color: var(--text3); }
+        .mini-stat-val { font-size: 20px; font-weight: 700; }
+        .mini-stat-val.green { color: var(--green); }
+        .mini-stat-val.blue { color: var(--blue); }
+        .mini-stat-val.orange { color: var(--orange); }
+
+        /* ========== 우측 패널 ========== */
+        .right { background: var(--bg2); border-left: 1px solid var(--border); overflow-y: auto; }
+        .rp-section { padding: 12px 14px; border-bottom: 1px solid #1a1c22; }
+        .rp-title { font-size: 11px; font-weight: 600; color: var(--text3); letter-spacing: 0.06em; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+        .rp-title .count { background: var(--red); color: #fff; font-size: 10px; padding: 1px 6px; border-radius: 8px; }
+
+        /* 알림 */
+        .alert-card {
+            padding: 8px 10px; border-radius: 6px; margin-bottom: 6px;
+            display: flex; gap: 8px; align-items: flex-start; font-size: 12px;
+        }
+        .alert-card.crit { background: rgba(239,68,68,.08); border: 1px solid rgba(239,68,68,.25); }
+        .alert-card.warn { background: rgba(245,158,11,.08); border: 1px solid rgba(245,158,11,.2); }
+        .alert-card.info { background: rgba(59,130,246,.06); border: 1px solid rgba(59,130,246,.15); }
+        .alert-card.ai-alert { background: rgba(168,85,247,.08); border: 1px solid rgba(168,85,247,.2); }
+        .a-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+        .a-body { flex: 1; }
+        .a-title { font-weight: 600; font-size: 12px; }
+        .a-desc { font-size: 10px; color: var(--text2); margin-top: 2px; line-height: 1.5; }
+        .a-time { font-size: 9px; color: var(--text4); margin-top: 3px; }
+        .a-action { margin-top: 4px; }
+        .a-btn {
+            font-size: 10px; padding: 3px 10px; border-radius: 4px; border: none;
+            cursor: pointer; font-weight: 600; margin-right: 4px;
+        }
+        .a-btn.primary { background: var(--red); color: #fff; }
+        .a-btn.secondary { background: var(--border); color: var(--text2); }
+
+        /* 환경 그리드 */
+        .env-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+        .env-card { background: var(--bg3); border-radius: 6px; padding: 10px; text-align: center; }
+        .env-val { font-size: 18px; font-weight: 700; margin-top: 2px; }
+        .env-lbl { font-size: 10px; color: var(--text3); margin-top: 2px; }
+        .env-bar { height: 3px; border-radius: 2px; background: var(--border); margin-top: 6px; overflow: hidden; }
+        .env-bar-fill { height: 100%; border-radius: 2px; transition: width 1s; }
+        .env-st { font-size: 9px; margin-top: 3px; font-weight: 500; }
+        .env-st.good { color: var(--green); }
+        .env-st.warn { color: var(--orange); }
+
+        /* 센서 배터리 */
+        .batt-list { display: flex; flex-direction: column; gap: 4px; }
+        .batt-item { display: flex; align-items: center; gap: 8px; font-size: 11px; padding: 4px 0; }
+        .batt-name { flex: 1; color: var(--text2); }
+        .batt-bar { width: 60px; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+        .batt-fill { height: 100%; border-radius: 3px; }
+        .batt-pct { font-size: 10px; min-width: 30px; text-align: right; font-weight: 600; }
+
+        /* AI 예측 */
+        .ai-card {
+            background: linear-gradient(135deg, rgba(168,85,247,.08), rgba(59,130,246,.05));
+            border: 1px solid rgba(168,85,247,.2); border-radius: 8px;
+            padding: 10px 12px; margin-bottom: 6px;
+        }
+        .ai-header { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--purple); }
+        .ai-body { font-size: 11px; color: var(--text2); margin-top: 6px; line-height: 1.6; }
+        .ai-confidence { display: flex; align-items: center; gap: 6px; margin-top: 6px; }
+        .ai-conf-bar { flex: 1; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+        .ai-conf-fill { height: 100%; background: var(--purple); border-radius: 2px; }
+        .ai-conf-pct { font-size: 10px; color: var(--purple); font-weight: 600; }
+
+        /* 로그 */
+        .log-item { padding: 5px 0; border-bottom: 1px solid #16181e; display: flex; gap: 6px; font-size: 11px; align-items: flex-start; }
+        .log-t { color: var(--text4); font-size: 10px; min-width: 36px; margin-top: 1px; }
+        .log-i { font-size: 12px; }
+        .log-c { color: var(--text2); flex: 1; }
+        .log-c strong { color: var(--text); }
+
+        /* 모달 */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,.6);
+            display: none; align-items: center; justify-content: center; z-index: 100;
+            backdrop-filter: blur(4px);
+        }
+        .modal-overlay.show { display: flex; }
+        .modal {
+            background: var(--bg2); border: 1px solid var(--border2); border-radius: 12px;
+            width: 520px; max-height: 80vh; overflow-y: auto; padding: 24px;
+        }
+        .modal-close { float: right; background: none; border: none; color: var(--text3); font-size: 18px; cursor: pointer; }
+        .modal h3 { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+        .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+        .modal-stat { background: var(--bg3); border-radius: 8px; padding: 12px; text-align: center; }
+        .modal-stat-val { font-size: 22px; font-weight: 700; }
+        .modal-stat-lbl { font-size: 11px; color: var(--text3); margin-top: 4px; }
+        .modal-section { margin-top: 16px; }
+        .modal-section-title { font-size: 12px; font-weight: 600; color: var(--text3); margin-bottom: 8px; }
+        .modal-timeline { display: flex; flex-direction: column; gap: 6px; }
+        .modal-tl-item { display: flex; gap: 10px; font-size: 12px; align-items: center; }
+        .modal-tl-time { color: var(--text4); min-width: 44px; font-size: 11px; }
+        .modal-tl-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+        .modal-tl-text { color: var(--text2); }
+
+        .demo-badge {
+            position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%);
+            background: rgba(59,130,246,.12); border: 1px solid rgba(59,130,246,.25);
+            border-radius: 16px; padding: 4px 16px; font-size: 11px; color: var(--blue); z-index: 50;
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <div class="header">
+        <div class="h-left">
+            <div class="h-logo"><span>TABSPACE</span> IoT</div>
+            <div class="h-facility">
+                <span>행복 요양원</span> · <span>3층</span> · <span>입소자 12명</span> · <span>센서 43개</span>
+            </div>
+        </div>
+        <div class="h-right">
+            <div class="h-shift">오후 근무 (14:00~22:00)</div>
+            <div class="h-status">정상 가동</div>
+            <div>
+                <div class="h-time" id="clock"></div>
+                <div class="h-date" id="dateDisplay"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main">
+        <!-- ===== 좌측: 입소자 ===== -->
+        <div class="sidebar">
+            <div class="sb-title">입소자 현황 (12명)</div>
+            <input class="sb-search" placeholder="이름 또는 호실 검색..." id="searchInput">
+            <div id="residentList"></div>
+        </div>
+
+        <!-- ===== 중앙: 평면도 + 차트 ===== -->
+        <div class="center">
+            <div class="floor-wrap">
+                <div class="floor-header">
+                    <div class="floor-title">3층 평면도 — BLE 비콘 실시간 위치 추적</div>
+                    <div class="floor-legend">
+                        <span><div class="legend-dot" style="background:var(--green)"></div>정상</span>
+                        <span><div class="legend-dot" style="background:var(--blue)"></div>이동 중</span>
+                        <span><div class="legend-dot" style="background:var(--orange)"></div>주의</span>
+                        <span><div class="legend-dot" style="background:var(--red)"></div>긴급</span>
+                        <span><div class="legend-dot" style="background:var(--purple);opacity:.6"></div>수면</span>
+                    </div>
+                </div>
+                <div class="floor-grid">
+                    <div class="room" id="r301"><div class="room-env" id="env301">24.2°C</div><div class="room-name">301호</div><div class="room-sub">김순자</div><div class="room-sensors"><span>👁</span><span>🌡</span><span>🚪</span></div></div>
+                    <div class="room" id="r302"><div class="room-env" id="env302">23.8°C</div><div class="room-name">302호</div><div class="room-sub">박영수</div><div class="room-sensors"><span>👁</span><span>🌡</span><span>🚪</span></div></div>
+                    <div class="room" id="r303"><div class="room-env" id="env303">24.0°C</div><div class="room-name">303호</div><div class="room-sub">이명희</div><div class="room-sensors"><span>👁</span><span>🌡</span><span>🚪</span></div></div>
+                    <div class="room" id="r304"><div class="room-env" id="env304">23.5°C</div><div class="room-name">304호</div><div class="room-sub">정하나</div><div class="room-sensors"><span>👁</span><span>🌡</span><span>🚪</span></div></div>
+                    <div class="room" style="grid-row:1/3" id="rCommon"><div class="room-env" id="envCommon">23.7°C · 480ppm</div><div class="room-name">식당 / 휴게실</div><div class="room-sub">공용 공간</div><div class="room-sensors"><span>👁×2</span><span>🌡</span><span>💨</span></div></div>
+                    <div class="room" id="r305"><div class="room-env" id="env305">24.1°C</div><div class="room-name">305호</div><div class="room-sub">최동호</div><div class="room-sensors"><span>👁</span><span>🌡</span><span>🚪</span></div></div>
+                    <div class="room" id="r306"><div class="room-env" id="env306">23.9°C</div><div class="room-name">306호</div><div class="room-sub">한복순</div><div class="room-sensors"><span>👁</span><span>🌡</span><span>🚪</span></div></div>
+                    <div class="room" id="r307"><div class="room-env" id="env307">23.6°C</div><div class="room-name">307호</div><div class="room-sub">오재민</div><div class="room-sensors"><span>👁</span><span>🌡</span><span>🚪</span></div></div>
+                    <div class="room" id="r308"><div class="room-env" id="env308">24.3°C</div><div class="room-name">308호</div><div class="room-sub">윤경아</div><div class="room-sensors"><span>👁</span><span>🌡</span><span>🚪</span></div></div>
+                    <div class="room" id="rLobby"><div class="room-name">로비 / 출입구</div><div class="room-sub">비콘 게이트웨이</div><div class="room-sensors"><span>🚪</span><span>📡</span></div></div>
+                    <div class="room" style="grid-column:2/5" id="rHall"><div class="room-name">복도</div><div class="room-sub">모션센서 3개 · 비상벨 2개</div><div class="room-sensors"><span>👁×3</span><span>🔘×2</span></div></div>
+                </div>
+                <!-- 마커들은 JS로 생성 -->
+            </div>
+
+            <div class="bottom-row">
+                <div class="chart-card">
+                    <div class="chart-title">24시간 활동량 (전체 모션센서 합산)</div>
+                    <div class="chart-area"><canvas id="activityChart"></canvas></div>
+                </div>
+                <div class="stats-row">
+                    <div class="mini-stat">
+                        <div class="mini-stat-left"><span class="mini-stat-icon">👥</span><span class="mini-stat-label">재원</span></div>
+                        <div class="mini-stat-val green">12<span style="font-size:11px;color:var(--text4)">/12</span></div>
+                    </div>
+                    <div class="mini-stat">
+                        <div class="mini-stat-left"><span class="mini-stat-icon">🚨</span><span class="mini-stat-label">알림</span></div>
+                        <div class="mini-stat-val orange">3<span style="font-size:11px;color:var(--text4)">건</span></div>
+                    </div>
+                    <div class="mini-stat">
+                        <div class="mini-stat-left"><span class="mini-stat-icon">⏱</span><span class="mini-stat-label">응답</span></div>
+                        <div class="mini-stat-val blue" id="responseTime">8<span style="font-size:11px;color:var(--text4)">초</span></div>
+                    </div>
+                    <div class="mini-stat">
+                        <div class="mini-stat-left"><span class="mini-stat-icon">🛡</span><span class="mini-stat-label">무사고</span></div>
+                        <div class="mini-stat-val green">47<span style="font-size:11px;color:var(--text4)">일</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 우측 패널 ===== -->
+        <div class="right">
+            <!-- 알림 -->
+            <div class="rp-section">
+                <div class="rp-title">🚨 실시간 알림 <span class="count">3</span></div>
+                <div class="alert-card crit">
+                    <div class="a-icon">🚨</div>
+                    <div class="a-body">
+                        <div class="a-title" style="color:var(--red)">낙상 의심 — 301호 김순자</div>
+                        <div class="a-desc">화장실 mmWave: 5분 이상 움직임 없음<br>마지막 활동: 14:18 (세면대 부근)</div>
+                        <div class="a-time">14:23:05</div>
+                        <div class="a-action">
+                            <button class="a-btn primary" onclick="handleAlert('confirm')">출동 확인</button>
+                            <button class="a-btn secondary" onclick="handleAlert('false')">오탐 처리</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert-card warn">
+                    <div class="a-icon">🚶</div>
+                    <div class="a-body">
+                        <div class="a-title" style="color:var(--orange)">배회 주의 — 302호 박영수</div>
+                        <div class="a-desc">복도 모션센서: 15분간 왕복 반복 (6회)</div>
+                        <div class="a-time">14:18:32 · 모니터링 중</div>
+                    </div>
+                </div>
+                <div class="alert-card info">
+                    <div class="a-icon">🌬️</div>
+                    <div class="a-body">
+                        <div class="a-title" style="color:var(--cyan)">환기 자동 가동 — 식당</div>
+                        <div class="a-desc">CO2 480ppm → 환기 시스템 ON</div>
+                        <div class="a-time">14:15:00 · 자동 처리</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI 예측 -->
+            <div class="rp-section">
+                <div class="rp-title">🤖 AI 행동 예측</div>
+                <div class="ai-card">
+                    <div class="ai-header">⚠️ 302호 박영수 — 낙상 위험 상승</div>
+                    <div class="ai-body">최근 3일간 보행 속도 15% 감소, 보폭 8cm 축소 감지. 과거 패턴 대비 낙상 위험도가 상승했습니다.</div>
+                    <div class="ai-confidence">
+                        <span style="font-size:10px;color:var(--text4)">위험도</span>
+                        <div class="ai-conf-bar"><div class="ai-conf-fill" style="width:72%"></div></div>
+                        <div class="ai-conf-pct">72%</div>
+                    </div>
+                </div>
+                <div class="ai-card">
+                    <div class="ai-header">💊 307호 오재민 — 수면 패턴 변화</div>
+                    <div class="ai-body">야간 기상 횟수 증가 (평균 1.2회→3.1회/야간). 화장실 이용 빈도 상승. 의료진 확인 권장.</div>
+                    <div class="ai-confidence">
+                        <span style="font-size:10px;color:var(--text4)">이상도</span>
+                        <div class="ai-conf-bar"><div class="ai-conf-fill" style="width:58%"></div></div>
+                        <div class="ai-conf-pct">58%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 환경 -->
+            <div class="rp-section">
+                <div class="rp-title">🌡️ 환경 (3층 평균)</div>
+                <div class="env-grid">
+                    <div class="env-card">
+                        <div style="font-size:14px">🌡️</div>
+                        <div class="env-val" style="color:var(--green)" id="avgTemp">23.9°C</div>
+                        <div class="env-lbl">실내 온도</div>
+                        <div class="env-bar"><div class="env-bar-fill" style="width:60%;background:var(--green)"></div></div>
+                        <div class="env-st good">● 쾌적 (22~26°C)</div>
+                    </div>
+                    <div class="env-card">
+                        <div style="font-size:14px">💧</div>
+                        <div class="env-val" style="color:var(--blue)" id="avgHumid">52%</div>
+                        <div class="env-lbl">습도</div>
+                        <div class="env-bar"><div class="env-bar-fill" style="width:52%;background:var(--blue)"></div></div>
+                        <div class="env-st good">● 적정 (40~60%)</div>
+                    </div>
+                    <div class="env-card">
+                        <div style="font-size:14px">💨</div>
+                        <div class="env-val" style="color:var(--orange)" id="avgCO2">480</div>
+                        <div class="env-lbl">CO2 (ppm)</div>
+                        <div class="env-bar"><div class="env-bar-fill" style="width:48%;background:var(--orange)"></div></div>
+                        <div class="env-st warn">● 환기 중</div>
+                    </div>
+                    <div class="env-card">
+                        <div style="font-size:14px">🌫️</div>
+                        <div class="env-val" style="color:var(--green)" id="avgPM">12</div>
+                        <div class="env-lbl">PM2.5</div>
+                        <div class="env-bar"><div class="env-bar-fill" style="width:12%;background:var(--green)"></div></div>
+                        <div class="env-st good">● 좋음</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 센서 배터리 -->
+            <div class="rp-section">
+                <div class="rp-title">🔋 센서 배터리 (주의 필요)</div>
+                <div class="batt-list">
+                    <div class="batt-item"><span>🚪</span><span class="batt-name">303호 도어센서</span><div class="batt-bar"><div class="batt-fill" style="width:18%;background:var(--red)"></div></div><span class="batt-pct" style="color:var(--red)">18%</span></div>
+                    <div class="batt-item"><span>👁</span><span class="batt-name">복도 모션센서 B</span><div class="batt-bar"><div class="batt-fill" style="width:25%;background:var(--orange)"></div></div><span class="batt-pct" style="color:var(--orange)">25%</span></div>
+                    <div class="batt-item"><span>📡</span><span class="batt-name">306호 비콘</span><div class="batt-bar"><div class="batt-fill" style="width:32%;background:var(--orange)"></div></div><span class="batt-pct" style="color:var(--orange)">32%</span></div>
+                </div>
+            </div>
+
+            <!-- 로그 -->
+            <div class="rp-section">
+                <div class="rp-title">📋 활동 로그</div>
+                <div id="logList"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 입소자 상세 모달 -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <h3 id="modalName"></h3>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <div class="demo-badge">TABSPACE 스마트 요양원 IoT 시연용 데모</div>
+
+<script>
+// ========== 데이터 ==========
+const residents = [
+    { id:'김순자', room:'301', status:'alert', statusText:'낙상 의심', loc:'화장실', locRoom:'r301', color:'m-red', pos:{top:'72%',left:'78%'}, age:82, care:'치매 2등급', vitals:{hr:68,bp:'138/82'}, tags:['tag-alert','tag-loc'], ai:null },
+    { id:'박영수', room:'302', status:'warn', statusText:'배회 주의', loc:'복도', locRoom:'rHall', color:'m-orange', pos:{top:'40%',left:'30%'}, age:78, care:'치매 3등급', vitals:{hr:76,bp:'125/78'}, tags:['tag-warn','tag-loc'], ai:'낙상 위험 72%' },
+    { id:'이명희', room:'303', status:'ok', statusText:'정상', loc:'본인 호실', locRoom:'r303', color:'m-green', pos:{top:'45%',left:'50%'}, age:85, care:'일반', vitals:{hr:72,bp:'130/80'}, tags:['tag-ok','tag-loc'], ai:null },
+    { id:'정하나', room:'304', status:'ok', statusText:'정상', loc:'식당', locRoom:'rCommon', color:'m-blue', pos:{top:'30%',left:'25%'}, age:79, care:'일반', vitals:{hr:70,bp:'128/76'}, tags:['tag-ok','tag-loc'], ai:null },
+    { id:'최동호', room:'305', status:'ok', statusText:'정상', loc:'본인 호실', locRoom:'r305', color:'m-green', pos:{top:'50%',left:'45%'}, age:81, care:'거동 불편', vitals:{hr:74,bp:'135/85'}, tags:['tag-ok','tag-loc'], ai:null },
+    { id:'한복순', room:'306', status:'ok', statusText:'정상', loc:'휴게실', locRoom:'rCommon', color:'m-green', pos:{top:'60%',left:'70%'}, age:77, care:'일반', vitals:{hr:68,bp:'122/74'}, tags:['tag-ok','tag-loc'], ai:null },
+    { id:'오재민', room:'307', status:'sleep', statusText:'수면 중', loc:'본인 호실', locRoom:'r307', color:'m-purple', pos:{top:'50%',left:'50%'}, age:83, care:'일반', vitals:{hr:58,bp:'118/72'}, tags:['tag-sleep','tag-loc'], ai:'수면 패턴 변화' },
+    { id:'윤경아', room:'308', status:'ok', statusText:'정상', loc:'본인 호실', locRoom:'r308', color:'m-green', pos:{top:'50%',left:'50%'}, age:76, care:'일반', vitals:{hr:70,bp:'126/78'}, tags:['tag-ok','tag-loc'], ai:null },
+    { id:'강민수', room:'309', status:'ok', statusText:'정상', loc:'식당', locRoom:'rCommon', color:'m-blue', pos:{top:'45%',left:'45%'}, age:80, care:'일반', vitals:{hr:72,bp:'130/82'}, tags:['tag-ok','tag-loc'], ai:null },
+    { id:'서영희', room:'310', status:'ok', statusText:'정상', loc:'본인 호실', locRoom:'r305', color:'m-green', pos:{top:'35%',left:'65%'}, age:84, care:'일반', vitals:{hr:66,bp:'120/74'}, tags:['tag-ok','tag-loc'], ai:null },
+    { id:'임철호', room:'311', status:'ok', statusText:'정상', loc:'복도', locRoom:'rHall', color:'m-blue', pos:{top:'45%',left:'60%'}, age:79, care:'일반', vitals:{hr:74,bp:'132/80'}, tags:['tag-ok','tag-loc'], ai:null },
+    { id:'조미란', room:'312', status:'ok', statusText:'정상', loc:'본인 호실', locRoom:'r306', color:'m-green', pos:{top:'60%',left:'35%'}, age:81, care:'일반', vitals:{hr:68,bp:'124/76'}, tags:['tag-ok','tag-loc'], ai:null },
+];
+
+const logs = [
+    {t:'14:23',i:'🚨',c:'<strong>301호</strong> 화장실 움직임 없음 감지'},
+    {t:'14:18',i:'🚶',c:'<strong>302호 박영수</strong> 복도 배회 감지 (6회)'},
+    {t:'14:15',i:'🌬️',c:'식당 <strong>환기 자동 가동</strong> (CO2 480)'},
+    {t:'14:02',i:'🚪',c:'<strong>304호 정하나</strong> 식당 입장'},
+    {t:'13:55',i:'💊',c:'<strong>307호 오재민</strong> 오후 투약 완료'},
+    {t:'13:48',i:'🌡️',c:'305호 22.1°C → <strong>난방 자동 ON</strong>'},
+    {t:'13:30',i:'👤',c:'<strong>306호 한복순</strong> 휴게실 이동'},
+    {t:'13:15',i:'🔋',c:'303호 도어센서 <strong>배터리 18%</strong>'},
+    {t:'12:50',i:'✅',c:'점심 식사 완료 — <strong>10명 참석</strong>'},
+    {t:'12:30',i:'🤖',c:'AI: 302호 <strong>보행 속도 15% 감소</strong> 감지'},
+    {t:'12:15',i:'🚪',c:'<strong>311호 임철호</strong> 외부 산책 복귀'},
+    {t:'11:50',i:'🌡️',c:'3층 평균 온도 24.1°C — <strong>정상 범위</strong>'},
+];
+
+// ========== 입소자 목록 렌더링 ==========
+function renderResidents(filter='') {
+    const list = document.getElementById('residentList');
+    list.innerHTML = '';
+    residents.filter(r => !filter || r.id.includes(filter) || r.room.includes(filter)).forEach(r => {
+        const cardClass = r.status==='alert'?'alert-card':r.status==='warn'?'warn-card':'';
+        const statusTag = r.status==='alert'?'tag-alert':r.status==='warn'?'tag-warn':r.status==='sleep'?'tag-sleep':'tag-ok';
+        const aiTag = r.ai ? `<span class="tag tag-ai">🤖 ${r.ai}</span>` : '';
+        list.innerHTML += `
+            <div class="res-card ${cardClass}" onclick="showModal('${r.id}')">
+                <div class="res-top"><div class="res-name">${r.id} 어르신</div><div class="res-room">${r.room}호</div></div>
+                <div class="res-tags">
+                    <span class="tag ${statusTag}">${r.status==='alert'?'⚠ ':''}${r.statusText}</span>
+                    <span class="tag tag-loc">${r.loc}</span>
+                    ${aiTag}
+                </div>
+                <div class="res-vitals"><span>❤️ ${r.vitals.hr}bpm</span><span>🩸 ${r.vitals.bp}</span><span>🎂 ${r.age}세</span></div>
+            </div>`;
+    });
+}
+
+// ========== 마커 렌더링 ==========
+function renderMarkers() {
+    document.querySelectorAll('.marker').forEach(m => m.remove());
+    residents.forEach(r => {
+        const room = document.getElementById(r.locRoom);
+        if (!room) return;
+        const marker = document.createElement('div');
+        marker.className = `marker ${r.color}`;
+        marker.style.top = r.pos.top;
+        marker.style.left = r.pos.left;
+        marker.textContent = r.id.charAt(0);
+        marker.onclick = () => showModal(r.id);
+        marker.innerHTML += `<div class="marker-tooltip"><strong>${r.id}</strong> · ${r.room}호<br>${r.statusText} · ${r.loc}</div>`;
+        room.appendChild(marker);
+    });
+}
+
+// ========== 로그 렌더링 ==========
+function renderLogs() {
+    const el = document.getElementById('logList');
+    el.innerHTML = logs.map(l => `<div class="log-item"><div class="log-t">${l.t}</div><div class="log-i">${l.i}</div><div class="log-c">${l.c}</div></div>`).join('');
+}
+
+// ========== 모달 ==========
+function showModal(name) {
+    const r = residents.find(x => x.id === name);
+    if (!r) return;
+    document.getElementById('modalName').textContent = `${r.id} 어르신 — ${r.room}호`;
+    document.getElementById('modalContent').innerHTML = `
+        <div class="modal-grid">
+            <div class="modal-stat"><div class="modal-stat-val" style="color:var(--green)">${r.age}세</div><div class="modal-stat-lbl">나이</div></div>
+            <div class="modal-stat"><div class="modal-stat-val" style="color:var(--blue)">${r.care}</div><div class="modal-stat-lbl">등급</div></div>
+            <div class="modal-stat"><div class="modal-stat-val" style="color:var(--red)">❤️ ${r.vitals.hr}</div><div class="modal-stat-lbl">심박수 (bpm)</div></div>
+            <div class="modal-stat"><div class="modal-stat-val" style="color:var(--orange)">🩸 ${r.vitals.bp}</div><div class="modal-stat-lbl">혈압</div></div>
+        </div>
+        <div class="modal-section">
+            <div class="modal-section-title">📍 현재 상태</div>
+            <div style="font-size:13px;color:var(--text2);line-height:1.8;">
+                위치: <strong>${r.loc}</strong> · 상태: <strong>${r.statusText}</strong>
+                ${r.ai ? `<br>🤖 AI 분석: <span style="color:var(--purple);font-weight:600">${r.ai}</span>` : ''}
+            </div>
+        </div>
+        <div class="modal-section">
+            <div class="modal-section-title">📋 오늘 활동 이력</div>
+            <div class="modal-timeline">
+                <div class="modal-tl-item"><div class="modal-tl-time">07:15</div><div class="modal-tl-dot" style="background:var(--green)"></div><div class="modal-tl-text">기상 — 침실 모션센서 활성화</div></div>
+                <div class="modal-tl-item"><div class="modal-tl-time">07:25</div><div class="modal-tl-dot" style="background:var(--blue)"></div><div class="modal-tl-text">화장실 이동 (7분 체류)</div></div>
+                <div class="modal-tl-item"><div class="modal-tl-time">08:00</div><div class="modal-tl-dot" style="background:var(--blue)"></div><div class="modal-tl-text">식당 이동 — 아침 식사</div></div>
+                <div class="modal-tl-item"><div class="modal-tl-time">08:40</div><div class="modal-tl-dot" style="background:var(--green)"></div><div class="modal-tl-text">호실 복귀</div></div>
+                <div class="modal-tl-item"><div class="modal-tl-time">10:30</div><div class="modal-tl-dot" style="background:var(--cyan)"></div><div class="modal-tl-text">프로그램실 이동 (체조)</div></div>
+                <div class="modal-tl-item"><div class="modal-tl-time">12:00</div><div class="modal-tl-dot" style="background:var(--blue)"></div><div class="modal-tl-text">식당 — 점심 식사</div></div>
+                <div class="modal-tl-item"><div class="modal-tl-time">13:30</div><div class="modal-tl-dot" style="background:var(--green)"></div><div class="modal-tl-text">호실 복귀 — 낮잠</div></div>
+            </div>
+        </div>
+    `;
+    document.getElementById('modal').classList.add('show');
+}
+function closeModal() { document.getElementById('modal').classList.remove('show'); }
+document.getElementById('modal').addEventListener('click', e => { if(e.target.classList.contains('modal-overlay')) closeModal(); });
+
+// ========== 24시간 활동 차트 (Canvas) ==========
+function drawChart() {
+    const canvas = document.getElementById('activityChart');
+    const ctx = canvas.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    canvas.style.width = rect.width + 'px';
+    canvas.style.height = rect.height + 'px';
+    ctx.scale(dpr, dpr);
+    const W = rect.width, H = rect.height;
+    const pad = {t:8,b:20,l:30,r:10};
+    const data = [2,1,1,0,0,1,3,18,35,28,22,15,30,25,20,32,28,35,40,30,18,12,8,4];
+    const now = new Date().getHours();
+    const maxVal = 45;
+    ctx.clearRect(0,0,W,H);
+    // 그리드
+    ctx.strokeStyle = '#1e2028'; ctx.lineWidth = 1;
+    for(let i=0;i<5;i++) { const y=pad.t+(H-pad.t-pad.b)*i/4; ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke(); }
+    // 바
+    const barW = (W-pad.l-pad.r)/24 - 2;
+    data.forEach((v,i) => {
+        const x = pad.l + i*(W-pad.l-pad.r)/24 + 1;
+        const h = (v/maxVal)*(H-pad.t-pad.b);
+        const y = H-pad.b-h;
+        const isNow = i === now;
+        const grad = ctx.createLinearGradient(0,y,0,H-pad.b);
+        if(isNow) { grad.addColorStop(0,'#3b82f6');grad.addColorStop(1,'#1e40af'); }
+        else if(i<6||i>21) { grad.addColorStop(0,'#312e81');grad.addColorStop(1,'#1e1b4b'); }
+        else { grad.addColorStop(0,'#1e3a5f');grad.addColorStop(1,'#172554'); }
+        ctx.fillStyle = grad;
+        ctx.beginPath();ctx.roundRect(x,y,barW,h,2);ctx.fill();
+        if(isNow) { ctx.fillStyle='#3b82f6'; ctx.beginPath();ctx.arc(x+barW/2,y-6,3,0,Math.PI*2);ctx.fill(); }
+    });
+    // X축 라벨
+    ctx.fillStyle='#52525b';ctx.font='9px Noto Sans KR';ctx.textAlign='center';
+    [0,3,6,9,12,15,18,21].forEach(h => {
+        const x = pad.l + h*(W-pad.l-pad.r)/24 + barW/2;
+        ctx.fillText(h+'시',x,H-4);
+    });
+    // Y축 라벨
+    ctx.textAlign='right';
+    [0,15,30,45].forEach((v,i) => {
+        const y = H-pad.b-(v/maxVal)*(H-pad.t-pad.b)+3;
+        ctx.fillText(v,pad.l-4,y);
+    });
+}
+
+// ========== 실시간 업데이트 ==========
+function updateClock() {
+    const now = new Date();
+    document.getElementById('clock').textContent = now.toTimeString().slice(0,8);
+    document.getElementById('dateDisplay').textContent = now.toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric',weekday:'short'});
+}
+
+function updateSensorValues() {
+    const rooms = ['301','302','303','304','305','306','307','308'];
+    rooms.forEach(r => {
+        const el = document.getElementById('env'+r);
+        if(el) { const t = (23 + Math.random()*2).toFixed(1); el.textContent = t+'°C'; }
+    });
+    const co2 = Math.floor(450 + Math.random()*80);
+    document.getElementById('envCommon').textContent = `${(23+Math.random()*1.5).toFixed(1)}°C · ${co2}ppm`;
+    document.getElementById('avgTemp').textContent = (23.5+Math.random()*1).toFixed(1)+'°C';
+    document.getElementById('avgHumid').textContent = Math.floor(48+Math.random()*8)+'%';
+    document.getElementById('avgCO2').textContent = co2;
+    document.getElementById('avgPM').textContent = Math.floor(8+Math.random()*10);
+}
+
+// 배회 애니메이션
+let wanderLeft = true;
+function animateWander() {
+    const park = residents.find(r=>r.id==='박영수');
+    if(park) {
+        const marker = document.querySelector('#rHall .marker.m-orange');
+        if(marker) { marker.style.left = wanderLeft?'70%':'20%'; wanderLeft=!wanderLeft; }
+    }
+}
+
+function handleAlert(type) {
+    if(type==='confirm') alert('간호사 출동이 확인되었습니다. 301호 김순자 어르신.');
+    else alert('오탐으로 처리되었습니다. 기록이 저장됩니다.');
+}
+
+// ========== 검색 ==========
+document.getElementById('searchInput').addEventListener('input', e => renderResidents(e.target.value));
+
+// ========== 초기화 ==========
+renderResidents();
+renderMarkers();
+renderLogs();
+updateClock();
+drawChart();
+
+setInterval(updateClock, 1000);
+setInterval(updateSensorValues, 5000);
+setInterval(animateWander, 3500);
+setInterval(() => { document.getElementById('responseTime').innerHTML = (7+Math.floor(Math.random()*4))+'<span style="font-size:11px;color:var(--text4)">초</span>'; }, 8000);
+window.addEventListener('resize', drawChart);
+</script>
+</body>
+</html>

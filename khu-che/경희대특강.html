@@ -1,0 +1,2954 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공간을 읽는 기술, IoT | 경희대 주거환경학과 특강</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #1d1d1f;
+            --gray-dark: #424245;
+            --gray: #86868b;
+            --gray-light: #d2d2d7;
+            --white: #ffffff;
+            --blue: #0071e3;
+            --blue-light: #2997ff;
+            --red: #ff3b30;
+            --green: #34c759;
+            --orange: #ff9500;
+            --purple: #af52de;
+            --bg-light: #fbfbfd;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #000;
+            color: var(--black);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .presentation {
+            width: 100vw;
+            height: 56.25vw;
+            max-height: 100vh;
+            max-width: 177.78vh;
+            position: relative;
+            background: var(--white);
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 6% 8%;
+            background: var(--white);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .slide.active { display: flex; opacity: 1; }
+
+        /* Typography */
+        .headline {
+            font-size: 5.9vw;
+            font-weight: 700;
+            color: var(--black);
+            text-align: center;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+        }
+
+        .headline-large { font-size: 7.8vw; font-weight: 800; }
+
+        .headline-gradient {
+            background: linear-gradient(90deg, var(--blue) 0%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subheadline {
+            font-size: 2.1vw;
+            font-weight: 400;
+            color: var(--gray);
+            text-align: center;
+            margin-top: 1.5vw;
+            line-height: 1.5;
+        }
+
+        .eyebrow {
+            font-size: 1.4vw;
+            font-weight: 600;
+            color: var(--blue);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1vw;
+        }
+
+        .eyebrow.red { color: var(--red); }
+        .eyebrow.green { color: var(--green); }
+
+        .stat-huge {
+            font-size: 15.6vw;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.04em;
+        }
+
+        .stat-label {
+            font-size: 2.1vw;
+            font-weight: 500;
+            color: var(--gray);
+            margin-top: 1vw;
+        }
+
+        /* Colors */
+        .text-blue { color: var(--blue); }
+        .text-red { color: var(--red); }
+        .text-green { color: var(--green); }
+        .text-orange { color: var(--orange); }
+        .text-gray { color: var(--gray); }
+
+        /* Backgrounds */
+        .bg-black {
+            background: linear-gradient(180deg, #1d1d1f 0%, #000 100%);
+            color: var(--white);
+        }
+        .bg-black .headline, .bg-black .eyebrow { color: var(--white); }
+        .bg-black .subheadline { color: var(--gray-light); }
+
+        .bg-gradient {
+            background: linear-gradient(180deg, var(--white) 0%, #f5f5f7 100%);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--white);
+            border: 1px solid var(--gray-light);
+            border-radius: 1.2vw;
+            padding: 2vw;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--blue);
+            box-shadow: 0 0.5vw 2vw rgba(0,0,0,0.08);
+        }
+
+        .card-dark {
+            background: var(--black);
+            border: none;
+            color: var(--white);
+        }
+
+        .card-blue {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%);
+            border: none;
+            color: var(--white);
+        }
+
+        .card-red {
+            background: linear-gradient(135deg, var(--red) 0%, #ff6b6b 100%);
+            border: none;
+            color: var(--white);
+        }
+
+        .card-green {
+            background: linear-gradient(135deg, var(--green) 0%, #4cd964 100%);
+            border: none;
+            color: var(--white);
+        }
+
+        .card-orange {
+            background: linear-gradient(135deg, var(--orange) 0%, #ffb340 100%);
+            border: none;
+            color: var(--white);
+        }
+
+        /* Grid Layouts */
+        .grid-row {
+            display: flex;
+            gap: 2vw;
+            margin-top: 3vw;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .grid-item {
+            flex: 1;
+            text-align: center;
+            padding: 2vw;
+            background: var(--bg-light);
+            border-radius: 1vw;
+            max-width: 22vw;
+        }
+
+        .grid-item-icon {
+            font-size: 5.2vw;
+            margin-bottom: 1vw;
+        }
+
+        .grid-item-title {
+            font-size: 2.3vw;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 0.5vw;
+        }
+
+        .grid-item-desc {
+            font-size: 1.3vw;
+            color: var(--gray);
+            line-height: 1.4;
+        }
+
+        /* Two Column */
+        .two-col {
+            display: flex;
+            gap: 4vw;
+            width: 100%;
+            align-items: stretch;
+            margin-top: 2vw;
+        }
+
+        .two-col > div { flex: 1; }
+
+        .col-left { text-align: left; }
+        .col-right { text-align: left; }
+
+        /* Quote */
+        .quote {
+            font-size: 3.6vw;
+            font-weight: 500;
+            color: var(--black);
+            text-align: center;
+            line-height: 1.4;
+            max-width: 85%;
+            position: relative;
+            padding: 0 2vw;
+        }
+
+        .quote::before, .quote::after {
+            font-size: 5.2vw;
+            color: var(--gray-light);
+            font-weight: 300;
+        }
+        .quote::before { content: '\201C'; }
+        .quote::after { content: '\201D'; }
+
+        /* Comparison */
+        .compare {
+            display: flex;
+            align-items: center;
+            gap: 3vw;
+            margin-top: 3vw;
+        }
+
+        .compare-item {
+            text-align: center;
+            padding: 2vw 3vw;
+            background: var(--bg-light);
+            border-radius: 1vw;
+        }
+
+        .compare-number {
+            font-size: 6.5vw;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .compare-label {
+            font-size: 1.4vw;
+            color: var(--gray);
+            margin-top: 0.5vw;
+        }
+
+        .compare-vs {
+            font-size: 2.3vw;
+            color: var(--gray-light);
+            font-weight: 300;
+        }
+
+        /* List */
+        .list-enhanced {
+            list-style: none;
+            width: 100%;
+            max-width: 50vw;
+        }
+
+        .list-enhanced li {
+            display: flex;
+            align-items: center;
+            gap: 1.5vw;
+            padding: 1.5vw 2vw;
+            background: var(--bg-light);
+            border-radius: 1vw;
+            margin-bottom: 1vw;
+            font-size: 2.3vw;
+            font-weight: 500;
+        }
+
+        .list-enhanced .icon {
+            font-size: 3.3vw;
+            width: 4vw;
+            text-align: center;
+        }
+
+        .list-enhanced .detail {
+            font-size: 1.7vw;
+            color: var(--gray);
+            font-weight: 400;
+            margin-left: auto;
+        }
+
+        /* Flow */
+        .flow {
+            display: flex;
+            align-items: center;
+            gap: 1vw;
+            margin-top: 2.5vw;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .flow-item {
+            font-size: 1.6vw;
+            font-weight: 500;
+            color: var(--gray-dark);
+            padding: 1vw 1.8vw;
+            background: var(--bg-light);
+            border-radius: 0.8vw;
+        }
+
+        .flow-arrow {
+            font-size: 1.6vw;
+            color: var(--gray-light);
+        }
+
+        .flow-item.highlight {
+            background: var(--red);
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        /* Key Point */
+        .key-point {
+            background: var(--black);
+            color: var(--white);
+            padding: 1.8vw 3.5vw;
+            border-radius: 1vw;
+            margin-top: 2.5vw;
+            text-align: center;
+            font-size: 2.3vw;
+            font-weight: 500;
+        }
+
+        .key-point.red { background: var(--red); }
+        .key-point.green { background: var(--green); }
+        .key-point.blue { background: var(--blue); }
+
+        /* Pills */
+        .pills {
+            display: flex;
+            gap: 0.8vw;
+            margin-top: 2vw;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .pill {
+            font-size: 1.3vw;
+            font-weight: 500;
+            padding: 0.6vw 1.4vw;
+            border-radius: 5vw;
+            background: var(--bg-light);
+            color: var(--gray-dark);
+            border: 1px solid var(--gray-light);
+        }
+
+        .pill.blue { background: var(--blue); color: var(--white); border: none; }
+        .pill.green { background: var(--green); color: var(--white); border: none; }
+        .pill.red { background: var(--red); color: var(--white); border: none; }
+        .pill.orange { background: var(--orange); color: var(--white); border: none; }
+        .pill.purple { background: var(--purple); color: var(--white); border: none; }
+
+        /* Section */
+        .section-number {
+            font-size: 7.8vw;
+            font-weight: 800;
+            color: var(--gray-light);
+            line-height: 1;
+        }
+
+        .section-title {
+            font-size: 4.5vw;
+            font-weight: 700;
+            color: var(--black);
+            margin-top: 1vw;
+        }
+
+        .section-desc {
+            font-size: 1.8vw;
+            color: var(--gray);
+            margin-top: 1vw;
+        }
+
+        /* Message Box */
+        .message-box {
+            font-size: 2.6vw;
+            font-weight: 600;
+            color: var(--black);
+            padding: 1.8vw 3vw;
+            background: var(--bg-light);
+            border-radius: 1vw;
+            text-align: center;
+        }
+
+        .message-box.green { background: #e8f5e9; color: var(--green); }
+        .message-box.red { background: #ffebee; color: var(--red); }
+
+        /* Diagram */
+        .diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1vw;
+            margin-top: 2vw;
+        }
+
+        .diagram-box {
+            font-size: 1.6vw;
+            font-weight: 500;
+            padding: 1.2vw 2.5vw;
+            background: var(--black);
+            color: var(--white);
+            border-radius: 0.6vw;
+        }
+
+        .diagram-box.outline {
+            background: transparent;
+            border: 2px solid var(--gray-light);
+            color: var(--black);
+        }
+
+        .diagram-arrow {
+            font-size: 2vw;
+            color: var(--gray);
+        }
+
+        .diagram-row {
+            display: flex;
+            gap: 1vw;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* Stats Row */
+        .stats-row {
+            display: flex;
+            gap: 3vw;
+            margin-top: 2vw;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3.9vw;
+            font-weight: 800;
+            color: var(--blue);
+        }
+
+        .stat-text {
+            font-size: 1.3vw;
+            color: var(--gray);
+            margin-top: 0.3vw;
+        }
+
+        /* Navigation */
+        .nav-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 1000;
+            background: rgba(0,0,0,0.85);
+            padding: 8px 16px;
+            border-radius: 50px;
+            backdrop-filter: blur(20px);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--white);
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover { background: rgba(255,255,255,0.2); }
+
+        .slide-counter {
+            color: var(--gray);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+        }
+
+        .presentation:fullscreen .nav-controls { display: none; }
+
+        /* Warning Box */
+        .warning-box {
+            display: flex;
+            align-items: center;
+            gap: 1.5vw;
+            padding: 1.5vw 2vw;
+            background: #fff3e0;
+            border-left: 4px solid var(--orange);
+            border-radius: 0.5vw;
+            margin-top: 2vw;
+        }
+
+        .warning-box .icon { font-size: 4.5vw; }
+        .warning-box .text { font-size: 2.1vw; color: var(--black); }
+
+        .warning-box.red-bg {
+            background: #ffebee;
+            border-left-color: var(--red);
+        }
+
+        /* ===== 슬라이드 진입 애니메이션 ===== */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(2vw); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .slide.active .headline,
+        .slide.active .headline-large {
+            animation: fadeUp 0.6s ease-out both;
+        }
+
+        .slide.active .subheadline,
+        .slide.active .eyebrow {
+            animation: fadeUp 0.6s ease-out 0.1s both;
+        }
+
+        .slide.active .grid-row,
+        .slide.active .two-col,
+        .slide.active .compare,
+        .slide.active .flow,
+        .slide.active .diagram,
+        .slide.active .architecture,
+        .slide.active .timeline,
+        .slide.active .scenario-flow,
+        .slide.active .sensor-grid,
+        .slide.active .scenario-table,
+        .slide.active .compare-table {
+            animation: fadeUp 0.6s ease-out 0.2s both;
+        }
+
+        .slide.active .key-point,
+        .slide.active .message-box,
+        .slide.active .warning-box,
+        .slide.active .stats-row,
+        .slide.active .pills {
+            animation: fadeUp 0.5s ease-out 0.35s both;
+        }
+
+        .slide.active .quote {
+            animation: fadeIn 0.8s ease-out 0.15s both;
+        }
+
+        .slide.active .section-number {
+            animation: fadeIn 0.5s ease-out both;
+        }
+
+        .slide.active .section-title {
+            animation: fadeUp 0.6s ease-out 0.15s both;
+        }
+
+        .slide.active .section-desc {
+            animation: fadeUp 0.6s ease-out 0.25s both;
+        }
+
+        .slide.active .stat-huge {
+            animation: fadeUp 0.7s ease-out both;
+        }
+
+        /* ===== 프로그레스 바 ===== */
+        .progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--blue), var(--purple));
+            transition: width 0.4s ease;
+            z-index: 100;
+        }
+
+        /* ===== 새로 추가: 히트맵/다이어그램 CSS ===== */
+
+        /* 히트맵 범례 */
+        .heatmap-legend {
+            display: flex;
+            align-items: center;
+            gap: 1vw;
+            margin-top: 1.5vw;
+        }
+        .heatmap-legend .bar {
+            width: 20vw;
+            height: 1.5vw;
+            border-radius: 0.8vw;
+            background: linear-gradient(90deg, #2997ff 0%, #34c759 25%, #ff9500 60%, #ff3b30 100%);
+        }
+        .heatmap-legend .label {
+            font-size: 1.2vw;
+            color: var(--gray);
+        }
+
+        /* 평면도 히트맵 */
+        .floor-plan {
+            display: grid;
+            gap: 3px;
+            background: var(--gray-light);
+            border-radius: 1vw;
+            overflow: hidden;
+            position: relative;
+            padding: 3px;
+        }
+
+        .floor-room {
+            background: var(--white);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 0.3vw;
+        }
+
+        .floor-room .room-name {
+            font-size: 1.4vw;
+            font-weight: 600;
+            color: var(--black);
+            z-index: 2;
+            position: relative;
+        }
+
+        .floor-room .room-stat {
+            font-size: 1vw;
+            color: var(--gray-dark);
+            z-index: 2;
+            position: relative;
+            margin-top: 0.3vw;
+        }
+
+        .floor-room .heat-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+            opacity: 0.35;
+        }
+
+        /* 타임라인 */
+        .timeline {
+            display: flex;
+            width: 100%;
+            margin-top: 2vw;
+            gap: 0;
+        }
+
+        .timeline-item {
+            flex: 1;
+            text-align: center;
+            padding: 1.5vw 1vw;
+            position: relative;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 2px;
+            height: 100%;
+            background: var(--gray-light);
+        }
+
+        .timeline-item:last-child::after { display: none; }
+
+        .timeline-time {
+            font-size: 1.3vw;
+            font-weight: 700;
+            color: var(--blue);
+        }
+
+        .timeline-label {
+            font-size: 1.6vw;
+            font-weight: 600;
+            color: var(--black);
+            margin-top: 0.5vw;
+        }
+
+        .timeline-desc {
+            font-size: 1.1vw;
+            color: var(--gray);
+            margin-top: 0.5vw;
+            line-height: 1.4;
+        }
+
+        /* 비교표 */
+        .compare-table {
+            width: 100%;
+            margin-top: 2vw;
+            border-collapse: separate;
+            border-spacing: 0.5vw;
+        }
+
+        .compare-table th {
+            font-size: 1.4vw;
+            font-weight: 700;
+            padding: 1.2vw 1.5vw;
+            background: var(--black);
+            color: var(--white);
+            border-radius: 0.5vw;
+            text-align: center;
+        }
+
+        .compare-table td {
+            font-size: 1.3vw;
+            font-weight: 400;
+            padding: 1vw 1.5vw;
+            background: var(--bg-light);
+            border-radius: 0.5vw;
+            text-align: center;
+            color: var(--gray-dark);
+        }
+
+        .compare-table td.highlight-cell {
+            background: #e3f2fd;
+            color: var(--blue);
+            font-weight: 600;
+        }
+
+        /* 시나리오 흐름도 */
+        .scenario-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5vw;
+            margin-top: 1.5vw;
+            width: 100%;
+        }
+
+        .scenario-row {
+            display: flex;
+            align-items: center;
+            gap: 1vw;
+            padding: 1.2vw 1.5vw;
+            background: var(--bg-light);
+            border-radius: 0.8vw;
+        }
+
+        .scenario-row .s-icon {
+            font-size: 2.6vw;
+            width: 3.5vw;
+            text-align: center;
+        }
+
+        .scenario-row .s-label {
+            font-size: 1.4vw;
+            font-weight: 600;
+            color: var(--black);
+            min-width: 6vw;
+        }
+
+        .scenario-row .s-flow {
+            display: flex;
+            align-items: center;
+            gap: 0.8vw;
+            flex: 1;
+        }
+
+        .scenario-row .s-step {
+            font-size: 1.2vw;
+            padding: 0.6vw 1.2vw;
+            background: var(--white);
+            border: 1px solid var(--gray-light);
+            border-radius: 0.5vw;
+            color: var(--gray-dark);
+        }
+
+        .scenario-row .s-step.action {
+            background: var(--blue);
+            border-color: var(--blue);
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .scenario-row .s-step.alert {
+            background: var(--red);
+            border-color: var(--red);
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .scenario-row .s-arrow {
+            color: var(--gray-light);
+            font-size: 1.2vw;
+        }
+
+        /* 아키텍처 다이어그램 */
+        .architecture {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.2vw;
+            margin-top: 2vw;
+            width: 100%;
+        }
+
+        .arch-layer {
+            display: flex;
+            gap: 1vw;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .arch-box {
+            font-size: 1.3vw;
+            font-weight: 500;
+            padding: 1vw 2vw;
+            border-radius: 0.6vw;
+            text-align: center;
+        }
+
+        .arch-box.sensor { background: #e3f2fd; color: var(--blue); border: 1px solid var(--blue); }
+        .arch-box.gateway { background: var(--blue); color: var(--white); }
+        .arch-box.server { background: var(--black); color: var(--white); }
+        .arch-box.app { background: #e8f5e9; color: var(--green); border: 1px solid var(--green); }
+
+        .arch-label {
+            font-size: 1.1vw;
+            color: var(--gray);
+            font-weight: 600;
+            letter-spacing: 0.1em;
+        }
+
+        .arch-arrow {
+            font-size: 1.8vw;
+            color: var(--gray-light);
+        }
+
+        /* 카페 좌석 히트맵 */
+        .cafe-plan {
+            display: grid;
+            gap: 0.8vw;
+            margin-top: 1.5vw;
+        }
+
+        .cafe-seat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1vw;
+            border-radius: 0.6vw;
+            position: relative;
+        }
+
+        .cafe-seat .seat-label {
+            font-size: 1.2vw;
+            font-weight: 600;
+            z-index: 2;
+            position: relative;
+        }
+
+        .cafe-seat .seat-rate {
+            font-size: 1vw;
+            z-index: 2;
+            position: relative;
+            margin-top: 0.2vw;
+        }
+
+        /* 센서 그리드 (6개) */
+        .sensor-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5vw;
+            margin-top: 2.5vw;
+            width: 100%;
+            max-width: 70vw;
+        }
+
+        .sensor-card {
+            text-align: center;
+            padding: 1.8vw 1.2vw;
+            background: var(--bg-light);
+            border-radius: 1vw;
+        }
+
+        .sensor-card .s-icon { font-size: 3.5vw; margin-bottom: 0.5vw; }
+        .sensor-card .s-name { font-size: 1.6vw; font-weight: 600; color: var(--black); }
+        .sensor-card .s-use { font-size: 1.1vw; color: var(--gray); margin-top: 0.3vw; line-height: 1.4; }
+
+        /* 공간 유형별 시나리오 표 */
+        .scenario-table {
+            width: 100%;
+            max-width: 75vw;
+            margin-top: 2vw;
+            border-collapse: separate;
+            border-spacing: 0.4vw;
+        }
+
+        .scenario-table th {
+            font-size: 1.3vw;
+            font-weight: 700;
+            padding: 1vw 1.2vw;
+            background: var(--black);
+            color: var(--white);
+            border-radius: 0.4vw;
+            text-align: center;
+        }
+
+        .scenario-table td {
+            font-size: 1.1vw;
+            padding: 0.8vw 1vw;
+            background: var(--bg-light);
+            border-radius: 0.4vw;
+            text-align: center;
+            color: var(--gray-dark);
+            line-height: 1.4;
+        }
+
+        .scenario-table td.active-cell {
+            background: #e3f2fd;
+            color: var(--blue);
+            font-weight: 500;
+        }
+
+        /* 리스트 확장 - 넓은 버전 */
+        .list-enhanced.wide {
+            max-width: 65vw;
+        }
+
+        .list-enhanced.wide li {
+            font-size: 2vw;
+        }
+
+        .list-enhanced.wide .detail {
+            font-size: 1.4vw;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation" id="presentation">
+        <div class="progress-bar" id="progressBar" style="width: 2.63%;"></div>
+
+        <!-- ==================== 도입부 (1~3) ==================== -->
+
+        <!-- 슬라이드 1: 타이틀 -->
+        <div class="slide bg-black active" data-slide="1">
+            <div class="eyebrow" style="color: var(--gray-light); letter-spacing: 0.2em;">TABSPACE × 경희대 주거환경학과</div>
+            <h1 class="headline headline-large" style="color: var(--white); margin-top: 1vw;">
+                공간을 읽는 기술,<br>
+                <span class="headline-gradient">IoT</span>
+            </h1>
+            <p class="subheadline" style="font-size: 2.9vw; margin-top: 5vw;">스마트 공간 설계의 현장과 데이터</p>
+        </div>
+
+        <!-- 슬라이드 2: 자기소개 -->
+        <div class="slide" data-slide="2">
+            <div class="eyebrow">ABOUT TABSPACE</div>
+            <h2 class="headline" style="font-size: 5vw;">TABSPACE</h2>
+            <p class="subheadline">IoT 공간 솔루션 전문 — 200개+ 프로젝트 구축 경험</p>
+            <div class="grid-row" style="margin-top: 3vw;">
+                <div class="grid-item">
+                    <div class="grid-item-icon">🏠</div>
+                    <div class="grid-item-title">주거 공간</div>
+                    <div class="grid-item-desc">아파트, 빌라, 단독주택<br>일반 가정의 스마트화</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-icon">☕</div>
+                    <div class="grid-item-title">상업 공간</div>
+                    <div class="grid-item-desc">카페, 음식점, 소매점<br>매장 자동화 솔루션</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-icon">⚡</div>
+                    <div class="grid-item-title">산업 시설</div>
+                    <div class="grid-item-desc">공장, 발전소, 연구소<br>IoT 모니터링 시스템</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-icon">🏛️</div>
+                    <div class="grid-item-title">공공 시설</div>
+                    <div class="grid-item-desc">복지/요양원, 스마트쉘터<br>공공 인프라 연동</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 3: 오늘의 주제 3가지 -->
+        <div class="slide" data-slide="3">
+            <div class="eyebrow">TODAY'S TOPICS</div>
+            <h2 class="headline" style="font-size: 4.6vw;">오늘 함께 나눌 3가지 이야기</h2>
+            <div class="grid-row" style="margin-top: 3vw;">
+                <div class="card card-blue" style="flex: 1; text-align: center; padding: 2.5vw;">
+                    <div style="font-size: 4vw; margin-bottom: 1vw;">🔬</div>
+                    <div style="font-size: 2vw; font-weight: 700;">센서 종류 및 설계 전략</div>
+                    <div style="font-size: 1.3vw; margin-top: 0.8vw; opacity: 0.9;">공간이 스마트해지려면<br>무엇이 필요한가</div>
+                </div>
+                <div class="card card-green" style="flex: 1; text-align: center; padding: 2.5vw;">
+                    <div style="font-size: 4vw; margin-bottom: 1vw;">📊</div>
+                    <div style="font-size: 2vw; font-weight: 700;">히트맵 기반 행동 분석</div>
+                    <div style="font-size: 1.3vw; margin-top: 0.8vw; opacity: 0.9;">데이터가 말하는<br>공간 사용법</div>
+                </div>
+                <div class="card card-orange" style="flex: 1; text-align: center; padding: 2.5vw;">
+                    <div style="font-size: 4vw; margin-bottom: 1vw;">🤝</div>
+                    <div style="font-size: 2vw; font-weight: 700;">요양복지시설 IoT 설계</div>
+                    <div style="font-size: 1.3vw; margin-top: 0.8vw; opacity: 0.9;">기술이 따뜻해지는 순간</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== 주제 1: 센서 (4~15) ==================== -->
+
+        <!-- 슬라이드 4: 섹션 제목 -->
+        <div class="slide bg-gradient" data-slide="4">
+            <div class="section-number">01</div>
+            <div class="section-title">공간이 스마트해지려면</div>
+            <div class="section-desc">센서는 공간의 감각기관입니다</div>
+        </div>
+
+        <!-- 슬라이드 5: 스마트 공간이란? -->
+        <div class="slide" data-slide="5">
+            <div class="eyebrow">FIELD PERSPECTIVE</div>
+            <h2 class="headline" style="font-size: 4.6vw;">스마트 공간이란?</h2>
+            <p class="subheadline" style="font-size: 1.6vw; margin-top: 1vw;">잠깐 — 오늘 아침에 스위치를 몇 번 누르셨나요?</p>
+            <div class="quote" style="margin-top: 2vw; font-size: 2.6vw; max-width: 90%;">
+                공간이 사용자를 인지하고, 스스로 반응하는 것
+            </div>
+            <div class="compare" style="margin-top: 2.5vw;">
+                <div class="compare-item" style="background: #ffebee; padding: 2vw 4vw;">
+                    <div style="font-size: 3vw; font-weight: 700; color: var(--red);">수동적 공간</div>
+                    <div class="compare-label" style="margin-top: 0.5vw;">하루 평균 35번의 수동 조작</div>
+                </div>
+                <div class="compare-vs">→</div>
+                <div class="compare-item" style="background: #e8f5e9; padding: 2vw 4vw;">
+                    <div style="font-size: 3vw; font-weight: 700; color: var(--green);">능동적 공간</div>
+                    <div class="compare-label" style="margin-top: 0.5vw;">조작 횟수 85% 감소</div>
+                </div>
+            </div>
+            <p style="font-size: 1vw; color: var(--gray); margin-top: 1.5vw; text-align: center;">※ 30평 아파트 2인 가구 기준 — 조명 ~20회, 온도 ~5회, 환기 ~7회, 출입 ~3회 (TABSPACE 내부 측정)</p>
+        </div>
+
+        <!-- 슬라이드 6: 센서 종류 총정리 -->
+        <div class="slide" data-slide="6">
+            <div class="eyebrow">SENSOR OVERVIEW</div>
+            <h2 class="headline" style="font-size: 4.6vw;">센서 종류 총정리</h2>
+            <div class="sensor-grid">
+                <div class="sensor-card">
+                    <div class="s-icon">👁️</div>
+                    <div class="s-name">모션 센서</div>
+                    <div class="s-use">PIR / mmWave<br>재실 감지, 동선 파악</div>
+                </div>
+                <div class="sensor-card">
+                    <div class="s-icon">🚪</div>
+                    <div class="s-name">도어 센서</div>
+                    <div class="s-use">자석 감지 방식<br>출입·개폐 감지</div>
+                </div>
+                <div class="sensor-card">
+                    <div class="s-icon">🌡️</div>
+                    <div class="s-name">온습도 센서</div>
+                    <div class="s-use">실내 환경 쾌적성<br>냉난방 자동화</div>
+                </div>
+                <div class="sensor-card">
+                    <div class="s-icon">☀️</div>
+                    <div class="s-name">조도 센서</div>
+                    <div class="s-use">빛의 밝기 측정<br>조명 자동 제어</div>
+                </div>
+                <div class="sensor-card">
+                    <div class="s-icon">💨</div>
+                    <div class="s-name">공기질 센서</div>
+                    <div class="s-use">CO2 / PM2.5<br>환기 자동화</div>
+                </div>
+                <div class="sensor-card">
+                    <div class="s-icon">🔌</div>
+                    <div class="s-name">전력 센서</div>
+                    <div class="s-use">스마트 플러그<br>전력 사용량 측정</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 7: 모션센서 -->
+        <div class="slide" data-slide="7">
+            <div class="eyebrow">MOTION SENSOR</div>
+            <h2 class="headline" style="font-size: 4.2vw;">모션센서 — 재실 감지의 핵심</h2>
+            <div style="display: flex; gap: 3vw; justify-content: center; align-items: center; margin-top: 1.5vw;">
+                <div style="text-align: center;">
+                    <img src="img/PIR센서.jpg" alt="PIR 모션센서" style="max-width: 8vw; max-height: 8vw; border-radius: 0.8vw; box-shadow: 0 0.3vw 1vw rgba(0,0,0,0.1);">
+                    <div style="font-size: 1vw; color: var(--gray); margin-top: 0.3vw; font-weight: 600;">PIR (적외선)</div>
+                </div>
+                <div style="text-align: center;">
+                    <img src="img/mmWave센서.png" alt="mmWave 레이더센서" style="max-width: 8vw; max-height: 8vw; border-radius: 0.8vw; box-shadow: 0 0.3vw 1vw rgba(0,0,0,0.1);">
+                    <div style="font-size: 1vw; color: var(--gray); margin-top: 0.3vw; font-weight: 600;">mmWave (레이더)</div>
+                </div>
+            </div>
+            <div class="two-col" style="margin-top: 1vw;">
+                <div class="card" style="padding: 2vw;">
+                    <div style="font-size: 1.8vw; font-weight: 700; color: var(--blue); margin-bottom: 0.8vw;">👁️ PIR vs mmWave</div>
+                    <div style="font-size: 1.3vw; color: var(--gray-dark); line-height: 1.8;">
+                        <strong>PIR</strong>: 적외선 열 감지 / 120° 부채꼴 / ₩3,000~<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;→ 움직임만 감지, 정지 시 OFF<br>
+                        <strong>mmWave</strong>: 밀리미터파 레이더 / ₩15,000~<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;→ 호흡까지 감지, 정지 상태도 OK<br><br>
+                        <span style="color: var(--red); font-weight: 600;">⚠️ 설치 높이 2.2~2.4m가 골든존<br>10cm 차이로 감지 실패율 40% 변동</span>
+                    </div>
+                </div>
+                <div class="card card-blue" style="padding: 2.5vw;">
+                    <div style="font-size: 2vw; font-weight: 700; margin-bottom: 1vw;">현장 인사이트</div>
+                    <div style="font-size: 1.3vw; line-height: 1.8; opacity: 0.95;">
+                        🏠 거실/복도 → PIR 충분 (움직임 기반)<br>
+                        🚿 화장실 → mmWave 필수 (정지 감지)<br>
+                        👴 고령자 낙상 감지 → mmWave 유일한 선택<br>
+                        📊 200개 현장 기준 PIR:mmWave = 7:3 비율
+                    </div>
+                </div>
+            </div>
+            <div class="warning-box" style="margin-top: 1.5vw;">
+                <div class="icon">😅</div>
+                <div class="text">"보기 싫다고 가리시면..." — 고객이 센서 위에 조화를 올려놓으셔서 3개월간 데이터가 0. 센서는 시야가 생명입니다.</div>
+            </div>
+        </div>
+
+        <!-- 모션센서 응용 -->
+        <div class="slide" data-slide="7-app">
+            <div class="eyebrow">MOTION SENSOR — APPLICATIONS</div>
+            <h2 class="headline" style="font-size: 3.6vw;">모션센서 응용 자동화</h2>
+            <div class="grid-row" style="margin-top: 2vw; gap: 1.2vw;">
+                <div class="card" style="flex: 1; padding: 1.8vw; border-left: 4px solid var(--blue);">
+                    <div style="font-size: 1.6vw; font-weight: 700; color: var(--blue);">💡 재실 기반 조명</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">방에 들어가면 자동 점등<br>5분 부재 시 자동 소등 (에너지 23%↓)</div>
+                </div>
+                <div class="card" style="flex: 1; padding: 1.8vw; border-left: 4px solid var(--green);">
+                    <div style="font-size: 1.6vw; font-weight: 700; color: var(--green);">🌬️ 에어컨 방향 전환</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">mmWave로 사람 위치 감지 →<br>에어컨 바람 방향 자동 추적</div>
+                </div>
+                <div class="card" style="flex: 1; padding: 1.8vw; border-left: 4px solid var(--purple);">
+                    <div style="font-size: 1.6vw; font-weight: 700; color: var(--purple);">😴 수면 감지 자동화</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">mmWave 호흡 패턴 감지 →<br>조명 서서히 OFF + 에어컨 수면모드</div>
+                </div>
+                <div class="card" style="flex: 1; padding: 1.8vw; border-left: 4px solid var(--red);">
+                    <div style="font-size: 1.6vw; font-weight: 700; color: var(--red);">🏠 빈 방 자동 절전</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">전 방 모션센서 연동 →<br>비어있는 방 조명·난방 자동 차단</div>
+                </div>
+            </div>
+            <div class="key-point blue" style="margin-top: 1.5vw; font-size: 1.4vw;">
+                모션센서 하나로: 조명 자동화 + 냉난방 최적화 + 수면 관리 + 에너지 절감 — 가장 활용도 높은 센서
+            </div>
+        </div>
+
+        <!-- 슬라이드 9: 환경 센서 -->
+        <div class="slide" data-slide="9">
+            <div class="eyebrow">ENVIRONMENTAL SENSOR</div>
+            <h2 class="headline" style="font-size: 4.2vw;">환경 센서 — 보이지 않는 것을 측정</h2>
+            <div style="display: flex; gap: 3vw; justify-content: center; align-items: center; margin-top: 1vw;">
+                <div style="text-align: center;">
+                    <img src="img/온습도센서.jpg" alt="온습도센서" style="max-width: 6vw; max-height: 6vw; border-radius: 0.8vw; box-shadow: 0 0.3vw 1vw rgba(0,0,0,0.1);">
+                    <div style="font-size: 0.9vw; color: var(--gray); margin-top: 0.3vw;">온습도</div>
+                </div>
+                <div style="text-align: center;">
+                    <img src="img/공기질센서.jpg" alt="CO2센서" style="max-width: 6vw; max-height: 6vw; border-radius: 0.8vw; box-shadow: 0 0.3vw 1vw rgba(0,0,0,0.1);">
+                    <div style="font-size: 0.9vw; color: var(--gray); margin-top: 0.3vw;">CO2</div>
+                </div>
+                <div style="text-align: center;">
+                    <img src="img/PM25센서.jpg" alt="TVOC센서" style="max-width: 6vw; max-height: 6vw; border-radius: 0.8vw; box-shadow: 0 0.3vw 1vw rgba(0,0,0,0.1);">
+                    <div style="font-size: 0.9vw; color: var(--gray); margin-top: 0.3vw;">TVOC / PM2.5</div>
+                </div>
+            </div>
+            <div class="grid-row" style="margin-top: 1vw;">
+                <div class="card" style="flex: 1; text-align: center; padding: 2vw;">
+                    <div style="font-size: 3.5vw; margin-bottom: 0.5vw;">🌡️</div>
+                    <div style="font-size: 1.8vw; font-weight: 600;">온습도</div>
+                    <div style="font-size: 1.2vw; color: var(--gray); margin-top: 0.5vw;">쾌적 범위: 22~26°C<br>습도 40~60%</div>
+                </div>
+                <div class="card" style="flex: 1; text-align: center; padding: 2vw;">
+                    <div style="font-size: 3.5vw; margin-bottom: 0.5vw;">💨</div>
+                    <div style="font-size: 1.8vw; font-weight: 600;">CO2</div>
+                    <div style="font-size: 1.2vw; color: var(--gray); margin-top: 0.5vw;">1000ppm 이상 시<br>집중력 저하, 졸음</div>
+                </div>
+                <div class="card" style="flex: 1; text-align: center; padding: 2vw;">
+                    <div style="font-size: 3.5vw; margin-bottom: 0.5vw;">🌫️</div>
+                    <div style="font-size: 1.8vw; font-weight: 600;">PM2.5</div>
+                    <div style="font-size: 1.2vw; color: var(--gray); margin-top: 0.5vw;">초미세먼지<br>호흡기 건강 지표</div>
+                </div>
+            </div>
+            <div class="flow" style="margin-top: 2vw;">
+                <div class="flow-item">환경 데이터 수집</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">임계값 판단</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item" style="background: var(--blue); color: var(--white); font-weight: 600;">환기 자동화</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item" style="background: var(--green); color: var(--white); font-weight: 600;">쾌적성 향상</div>
+            </div>
+            <p class="subheadline" style="font-size: 1.5vw; margin-top: 1.5vw;">고객 불만 1위는 온도(38%), 2위는 습도(27%), 3위는 냄새(CO2, 22%) — 이 세 가지만 잡으면 민원의 87%가 사라집니다</p>
+        </div>
+
+        <!-- 환경센서 응용 -->
+        <div class="slide" data-slide="9-app">
+            <div class="eyebrow">ENVIRONMENTAL — APPLICATIONS</div>
+            <h2 class="headline" style="font-size: 3.6vw;">환경센서 응용 자동화</h2>
+            <div class="grid-row" style="margin-top: 2vw; gap: 1.2vw;">
+                <div class="card" style="flex: 1; padding: 1.8vw; border-left: 4px solid var(--green);">
+                    <div style="font-size: 1.6vw; font-weight: 700; color: var(--green);">🌡️ 존별 냉난방</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">방마다 온습도 센서 → 거실 26°C,<br>안방 24°C 독립 제어</div>
+                </div>
+                <div class="card" style="flex: 1; padding: 1.8vw; border-left: 4px solid var(--blue);">
+                    <div style="font-size: 1.6vw; font-weight: 700; color: var(--blue);">💧 결로 방지</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">습도 70% + 외벽 온도차 감지 →<br>제습기 자동 ON (겨울철 필수)</div>
+                </div>
+                <div class="card" style="flex: 1; padding: 1.8vw; border-left: 4px solid var(--orange);">
+                    <div style="font-size: 1.6vw; font-weight: 700; color: var(--orange);">🌱 식물 관리</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">습도 40% 이하 →<br>가습기 자동 가동 + 식물 관수</div>
+                </div>
+                <div class="card" style="flex: 1; padding: 1.8vw; border-left: 4px solid var(--red);">
+                    <div style="font-size: 1.6vw; font-weight: 700; color: var(--red);">🔥 보일러 예열</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">퇴근 30분 전 온도 확인 →<br>18°C 이하면 보일러 자동 ON</div>
+                </div>
+            </div>
+            <div class="key-point green" style="margin-top: 1.5vw; font-size: 1.4vw;">
+                환경센서 하나로: 쾌적함(온도) + 건강(습도) + 에너지 절감(불필요 냉난방 차단) 동시 해결
+            </div>
+        </div>
+
+        <!-- 슬라이드 9-A: 도어센서 -->
+        <div class="slide" data-slide="9-A">
+            <div class="eyebrow">DOOR SENSOR</div>
+            <h2 class="headline" style="font-size: 4.2vw;">도어센서 — 가장 정직한 데이터</h2>
+            <div style="text-align: center; margin-top: 1vw;">
+                <img src="img/도어센서_aqara.jpg" alt="Aqara 도어센서" style="max-width: 10vw; max-height: 8vw; border-radius: 0.8vw; box-shadow: 0 0.3vw 1vw rgba(0,0,0,0.1);">
+            </div>
+            <div class="two-col" style="margin-top: 1vw;">
+                <div class="card" style="padding: 2.5vw;">
+                    <div style="font-size: 2vw; font-weight: 700; color: var(--blue); margin-bottom: 1vw;">🚪 자석 감지 방식</div>
+                    <div style="font-size: 1.3vw; color: var(--gray-dark); line-height: 1.8;">
+                        문이 열리면 ON, 닫히면 OFF<br>
+                        가장 단순하지만 <strong>가장 확실한 데이터</strong><br>
+                        ₩5,000~15,000 / 배터리 1~2년<br><br>
+                        <span style="color: var(--blue); font-weight: 600;">설치 위치: 현관, 화장실, 냉장고, 창문</span>
+                    </div>
+                </div>
+                <div class="card card-blue" style="padding: 2.5vw;">
+                    <div style="font-size: 2vw; font-weight: 700; margin-bottom: 1vw;">현장 인사이트</div>
+                    <div style="font-size: 1.3vw; line-height: 1.8; opacity: 0.95;">
+                        🏠 현관 도어센서 하나로 외출/귀가 자동화 완성<br>
+                        🚿 화장실 문 × 모션센서 = 재실 정확도 99%<br>
+                        🧊 냉장고 문 30초 이상 → 알림 (실제 수요 많음)<br>
+                        📊 개폐 횟수 = 생활 패턴의 가장 기본 지표
+                    </div>
+                </div>
+            </div>
+            <div class="warning-box" style="margin-top: 1.5vw;">
+                <div class="icon">🔋</div>
+                <div class="text">현장 경험 — 배터리 교체 주기를 안내하지 않으면 "고장났다"고 민원이 옵니다. 설치 시 교체 일정표를 꼭 드리세요.</div>
+            </div>
+        </div>
+
+        <!-- 도어센서 응용 -->
+        <div class="slide" data-slide="9-A-app">
+            <div class="eyebrow">DOOR SENSOR — APPLICATIONS</div>
+            <h2 class="headline" style="font-size: 3.6vw;">도어센서 응용 자동화</h2>
+            <div class="grid-row" style="margin-top: 2vw; gap: 1.2vw;">
+                <div class="card" style="flex: 1; padding: 1.8vw; border-left: 4px solid var(--blue);">
+                    <div style="font-size: 1.6vw; font-weight: 700; color: var(--blue);">❄️ 에어컨 동작 확인</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">바람 날개에 도어센서 부착 →<br>실제 가동 여부 확인 (리모컨 신호 ≠ 동작)</div>
+                </div>
+                <div class="card" style="flex: 1; padding: 1.8vw; border-left: 4px solid var(--green);">
+                    <div style="font-size: 1.6vw; font-weight: 700; color: var(--green);">🪟 창문 + 에어컨 연동</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">창문 열림 감지 → 에어컨 자동 OFF<br>닫히면 자동 ON (에너지 30% 절감)</div>
+                </div>
+                <div class="card" style="flex: 1; padding: 1.8vw; border-left: 4px solid var(--orange);">
+                    <div style="font-size: 1.6vw; font-weight: 700; color: var(--orange);">🚪 현관 외출 모드</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">현관문 닫힘 + 5분 모션 없음 →<br>전등 OFF, 에어컨 OFF, 보안 ON</div>
+                </div>
+                <div class="card" style="flex: 1; padding: 1.8vw; border-left: 4px solid var(--red);">
+                    <div style="font-size: 1.6vw; font-weight: 700; color: var(--red);">📬 우편함 알림</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">우편함 도어센서 → 개폐 감지 →<br>택배 도착 푸시 알림</div>
+                </div>
+            </div>
+            <div class="key-point blue" style="margin-top: 1.5vw; font-size: 1.4vw;">
+                도어센서의 진짜 가치: "문"이 아니라 "움직이는 모든 것"에 붙일 수 있습니다 — 에어컨, 우편함, 서랍, 약통
+            </div>
+        </div>
+
+        <!-- 슬라이드 9-B: 조도센서 -->
+        <div class="slide" data-slide="9-B">
+            <div class="eyebrow">LIGHT SENSOR</div>
+            <h2 class="headline" style="font-size: 4.2vw;">조도센서 — 빛을 읽는 눈</h2>
+            <div style="text-align: center; margin-top: 1vw;">
+                <img src="img/조도센서_new.png" alt="조도센서" style="max-width: 12vw; max-height: 8vw; border-radius: 0.8vw; box-shadow: 0 0.3vw 1vw rgba(0,0,0,0.1);">
+            </div>
+            <div class="two-col" style="margin-top: 1vw;">
+                <div class="card" style="padding: 2.5vw;">
+                    <div style="font-size: 2vw; font-weight: 700; color: var(--orange); margin-bottom: 1vw;">☀️ 빛의 밝기 측정 (lux)</div>
+                    <div style="font-size: 1.3vw; color: var(--gray-dark); line-height: 1.8;">
+                        자연광 유입량에 따라 조명 자동 조절<br>
+                        커튼/블라인드 자동화의 핵심 트리거<br>
+                        ₩3,000~10,000<br><br>
+                        <span style="color: var(--orange); font-weight: 600;">적정 조도: 거실 150~300lux, 서재 400~600lux</span>
+                    </div>
+                </div>
+                <div class="card card-orange" style="padding: 2.5vw;">
+                    <div style="font-size: 2vw; font-weight: 700; margin-bottom: 1vw;">현장 인사이트</div>
+                    <div style="font-size: 1.3vw; line-height: 1.8; opacity: 0.95;">
+                        🌅 오후 3시 서향 거실 → 눈부심 자동 차단<br>
+                        🌙 야간 복도 최소 조도 유지 (고령자 안전)<br>
+                        💡 "조명이 너무 밝다/어둡다" 민원 해결의 핵심<br>
+                        📊 자연광 패턴 = 계절별 에너지 소비 예측 가능
+                    </div>
+                </div>
+            </div>
+            <div class="key-point blue" style="margin-top: 1.5vw; font-size: 1.5vw;">
+                고령자 주거에서 야간 조도 관리는 낙상 예방의 첫 번째 단계입니다 — 화장실 동선에 최소 30lux 유지
+            </div>
+        </div>
+
+        <!-- 조도센서 응용 -->
+        <div class="slide" data-slide="9-B-app">
+            <div class="eyebrow">LIGHT SENSOR — APPLICATIONS</div>
+            <h2 class="headline" style="font-size: 3.6vw;">조도센서 응용 자동화</h2>
+            <div class="grid-row" style="margin-top: 2vw; gap: 1.2vw;">
+                <div class="card" style="flex: 1; padding: 1.8vw; border-left: 4px solid var(--orange);">
+                    <div style="font-size: 1.6vw; font-weight: 700; color: var(--orange);">🪟 전동 블라인드 연동</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">일사량 500lux 초과 →<br>블라인드 자동 내림 (서향 오후)</div>
+                </div>
+                <div class="card" style="flex: 1; padding: 1.8vw; border-left: 4px solid var(--blue);">
+                    <div style="font-size: 1.6vw; font-weight: 700; color: var(--blue);">🌙 야간 동선 조명</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">조도 10lux 이하 + 모션 감지 →<br>발밑 간접조명 30% 점등</div>
+                </div>
+                <div class="card" style="flex: 1; padding: 1.8vw; border-left: 4px solid var(--green);">
+                    <div style="font-size: 1.6vw; font-weight: 700; color: var(--green);">🎬 영화 모드</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">TV ON + 조도 급감 감지 →<br>간접조명만 남기고 전체 소등</div>
+                </div>
+                <div class="card" style="flex: 1; padding: 1.8vw; border-left: 4px solid var(--purple);">
+                    <div style="font-size: 1.6vw; font-weight: 700; color: var(--purple);">☀️ 일출 기상 모드</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">자연광 감지 → 조명 서서히 밝아짐<br>알람 없이 자연스러운 기상</div>
+                </div>
+            </div>
+            <div class="key-point" style="margin-top: 1.5vw; font-size: 1.4vw; background: var(--orange);">
+                조도센서의 가치: 에너지 절감(불필요 조명 OFF) + 쾌적함(눈부심 자동 차단) + 안전(야간 낙상 방지)
+            </div>
+        </div>
+
+        <!-- 슬라이드 9-C: 공기질센서 -->
+        <div class="slide" data-slide="9-C">
+            <div class="eyebrow">AIR QUALITY SENSOR</div>
+            <h2 class="headline" style="font-size: 4.2vw;">공기질센서 — 보이지 않는 위험</h2>
+            <div style="text-align: center; margin-top: 1vw;">
+                <img src="img/공기질센서.jpg" alt="공기질센서" style="max-width: 10vw; max-height: 8vw; border-radius: 0.8vw; box-shadow: 0 0.3vw 1vw rgba(0,0,0,0.1);">
+            </div>
+            <div class="two-col" style="margin-top: 1vw;">
+                <div class="card" style="padding: 2.5vw;">
+                    <div style="font-size: 2vw; font-weight: 700; color: var(--green); margin-bottom: 1vw;">💨 CO2 + PM2.5 + VOC</div>
+                    <div style="font-size: 1.3vw; color: var(--gray-dark); line-height: 1.8;">
+                        CO2: 1,000ppm 초과 → 집중력 23% 저하<br>
+                        PM2.5: 35㎍/㎥ 초과 → 호흡기 영향<br>
+                        VOC: 새집증후군, 가구 방출 가스 감지<br>
+                        ₩20,000~50,000 / 전원 필요 (USB)<br><br>
+                        <span style="color: var(--green); font-weight: 600;">환기 자동화의 필수 조건</span>
+                    </div>
+                </div>
+                <div class="card card-green" style="padding: 2.5vw;">
+                    <div style="font-size: 2vw; font-weight: 700; margin-bottom: 1vw;">현장 인사이트</div>
+                    <div style="font-size: 1.3vw; line-height: 1.8; opacity: 0.95;">
+                        🍳 주방 요리 시작 3분 후 CO2 2배 상승<br>
+                        😴 침실 밀폐 취침 → 새벽 3시 CO2 1,500ppm<br>
+                        🏢 회의실/강의실이 가장 빠르게 악화<br>
+                        📊 환기 타이밍 자동화 = 에너지 18% 절감
+                    </div>
+                </div>
+            </div>
+            <div class="warning-box" style="margin-top: 1.5vw;">
+                <div class="icon">😮</div>
+                <div class="text">놀라운 사실 — 대부분의 가정 침실은 새벽에 CO2 1,200~1,800ppm. "아침에 머리가 무거운 이유"가 여기 있습니다.</div>
+            </div>
+        </div>
+
+        <!-- 공기질센서 응용 -->
+        <div class="slide" data-slide="9-C-app">
+            <div class="eyebrow">AIR QUALITY — APPLICATIONS</div>
+            <h2 class="headline" style="font-size: 3.6vw;">공기질센서 응용 자동화</h2>
+            <div class="grid-row" style="margin-top: 2vw; gap: 1.2vw;">
+                <div class="card" style="flex: 1; padding: 1.8vw; border-left: 4px solid var(--green);">
+                    <div style="font-size: 1.6vw; font-weight: 700; color: var(--green);">🍳 주방 연동</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">요리 시작 → CO2/연기 감지 →<br>환풍기 자동 ON + 창문 환기</div>
+                </div>
+                <div class="card" style="flex: 1; padding: 1.8vw; border-left: 4px solid var(--blue);">
+                    <div style="font-size: 1.6vw; font-weight: 700; color: var(--blue);">😴 수면 환기</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">침실 CO2 1,000ppm 초과 →<br>전열교환기 자동 가동 (소음 최소)</div>
+                </div>
+                <div class="card" style="flex: 1; padding: 1.8vw; border-left: 4px solid var(--orange);">
+                    <div style="font-size: 1.6vw; font-weight: 700; color: var(--orange);">🏢 회의실 알림</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">CO2 1,500ppm → "환기 필요" 알림<br>회의실 디스플레이에 실시간 표시</div>
+                </div>
+                <div class="card" style="flex: 1; padding: 1.8vw; border-left: 4px solid var(--red);">
+                    <div style="font-size: 1.6vw; font-weight: 700; color: var(--red);">🏠 새집 모니터링</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">VOC(포름알데히드) 감지 →<br>입주 전 베이크아웃 자동 관리</div>
+                </div>
+            </div>
+            <div class="key-point green" style="margin-top: 1.5vw; font-size: 1.4vw;">
+                공기질 자동화의 핵심: "사람이 느끼기 전에 기계가 먼저 반응" — CO2는 냄새가 없습니다
+            </div>
+        </div>
+
+        <!-- 슬라이드 9-D: 전력센서 -->
+        <div class="slide" data-slide="9-D">
+            <div class="eyebrow">POWER SENSOR</div>
+            <h2 class="headline" style="font-size: 4.2vw;">전력센서 — 생활의 지문</h2>
+            <div style="display: flex; gap: 3vw; justify-content: center; align-items: center; margin-top: 1vw;">
+                <div style="text-align: center;">
+                    <img src="img/스마트플러그.jpg" alt="스마트플러그" style="max-width: 7vw; max-height: 7vw; border-radius: 0.8vw; box-shadow: 0 0.3vw 1vw rgba(0,0,0,0.1);">
+                    <div style="font-size: 0.9vw; color: var(--gray); margin-top: 0.3vw;">스마트 플러그</div>
+                </div>
+                <div style="text-align: center;">
+                    <img src="img/CT센서.jpg" alt="CT센서" style="max-width: 7vw; max-height: 7vw; border-radius: 0.8vw; box-shadow: 0 0.3vw 1vw rgba(0,0,0,0.1);">
+                    <div style="font-size: 0.9vw; color: var(--gray); margin-top: 0.3vw;">CT 클램프 센서</div>
+                </div>
+            </div>
+            <div class="two-col" style="margin-top: 1vw;">
+                <div class="card" style="padding: 2.5vw;">
+                    <div style="font-size: 2vw; font-weight: 700; color: var(--purple); margin-bottom: 1vw;">🔌 스마트 플러그 / CT 센서</div>
+                    <div style="font-size: 1.3vw; color: var(--gray-dark); line-height: 1.8;">
+                        개별 가전 전력 소비 실시간 측정<br>
+                        대기전력 차단 자동화<br>
+                        ₩10,000~25,000<br><br>
+                        <span style="color: var(--purple); font-weight: 600;">전력 패턴 = 재실 여부의 가장 정확한 간접 지표</span>
+                    </div>
+                </div>
+                <div class="card" style="padding: 2.5vw; border-color: var(--purple);">
+                    <div style="font-size: 2vw; font-weight: 700; color: var(--purple); margin-bottom: 1vw;">현장 인사이트</div>
+                    <div style="font-size: 1.3vw; color: var(--gray-dark); line-height: 1.8;">
+                        📺 TV 전력 패턴 = 기상/취침 시간 정확 추정<br>
+                        🍚 밥솥 사용 패턴 = 식사 규칙성 모니터링<br>
+                        ⚡ 전기요금 피크 시간대 자동 부하 분산<br>
+                        👴 독거 어르신 — 전력 사용 0 → 안부 확인 트리거
+                    </div>
+                </div>
+            </div>
+            <div class="key-point" style="margin-top: 1.5vw; font-size: 1.5vw; background: var(--purple);">
+                🔌 독거 어르신 댁의 전력 패턴이 평소와 다르면 자동으로 보호자에게 알림 — 가장 비침습적인 안부 확인
+            </div>
+        </div>
+
+        <!-- 전력센서 응용 -->
+        <div class="slide" data-slide="9-D-app">
+            <div class="eyebrow">POWER SENSOR — APPLICATIONS</div>
+            <h2 class="headline" style="font-size: 3.6vw;">전력센서 응용 자동화</h2>
+            <div class="grid-row" style="margin-top: 2vw; gap: 1.2vw;">
+                <div class="card" style="flex: 1; padding: 1.8vw; border-left: 4px solid var(--purple);">
+                    <div style="font-size: 1.6vw; font-weight: 700; color: var(--purple);">🧊 냉장고 고장 예측</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">전력 패턴이 평소와 다르면 → 컴프레서 이상 경고<br>고장 나기 전에 AS 예약</div>
+                </div>
+                <div class="card" style="flex: 1; padding: 1.8vw; border-left: 4px solid var(--blue);">
+                    <div style="font-size: 1.6vw; font-weight: 700; color: var(--blue);">⚡ 피크타임 부하 분산</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">전기요금 피크 시간대 감지 →<br>세탁기·건조기 자동 지연 가동</div>
+                </div>
+                <div class="card" style="flex: 1; padding: 1.8vw; border-left: 4px solid var(--green);">
+                    <div style="font-size: 1.6vw; font-weight: 700; color: var(--green);">👴 안부 확인 자동화</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">독거 어르신 TV·밥솥 전력 패턴 →<br>24시간 미사용 시 보호자 알림</div>
+                </div>
+                <div class="card" style="flex: 1; padding: 1.8vw; border-left: 4px solid var(--red);">
+                    <div style="font-size: 1.6vw; font-weight: 700; color: var(--red);">🔌 대기전력 차단</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">외출 감지 → 불필요 대기전력 자동 OFF<br>연간 전기료 8~12만원 절감</div>
+                </div>
+            </div>
+            <div class="key-point" style="margin-top: 1.5vw; font-size: 1.4vw; background: var(--purple);">
+                전력 데이터는 "생활의 지문" — 가전 사용 패턴만으로 기상·식사·취침 시간을 알 수 있습니다
+            </div>
+        </div>
+
+        <!-- 슬라이드 10: 센서 설계 3원칙 -->
+        <div class="slide" data-slide="10">
+            <div class="eyebrow">DESIGN PRINCIPLES</div>
+            <h2 class="headline" style="font-size: 4.6vw;">센서 설계 3원칙</h2>
+            <div class="grid-row" style="margin-top: 3vw;">
+                <div class="card card-blue" style="flex: 1; text-align: center; padding: 2.5vw;">
+                    <div style="font-size: 4vw; margin-bottom: 0.5vw;">📍</div>
+                    <div style="font-size: 2.3vw; font-weight: 700;">WHERE</div>
+                    <div style="font-size: 1.4vw; margin-top: 0.8vw; opacity: 0.9;">어디에 설치할 것인가<br>공간의 용도와 동선 분석</div>
+                </div>
+                <div class="card card-green" style="flex: 1; text-align: center; padding: 2.5vw;">
+                    <div style="font-size: 4vw; margin-bottom: 0.5vw;">🎯</div>
+                    <div style="font-size: 2.3vw; font-weight: 700;">WHY</div>
+                    <div style="font-size: 1.4vw; margin-top: 0.8vw; opacity: 0.9;">왜 필요한가<br>목적 없는 센서는 소음</div>
+                </div>
+                <div class="card card-orange" style="flex: 1; text-align: center; padding: 2.5vw;">
+                    <div style="font-size: 4vw; margin-bottom: 0.5vw;">🔢</div>
+                    <div style="font-size: 2.3vw; font-weight: 700;">HOW MANY</div>
+                    <div style="font-size: 1.4vw; margin-top: 0.8vw; opacity: 0.9;">몇 개를 설치할 것인가<br>과다 = 비용 낭비, <br>과소 = 사각지대</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 14: 현장에서 배운 설계 전략 -->
+        <div class="slide" data-slide="14">
+            <div class="eyebrow">DESIGN STRATEGY</div>
+            <h2 class="headline" style="font-size: 3.8vw;">200개 현장에서 배운 설계 전략 3가지</h2>
+            <div class="grid-row" style="margin-top: 2.5vw;">
+                <div class="card" style="flex: 1; padding: 2vw; border-left: 4px solid var(--red);">
+                    <div style="font-size: 2vw; font-weight: 700; color: var(--red); margin-bottom: 0.8vw;">① 전원 먼저</div>
+                    <div style="font-size: 1.2vw; color: var(--gray-dark); line-height: 1.8;">
+                        현장 문제의 <strong>70%</strong>가 전원(N선) 누락<br>
+                        스마트 스위치에는 N선이 필수<br>
+                        구형 배선에 없으면 → 벽 뜯기 <span style="color:var(--red)">+200만원</span><br>
+                        <strong>설계 단계에서 "N선" 한 마디면 해결</strong>
+                    </div>
+                </div>
+                <div class="card" style="flex: 1; padding: 2vw; border-left: 4px solid var(--blue);">
+                    <div style="font-size: 2vw; font-weight: 700; color: var(--blue); margin-bottom: 0.8vw;">② 통신 설계</div>
+                    <div style="font-size: 1.2vw; color: var(--gray-dark); line-height: 1.8;">
+                        WiFi는 벽 2개 지나면 신호 50%↓<br>
+                        Zigbee/BLE는 허브 위치가 핵심<br>
+                        금속 천장 = 무선 사각지대<br>
+                        <strong>허브 1개의 위치가 전체 안정성 결정</strong>
+                    </div>
+                </div>
+                <div class="card" style="flex: 1; padding: 2vw; border-left: 4px solid var(--green);">
+                    <div style="font-size: 2vw; font-weight: 700; color: var(--green); margin-bottom: 0.8vw;">③ 사용자 동선</div>
+                    <div style="font-size: 1.2vw; color: var(--gray-dark); line-height: 1.8;">
+                        센서 위치 = 사용자 동선의 교차점<br>
+                        현관→복도→거실 분기점이 핵심<br>
+                        화장실 입구 + 내부 = 2중 감지<br>
+                        <strong>동선을 아는 사람이 최적 배치 가능</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="key-point" style="margin-top: 1.5vw; font-size: 1.5vw;">
+                전원 · 통신 · 동선 — 이 3가지를 설계 단계에서 잡으면 현장 문제의 90%가 사라집니다
+            </div>
+        </div>
+
+        <!-- 슬라이드 15: 스마트 공간의 조건 -->
+        <div class="slide bg-black" data-slide="15">
+            <div style="text-align: center;">
+                <div class="eyebrow" style="color: var(--gray); letter-spacing: 0.2em;">WHAT MAKES SPACE SMART</div>
+                <div style="color: var(--white); font-size: 3vw; font-weight: 500; margin-top: 2.5vw;">
+                    공간이 스마트해지려면 3가지가 필요합니다
+                </div>
+                <div class="grid-row" style="margin-top: 3vw; gap: 2vw;">
+                    <div style="text-align: center; flex: 1;">
+                        <div style="font-size: 4vw; margin-bottom: 0.5vw;">👁️</div>
+                        <div style="font-size: 2.2vw; font-weight: 700; color: var(--blue);">감지</div>
+                        <div style="font-size: 1.2vw; color: var(--gray-light); margin-top: 0.5vw;">센서가 공간을 읽는다</div>
+                    </div>
+                    <div style="font-size: 2.5vw; color: var(--gray); display: flex; align-items: center;">→</div>
+                    <div style="text-align: center; flex: 1;">
+                        <div style="font-size: 4vw; margin-bottom: 0.5vw;">🧠</div>
+                        <div style="font-size: 2.2vw; font-weight: 700; color: var(--green);">판단</div>
+                        <div style="font-size: 1.2vw; color: var(--gray-light); margin-top: 0.5vw;">데이터가 패턴을 찾는다</div>
+                    </div>
+                    <div style="font-size: 2.5vw; color: var(--gray); display: flex; align-items: center;">→</div>
+                    <div style="text-align: center; flex: 1;">
+                        <div style="font-size: 4vw; margin-bottom: 0.5vw;">⚡</div>
+                        <div style="font-size: 2.2vw; font-weight: 700; color: var(--orange);">반응</div>
+                        <div style="font-size: 1.2vw; color: var(--gray-light); margin-top: 0.5vw;">공간이 스스로 움직인다</div>
+                    </div>
+                </div>
+                <p style="font-size: 1.5vw; color: var(--gray); margin-top: 3vw;">지금까지 '감지'를 이야기했습니다 — 다음은 '판단', 데이터가 말하는 것들입니다</p>
+            </div>
+        </div>
+
+        <!-- 슬라이드 13: 시나리오 기반 센서 설계 -->
+        <div class="slide" data-slide="13">
+            <div class="eyebrow">SCENARIO-BASED DESIGN</div>
+            <h2 class="headline" style="font-size: 4.2vw;">공간 유형별 센서 조합</h2>
+            <table class="scenario-table">
+                <tr>
+                    <th>공간 유형</th>
+                    <th>모션</th>
+                    <th>도어</th>
+                    <th>온습도</th>
+                    <th>조도</th>
+                    <th>공기질</th>
+                    <th>전력</th>
+                    <th>핵심 시나리오</th>
+                </tr>
+                <tr>
+                    <td style="font-weight: 600;">원룸</td>
+                    <td class="active-cell">1~2개</td>
+                    <td class="active-cell">현관</td>
+                    <td>1개</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>1개</td>
+                    <td>외출/귀가 자동화</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: 600;">아파트</td>
+                    <td class="active-cell">3~5개</td>
+                    <td class="active-cell">현관+방</td>
+                    <td class="active-cell">2~3개</td>
+                    <td>1개</td>
+                    <td class="active-cell">1개</td>
+                    <td>2~3개</td>
+                    <td>존별 자동 조명/냉난방</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: 600;">복층</td>
+                    <td class="active-cell">4~6개</td>
+                    <td class="active-cell">현관+각층</td>
+                    <td class="active-cell">층별</td>
+                    <td>1~2개</td>
+                    <td class="active-cell">층별</td>
+                    <td>3~4개</td>
+                    <td>층별 독립 제어</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: 600;">상가</td>
+                    <td class="active-cell">2~4개</td>
+                    <td class="active-cell">출입구</td>
+                    <td>1개</td>
+                    <td class="active-cell">1~2개</td>
+                    <td>1개</td>
+                    <td class="active-cell">전체</td>
+                    <td>영업시간 기반 자동화</td>
+                </tr>
+                <tr style="background: #fff8e1;">
+                    <td style="font-weight: 600; color: var(--orange);">고령자 주거</td>
+                    <td class="active-cell">3~5개</td>
+                    <td class="active-cell">현관+화장실</td>
+                    <td class="active-cell">2~3개</td>
+                    <td>1개</td>
+                    <td class="active-cell">1개</td>
+                    <td>2~3개</td>
+                    <td>낙상 감지 + 재실 모니터링</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- 슬라이드 15: 센서 정리 + 챕터2 브리지 -->
+        <div class="slide bg-black" data-slide="15">
+            <div style="text-align: center;">
+                <div class="eyebrow" style="color: var(--gray); letter-spacing: 0.2em;">CHAPTER 1 SUMMARY</div>
+                <div style="color: var(--white); font-size: 3vw; font-weight: 500; margin-top: 2.5vw;">
+                    센서는 공간에 감각을 부여합니다
+                </div>
+                <div class="grid-row" style="margin-top: 3vw; gap: 2vw;">
+                    <div style="text-align: center; flex: 1;">
+                        <div style="font-size: 3vw;">6종</div>
+                        <div style="font-size: 1.2vw; color: var(--gray-light); margin-top: 0.5vw;">모션 · 환경 · 도어<br>조도 · 공기질 · 전력</div>
+                    </div>
+                    <div style="text-align: center; flex: 1;">
+                        <div style="font-size: 3vw;">24가지</div>
+                        <div style="font-size: 1.2vw; color: var(--gray-light); margin-top: 0.5vw;">응용 자동화<br>시나리오</div>
+                    </div>
+                    <div style="text-align: center; flex: 1;">
+                        <div style="font-size: 3vw;">3원칙</div>
+                        <div style="font-size: 1.2vw; color: var(--gray-light); margin-top: 0.5vw;">WHERE · WHY<br>HOW MANY</div>
+                    </div>
+                </div>
+                <p style="font-size: 1.6vw; color: var(--gray); margin-top: 3vw;">
+                    센서가 수집한 데이터로 무엇을 알 수 있을까요?<br>
+                    <span style="color: var(--blue); font-weight: 600;">다음은 데이터가 말하는 공간 사용법입니다</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- ==================== 주제 2: 히트맵 & 행동 분석 (16~26) ==================== -->
+
+        <!-- 슬라이드 16: 섹션 제목 -->
+        <div class="slide bg-gradient" data-slide="16">
+            <div class="section-number">02</div>
+            <div class="section-title">데이터가 말하는 공간 사용법</div>
+            <div class="section-desc">센서 데이터 → 행동 패턴 → 공간 인사이트</div>
+        </div>
+
+        <!-- 슬라이드 17: 히트맵이란? -->
+        <div class="slide" data-slide="17">
+            <div class="eyebrow">HEATMAP</div>
+            <h2 class="headline" style="font-size: 4.6vw;">히트맵이란?</h2>
+            <p class="subheadline" style="font-size: 1.8vw;">현장에서 수집한 센서 데이터를 시각화하는 방법</p>
+            <div style="margin-top: 3vw; text-align: center;">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 2vw;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 4vw; margin-bottom: 0.5vw;">🔵</div>
+                        <div style="font-size: 1.4vw; color: var(--gray);">저빈도</div>
+                    </div>
+                    <div style="width: 30vw; height: 2.5vw; border-radius: 1.5vw; background: linear-gradient(90deg, #2997ff 0%, #34c759 30%, #ff9500 65%, #ff3b30 100%);"></div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 4vw; margin-bottom: 0.5vw;">🔴</div>
+                        <div style="font-size: 1.4vw; color: var(--gray);">고빈도</div>
+                    </div>
+                </div>
+            </div>
+            <div class="two-col" style="margin-top: 3vw;">
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 2vw; font-weight: 600;">전통적 행동 관찰</div>
+                    <div style="font-size: 1.3vw; color: var(--gray); margin-top: 0.5vw;">설문, 관찰법, 인터뷰<br>시간·비용 소요, 표본 제한</div>
+                </div>
+                <div class="card card-blue" style="text-align: center;">
+                    <div style="font-size: 2vw; font-weight: 600;">IoT 데이터 히트맵</div>
+                    <div style="font-size: 1.3vw; margin-top: 0.5vw; opacity: 0.9;">연속적, 비침습적, 대규모<br>자동 수집 + 실시간 분석</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 18: 주거 공간 히트맵 예시 -->
+        <div class="slide" data-slide="18">
+            <div class="eyebrow">RESIDENTIAL HEATMAP</div>
+            <h2 class="headline" style="font-size: 4.2vw;">주거 공간 히트맵 예시</h2>
+            <p class="subheadline" style="font-size: 1.4vw;">30평형 아파트 모션센서 데이터 기반 — 2인 가구 30일 평균</p>
+            <div style="margin-top: 1.5vw; display: flex; gap: 2.5vw; align-items: flex-start; width: 100%;">
+                <!-- 평면도 히트맵 -->
+                <div class="floor-plan" style="flex: 2.5; grid-template-columns: 1.8fr 1fr 1fr; grid-template-rows: 1.2fr 1fr 0.7fr; height: 30vw;">
+                    <div class="floor-room" style="grid-row: 1 / 3;">
+                        <div class="heat-overlay" style="background: radial-gradient(ellipse at 55% 45%, rgba(255,59,48,0.65) 0%, rgba(255,149,0,0.3) 45%, rgba(255,149,0,0.1) 70%, transparent 90%);"></div>
+                        <div class="room-name" style="font-size: 1.6vw;">거실</div>
+                        <div class="room-stat">일 평균 6.2시간</div>
+                        <div class="room-stat" style="font-size: 0.9vw; color: var(--red);">최고 밀도</div>
+                    </div>
+                    <div class="floor-room">
+                        <div class="heat-overlay" style="background: radial-gradient(ellipse at 50% 55%, rgba(175,82,222,0.55) 0%, rgba(175,82,222,0.2) 50%, transparent 85%);"></div>
+                        <div class="room-name">안방</div>
+                        <div class="room-stat">야간 7.5시간</div>
+                    </div>
+                    <div class="floor-room">
+                        <div class="heat-overlay" style="background: radial-gradient(ellipse at 50% 50%, rgba(52,199,89,0.35) 0%, transparent 75%);"></div>
+                        <div class="room-name">작은방</div>
+                        <div class="room-stat">일 1.2시간</div>
+                    </div>
+                    <div class="floor-room" style="grid-column: 2 / 4;">
+                        <div class="heat-overlay" style="background: radial-gradient(ellipse at 40% 50%, rgba(255,149,0,0.5) 0%, rgba(255,149,0,0.15) 55%, transparent 85%);"></div>
+                        <div class="room-name">주방 / 식당</div>
+                        <div class="room-stat">일 평균 2.1시간</div>
+                    </div>
+                    <div class="floor-room">
+                        <div class="heat-overlay" style="background: radial-gradient(circle at 50% 50%, rgba(0,113,227,0.45) 0%, rgba(0,113,227,0.1) 50%, transparent 80%);"></div>
+                        <div class="room-name">현관</div>
+                        <div class="room-stat" style="font-size: 0.9vw;">출퇴근 피크</div>
+                    </div>
+                    <div class="floor-room">
+                        <div class="heat-overlay" style="background: radial-gradient(circle at 50% 50%, rgba(41,151,255,0.3) 0%, transparent 70%);"></div>
+                        <div class="room-name">욕실1</div>
+                        <div class="room-stat">일 0.8시간</div>
+                    </div>
+                    <div class="floor-room">
+                        <div class="heat-overlay" style="background: radial-gradient(circle at 50% 50%, rgba(41,151,255,0.2) 0%, transparent 70%);"></div>
+                        <div class="room-name">욕실2</div>
+                        <div class="room-stat">일 0.4시간</div>
+                    </div>
+                </div>
+                <!-- 범례 + 인사이트 -->
+                <div style="flex: 1; padding-top: 0.5vw;">
+                    <div style="font-size: 1.5vw; font-weight: 600; margin-bottom: 1vw;">활동 밀도 범례</div>
+                    <div style="width: 100%; height: 1.2vw; border-radius: 0.6vw; background: linear-gradient(90deg, #2997ff 0%, #34c759 25%, #ff9500 60%, #ff3b30 100%); margin-bottom: 0.5vw;"></div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.9vw; color: var(--gray); margin-bottom: 1.5vw;">
+                        <span>저빈도</span><span>고빈도</span>
+                    </div>
+                    <div style="font-size: 1.3vw; font-weight: 600; margin-bottom: 0.8vw; color: var(--blue);">발견한 패턴</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); line-height: 1.8;">
+                        🔴 거실 6.2h — 1인가구는 4.1h<br>
+                        🟣 안방 야간 7.5h (23~07시)<br>
+                        🟠 주방 2.1h — 겨울엔 2.8h로↑<br>
+                        🟢 작은방: 주말에만 활성화<br><br>
+                        <span style="font-weight: 600; color: var(--red);">💡 같은 30평이라도 1인/2인 가구의<br>공간 사용이 완전히 다릅니다</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 19: 시간대별 공간 사용 패턴 -->
+        <div class="slide" data-slide="19">
+            <div class="eyebrow">TIME-BASED PATTERN</div>
+            <h2 class="headline" style="font-size: 4.2vw;">시간대별 공간 사용 패턴</h2>
+            <div class="timeline">
+                <div class="timeline-item" style="background: linear-gradient(180deg, #fff3e0 0%, var(--white) 100%); border-radius: 1vw 0 0 1vw;">
+                    <div class="timeline-time">☀️ 6~9시</div>
+                    <div class="timeline-label">아침</div>
+                    <div class="timeline-desc">침실→욕실→주방<br>일정한 기상 패턴<br>조명 점진 밝기 증가</div>
+                </div>
+                <div class="timeline-item" style="background: linear-gradient(180deg, #e3f2fd 0%, var(--white) 100%);">
+                    <div class="timeline-time">🏢 9~18시</div>
+                    <div class="timeline-label">낮</div>
+                    <div class="timeline-desc">외출 상태<br>무인 모드<br>에너지 절약 자동화</div>
+                </div>
+                <div class="timeline-item" style="background: linear-gradient(180deg, #fce4ec 0%, var(--white) 100%);">
+                    <div class="timeline-time">🌆 18~23시</div>
+                    <div class="timeline-label">저녁</div>
+                    <div class="timeline-desc">현관→거실→주방<br>활동 최고 밀도<br>조명/온도 최적화</div>
+                </div>
+                <div class="timeline-item" style="background: linear-gradient(180deg, #ede7f6 0%, var(--white) 100%); border-radius: 0 1vw 1vw 0;">
+                    <div class="timeline-time">🌙 23~6시</div>
+                    <div class="timeline-label">야간</div>
+                    <div class="timeline-desc">거실→욕실→침실<br>취침 패턴<br>수면 환경 자동 전환</div>
+                </div>
+            </div>
+            <div class="key-point blue" style="margin-top: 2vw; font-size: 1.8vw;">
+                모든 사용자에게 고유한 시간대별 패턴이 존재하며, 이것이 자동화의 기반이 됩니다
+            </div>
+        </div>
+
+        <!-- 슬라이드 20: 자동화가 발견한 행동 특징 -->
+        <div class="slide" data-slide="20">
+            <div class="eyebrow">BEHAVIORAL INSIGHTS</div>
+            <h2 class="headline" style="font-size: 3.6vw;">200개 현장에서 반복적으로 나타난 행동 특징 5가지</h2>
+            <ul class="list-enhanced wide" style="margin-top: 2vw;">
+                <li style="padding: 1vw 2vw; margin-bottom: 0.6vw;"><span class="icon">💡</span> 퇴근 후 15분 내 조명 패턴 고정 <span class="detail">92%의 사용자</span></li>
+                <li style="padding: 1vw 2vw; margin-bottom: 0.6vw;"><span class="icon">🌙</span> 취침 시간 ±30분 이내로 일정 <span class="detail">주중 편차 23분</span></li>
+                <li style="padding: 1vw 2vw; margin-bottom: 0.6vw;"><span class="icon">📅</span> 주말 거실 체류 시간 평일 대비 2.3배 <span class="detail">동선 완전 변화</span></li>
+                <li style="padding: 1vw 2vw; margin-bottom: 0.6vw;"><span class="icon">🌡️</span> 환절기 창문 개폐 횟수 3배 증가 <span class="detail">환경 적응 패턴</span></li>
+                <li style="padding: 1vw 2vw; margin-bottom: 0.6vw;"><span class="icon">👥</span> 손님 방문 시 현관 센서 ×4, 거실 ×2.5 <span class="detail">이상 탐지 트리거</span></li>
+            </ul>
+        </div>
+
+        <!-- 슬라이드 21: 데이터 파이프라인 -->
+        <div class="slide" data-slide="21">
+            <div class="eyebrow">DATA PIPELINE</div>
+            <h2 class="headline" style="font-size: 4.2vw;">센서 데이터 → 인사이트 변환</h2>
+            <div class="diagram" style="margin-top: 2.5vw;">
+                <div class="diagram-row">
+                    <div class="diagram-box outline" style="font-size: 1.4vw;">👁️ 모션 로그</div>
+                    <div class="diagram-box outline" style="font-size: 1.4vw;">🚪 도어 로그</div>
+                    <div class="diagram-box outline" style="font-size: 1.4vw;">🌡️ 환경 로그</div>
+                    <div class="diagram-box outline" style="font-size: 1.4vw;">🔌 전력 로그</div>
+                </div>
+                <div class="diagram-arrow">↓ 수집</div>
+                <div class="diagram-box" style="background: var(--blue); font-size: 1.6vw; padding: 1.2vw 4vw;">데이터 정제 + 시계열 분석</div>
+                <div class="diagram-arrow">↓ 분석</div>
+                <div class="diagram-box" style="background: var(--purple); font-size: 1.6vw; padding: 1.2vw 4vw;">재실 시간 / 공간별 체류 분포</div>
+                <div class="diagram-arrow">↓ 시각화</div>
+                <div class="diagram-row">
+                    <div class="diagram-box" style="background: var(--green); font-size: 1.4vw;">📊 히트맵</div>
+                    <div class="diagram-box" style="background: var(--green); font-size: 1.4vw;">📈 시계열 차트</div>
+                    <div class="diagram-box" style="background: var(--green); font-size: 1.4vw;">🔔 이상 감지</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 21-A: 데이터가 발견한 의외의 패턴 -->
+        <div class="slide" data-slide="21-A">
+            <div class="eyebrow" style="color: var(--purple);">UNEXPECTED PATTERNS</div>
+            <h2 class="headline" style="font-size: 3.6vw;">데이터가 발견한 의외의 패턴</h2>
+            <div style="margin-top: 2vw; width: 100%; max-width: 72vw;">
+                <div class="card" style="padding: 1.5vw 2vw; margin-bottom: 1vw; border-left: 4px solid var(--blue);">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-size: 1.6vw; font-weight: 700; color: var(--blue);">🛋️ "안 쓰는 방"이 건강 지표</div>
+                            <div style="font-size: 1.2vw; color: var(--gray-dark); margin-top: 0.3vw;">평소 작은방 사용률 → 갑자기 증가 → 부부 갈등 or 재택근무 시작 신호</div>
+                        </div>
+                        <div style="font-size: 1.1vw; color: var(--blue); font-weight: 600; min-width: 8vw; text-align: right;">73% 적중</div>
+                    </div>
+                </div>
+                <div class="card" style="padding: 1.5vw 2vw; margin-bottom: 1vw; border-left: 4px solid var(--green);">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-size: 1.6vw; font-weight: 700; color: var(--green);">🌡️ 에어컨 설정 온도 ≠ 실제 쾌적 온도</div>
+                            <div style="font-size: 1.2vw; color: var(--gray-dark); margin-top: 0.3vw;">고객이 24°C로 설정해도 실제 쾌적 체감은 25.5°C — 센서 위치(벽 vs 생활 영역)의 차이</div>
+                        </div>
+                        <div style="font-size: 1.1vw; color: var(--green); font-weight: 600; min-width: 8vw; text-align: right;">1.5°C 편차</div>
+                    </div>
+                </div>
+                <div class="card" style="padding: 1.5vw 2vw; margin-bottom: 1vw; border-left: 4px solid var(--orange);">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-size: 1.6vw; font-weight: 700; color: var(--orange);">🚪 현관문 패턴으로 직업 추정 가능</div>
+                            <div style="font-size: 1.2vw; color: var(--gray-dark); margin-top: 0.3vw;">출퇴근 시간 고정 → 회사원, 불규칙 → 자영업/프리랜서, 오전 고정 → 학생</div>
+                        </div>
+                        <div style="font-size: 1.1vw; color: var(--orange); font-weight: 600; min-width: 8vw; text-align: right;">패턴 3유형</div>
+                    </div>
+                </div>
+                <div class="card" style="padding: 1.5vw 2vw; border-left: 4px solid var(--red);">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-size: 1.6vw; font-weight: 700; color: var(--red);">💡 야간 화장실 빈도 = 건강 경고</div>
+                            <div style="font-size: 1.2vw; color: var(--gray-dark); margin-top: 0.3vw;">야간 기상 횟수가 주 평균 대비 2배 이상 → 비뇨기 or 수면 장애 조기 발견 가능</div>
+                        </div>
+                        <div style="font-size: 1.1vw; color: var(--red); font-weight: 600; min-width: 8vw; text-align: right;">조기 발견</div>
+                    </div>
+                </div>
+            </div>
+            <div class="key-point" style="margin-top: 1.2vw; font-size: 1.3vw; background: var(--purple);">
+                센서 데이터는 "자동화"만을 위한 것이 아닙니다 — 공간이 사용자의 삶을 이야기합니다
+            </div>
+        </div>
+
+        <!-- 슬라이드 21-B: 같은 공간, 다른 사람 -->
+        <div class="slide" data-slide="21-B">
+            <div class="eyebrow">SAME SPACE, DIFFERENT LIVES</div>
+            <h2 class="headline" style="font-size: 3.6vw;">같은 30평 아파트, 완전히 다른 사용법</h2>
+            <div class="two-col" style="margin-top: 2vw; gap: 2.5vw;">
+                <div class="card" style="padding: 2vw; border-color: var(--blue);">
+                    <div style="font-size: 1.8vw; font-weight: 700; color: var(--blue); margin-bottom: 1vw;">👨‍👩‍👧 A가구 — 맞벌이 부부 + 아이</div>
+                    <div style="font-size: 1.2vw; color: var(--gray-dark); line-height: 1.8;">
+                        🏠 거실 체류 4.1h (아이 중심)<br>
+                        🍳 주방 피크: 07시, 18시 (식사 준비)<br>
+                        🚪 현관: 07:20, 08:10, 18:40 고정<br>
+                        💡 22시 전 전체 소등 (조기 취침)<br>
+                        🌡️ 난방 25°C 고정 (아이 기준)
+                    </div>
+                </div>
+                <div class="card" style="padding: 2vw; border-color: var(--green);">
+                    <div style="font-size: 1.8vw; font-weight: 700; color: var(--green); margin-bottom: 1vw;">👤 B가구 — 1인 재택근무자</div>
+                    <div style="font-size: 1.2vw; color: var(--gray-dark); line-height: 1.8;">
+                        🏠 거실 체류 8.7h (근무+여가 통합)<br>
+                        🍳 주방 피크: 13시 단일 (간편식)<br>
+                        🚪 현관: 불규칙 (택배·산책 위주)<br>
+                        💡 02시까지 거실 조명 ON<br>
+                        🌡️ 존별 차등 (거실 24°C, 나머지 OFF)
+                    </div>
+                </div>
+            </div>
+            <div class="key-point blue" style="margin-top: 1.5vw; font-size: 1.4vw;">
+                같은 평면도라도 사용자에 따라 공간 활용이 완전히 다릅니다 — "표준 설계"의 한계를 데이터가 보여줍니다
+            </div>
+        </div>
+
+        <!-- 슬라이드 22: 상업 공간 히트맵 -->
+        <div class="slide" data-slide="22">
+            <div class="eyebrow">COMMERCIAL HEATMAP</div>
+            <h2 class="headline" style="font-size: 4.2vw;">카페 좌석 선호도 히트맵</h2>
+            <p class="subheadline" style="font-size: 1.3vw;">25석 카페 모션센서 데이터 기반 — 영업일 60일 평균</p>
+            <div style="margin-top: 1.5vw; display: flex; gap: 2.5vw; align-items: flex-start; width: 100%;">
+                <!-- 카페 평면도 -->
+                <div style="flex: 2.2; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 1fr); gap: 0.6vw; height: 26vw; background: var(--bg-light); padding: 0.6vw; border-radius: 1vw;">
+                    <!-- 창가석 (1열) — 높은 회전율 -->
+                    <div class="cafe-seat" style="background: rgba(255,59,48,0.18); border: 2px solid rgba(255,59,48,0.4); border-radius: 0.6vw;">
+                        <div class="seat-label" style="color: var(--red);">🪟 창가 A</div>
+                        <div class="seat-rate" style="color: var(--red); font-weight: 600;">94%</div>
+                    </div>
+                    <div class="cafe-seat" style="background: rgba(255,59,48,0.14); border: 2px solid rgba(255,59,48,0.3); border-radius: 0.6vw;">
+                        <div class="seat-label" style="color: var(--red);">🪟 창가 B</div>
+                        <div class="seat-rate" style="color: var(--red); font-weight: 600;">89%</div>
+                    </div>
+                    <div class="cafe-seat" style="background: rgba(255,149,0,0.12); border: 2px solid rgba(255,149,0,0.3); grid-column: 3 / 5; border-radius: 0.6vw;">
+                        <div class="seat-label" style="color: var(--orange);">🛋️ 소파석 (4인)</div>
+                        <div class="seat-rate" style="color: var(--orange);">67% <span style="font-size: 0.85vw;">/ 체류 2.3h</span></div>
+                    </div>
+                    <!-- 중앙 테이블 -->
+                    <div class="cafe-seat" style="background: rgba(255,149,0,0.08); border: 1px solid rgba(255,149,0,0.2); border-radius: 0.6vw;">
+                        <div class="seat-label" style="color: var(--orange);">🪑 중앙 A</div>
+                        <div class="seat-rate" style="color: var(--orange); font-weight: 600;">72%</div>
+                    </div>
+                    <div class="cafe-seat" style="background: rgba(255,149,0,0.08); border: 1px solid rgba(255,149,0,0.2); border-radius: 0.6vw;">
+                        <div class="seat-label" style="color: var(--orange);">🪑 중앙 B</div>
+                        <div class="seat-rate" style="color: var(--orange); font-weight: 600;">68%</div>
+                    </div>
+                    <div class="cafe-seat" style="background: rgba(52,199,89,0.08); border: 1px solid rgba(52,199,89,0.2); grid-column: 3 / 5; border-radius: 0.6vw;">
+                        <div class="seat-label" style="color: var(--green);">📖 스터디존 (1인×4)</div>
+                        <div class="seat-rate" style="color: var(--green);">45% <span style="font-size: 0.85vw;">/ 체류 3.1h 최장</span></div>
+                    </div>
+                    <!-- 바 좌석 & 카운터 -->
+                    <div class="cafe-seat" style="background: rgba(0,113,227,0.06); border: 1px solid rgba(0,113,227,0.15); grid-column: 1 / 3; border-radius: 0.6vw;">
+                        <div class="seat-label" style="color: var(--blue);">🍸 바 좌석 (5석)</div>
+                        <div class="seat-rate" style="color: var(--blue); font-weight: 600;">38%</div>
+                    </div>
+                    <div class="cafe-seat" style="background: var(--white); border: 1px solid var(--gray-light); grid-column: 3 / 5; border-radius: 0.6vw;">
+                        <div class="seat-label" style="color: var(--gray-dark);">☕ 카운터 / 주방</div>
+                        <div class="seat-rate" style="color: var(--gray);">직원 동선 집중 구역</div>
+                    </div>
+                </div>
+                <!-- 인사이트 -->
+                <div style="flex: 1; padding-top: 0.5vw;">
+                    <div style="font-size: 1.5vw; font-weight: 600; margin-bottom: 1vw; color: var(--blue);">데이터가 발견한 인사이트</div>
+                    <div style="font-size: 1.15vw; color: var(--gray-dark); line-height: 1.9;">
+                        <strong style="color: var(--red);">1.</strong> 창가석 점유율 압도적 — 자연광 선호<br>
+                        <strong style="color: var(--orange);">2.</strong> 소파석 체류 시간 최장 → 회전율 저하<br>
+                        <strong style="color: var(--green);">3.</strong> 스터디존 1인 고객 집중 (노트북 작업)<br>
+                        <strong style="color: var(--blue);">4.</strong> 바 좌석 활용도 최하 → 개선 필요<br>
+                    </div>
+                    <div style="margin-top: 1.5vw; padding: 1vw; background: #e8f5e9; border-radius: 0.6vw; text-align: center;">
+                        <div style="font-size: 1.3vw; font-weight: 700; color: var(--green);">좌석 4개를 옮겼을 뿐인데</div>
+                        <div style="font-size: 2.2vw; font-weight: 800; color: var(--green);">월 매출 +120만원</div>
+                        <div style="font-size: 1vw; color: var(--gray);">바 좌석 → 창가 확장 (12%↑)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="key-point blue" style="margin-top: 1.5vw; font-size: 1.5vw;">
+                이 방법론은 카페뿐 아니라 주거 공간, 복지시설, 어떤 공간이든 동일하게 적용됩니다
+            </div>
+        </div>
+
+        <!-- 슬라이드 22-A: 공간 데이터가 바꾼 비즈니스 결정 -->
+        <div class="slide" data-slide="22-A">
+            <div class="eyebrow" style="color: var(--green);">DATA-DRIVEN DECISIONS</div>
+            <h2 class="headline" style="font-size: 3.6vw;">데이터가 바꾼 비즈니스 결정 3가지</h2>
+            <div style="margin-top: 2vw; width: 100%; max-width: 75vw;">
+                <div class="card" style="padding: 1.8vw 2.5vw; margin-bottom: 1.2vw; border-left: 4px solid var(--green);">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <div style="font-size: 1.8vw; font-weight: 700; color: var(--green);">☕ 카페 — "2층을 폐쇄하겠습니다"</div>
+                            <div style="font-size: 1.2vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">사장님은 2층 점유율이 낮아서 폐쇄를 고려. 데이터를 보니 2층은 <strong>14~17시에만 폭발적</strong>(노트북 작업자).<br>→ 2층을 "집중존"으로 리브랜딩 → 콘센트 추가 → 오후 매출 38%↑</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="padding: 1.8vw 2.5vw; margin-bottom: 1.2vw; border-left: 4px solid var(--blue);">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <div style="font-size: 1.8vw; font-weight: 700; color: var(--blue);">🏢 공유오피스 — "회의실이 부족해요"</div>
+                            <div style="font-size: 1.2vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">예약률 90%라 회의실 추가 검토. 실제 사용 데이터 → <strong>예약 후 미사용(no-show) 35%</strong>.<br>→ 회의실 추가 대신 30분 미사용 시 자동 해제 → 체감 가용률 2배↑</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="padding: 1.8vw 2.5vw; border-left: 4px solid var(--orange);">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <div style="font-size: 1.8vw; font-weight: 700; color: var(--orange);">🏠 모델하우스 — "거실이 가장 인기 있습니다"</div>
+                            <div style="font-size: 1.2vw; color: var(--gray-dark); margin-top: 0.5vw; line-height: 1.6;">방문객 동선 데이터 → 실제 체류 1위는 <strong>주방(평균 4.2분)</strong>, 거실은 2위(2.8분).<br>→ 주방 쇼케이스 강화 + 주방 앞 상담석 배치 → 계약 전환율 15%↑</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="key-point green" style="margin-top: 1.2vw; font-size: 1.4vw;">
+                "감"이 아닌 "데이터"로 결정하면 — 폐쇄할 공간이 매출 공간이 되고, 추가 투자 없이 문제가 풀립니다
+            </div>
+        </div>
+
+        <!-- 슬라이드 22-B: 에너지 절감 실제 사례 -->
+        <div class="slide" data-slide="22-B">
+            <div class="eyebrow">ENERGY INSIGHTS</div>
+            <h2 class="headline" style="font-size: 3.6vw;">에너지 데이터가 발견한 낭비 패턴</h2>
+            <div class="two-col" style="margin-top: 2vw; gap: 2.5vw;">
+                <div class="card" style="padding: 2vw;">
+                    <div style="font-size: 1.8vw; font-weight: 700; color: var(--red); margin-bottom: 1vw;">🔥 발견된 낭비 TOP 4</div>
+                    <div style="font-size: 1.2vw; color: var(--gray-dark); line-height: 2;">
+                        ❌ 외출 후 에어컨 3시간 가동 — <strong>42%의 가구</strong><br>
+                        ❌ 빈 방 조명 켜짐 — 하루 평균 <strong>4.2시간</strong><br>
+                        ❌ 새벽 TV 대기전력 — 월 <strong>3,200원</strong>/대<br>
+                        ❌ 창문 열린 채 난방 — 겨울 <strong>18%의 세대</strong>
+                    </div>
+                </div>
+                <div class="card card-green" style="padding: 2vw;">
+                    <div style="font-size: 1.8vw; font-weight: 700; margin-bottom: 1vw;">💡 자동화 적용 후</div>
+                    <div style="font-size: 1.2vw; line-height: 2; opacity: 0.95;">
+                        ✅ 외출 감지 → 에어컨 자동 OFF — <strong>월 2.1만원 절감</strong><br>
+                        ✅ 재실 기반 조명 → 빈 방 자동 소등 — <strong>23% 절감</strong><br>
+                        ✅ 대기전력 자동 차단 — <strong>연 8~12만원</strong><br>
+                        ✅ 도어센서+난방 연동 — <strong>난방비 15% 절감</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="key-point" style="margin-top: 1.5vw; font-size: 1.4vw;">
+                200개 현장 평균: IoT 도입 후 에너지 비용 <strong>월 3.5만원 절감</strong> — 연간 42만원, 투자 회수 기간 8~14개월
+            </div>
+        </div>
+
+        <!-- 슬라이드 24: 현장 데이터가 보여주는 것들 -->
+        <div class="slide" data-slide="24">
+            <div class="eyebrow">FIELD DATA</div>
+            <h2 class="headline" style="font-size: 4.2vw;">현장 데이터가 보여주는 것들</h2>
+            <div class="two-col" style="margin-top: 2.5vw;">
+                <div class="card" style="padding: 2.5vw;">
+                    <div style="font-size: 2vw; font-weight: 700; color: var(--black); margin-bottom: 1vw;">200개 현장에서 쌓인 것</div>
+                    <div style="font-size: 1.3vw; color: var(--gray-dark); line-height: 1.8;">
+                        📡 24시간 연속 수집된 행동 데이터<br>
+                        🔇 사용자가 의식하지 못하는 자연스러운 기록<br>
+                        📈 수개월~수년 단위 장기 데이터<br>
+                        🤖 반복 패턴, 이상 징후 자동 감지<br><br>
+                        <span style="color: var(--blue); font-weight: 600;">현장에서는 이 데이터를 <br>'읽을 줄 아는 사람'이 부족합니다</span>
+                    </div>
+                </div>
+                <div class="card card-blue" style="padding: 2.5vw;">
+                    <div style="font-size: 2vw; font-weight: 700; margin-bottom: 1vw;">데이터가 말해주는 것</div>
+                    <div style="font-size: 1.3vw; line-height: 1.8; opacity: 0.95;">
+                        🏠 공간별 실제 사용 빈도와 체류 시간<br>
+                        👤 거주자의 무의식적 행동 패턴<br>
+                        🌡️ 환경 변화에 대한 실제 반응<br>
+                        ⚠️ 설계 의도와 실제 사용의 괴리<br><br>
+                        이 데이터를 해석하는 건 여러분의 전문 영역입니다
+                    </div>
+                </div>
+            </div>
+            <div class="key-point" style="margin-top: 2vw; font-size: 1.8vw;">
+                "설계 의도대로 공간이 쓰이고 있는가?" <br>— 이 질문에 답할 수 있는 데이터가 현장에 있습니다
+            </div>
+        </div>
+
+        <!-- 슬라이드 25: 데이터가 뒤집어 놓은 설계 상식 -->
+        <div class="slide" data-slide="25">
+            <div class="eyebrow" style="color: var(--purple);">DATA vs ASSUMPTION</div>
+            <h2 class="headline" style="font-size: 3.6vw;">데이터가 뒤집어 놓은 설계 상식 5가지</h2>
+            <div style="margin-top: 1.5vw; width: 100%; max-width: 70vw;">
+                <div style="display: flex; align-items: center; padding: 1vw 0; border-bottom: 1px solid var(--gray-light);">
+                    <div style="flex: 1; font-size: 1.4vw; color: var(--red);">❌ 거실은 TV 보는 공간이다</div>
+                    <div style="font-size: 1.4vw; color: var(--gray-light); margin: 0 1.5vw;">→</div>
+                    <div style="flex: 1.2; font-size: 1.4vw; color: var(--green); font-weight: 600;">✅ 재택근무 후 거실=사무실 (체류 62%↑)</div>
+                </div>
+                <div style="display: flex; align-items: center; padding: 1vw 0; border-bottom: 1px solid var(--gray-light);">
+                    <div style="flex: 1; font-size: 1.4vw; color: var(--red);">❌ 작은방은 서재/취미실이다</div>
+                    <div style="font-size: 1.4vw; color: var(--gray-light); margin: 0 1.5vw;">→</div>
+                    <div style="flex: 1.2; font-size: 1.4vw; color: var(--green); font-weight: 600;">✅ 실제론 창고+가끔 낮잠방 (주중 사용률 8%)</div>
+                </div>
+                <div style="display: flex; align-items: center; padding: 1vw 0; border-bottom: 1px solid var(--gray-light);">
+                    <div style="flex: 1; font-size: 1.4vw; color: var(--red);">❌ 주방은 요리할 때만 쓴다</div>
+                    <div style="font-size: 1.4vw; color: var(--gray-light); margin: 0 1.5vw;">→</div>
+                    <div style="flex: 1.2; font-size: 1.4vw; color: var(--green); font-weight: 600;">✅ 1인 가구 주방 체류 = 식사+폰+대화 (복합 공간)</div>
+                </div>
+                <div style="display: flex; align-items: center; padding: 1vw 0; border-bottom: 1px solid var(--gray-light);">
+                    <div style="flex: 1; font-size: 1.4vw; color: var(--red);">❌ 화장실은 단시간 사용이다</div>
+                    <div style="font-size: 1.4vw; color: var(--gray-light); margin: 0 1.5vw;">→</div>
+                    <div style="flex: 1.2; font-size: 1.4vw; color: var(--green); font-weight: 600;">✅ 고령자 평균 체류 12분 (젊은층의 3배)</div>
+                </div>
+                <div style="display: flex; align-items: center; padding: 1vw 0;">
+                    <div style="flex: 1; font-size: 1.4vw; color: var(--red);">❌ 현관은 출입만 하는 곳이다</div>
+                    <div style="font-size: 1.4vw; color: var(--gray-light); margin: 0 1.5vw;">→</div>
+                    <div style="flex: 1.2; font-size: 1.4vw; color: var(--green); font-weight: 600;">✅ 택배·분리수거·통화 공간 (1일 평균 7회 활성)</div>
+                </div>
+            </div>
+            <div class="key-point" style="margin-top: 1.5vw; font-size: 1.4vw; background: var(--purple);">
+                설계자의 의도와 거주자의 실제 행동 사이의 괴리 — 이 간극을 메울 수 있는 건 데이터뿐입니다
+            </div>
+        </div>
+
+        <!-- 슬라이드 26: 주거환경학과에게 -->
+        <div class="slide" data-slide="26">
+            <div class="eyebrow green">FOR HOUSING & INTERIOR</div>
+            <div style="font-size: 2.8vw; font-weight: 500; text-align: center; margin-top: 1vw;">현장에서는 이 데이터를 해석할 수 있는 전문가가 부족합니다</div>
+            <div class="two-col" style="margin-top: 2vw; gap: 2.5vw;">
+                <div class="card" style="padding: 2vw;">
+                    <div style="font-size: 1.8vw; font-weight: 700; color: var(--red); margin-bottom: 0.8vw;">현장의 현실</div>
+                    <div style="font-size: 1.3vw; color: var(--gray-dark); line-height: 1.7;">
+                        📡 센서 데이터는 쌓이는데<br>
+                        📊 해석할 사람이 없습니다<br>
+                        🏗️ 엔지니어는 설치만 합니다<br>
+                        🏠 공간을 아는 사람이 읽어야 합니다
+                    </div>
+                </div>
+                <div class="card card-green" style="padding: 2vw;">
+                    <div style="font-size: 1.8vw; font-weight: 700; margin-bottom: 0.8vw;">여러분의 전문성</div>
+                    <div style="font-size: 1.3vw; line-height: 1.7; opacity: 0.95;">
+                        🏠 공간의 맥락을 이해하고<br>
+                        👤 사용자의 행태를 알고<br>
+                        📐 설계에 반영할 수 있는<br>
+                        🎯 바로 그 역할을 할 수 있습니다
+                    </div>
+                </div>
+            </div>
+            <div class="message-box green" style="margin-top: 1.5vw; font-size: 1.8vw;">
+                📊 현장 데이터와 공간 전문성의 만남 — 여러분이 그 다리가 될 수 있습니다
+            </div>
+        </div>
+
+        <!-- 슬라이드 26.5: 현장이 답을 못 찾는 질문들 -->
+        <div class="slide" data-slide="26-5">
+            <div class="eyebrow" style="color: var(--purple);">UNANSWERED QUESTIONS</div>
+            <h2 class="headline" style="font-size: 3.6vw;">현장에서 답을 못 찾고 있는 질문들</h2>
+            <p class="subheadline" style="font-size: 1.4vw; margin-top: 0.5vw;">200개 현장의 데이터는 있는데, 해석할 프레임이 없습니다</p>
+            <ul class="list-enhanced wide" style="margin-top: 1.5vw;">
+                <li style="padding: 1vw 2vw; margin-bottom: 0.5vw; border-left: 4px solid var(--purple);"><span class="icon" style="font-size: 2.5vw;">🏠</span> 같은 평수인데 왜 거실 체류가 6시간 vs 2시간인가? <span class="detail">가구 구성? 평면 구조?</span></li>
+                <li style="padding: 1vw 2vw; margin-bottom: 0.5vw; border-left: 4px solid var(--blue);"><span class="icon" style="font-size: 2.5vw;">🚿</span> 고령자 화장실 사용 패턴이 건강 지표가 될 수 있는가? <span class="detail">빈도·시간 변화</span></li>
+                <li style="padding: 1vw 2vw; margin-bottom: 0.5vw; border-left: 4px solid var(--green);"><span class="icon" style="font-size: 2.5vw;">📐</span> 설계 의도와 실제 사용의 괴리가 가장 큰 공간은? <span class="detail">작은방? 발코니?</span></li>
+                <li style="padding: 1vw 2vw; margin-bottom: 0.5vw; border-left: 4px solid var(--orange);"><span class="icon" style="font-size: 2.5vw;">🌡️</span> 계절별 행동 변화가 에너지 소비와 어떻게 연결되는가? <span class="detail">데이터는 있음</span></li>
+            </ul>
+            <div class="key-point" style="margin-top: 1vw; font-size: 1.5vw; background: var(--purple);">
+                이 질문들에 답할 수 있는 사람은 공간을 이해하는 여러분입니다 — 현장의 인사이트는 언제든 나누겠습니다
+            </div>
+        </div>
+
+        <!-- ==================== 주제 3: 복지시설 (27~35) ==================== -->
+
+        <!-- 슬라이드 26.5-A: 질문에 대한 현장 힌트 1 -->
+        <div class="slide" data-slide="26-5A">
+            <div class="eyebrow" style="color: var(--purple);">FIELD HINTS — PART 1</div>
+            <h2 class="headline" style="font-size: 3.4vw;">현장에서 찾은 실마리 (1/2)</h2>
+            <div class="two-col" style="margin-top: 2vw; gap: 2.5vw;">
+                <div class="card" style="padding: 2vw; border-left: 4px solid var(--purple);">
+                    <div style="font-size: 1.5vw; font-weight: 700; color: var(--purple); margin-bottom: 0.8vw;">🏠 같은 평수, 왜 거실 체류가 다른가?</div>
+                    <div style="font-size: 1.2vw; color: var(--gray-dark); line-height: 1.8;">
+                        <strong>현장 데이터 힌트:</strong><br>
+                        • 거실↔주방 연결 구조 (오픈형) → 체류 35%↑<br>
+                        • 거실 창 방향: 남향 > 동향 > 서향 (체류 차이 1.8h)<br>
+                        • 소파 위치가 TV 정면이면 체류↑, 측면이면 통과 공간화<br><br>
+                        <span style="color: var(--purple); font-weight: 600;">→ 평면 구조 + 가구 배치 + 채광이 복합적으로 영향</span>
+                    </div>
+                </div>
+                <div class="card" style="padding: 2vw; border-left: 4px solid var(--blue);">
+                    <div style="font-size: 1.5vw; font-weight: 700; color: var(--blue); margin-bottom: 0.8vw;">🚿 화장실 패턴이 건강 지표가 될 수 있는가?</div>
+                    <div style="font-size: 1.2vw; color: var(--gray-dark); line-height: 1.8;">
+                        <strong>현장 데이터 힌트:</strong><br>
+                        • 고령자 야간 화장실 평균 1.8회 → 3회 이상이면 이상 신호<br>
+                        • 체류 시간: 평균 7분 → 12분 이상 지속 시 낙상 위험↑<br>
+                        • 주간 대비 야간 빈도가 2배 → 비뇨기 질환 초기 증상<br><br>
+                        <span style="color: var(--blue); font-weight: 600;">→ 의료진이 아닌 공간 데이터가 먼저 포착할 수 있는 영역</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 26.5-B: 질문에 대한 현장 힌트 2 -->
+        <div class="slide" data-slide="26-5B">
+            <div class="eyebrow" style="color: var(--purple);">FIELD HINTS — PART 2</div>
+            <h2 class="headline" style="font-size: 3.4vw;">현장에서 찾은 실마리 (2/2)</h2>
+            <div class="two-col" style="margin-top: 2vw; gap: 2.5vw;">
+                <div class="card" style="padding: 2vw; border-left: 4px solid var(--green);">
+                    <div style="font-size: 1.5vw; font-weight: 700; color: var(--green); margin-bottom: 0.8vw;">📐 설계 의도와 괴리가 가장 큰 공간은?</div>
+                    <div style="font-size: 1.2vw; color: var(--gray-dark); line-height: 1.8;">
+                        <strong>현장 데이터 힌트:</strong><br>
+                        • <strong>1위: 작은방</strong> — "서재"로 설계, 실제론 창고 (주중 8%)<br>
+                        • 2위: 발코니 — "힐링 공간"으로 설계, 실제론 건조대<br>
+                        • 3위: 거실 다이닝 — "식사 공간", 실제론 아이 놀이<br><br>
+                        <span style="color: var(--green); font-weight: 600;">→ 설계 의도가 맞는 곳: 안방(수면), 현관(출입) — 단일 기능 공간</span>
+                    </div>
+                </div>
+                <div class="card" style="padding: 2vw; border-left: 4px solid var(--orange);">
+                    <div style="font-size: 1.5vw; font-weight: 700; color: var(--orange); margin-bottom: 0.8vw;">🌡️ 계절별 행동 변화 → 에너지 연결?</div>
+                    <div style="font-size: 1.2vw; color: var(--gray-dark); line-height: 1.8;">
+                        <strong>현장 데이터 힌트:</strong><br>
+                        • 환절기(3~4월, 10~11월) 창문 개폐 3배 + 에너지 낭비 피크<br>
+                        • 여름: 거실 체류↓ 안방 체류↑ (에어컨이 있는 방으로 이동)<br>
+                        • 겨울: 주방 체류 28%↑ (따뜻한 공간에 모임)<br><br>
+                        <span style="color: var(--orange); font-weight: 600;">→ 계절별 동선 변화 = 냉난방 존 설계의 핵심 근거</span>
+                    </div>
+                </div>
+            </div>
+            <div class="key-point" style="margin-top: 1.5vw; font-size: 1.3vw; background: var(--purple);">
+                이 힌트들은 200개 현장의 패턴입니다 — 여러분의 전문성으로 해석하면 연구가 됩니다
+            </div>
+        </div>
+
+        <!-- 슬라이드 27: 섹션 제목 -->
+        <div class="slide bg-gradient" data-slide="27">
+            <div class="section-number">03</div>
+            <div class="section-title">돌봄 공간의 IoT</div>
+            <div class="section-desc">기술이 따뜻해지는 순간</div>
+        </div>
+
+        <!-- 슬라이드 27.5: 보일러 에피소드 -->
+        <div class="slide bg-black" data-slide="27-5">
+            <div style="text-align: center;">
+                <div style="font-size: 3vw; font-weight: 700; color: var(--white); margin-bottom: 2vw;">
+                    "아버님 댁에 IoT 놓아 드려야겠어요"
+                </div>
+                <img src="img/boiler.jpg" alt="보일러 오류" style="max-width: 50vw; max-height: 35vw; border-radius: 1.2vw; box-shadow: 0 0.5vw 3vw rgba(0,0,0,0.5);">
+            </div>
+        </div>
+
+        <!-- 슬라이드 28: 고령화 시대의 공간 과제 -->
+        <div class="slide" data-slide="28">
+            <div class="eyebrow">AGING SOCIETY</div>
+            <h2 class="headline" style="font-size: 4.6vw;">고령화 시대의 공간 과제</h2>
+            <div class="stats-row" style="margin-top: 3vw;">
+                <div class="stat-item">
+                    <div class="stat-number" style="color: var(--red);">20.6%</div>
+                    <div class="stat-text">65세 이상 인구 비율 (2025)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" style="color: var(--orange);">37.3%</div>
+                    <div class="stat-text">독거 고령 가구 비율</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" style="color: var(--purple);">82만</div>
+                    <div class="stat-text">치매 환자 수 (추정)</div>
+                </div>
+            </div>
+            <p class="subheadline" style="margin-top: 2.5vw; font-size: 1.8vw;">
+                대한민국은 이미 초고령사회에 진입했습니다 (2025년)<br>
+                이 분야에서 IoT 설계 의뢰가 최근 급증하고 있습니다 — <span class="text-blue" style="font-weight: 600;">사람을 돕는 기술</span>에 대한 수요입니다
+            </p>
+            <div class="key-point" style="margin-top: 1.5vw; font-size: 1.5vw;">
+                2025 스마트 요양원 시범사업 확대 · IoT 돌봄 수가 인정 추진 · 노인장기요양보험 기술 연동 — 정부도 움직이고 있습니다
+            </div>
+        </div>
+
+        <!-- 슬라이드 29: 실제 요청 사례 3가지 -->
+        <div class="slide" data-slide="29">
+            <div class="eyebrow">REAL REQUESTS</div>
+            <h2 class="headline" style="font-size: 4.2vw;">실제 요청 사례 3가지</h2>
+            <div class="grid-row" style="margin-top: 2.5vw;">
+                <div class="card" style="flex: 1; text-align: left; padding: 2.5vw;">
+                    <div style="font-size: 3vw; margin-bottom: 0.8vw; text-align: center;">📍</div>
+                    <div style="font-size: 1.8vw; font-weight: 700; color: var(--blue); text-align: center;">어르신 위치 추적</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.8vw; line-height: 1.6;">
+                        <span style="color: var(--blue); font-weight: 600;">의뢰:</span> 요양원 원장님<br>
+                        "치매 어르신이 새벽에 나가시는 걸<br>
+                        직원이 모를 때가 있어요"<br>
+                        <span style="font-size: 1vw; color: var(--gray);">→ 비콘 이탈 감지 구축</span><br>
+                        <span style="font-size: 1vw; color: var(--blue); font-weight: 600;">결과: 야간 이탈 사고 0건 (6개월)</span>
+                    </div>
+                </div>
+                <div class="card" style="flex: 1; text-align: left; padding: 2.5vw;">
+                    <div style="font-size: 3vw; margin-bottom: 0.8vw; text-align: center;">🚨</div>
+                    <div style="font-size: 1.8vw; font-weight: 700; color: var(--red); text-align: center;">낙상/비상 감지</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.8vw; line-height: 1.6;">
+                        <span style="color: var(--red); font-weight: 600;">의뢰:</span> 독거 어르신 자녀분<br>
+                        "화장실에서 넘어지셨는데<br>
+                        3시간 뒤에야 발견됐어요"<br>
+                        <span style="font-size: 1vw; color: var(--gray);">→ mmWave + 즉시 알림</span><br>
+                        <span style="font-size: 1vw; color: var(--red); font-weight: 600;">결과: 발견 시간 3시간→8분</span>
+                    </div>
+                </div>
+                <div class="card" style="flex: 1; text-align: left; padding: 2.5vw;">
+                    <div style="font-size: 3vw; margin-bottom: 0.8vw; text-align: center;">🌡️</div>
+                    <div style="font-size: 1.8vw; font-weight: 700; color: var(--green); text-align: center;">환경 모니터링</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-dark); margin-top: 0.8vw; line-height: 1.6;">
+                        <span style="color: var(--green); font-weight: 600;">의뢰:</span> 복지관 시설담당자<br>
+                        "여름에 냉방 꺼놓고 계시다가<br>
+                        온열질환 오신 분이 있어요"<br>
+                        <span style="font-size: 1vw; color: var(--gray);">→ 온도 임계 알림 + 자동 냉방</span><br>
+                        <span style="font-size: 1vw; color: var(--green); font-weight: 600;">결과: 온열질환 발생 0건 (여름)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 29.5: 3시간→8분 임팩트 -->
+        <div class="slide bg-black" data-slide="29-5">
+            <div style="text-align: center;">
+                <div class="eyebrow" style="color: var(--gray); letter-spacing: 0.2em;">낙상 후 발견까지</div>
+                <div style="font-size: 14vw; font-weight: 800; color: var(--red); line-height: 1; margin-top: 2vw;">3시간</div>
+                <div style="font-size: 2vw; color: var(--gray-light); margin-top: 2vw;">화장실에서 넘어지셨는데, 아무도 몰랐습니다</div>
+                <div style="margin-top: 4vw;">
+                    <div style="font-size: 2vw; color: var(--gray);">IoT 도입 후</div>
+                    <div style="font-size: 14vw; font-weight: 800; color: var(--green); line-height: 1; margin-top: 1vw;">8분</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 30: 비콘이란? -->
+        <div class="slide" data-slide="30">
+            <div class="eyebrow">BEACON TECHNOLOGY</div>
+            <h2 class="headline" style="font-size: 4.2vw;">비콘(Beacon)이란?</h2>
+            <p class="subheadline" style="font-size: 1.5vw;">BLE(Bluetooth Low Energy) 기반 소형 송신기</p>
+            <div class="diagram" style="margin-top: 1.5vw;">
+                <div class="diagram-row">
+                    <div class="diagram-box" style="background: var(--blue); font-size: 1.3vw; padding: 1vw 2vw;">📡 비콘<br><span style="font-size: 1vw; opacity: 0.8;">BLE 신호 송출</span></div>
+                    <div class="diagram-box" style="background: var(--blue); font-size: 1.3vw; padding: 1vw 2vw;">📡 비콘<br><span style="font-size: 1vw; opacity: 0.8;">BLE 신호 송출</span></div>
+                    <div class="diagram-box" style="background: var(--blue); font-size: 1.3vw; padding: 1vw 2vw;">📡 비콘<br><span style="font-size: 1vw; opacity: 0.8;">BLE 신호 송출</span></div>
+                </div>
+                <div class="diagram-arrow">↓ 신호 수신</div>
+                <div class="diagram-box" style="background: var(--black); font-size: 1.4vw; padding: 1vw 4vw;">🔗 수신기(게이트웨이)</div>
+                <div class="diagram-arrow">↓ RSSI 분석</div>
+                <div class="diagram-box" style="background: var(--green); font-size: 1.4vw; padding: 1vw 4vw;">🖥️ 위치 계산 서버</div>
+            </div>
+            <div class="grid-row" style="margin-top: 1.5vw; gap: 3vw;">
+                <div style="text-align: center;">
+                    <div style="font-size: 2.6vw; font-weight: 800; color: var(--blue);">저전력</div>
+                    <div style="font-size: 1.2vw; color: var(--gray);">배터리 1~3년</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2.6vw; font-weight: 800; color: var(--green);">소형</div>
+                    <div style="font-size: 1.2vw; color: var(--gray);">동전 크기</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2.6vw; font-weight: 800; color: var(--orange);">저비용</div>
+                    <div style="font-size: 1.2vw; color: var(--gray);">개당 5천~2만원</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 31: 실내 위치 측위 기술 비교 -->
+        <div class="slide" data-slide="31">
+            <div class="eyebrow">TECHNOLOGY COMPARISON</div>
+            <h2 class="headline" style="font-size: 4.2vw;">실내 위치 측위 기술 비교</h2>
+            <table class="compare-table" style="margin-top: 2.5vw; max-width: 70vw;">
+                <tr>
+                    <th>항목</th>
+                    <th>BLE 비콘</th>
+                    <th>UWB</th>
+                    <th>WiFi 핑거프린팅</th>
+                </tr>
+                <tr>
+                    <td style="font-weight: 600;">정밀도</td>
+                    <td>1~3m</td>
+                    <td class="highlight-cell">10~30cm</td>
+                    <td>3~5m</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: 600;">비용 (개당)</td>
+                    <td class="highlight-cell">₩5K~20K</td>
+                    <td>₩50K~100K</td>
+                    <td>기존 AP 활용</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: 600;">설치 난이도</td>
+                    <td class="highlight-cell">매우 쉬움</td>
+                    <td>보통</td>
+                    <td>사전 측정 필요</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: 600;">배터리 수명</td>
+                    <td class="highlight-cell">1~3년</td>
+                    <td>6개월~1년</td>
+                    <td>전원 필요</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: 600;">적합 환경</td>
+                    <td class="highlight-cell">요양원, 복지관</td>
+                    <td>물류, 의료</td>
+                    <td>대형 건물</td>
+                </tr>
+            </table>
+            <div class="key-point blue" style="margin-top: 2vw; font-size: 1.6vw;">
+                현재는 BLE 비콘이 가장 현실적 — 단, UWB 가격이 매년 30%씩 하락 중. 2~3년 내 판도가 바뀔 수 있습니다
+            </div>
+        </div>
+
+        <!-- 슬라이드 32: 요양원 IoT 설계 구조도 -->
+        <div class="slide" data-slide="32">
+            <div class="eyebrow">SYSTEM ARCHITECTURE</div>
+            <h2 class="headline" style="font-size: 3.8vw;">요양원 IoT 시스템 구조</h2>
+            <div class="architecture" style="gap: 0.3vw;">
+                <div class="arch-label">DEVICE LAYER</div>
+                <div class="arch-layer">
+                    <div class="arch-box sensor">📡 BLE 비콘</div>
+                    <div class="arch-box sensor">👁️ 모션센서</div>
+                    <div class="arch-box sensor">🚪 도어센서</div>
+                    <div class="arch-box sensor">🌡️ 온습도센서</div>
+                    <div class="arch-box sensor">🔘 비상벨</div>
+                </div>
+                <div class="arch-arrow">↓</div>
+                <div class="arch-label">NETWORK LAYER</div>
+                <div class="arch-layer">
+                    <div class="arch-box gateway">🔗 BLE 게이트웨이</div>
+                    <div class="arch-box gateway">📶 Zigbee 허브</div>
+                </div>
+                <div class="arch-arrow">↓</div>
+                <div class="arch-label">SERVER + AI LAYER</div>
+                <div class="arch-layer">
+                    <div class="arch-box server">🖥️ 로컬 서버 (위치 계산 + 데이터 저장)</div>
+                    <div class="arch-box" style="background: var(--purple); font-size: 1.2vw;">🤖 AI 행동 예측 (2025~)</div>
+                </div>
+                <div class="arch-arrow">↓</div>
+                <div class="arch-label">APPLICATION LAYER</div>
+                <div class="arch-layer">
+                    <div class="arch-box app">📱 관리자 대시보드</div>
+                    <div class="arch-box app">👨‍👩‍👧 보호자 앱</div>
+                    <div class="arch-box app">🚨 비상 알림 시스템</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 33: 돌봄 시나리오 설계 -->
+        <div class="slide" data-slide="33">
+            <div class="eyebrow">CARE SCENARIOS</div>
+            <h2 class="headline" style="font-size: 4.2vw;">돌봄 시나리오 설계</h2>
+            <div class="scenario-flow">
+                <div class="scenario-row" style="border-left: 4px solid var(--red);">
+                    <div class="s-icon">🚶</div>
+                    <div class="s-label">배회 감지</div>
+                    <div class="s-flow">
+                        <div class="s-step">출입구 비콘 감지</div>
+                        <div class="s-arrow">→</div>
+                        <div class="s-step">허용 구역 이탈 판단</div>
+                        <div class="s-arrow">→</div>
+                        <div class="s-step alert">이탈 알림 발송</div>
+                        <div class="s-arrow">→</div>
+                        <div class="s-step action">실시간 위치 추적</div>
+                    </div>
+                </div>
+                <div class="scenario-row" style="border-left: 4px solid var(--orange);">
+                    <div class="s-icon">⚠️</div>
+                    <div class="s-label">낙상 감지</div>
+                    <div class="s-flow">
+                        <div class="s-step">화장실 mmWave</div>
+                        <div class="s-arrow">→</div>
+                        <div class="s-step">5분 이상 움직임 없음</div>
+                        <div class="s-arrow">→</div>
+                        <div class="s-step alert">비상 알림 + 보호자 통보</div>
+                        <div class="s-arrow">→</div>
+                        <div class="s-step action">간호사 즉시 출동</div>
+                    </div>
+                </div>
+                <div class="scenario-row" style="border-left: 4px solid var(--purple);">
+                    <div class="s-icon">🤖</div>
+                    <div class="s-label" style="color: var(--purple);">낙상 예측</div>
+                    <div class="s-flow">
+                        <div class="s-step">보행 패턴 AI 분석</div>
+                        <div class="s-arrow">→</div>
+                        <div class="s-step">보폭·속도 변화 감지</div>
+                        <div class="s-arrow">→</div>
+                        <div class="s-step alert" style="background: var(--purple);">고위험 사전 알림</div>
+                        <div class="s-arrow">→</div>
+                        <div class="s-step action" style="background: var(--purple);">예방 조치 (보행 보조)</div>
+                    </div>
+                </div>
+                <div class="scenario-row" style="border-left: 4px solid var(--blue);">
+                    <div class="s-icon">🌡️</div>
+                    <div class="s-label">환경 제어</div>
+                    <div class="s-flow">
+                        <div class="s-step">온습도/CO2 측정</div>
+                        <div class="s-arrow">→</div>
+                        <div class="s-step">쾌적 범위 이탈 판단</div>
+                        <div class="s-arrow">→</div>
+                        <div class="s-step action">냉난방 자동 조절</div>
+                        <div class="s-arrow">→</div>
+                        <div class="s-step action">환기 자동 실행</div>
+                    </div>
+                </div>
+            </div>
+            <div class="key-point" style="margin-top: 1.5vw; font-size: 1.6vw;">
+                현재: 감지→알림 8초. 다음 단계: AI가 넘어지기 "전에" 예측 — 감지에서 예측으로 진화 중
+            </div>
+        </div>
+
+        <!-- 슬라이드 33-DEMO: 요양원 IoT 시스템 라이브 데모 -->
+        <div class="slide" data-slide="33-demo" style="padding: 0;">
+            <iframe src="요양원_IoT_시스템.html" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+
+        <!-- 슬라이드 33.5: 요양시설 IoT 최신 트렌드 -->
+        <div class="slide" data-slide="33-5">
+            <div class="eyebrow" style="color: var(--purple);">2025-2026 TRENDS</div>
+            <h2 class="headline" style="font-size: 3.8vw;">요양시설 IoT — 지금 바뀌고 있는 것들</h2>
+            <div class="grid-row" style="margin-top: 2vw; gap: 1.2vw;">
+                <div class="card" style="flex: 1; text-align: center; padding: 1.8vw; border-color: var(--purple);">
+                    <div style="font-size: 2.5vw; margin-bottom: 0.3vw;">🤖</div>
+                    <div style="font-size: 1.4vw; font-weight: 700; color: var(--purple);">AI 행동 예측</div>
+                    <div style="font-size: 1vw; color: var(--gray); margin-top: 0.3vw;">보행 패턴 변화로<br>낙상 48시간 전 예측</div>
+                </div>
+                <div class="card" style="flex: 1; text-align: center; padding: 1.8vw; border-color: var(--blue);">
+                    <div style="font-size: 2.5vw; margin-bottom: 0.3vw;">📡</div>
+                    <div style="font-size: 1.4vw; font-weight: 700; color: var(--blue);">엠비언트 센싱</div>
+                    <div style="font-size: 1vw; color: var(--gray); margin-top: 0.3vw;">웨어러블 없이<br>호흡·심박 비접촉 측정</div>
+                </div>
+                <div class="card" style="flex: 1; text-align: center; padding: 1.8vw; border-color: var(--green);">
+                    <div style="font-size: 2.5vw; margin-bottom: 0.3vw;">🏥</div>
+                    <div style="font-size: 1.4vw; font-weight: 700; color: var(--green);">디지털 트윈</div>
+                    <div style="font-size: 1vw; color: var(--gray); margin-top: 0.3vw;">시설 전체를 가상 복제<br>실시간 모니터링 + 시뮬레이션</div>
+                </div>
+                <div class="card" style="flex: 1; text-align: center; padding: 1.8vw; border-color: var(--orange);">
+                    <div style="font-size: 2.5vw; margin-bottom: 0.3vw;">🏛️</div>
+                    <div style="font-size: 1.4vw; font-weight: 700; color: var(--orange);">정부 수가 인정</div>
+                    <div style="font-size: 1vw; color: var(--gray); margin-top: 0.3vw;">스마트 요양원 인증제<br>IoT 돌봄 보험 수가 추진</div>
+                </div>
+            </div>
+            <div class="key-point" style="margin-top: 1.5vw; font-size: 1.5vw; background: var(--purple);">
+                일본 개호보험 IoT 수가 인정 완료 · EU AAL 프로그램 10년차 — 한국은 지금 시작. 기준을 만들 기회입니다
+            </div>
+        </div>
+
+        <!-- 슬라이드 34: Inclusive Design × IoT -->
+        <div class="slide" data-slide="34">
+            <div class="eyebrow red">FIELD DILEMMA</div>
+            <h2 class="headline" style="font-size: 4.2vw;">존엄성 vs 안전 — 현장의 딜레마</h2>
+            <div class="two-col" style="margin-top: 2.5vw;">
+                <div class="card" style="padding: 2.5vw; border-color: var(--red);">
+                    <div style="font-size: 2vw; font-weight: 700; color: var(--red); margin-bottom: 1vw;">안전을 위해 감시해야 하는가</div>
+                    <div style="font-size: 1.3vw; color: var(--gray-dark); line-height: 1.8;">
+                        🚨 치매 어르신 배회 → 위치 추적 필수<br>
+                        📹 카메라를 달면 안전하지만 존엄성 침해<br>
+                        🔔 센서만으로는 낙상 오탐이 잦음<br>
+                        👤 "나를 감시하지 마" — 실제로 센서를 떼시는 분도 계심
+                    </div>
+                </div>
+                <div class="card" style="padding: 2.5vw; border-color: var(--green);">
+                    <div style="font-size: 2vw; font-weight: 700; color: var(--green); margin-bottom: 1vw;">현장에서 찾은 타협점</div>
+                    <div style="font-size: 1.3vw; color: var(--gray-dark); line-height: 1.8;">
+                        🔇 카메라 대신 모션센서 → 존재만 감지<br>
+                        📍 위치는 '구역' 단위로만 파악 (정밀 추적 X)<br>
+                        ⚙️ 본인이 끌 수 있는 선택권 부여<br>
+                        🤝 "감시가 아니라 연결" — 가족과의 안심 채널
+                    </div>
+                </div>
+            </div>
+            <div class="warning-box" style="margin-top: 2vw;">
+                <div class="icon">⚖️</div>
+                <div class="text">여러분이라면 어떻게 설계하시겠습니까? — 카메라 없이, 착용 거부하는 분에게, 안전을 보장하는 공간을</div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 35: 설계 시 핵심 고려사항 -->
+        <div class="slide" data-slide="35">
+            <div class="eyebrow red">LESSONS LEARNED</div>
+            <h2 class="headline" style="font-size: 3.8vw;">현장에서 반드시 실패하는 4가지 패턴</h2>
+            <ul class="list-enhanced wide" style="margin-top: 2vw;">
+                <li style="padding: 1vw 2vw; margin-bottom: 0.6vw;"><span class="icon">🔒</span> "다 수집하면 되겠지" <span class="detail">→ 과다 수집 → 거부감 → 센서 철거 요청</span></li>
+                <li style="padding: 1vw 2vw; margin-bottom: 0.6vw;"><span class="icon">✋</span> "보호자 동의면 충분하지" <span class="detail">→ 본인 미동의 → 센서 임의 제거</span></li>
+                <li style="padding: 1vw 2vw; margin-bottom: 0.6vw;"><span class="icon">🛡️</span> "인터넷만 되면 되지" <span class="detail">→ 통신 장애 시 비상벨도 먹통</span></li>
+                <li style="padding: 1vw 2vw; margin-bottom: 0.6vw;"><span class="icon">🔧</span> "설치하면 끝이지" <span class="detail">→ 배터리 방전 → 6개월 후 무용지물</span></li>
+            </ul>
+            <div class="key-point red" style="margin-top: 1.5vw; font-size: 1.8vw;">
+                🚨 이 4가지를 사전에 설계에 반영하면 실패 확률이 크게 줄어듭니다
+            </div>
+        </div>
+
+        <!-- ==================== 마무리 (36~38) ==================== -->
+
+        <!-- 슬라이드 36: 오늘의 핵심 정리 -->
+        <div class="slide" data-slide="36">
+            <h2 class="headline" style="font-size: 4.6vw;">오늘의 핵심 3가지</h2>
+            <div class="grid-row" style="margin-top: 3vw;">
+                <div class="card" style="text-align: center; flex: 1; padding: 2.5vw;">
+                    <div style="font-size: 5vw; margin-bottom: 0.5vw;">🔬</div>
+                    <div style="font-size: 2.6vw; font-weight: 700; color: var(--blue);">센서</div>
+                    <div style="font-size: 1.6vw; color: var(--gray); margin-top: 0.8vw;">공간의 감각기관<br>설계 단계에서 고려</div>
+                </div>
+                <div class="card" style="text-align: center; flex: 1; padding: 2.5vw;">
+                    <div style="font-size: 5vw; margin-bottom: 0.5vw;">📊</div>
+                    <div style="font-size: 2.6vw; font-weight: 700; color: var(--green);">데이터</div>
+                    <div style="font-size: 1.6vw; color: var(--gray); margin-top: 0.8vw;">공간 사용자를 이해하는<br>새로운 방법</div>
+                </div>
+                <div class="card" style="text-align: center; flex: 1; padding: 2.5vw;">
+                    <div style="font-size: 5vw; margin-bottom: 0.5vw;">🤝</div>
+                    <div style="font-size: 2.6vw; font-weight: 700; color: var(--orange);">IoT</div>
+                    <div style="font-size: 1.6vw; color: var(--gray); margin-top: 0.8vw;">돌봄과 복지의<br>기술적 보완</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 37: 주거환경 전문가 + IoT -->
+        <div class="slide bg-black" data-slide="37">
+            <div class="eyebrow" style="color: var(--gray); letter-spacing: 0.2em;">FOR YOUR FUTURE</div>
+            <div class="quote" style="color: var(--white); font-size: 3vw;">공간을 설계하시는 여러분이<br>기술을 이해하면,<br>현장에서 통역자가 됩니다</div>
+            <p class="subheadline" style="margin-top: 2.5vw; font-size: 1.8vw; max-width: 65vw;">설계자와 엔지니어는 서로 다른 언어를 씁니다</p>
+            <div style="display: flex; align-items: center; gap: 1.5vw; margin-top: 2vw; max-width: 75vw;">
+                <div class="card" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: var(--white); text-align: center; padding: 2vw; flex: 1;">
+                    <div style="font-size: 2.5vw; margin-bottom: 0.5vw;">🏗️</div>
+                    <div style="font-size: 1.6vw; font-weight: 600;">설계자</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-light); margin-top: 0.5vw; line-height: 1.6;">"이 공간은 이렇게<br>사용되어야 해요"</div>
+                </div>
+                <div style="color: var(--gray-light); font-size: 2vw; text-align: center;">←</div>
+                <div style="text-align: center; flex: 0.8; padding: 1.5vw;">
+                    <div style="font-size: 2.5vw; margin-bottom: 0.3vw;">🎯</div>
+                    <div style="font-size: 1.6vw; font-weight: 700; color: var(--green);">여러분</div>
+                    <div style="font-size: 1vw; color: var(--gray-light); margin-top: 0.3vw;">두 언어를 모두<br>이해하는 통역자</div>
+                </div>
+                <div style="color: var(--gray-light); font-size: 2vw; text-align: center;">→</div>
+                <div class="card" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: var(--white); text-align: center; padding: 2vw; flex: 1;">
+                    <div style="font-size: 2.5vw; margin-bottom: 0.5vw;">⚙️</div>
+                    <div style="font-size: 1.6vw; font-weight: 600;">엔지니어</div>
+                    <div style="font-size: 1.1vw; color: var(--gray-light); margin-top: 0.5vw; line-height: 1.6;">"이 센서는 이렇게<br>작동합니다"</div>
+                </div>
+            </div>
+            <div style="margin-top: 2vw; text-align: center; color: var(--green); font-size: 1.8vw; font-weight: 600;">
+                저는 200개 현장에서 그 통역자를 기다렸습니다 — 오늘 이 자리에서 만난 것 같습니다
+            </div>
+        </div>
+
+        <!-- 슬라이드 38: 감사합니다 -->
+        <div class="slide" data-slide="38">
+            <h2 class="headline headline-gradient" style="font-size: 6.5vw;">감사합니다</h2>
+            <p class="subheadline" style="margin-top: 1vw; font-size: 1.5vw;">다음 슬라이드에 챕터 4 내용이 있습니다.<br>IoT 구축 사례 및 인사이트가 궁금하시면 아래 블로그로 방문해주세요.</p>
+            <div class="grid-row" style="margin-top: 2vw; gap: 1.5vw;">
+                <div class="card" style="text-align: center; padding: 1.5vw 2vw; flex: 1;">
+                    <div style="font-size: 2vw; margin-bottom: 0.3vw;">🏠</div>
+                    <div style="font-size: 1.6vw; font-weight: 700; color: var(--black);">TABSPACE</div>
+                    <div style="font-size: 1.1vw; color: var(--gray); margin-top: 0.3vw;">IoT 공간 솔루션 전문</div>
+                </div>
+                <div class="card" style="text-align: center; padding: 1.5vw 2vw; flex: 1;">
+                    <div style="font-size: 2vw; margin-bottom: 0.3vw;">📝</div>
+                    <a href="https://blog.naver.com/tabspacekr" target="_blank" style="font-size: 1.2vw; font-weight: 600; color: var(--blue); text-decoration: none;">blog.naver.com/tabspacekr</a>
+                    <div style="font-size: 1.1vw; color: var(--gray); margin-top: 0.3vw;">구축 사례 & 기술 블로그</div>
+                </div>
+                <div class="card" style="text-align: center; padding: 1.5vw 2vw; flex: 1;">
+                    <div style="font-size: 2vw; margin-bottom: 0.3vw;">🌐</div>
+                    <a href="https://www.tabspace.kr" target="_blank" style="font-size: 1.2vw; font-weight: 600; color: var(--blue); text-decoration: none;">www.tabspace.kr</a>
+                    <div style="font-size: 1.1vw; color: var(--gray); margin-top: 0.3vw;">회사 소개 & 문의</div>
+                </div>
+                <div class="card" style="text-align: center; padding: 1.5vw 2vw; flex: 1; border-color: var(--blue);">
+                    <div style="font-size: 2vw; margin-bottom: 0.3vw;">📧</div>
+                    <a href="mailto:ceo@tabspace.kr" style="font-size: 1.2vw; font-weight: 600; color: var(--blue); text-decoration: none;">ceo@tabspace.kr</a>
+                    <div style="font-size: 1.1vw; color: var(--gray); margin-top: 0.3vw;">산학협력 · IoT 기술 문의</div>
+                </div>
+            </div>
+            <div style="margin-top: 1.5vw; text-align: center;">
+                <div style="font-size: 2vw; font-weight: 700; color: var(--black);">TABSPACE × 경희대 주거환경학과</div>
+                <div style="font-size: 1.2vw; color: var(--gray); margin-top: 0.4vw;">공간을 읽는 기술, IoT — 스마트 공간 설계의 현장과 데이터</div>
+            </div>
+        </div>
+
+        <!-- ==================== 별지: 인테리어 실무 가이드 (39~43) ==================== -->
+
+        <!-- 슬라이드 39: 별지 섹션 제목 -->
+        <div class="slide bg-gradient" data-slide="39">
+            <div class="section-number">04</div>
+            <div class="section-title">인테리어 실무자를 위한 IoT 가이드</div>
+            <div class="section-desc">별지 — 관심 있으신 분은 읽어봐 주세요</div>
+        </div>
+
+        <!-- 슬라이드 40: 센서 외관과 설치 방법 -->
+        <div class="slide" data-slide="40">
+            <div class="eyebrow">SENSOR DESIGN</div>
+            <h2 class="headline" style="font-size: 3.8vw;">센서, 숨겨도 되는 것과 안 되는 것</h2>
+            <div class="two-col" style="margin-top: 2vw; gap: 2.5vw;">
+                <div class="card" style="padding: 2vw; border-color: var(--green);">
+                    <div style="font-size: 1.8vw; font-weight: 700; color: var(--green); margin-bottom: 0.8vw;">숨겨도 되는 센서</div>
+                    <div style="font-size: 1.2vw; color: var(--gray-dark); line-height: 1.8;">
+                        🌡️ 온습도 — 공기 순환만 되면 OK<br>
+                        🚪 도어 — 문틀 안쪽에 매립 가능<br>
+                        🔌 전력 — 분전함 내부 설치<br>
+                        📡 비콘 — 천장 타일 위 설치 가능
+                    </div>
+                </div>
+                <div class="card" style="padding: 2vw; border-color: var(--red);">
+                    <div style="font-size: 1.8vw; font-weight: 700; color: var(--red); margin-bottom: 0.8vw;">절대 가리면 안 되는 센서</div>
+                    <div style="font-size: 1.2vw; color: var(--gray-dark); line-height: 1.8;">
+                        👁️ PIR 모션 — 시야각 확보 필수 (120°)<br>
+                        ☀️ 조도 — 빛을 직접 받아야 함<br>
+                        🌫️ PM2.5 — 공기 흡입구 노출 필수<br>
+                        📹 mmWave — 전면 장애물 X
+                    </div>
+                </div>
+            </div>
+            <div class="grid-row" style="margin-top: 1.5vw; gap: 2vw;">
+                <div style="text-align: center;">
+                    <div style="font-size: 2vw; font-weight: 700; color: var(--blue);">매립형</div>
+                    <div style="font-size: 1.1vw; color: var(--gray);">천장 깊이 5cm 이상 필요<br>사전 배선 필수</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2vw; font-weight: 700; color: var(--green);">노출형</div>
+                    <div style="font-size: 1.1vw; color: var(--gray);">부착식, 후시공 가능<br>화이트·블랙 옵션</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2vw; font-weight: 700; color: var(--orange);">하이브리드</div>
+                    <div style="font-size: 1.1vw; color: var(--gray);">본체 매립 + 센서부 노출<br>가장 깔끔한 시공</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 41: 마감재와 IoT 호환성 -->
+        <div class="slide" data-slide="41">
+            <div class="eyebrow red">MATERIAL COMPATIBILITY</div>
+            <h2 class="headline" style="font-size: 3.8vw;">마감재별 IoT 호환성 — 현장에서 겪은 것들</h2>
+            <table class="scenario-table" style="margin-top: 2vw;">
+                <tr>
+                    <th>마감재</th>
+                    <th>WiFi</th>
+                    <th>BLE/Zigbee</th>
+                    <th>모션(PIR)</th>
+                    <th>모션(mmWave)</th>
+                    <th>현장 메모</th>
+                </tr>
+                <tr>
+                    <td style="font-weight: 600;">일반 벽지</td>
+                    <td class="active-cell">통과</td>
+                    <td class="active-cell">통과</td>
+                    <td class="active-cell">통과</td>
+                    <td class="active-cell">통과</td>
+                    <td>문제 없음</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: 600;">금속 천장재</td>
+                    <td style="color: var(--red); font-weight: 600;">차단</td>
+                    <td style="color: var(--red); font-weight: 600;">차단</td>
+                    <td style="color: var(--orange);">약화</td>
+                    <td style="color: var(--red); font-weight: 600;">차단</td>
+                    <td style="color: var(--red);">반드시 노출 설치</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: 600;">강화유리</td>
+                    <td class="active-cell">통과</td>
+                    <td class="active-cell">통과</td>
+                    <td style="color: var(--red); font-weight: 600;">감지불가</td>
+                    <td style="color: var(--orange);">약화</td>
+                    <td>유리 파티션 뒤 PIR 불가</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: 600;">대리석/타일</td>
+                    <td class="active-cell">통과</td>
+                    <td class="active-cell">통과</td>
+                    <td class="active-cell">통과</td>
+                    <td class="active-cell">통과</td>
+                    <td>부착 방법만 주의 (접착)</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: 600;">두꺼운 몰딩</td>
+                    <td class="active-cell">통과</td>
+                    <td class="active-cell">통과</td>
+                    <td style="color: var(--orange);">시야각↓</td>
+                    <td style="color: var(--orange);">시야각↓</td>
+                    <td>몰딩 뒤 설치 시 각도 제한</td>
+                </tr>
+            </table>
+            <div class="key-point red" style="margin-top: 1.5vw; font-size: 1.5vw;">
+                🚨 금속 마감재 + 무선 센서 = 현장에서 가장 많이 실패하는 조합입니다
+            </div>
+        </div>
+
+        <!-- 슬라이드 42: 인테리어 공정 × IoT 시공 타임라인 -->
+        <div class="slide" data-slide="42">
+            <div class="eyebrow green">CONSTRUCTION TIMELINE</div>
+            <h2 class="headline" style="font-size: 3.6vw;">인테리어 공정별 IoT 시공 체크리스트</h2>
+            <div style="margin-top: 2vw; width: 100%; max-width: 75vw;">
+                <div style="display: flex; gap: 0.8vw; margin-bottom: 0.8vw;">
+                    <div style="flex: 1; background: var(--blue); color: white; padding: 1.2vw; border-radius: 0.8vw; text-align: center;">
+                        <div style="font-size: 1.4vw; font-weight: 700;">① 철거/배선</div>
+                        <div style="font-size: 1vw; margin-top: 0.4vw; opacity: 0.9;">N선 확보<br>센서 전원 위치 확정<br>매립형 센서 박스 설치</div>
+                    </div>
+                    <div style="flex: 1; background: var(--purple); color: white; padding: 1.2vw; border-radius: 0.8vw; text-align: center;">
+                        <div style="font-size: 1.4vw; font-weight: 700;">② 목공/천장</div>
+                        <div style="font-size: 1vw; margin-top: 0.4vw; opacity: 0.9;">천장 매립 센서 홀 가공<br>스위치 박스 위치 확인<br>통신 허브 위치 확보</div>
+                    </div>
+                    <div style="flex: 1; background: var(--orange); color: white; padding: 1.2vw; border-radius: 0.8vw; text-align: center;">
+                        <div style="font-size: 1.4vw; font-weight: 700;">③ 도배/마감</div>
+                        <div style="font-size: 1vw; margin-top: 0.4vw; opacity: 0.9;">스마트 스위치 설치<br>매립 센서 마감 처리<br>도배 전 배선 최종 확인</div>
+                    </div>
+                    <div style="flex: 1; background: var(--green); color: white; padding: 1.2vw; border-radius: 0.8vw; text-align: center;">
+                        <div style="font-size: 1.4vw; font-weight: 700;">④ 가구 입주 후</div>
+                        <div style="font-size: 1vw; margin-top: 0.4vw; opacity: 0.9;">무선 센서 부착<br>모션센서 각도 조정<br>최종 테스트 + 세팅</div>
+                    </div>
+                </div>
+            </div>
+            <div class="warning-box" style="margin-top: 1.5vw;">
+                <div class="icon">💡</div>
+                <div class="text">①②를 놓치면 ③④에서 벽을 뜯어야 합니다 — 인테리어 업체와 IoT 업체의 사전 미팅이 핵심</div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 43: 비용 가이드 & 유지보수 -->
+        <div class="slide" data-slide="43">
+            <div class="eyebrow">COST & MAINTENANCE</div>
+            <h2 class="headline" style="font-size: 3.6vw;">IoT 추가 비용 & 유지보수 가이드</h2>
+            <div class="two-col" style="margin-top: 2vw; gap: 2.5vw;">
+                <div class="card" style="padding: 2vw;">
+                    <div style="font-size: 1.8vw; font-weight: 700; color: var(--blue); margin-bottom: 0.8vw;">평당 추가 비용 (기준)</div>
+                    <div style="font-size: 1.2vw; color: var(--gray-dark); line-height: 2;">
+                        🏠 기본형 (조명+모션) — <strong>3~5만원/평</strong><br>
+                        🏠 표준형 (+온습도+도어) — <strong>7~10만원/평</strong><br>
+                        🏠 프리미엄 (+공기질+전력) — <strong>12~18만원/평</strong><br><br>
+                        <span style="font-size: 1.1vw; color: var(--gray);">※ 30평 기준: 90만~540만원 추가<br>설계 단계 반영 시 시공비 50% 절감</span>
+                    </div>
+                </div>
+                <div class="card" style="padding: 2vw; border-color: var(--orange);">
+                    <div style="font-size: 1.8vw; font-weight: 700; color: var(--orange); margin-bottom: 0.8vw;">유지보수 — 누가 하나?</div>
+                    <div style="font-size: 1.2vw; color: var(--gray-dark); line-height: 2;">
+                        🔧 배터리 교체 — <strong>입주자</strong> (6개월~3년)<br>
+                        📶 통신 장애 — <strong>IoT 업체</strong> (원격 진단)<br>
+                        ⚡ 전원/배선 — <strong>인테리어 업체</strong><br>
+                        🖥️ 소프트웨어 — <strong>IoT 업체</strong> (자동 업데이트)<br><br>
+                        <span style="font-size: 1.1vw; color: var(--red); font-weight: 600;">계약 시 AS 범위를 반드시 명문화하세요</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 별지 슬라이드: 시나리오 기반 설계 (본편에서 이동) -->
+        <div class="slide" data-slide="appendix-scenario">
+            <div class="eyebrow">SCENARIO-BASED AUTOMATION</div>
+            <h2 class="headline" style="font-size: 3.5vw;">센서가 만드는 자동화 시나리오</h2>
+            <div style="display: flex; gap: 1.2vw; margin-top: 1.5vw; font-size: 1.35vw; line-height: 2;">
+                <div style="flex: 1;">
+                    <div style="color: var(--blue); font-weight: 600; margin-bottom: 0.3vw;">기본 모드</div>
+                    <div>🚪 외출 모드</div>
+                    <div>🌙 취침 모드</div>
+                    <div>☀️ 기상 모드</div>
+                    <div>🎬 영화 모드</div>
+                    <div>✈️ 여행 모드</div>
+                    <div>👋 손님 모드</div>
+                </div>
+                <div style="flex: 1;">
+                    <div style="color: var(--blue); font-weight: 600; margin-bottom: 0.3vw;">냉난방/환경</div>
+                    <div>🔥 보일러 예열</div>
+                    <div>🪟 창문 열림 냉난방 OFF</div>
+                    <div>🌬️ 실내 공기질 관리</div>
+                    <div>💧 습도 기반 가습/제습</div>
+                    <div>❄️ 온도 기반 에어컨</div>
+                </div>
+                <div style="flex: 1;">
+                    <div style="color: var(--blue); font-weight: 600; margin-bottom: 0.3vw;">조명/안전</div>
+                    <div>🏠 현관 도착 감지</div>
+                    <div>🌤️ 조도 기반 자동 조명</div>
+                    <div>🚶 재실 감지 조명</div>
+                    <div>🚨 화재/가스 감지</div>
+                    <div>🧊 냉장고 문 알림</div>
+                    <div>🚰 침수/누수 감지</div>
+                    <div>⚡ 전기요금 피크 대응</div>
+                </div>
+                <div style="flex: 1;">
+                    <div style="color: var(--blue); font-weight: 600; margin-bottom: 0.3vw;">가전 연동</div>
+                    <div>🌀 환풍기 자동화</div>
+                    <div>👕 세탁/건조 완료 알림</div>
+                    <div>🤖 로봇청소기 자동</div>
+                    <div>🌱 식물 자동 관수</div>
+                    <div>🌧️ 건조대 날씨 연동</div>
+                    <div>🐕 반려동물 급식</div>
+                </div>
+                <div style="flex: 1;">
+                    <div style="color: var(--blue); font-weight: 600; margin-bottom: 0.3vw;">출입/알림</div>
+                    <div>📦 택배 도착 알림</div>
+                    <div>🔔 스마트 도어벨</div>
+                    <div>🛗 엘리베이터 호출</div>
+                    <div>🚗 차량 출발 감지</div>
+                    <div>👧 자녀 귀가 알림</div>
+                    <div>🔐 도어락 귀가 연동</div>
+                </div>
+            </div>
+            <p style="font-size: 1vw; color: var(--gray); margin-top: 1vw; text-align: center;">※ TABSPACE 실제 구축 시나리오 목록 — 고객 요청 빈도순 정렬</p>
+        </div>
+
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-controls">
+        <button class="nav-btn" onclick="prevSlide()">←</button>
+        <span class="slide-counter"><span id="currentSlide">1</span> / <span id="totalSlides">62</span></span>
+        <button class="nav-btn" onclick="nextSlide()">→</button>
+        <button class="nav-btn" onclick="toggleFullscreen()">⛶</button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 62;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            if (n > totalSlides) currentSlide = 1;
+            if (n < 1) currentSlide = totalSlides;
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide - 1].classList.add('active');
+            document.getElementById('currentSlide').textContent = currentSlide;
+            document.getElementById('progressBar').style.width = (currentSlide / totalSlides * 100) + '%';
+        }
+
+        function nextSlide() { currentSlide++; showSlide(currentSlide); }
+        function prevSlide() { currentSlide--; showSlide(currentSlide); }
+
+        function toggleFullscreen() {
+            const p = document.getElementById('presentation');
+            if (!document.fullscreenElement) p.requestFullscreen();
+            else document.exitFullscreen();
+        }
+
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowRight': case ' ': case 'PageDown': e.preventDefault(); nextSlide(); break;
+                case 'ArrowLeft': case 'PageUp': e.preventDefault(); prevSlide(); break;
+                case 'Home': e.preventDefault(); currentSlide = 1; showSlide(currentSlide); break;
+                case 'End': e.preventDefault(); currentSlide = totalSlides; showSlide(currentSlide); break;
+                case 'f': case 'F': toggleFullscreen(); break;
+            }
+        });
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
+        document.addEventListener('touchend', (e) => {
+            const diff = touchStartX - e.changedTouches[0].screenX;
+            if (Math.abs(diff) > 50) diff > 0 ? nextSlide() : prevSlide();
+        });
+
+        document.getElementById('presentation').addEventListener('click', (e) => {
+            if (e.target.closest('.nav-controls') || e.target.closest('button')) return;
+            const rect = e.target.closest('.presentation').getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            if (x < rect.width * 0.2) prevSlide();
+            else if (x > rect.width * 0.8) nextSlide();
+        });
+
+        document.getElementById('totalSlides').textContent = totalSlides;
+    </script>
+</body>
+</html>
