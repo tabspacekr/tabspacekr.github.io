@@ -1281,3 +1281,51 @@ body.offcanvas-open {
     font-size: 60px !important;
   }
 }
+
+/* ===================================
+   Contact Reveal — 이메일 주소 공개 게이트
+   =================================== */
+.contact-reveal-btn {
+  padding: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+  letter-spacing: 0.5px;
+}
+
+.contact-reveal-out {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.contact-reveal-address {
+  font-size: 1rem;
+  word-break: break-all;
+}
+
+.contact-reveal-copy {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  color: var(--cyber-cyan);
+  background: transparent;
+  border: 1px solid var(--cyber-cyan);
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.contact-reveal-copy:hover {
+  color: #0a0e27;
+  background: var(--cyber-cyan);
+}
+
+/* ===================================
+   이메일 무단수집 거부 고지 (푸터 상시 노출)
+   =================================== */
+.email-collect-refusal {
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.5);
+}

@@ -43,7 +43,7 @@ SPI_DEVICE = 0
 # SPI_PORT = 1
 # SPI_DEVICE = 0
 
-# 128x64 orangepi 2021.04.05. ceo@tabspace.kr
+# 128x64 orangepi 2021.04.05.
 disp = Adafruit_SSD1306.SSD1306_128_64(rst=RST, i2c_bus=0, i2c_address=0x3C)
 
 # 128x32 display with hardware I2C:

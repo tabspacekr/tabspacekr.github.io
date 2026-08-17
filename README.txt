@@ -37,4 +37,4 @@
 - 'ESP32, ESP8266' SoC기반의 저전력 무선 통신 MCU 하드웨어 설계 및 'Tasmota' 펌웨어 커스터마이징 기술을 통해 IoT 산업 전반에 사용되는 센싱, 제어, 통신 기술을 제공합니다.
 
 CONTACT (연락처)
-- ceo@tabspace.kr
+- https://www.tabspace.kr

@@ -1,1 +1,8 @@
 theme: jekyll-theme-slate
+
+# 정적 호스팅에서는 저장소의 모든 파일이 그대로 URL이 된다.
+# 웹에 공개할 이유가 없는 파일은 배포 산출물에서 제외한다.
+exclude:
+  - README.txt          # 사내 설명 문서. https://www.tabspace.kr/README.txt 로 열람되던 파일
+  - docs/               # 내부 문서
+  - oled/ogpi_stats.py  # OLED 유틸리티 스크립트
