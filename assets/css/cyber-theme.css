@@ -1318,3 +1318,14 @@ body.offcanvas-open {
   color: #0a0e27;
   background: var(--cyber-cyan);
 }
+
+/* ===================================
+   이메일 무단수집 거부 고지 (푸터 상시 노출)
+   =================================== */
+.email-collect-refusal {
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.5);
+}
