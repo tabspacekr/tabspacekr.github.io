@@ -779,11 +779,22 @@
                 <img src="./assets/img/icons/solid/emails.svg" class="svg-inject icon-svg icon-svg-xs me-3" style="width: 1.5rem; height: 1.5rem; filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
                 <div>
                   <h5 class="mb-2 cyber-text-cyan">이메일</h5>
-                  <p class="text-light mb-0">
-                    영업문의 : <a href="mailto:he086@tabspace.kr" class="cyber-link">he086@tabspace.kr</a><br>
-                    기술문의 : <a href="mailto:ceo@tabspace.kr" class="cyber-link">ceo@tabspace.kr</a><br>
-                    고객지원 : <a href="mailto:he086@tabspace.kr" class="cyber-link">he086@tabspace.kr</a>
-                  </p>
+                  <p class="text-light mb-3">영업 · 기술 · 고객지원 문의</p>
+                  <!--
+                    이메일 주소는 소스에 평문으로 두지 않는다.
+                    사용자가 버튼을 직접 누른 경우에만 복원되어 화면에 표시된다. (assets/js/contact-reveal.js)
+                    주소 변경 시 아래 data-contact 값만 교체하면 된다.
+                  -->
+                  <div class="contact-reveal" data-contact="HARSS0YhFwQWEhISEwRNDgY=">
+                    <button type="button" class="cyber-btn contact-reveal-btn">이메일 주소 확인하기</button>
+                    <div class="contact-reveal-out" role="status" aria-live="polite" hidden></div>
+                  </div>
+                  <noscript>
+                    <p class="text-light mb-0">
+                      JavaScript가 꺼져 있어 이메일 주소를 표시할 수 없습니다.
+                      <a href="tel:07077805577" class="cyber-link">070-7780-5577</a>로 연락 주세요.
+                    </p>
+                  </noscript>
                 </div>
               </div>
             </div>
@@ -862,6 +873,7 @@
   <script type="module" src="./assets/js/3d-effects.js"></script>
   <script src="./assets/js/data-loader.js"></script>
   <script src="./assets/js/chatbot-ui.js"></script>
+  <script src="./assets/js/contact-reveal.js"></script>
   <script src="./assets/js/data-visualization.js"></script>
 
   <!-- Initialization Script -->
