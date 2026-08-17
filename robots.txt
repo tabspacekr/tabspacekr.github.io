@@ -1,2 +1,56 @@
+# 탭스페이스(TabSpace) — https://www.tabspace.kr
+#
+# [이메일 무단수집 거부]
+# 본 웹사이트에 게시된 이메일 주소가 전자우편 수집 프로그램이나 그 밖의 기술적 장치를
+# 이용하여 무단으로 수집되는 것을 거부합니다. 이를 위반 시 「정보통신망 이용촉진 및
+# 정보보호 등에 관한 법률」 제50조의2 및 제74조에 따라 1년 이하의 징역 또는
+# 1천만원 이하의 벌금에 처해질 수 있습니다.
+#
+# We refuse the automated collection of e-mail addresses published on this site.
+# Doing so is a criminal offence under Article 50-2 of the Korean Act on Promotion
+# of Information and Communications Network Utilization and Information Protection.
+
+
+# ── 검색엔진 : 색인 허용 ──
+User-agent: Googlebot
+User-agent: Yeti
+User-agent: Daumoa
+User-agent: bingbot
+Allow: /
+
+
+# ── 이메일 수집 프로그램 : 거부 ──
+User-agent: EmailCollector
+User-agent: EmailSiphon
+User-agent: EmailWolf
+User-agent: ExtractorPro
+User-agent: CherryPickerSE
+User-agent: NICErsPRO
+User-agent: WebBandit
+User-agent: WebEMailExtrac
+Disallow: /
+
+
+# ── 학습 데이터셋 수집 크롤러 : 거부 ──
+# 수집된 말뭉치는 이메일 주소 추출의 주요 경로가 된다.
+# AI 검색 크롤러(OAI-SearchBot, ChatGPT-User, PerplexityBot)는 유입 경로이므로 차단하지 않는다.
+User-agent: CCBot
+User-agent: GPTBot
+User-agent: Google-Extended
+User-agent: anthropic-ai
+User-agent: ClaudeBot
+User-agent: Claude-Web
+User-agent: Applebot-Extended
+User-agent: meta-externalagent
+User-agent: FacebookBot
+User-agent: Bytespider
+User-agent: Diffbot
+User-agent: Omgilibot
+User-agent: ImagesiftBot
+User-agent: Timpibot
+Disallow: /
+
+
+# ── 그 외 ──
 User-agent: *
 Allow: /
