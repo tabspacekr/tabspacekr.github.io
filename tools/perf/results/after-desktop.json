@@ -1,0 +1,96 @@
+{
+  "summary": {
+    "url": "https://127.0.0.1:8443/",
+    "profile": "desktop",
+    "throttled": true,
+    "runs": 3,
+    "heroVisibleMs": 1436,
+    "fcpMs": 1436,
+    "lcpMs": 1516,
+    "dclMs": 1595,
+    "loadMs": 2473,
+    "cls": 0,
+    "kb": 353,
+    "thirdPartyKb": 171,
+    "requests": 25,
+    "lcpElement": "IMG https://127.0.0.1:8443/assets/",
+    "layoutWidth": 1350,
+    "thirdPartyOrigins": [
+      "https://www.googletagmanager.com",
+      "https://www.google-analytics.com",
+      "https://www.google.com"
+    ],
+    "failed": [],
+    "errors": [
+      "Failed to load resource: net::ERR_FAILED"
+    ]
+  },
+  "results": [
+    {
+      "hero": 1436,
+      "fcp": 1436,
+      "lcp": 1516,
+      "lcpEl": "IMG https://127.0.0.1:8443/assets/",
+      "cls": 0,
+      "dcl": 1559.3000000002794,
+      "load": 2472.600000000093,
+      "layoutWidth": 1350,
+      "requests": 25,
+      "bytes": 361194,
+      "thirdPartyBytes": 175212,
+      "thirdPartyOrigins": [
+        "https://www.googletagmanager.com",
+        "https://www.google-analytics.com",
+        "https://www.google.com"
+      ],
+      "failed": [],
+      "errors": [
+        "Failed to load resource: net::ERR_FAILED"
+      ]
+    },
+    {
+      "hero": 1340,
+      "fcp": 1340,
+      "lcp": 1420,
+      "lcpEl": "IMG https://127.0.0.1:8443/assets/",
+      "cls": 0,
+      "dcl": 1594.7999999998137,
+      "load": 2475.600000000093,
+      "layoutWidth": 1350,
+      "requests": 25,
+      "bytes": 361477,
+      "thirdPartyBytes": 175518,
+      "thirdPartyOrigins": [
+        "https://www.googletagmanager.com",
+        "https://www.google-analytics.com",
+        "https://www.google.com"
+      ],
+      "failed": [],
+      "errors": [
+        "Failed to load resource: net::ERR_FAILED"
+      ]
+    },
+    {
+      "hero": 1460,
+      "fcp": 1460,
+      "lcp": 1552,
+      "lcpEl": "IMG https://127.0.0.1:8443/assets/",
+      "cls": 0,
+      "dcl": 1620,
+      "load": 2455.0999999996275,
+      "layoutWidth": 1350,
+      "requests": 25,
+      "bytes": 361186,
+      "thirdPartyBytes": 175227,
+      "thirdPartyOrigins": [
+        "https://www.googletagmanager.com",
+        "https://www.google-analytics.com",
+        "https://www.google.com"
+      ],
+      "failed": [],
+      "errors": [
+        "Failed to load resource: net::ERR_FAILED"
+      ]
+    }
+  ]
+}

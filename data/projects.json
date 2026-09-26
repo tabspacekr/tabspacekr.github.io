@@ -15,7 +15,10 @@
       "image": "./assets/img/photos/20240628.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/223494365250",
       "year": 2024,
-      "featured": true
+      "featured": true,
+      "imageWidth": 725,
+      "avif": "./assets/img/photos/opt/20240628-480.avif 480w, ./assets/img/photos/opt/20240628-725.avif 725w",
+      "webp": "./assets/img/photos/opt/20240628-480.webp 480w, ./assets/img/photos/opt/20240628-725.webp 725w"
     },
     {
       "id": "unmanned-2024-002",
@@ -27,7 +30,10 @@
       "image": "./assets/img/photos/20240613.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/223478230649",
       "year": 2024,
-      "featured": true
+      "featured": true,
+      "imageWidth": 736,
+      "avif": "./assets/img/photos/opt/20240613-480.avif 480w, ./assets/img/photos/opt/20240613-736.avif 736w",
+      "webp": "./assets/img/photos/opt/20240613-480.webp 480w, ./assets/img/photos/opt/20240613-736.webp 736w"
     },
     {
       "id": "unmanned-2024-003",
@@ -39,7 +45,10 @@
       "image": "./assets/img/photos/20240607.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/223471850324",
       "year": 2024,
-      "featured": true
+      "featured": true,
+      "imageWidth": 736,
+      "avif": "./assets/img/photos/opt/20240607-480.avif 480w, ./assets/img/photos/opt/20240607-736.avif 736w",
+      "webp": "./assets/img/photos/opt/20240607-480.webp 480w, ./assets/img/photos/opt/20240607-736.webp 736w"
     },
     {
       "id": "unmanned-2024-004",
@@ -51,7 +60,10 @@
       "image": "./assets/img/photos/20240327.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/223396860730",
       "year": 2024,
-      "featured": false
+      "featured": false,
+      "imageWidth": 736,
+      "avif": "./assets/img/photos/opt/20240327-480.avif 480w, ./assets/img/photos/opt/20240327-736.avif 736w",
+      "webp": "./assets/img/photos/opt/20240327-480.webp 480w, ./assets/img/photos/opt/20240327-736.webp 736w"
     },
     {
       "id": "unmanned-2023-001",
@@ -63,7 +75,10 @@
       "image": "./assets/img/photos/20230927.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/223222233195",
       "year": 2023,
-      "featured": false
+      "featured": false,
+      "imageWidth": 736,
+      "avif": "./assets/img/photos/opt/20230927-480.avif 480w, ./assets/img/photos/opt/20230927-736.avif 736w",
+      "webp": "./assets/img/photos/opt/20230927-480.webp 480w, ./assets/img/photos/opt/20230927-736.webp 736w"
     },
     {
       "id": "unmanned-2023-002",
@@ -75,7 +90,10 @@
       "image": "./assets/img/photos/20230925.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/223220874100",
       "year": 2023,
-      "featured": false
+      "featured": false,
+      "imageWidth": 736,
+      "avif": "./assets/img/photos/opt/20230925-480.avif 480w, ./assets/img/photos/opt/20230925-736.avif 736w",
+      "webp": "./assets/img/photos/opt/20230925-480.webp 480w, ./assets/img/photos/opt/20230925-736.webp 736w"
     },
     {
       "id": "unmanned-2023-003",
@@ -87,7 +105,10 @@
       "image": "./assets/img/photos/20230825.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/223193323512",
       "year": 2023,
-      "featured": false
+      "featured": false,
+      "imageWidth": 736,
+      "avif": "./assets/img/photos/opt/20230825-480.avif 480w, ./assets/img/photos/opt/20230825-736.avif 736w",
+      "webp": "./assets/img/photos/opt/20230825-480.webp 480w, ./assets/img/photos/opt/20230825-736.webp 736w"
     },
     {
       "id": "unmanned-2023-004",
@@ -99,7 +120,10 @@
       "image": "./assets/img/photos/20230822.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/223190168807",
       "year": 2023,
-      "featured": false
+      "featured": false,
+      "imageWidth": 535,
+      "avif": "./assets/img/photos/opt/20230822-480.avif 480w, ./assets/img/photos/opt/20230822-535.avif 535w",
+      "webp": "./assets/img/photos/opt/20230822-480.webp 480w, ./assets/img/photos/opt/20230822-535.webp 535w"
     },
     {
       "id": "unmanned-2023-005",
@@ -111,7 +135,10 @@
       "image": "./assets/img/photos/20230629.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/223142093657",
       "year": 2023,
-      "featured": false
+      "featured": false,
+      "imageWidth": 736,
+      "avif": "./assets/img/photos/opt/20230629-480.avif 480w, ./assets/img/photos/opt/20230629-736.avif 736w",
+      "webp": "./assets/img/photos/opt/20230629-480.webp 480w, ./assets/img/photos/opt/20230629-736.webp 736w"
     },
     {
       "id": "unmanned-2023-006",
@@ -123,7 +150,10 @@
       "image": "./assets/img/photos/20230512.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/223100090038",
       "year": 2023,
-      "featured": false
+      "featured": false,
+      "imageWidth": 736,
+      "avif": "./assets/img/photos/opt/20230512-480.avif 480w, ./assets/img/photos/opt/20230512-736.avif 736w",
+      "webp": "./assets/img/photos/opt/20230512-480.webp 480w, ./assets/img/photos/opt/20230512-736.webp 736w"
     },
     {
       "id": "unmanned-2023-007",
@@ -135,7 +165,10 @@
       "image": "./assets/img/photos/20230321.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/223051033705",
       "year": 2023,
-      "featured": false
+      "featured": false,
+      "imageWidth": 466,
+      "avif": "./assets/img/photos/opt/20230321-466.avif 466w",
+      "webp": "./assets/img/photos/opt/20230321-466.webp 466w"
     },
     {
       "id": "unmanned-2023-008",
@@ -147,7 +180,10 @@
       "image": "./assets/img/photos/20230316.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/223046352766",
       "year": 2023,
-      "featured": false
+      "featured": false,
+      "imageWidth": 736,
+      "avif": "./assets/img/photos/opt/20230316-480.avif 480w, ./assets/img/photos/opt/20230316-736.avif 736w",
+      "webp": "./assets/img/photos/opt/20230316-480.webp 480w, ./assets/img/photos/opt/20230316-736.webp 736w"
     },
     {
       "id": "unmanned-2023-009",
@@ -159,7 +195,10 @@
       "image": "./assets/img/photos/20230203.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/223003999519",
       "year": 2023,
-      "featured": false
+      "featured": false,
+      "imageWidth": 736,
+      "avif": "./assets/img/photos/opt/20230203-480.avif 480w, ./assets/img/photos/opt/20230203-736.avif 736w",
+      "webp": "./assets/img/photos/opt/20230203-480.webp 480w, ./assets/img/photos/opt/20230203-736.webp 736w"
     },
     {
       "id": "commercial-2023-001",
@@ -171,7 +210,10 @@
       "image": "./assets/img/photos/20230118.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/222987730375",
       "year": 2023,
-      "featured": true
+      "featured": true,
+      "imageWidth": 736,
+      "avif": "./assets/img/photos/opt/20230118-480.avif 480w, ./assets/img/photos/opt/20230118-736.avif 736w",
+      "webp": "./assets/img/photos/opt/20230118-480.webp 480w, ./assets/img/photos/opt/20230118-736.webp 736w"
     },
     {
       "id": "unmanned-2022-001",
@@ -183,7 +225,10 @@
       "image": "./assets/img/photos/20221229.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/222973734078",
       "year": 2022,
-      "featured": false
+      "featured": false,
+      "imageWidth": 736,
+      "avif": "./assets/img/photos/opt/20221229-480.avif 480w, ./assets/img/photos/opt/20221229-736.avif 736w",
+      "webp": "./assets/img/photos/opt/20221229-480.webp 480w, ./assets/img/photos/opt/20221229-736.webp 736w"
     },
     {
       "id": "hybrid-2022-001",
@@ -195,7 +240,10 @@
       "image": "./assets/img/photos/20221222.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/222966027319",
       "year": 2022,
-      "featured": false
+      "featured": false,
+      "imageWidth": 736,
+      "avif": "./assets/img/photos/opt/20221222-480.avif 480w, ./assets/img/photos/opt/20221222-736.avif 736w",
+      "webp": "./assets/img/photos/opt/20221222-480.webp 480w, ./assets/img/photos/opt/20221222-736.webp 736w"
     },
     {
       "id": "unmanned-2022-002",
@@ -207,7 +255,10 @@
       "image": "./assets/img/photos/20221121.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/222934148310",
       "year": 2022,
-      "featured": false
+      "featured": false,
+      "imageWidth": 736,
+      "avif": "./assets/img/photos/opt/20221121-480.avif 480w, ./assets/img/photos/opt/20221121-736.avif 736w",
+      "webp": "./assets/img/photos/opt/20221121-480.webp 480w, ./assets/img/photos/opt/20221121-736.webp 736w"
     },
     {
       "id": "unmanned-2022-003",
@@ -219,7 +270,10 @@
       "image": "./assets/img/photos/20221110.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/222924919281",
       "year": 2022,
-      "featured": false
+      "featured": false,
+      "imageWidth": 736,
+      "avif": "./assets/img/photos/opt/20221110-480.avif 480w, ./assets/img/photos/opt/20221110-736.avif 736w",
+      "webp": "./assets/img/photos/opt/20221110-480.webp 480w, ./assets/img/photos/opt/20221110-736.webp 736w"
     },
     {
       "id": "unmanned-2022-004",
@@ -231,7 +285,10 @@
       "image": "./assets/img/photos/20221107.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/222922298213",
       "year": 2022,
-      "featured": false
+      "featured": false,
+      "imageWidth": 431,
+      "avif": "./assets/img/photos/opt/20221107-431.avif 431w",
+      "webp": "./assets/img/photos/opt/20221107-431.webp 431w"
     },
     {
       "id": "unmanned-2022-005",
@@ -243,7 +300,10 @@
       "image": "./assets/img/photos/20221101.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/222916575024",
       "year": 2022,
-      "featured": false
+      "featured": false,
+      "imageWidth": 736,
+      "avif": "./assets/img/photos/opt/20221101-480.avif 480w, ./assets/img/photos/opt/20221101-736.avif 736w",
+      "webp": "./assets/img/photos/opt/20221101-480.webp 480w, ./assets/img/photos/opt/20221101-736.webp 736w"
     },
     {
       "id": "commercial-2022-001",
@@ -255,7 +315,10 @@
       "image": "./assets/img/photos/20221004.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/222891599350",
       "year": 2022,
-      "featured": true
+      "featured": true,
+      "imageWidth": 400,
+      "avif": "./assets/img/photos/opt/20221004-400.avif 400w",
+      "webp": "./assets/img/photos/opt/20221004-400.webp 400w"
     },
     {
       "id": "unmanned-2022-006",
@@ -267,7 +330,10 @@
       "image": "./assets/img/photos/20220829.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/222860970405",
       "year": 2022,
-      "featured": false
+      "featured": false,
+      "imageWidth": 736,
+      "avif": "./assets/img/photos/opt/20220829-480.avif 480w, ./assets/img/photos/opt/20220829-736.avif 736w",
+      "webp": "./assets/img/photos/opt/20220829-480.webp 480w, ./assets/img/photos/opt/20220829-736.webp 736w"
     },
     {
       "id": "commercial-2022-002",
@@ -279,7 +345,10 @@
       "image": "./assets/img/photos/20220804.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/222839187272",
       "year": 2022,
-      "featured": true
+      "featured": true,
+      "imageWidth": 400,
+      "avif": "./assets/img/photos/opt/20220804-400.avif 400w",
+      "webp": "./assets/img/photos/opt/20220804-400.webp 400w"
     },
     {
       "id": "unmanned-2022-007",
@@ -291,7 +360,10 @@
       "image": "./assets/img/photos/20220803.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/222837190784",
       "year": 2022,
-      "featured": false
+      "featured": false,
+      "imageWidth": 459,
+      "avif": "./assets/img/photos/opt/20220803-459.avif 459w",
+      "webp": "./assets/img/photos/opt/20220803-459.webp 459w"
     },
     {
       "id": "unmanned-2022-008",
@@ -303,7 +375,10 @@
       "image": "./assets/img/photos/20220726.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/222829202581",
       "year": 2022,
-      "featured": false
+      "featured": false,
+      "imageWidth": 736,
+      "avif": "./assets/img/photos/opt/20220726-480.avif 480w, ./assets/img/photos/opt/20220726-736.avif 736w",
+      "webp": "./assets/img/photos/opt/20220726-480.webp 480w, ./assets/img/photos/opt/20220726-736.webp 736w"
     },
     {
       "id": "commercial-2022-003",
@@ -315,7 +390,10 @@
       "image": "./assets/img/photos/20220713.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/222806962847",
       "year": 2022,
-      "featured": true
+      "featured": true,
+      "imageWidth": 736,
+      "avif": "./assets/img/photos/opt/20220713-480.avif 480w, ./assets/img/photos/opt/20220713-736.avif 736w",
+      "webp": "./assets/img/photos/opt/20220713-480.webp 480w, ./assets/img/photos/opt/20220713-736.webp 736w"
     },
     {
       "id": "commercial-2022-004",
@@ -327,7 +405,10 @@
       "image": "./assets/img/photos/20220711.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/222806934171",
       "year": 2022,
-      "featured": false
+      "featured": false,
+      "imageWidth": 400,
+      "avif": "./assets/img/photos/opt/20220711-400.avif 400w",
+      "webp": "./assets/img/photos/opt/20220711-400.webp 400w"
     },
     {
       "id": "commercial-2022-005",
@@ -339,7 +420,10 @@
       "image": "./assets/img/photos/20220630.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/222794715794",
       "year": 2022,
-      "featured": false
+      "featured": false,
+      "imageWidth": 400,
+      "avif": "./assets/img/photos/opt/20220630-400.avif 400w",
+      "webp": "./assets/img/photos/opt/20220630-400.webp 400w"
     },
     {
       "id": "unmanned-2022-009",
@@ -351,7 +435,10 @@
       "image": "./assets/img/photos/20220607.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/222762619978",
       "year": 2022,
-      "featured": false
+      "featured": false,
+      "imageWidth": 300,
+      "avif": "./assets/img/photos/opt/20220607-300.avif 300w",
+      "webp": "./assets/img/photos/opt/20220607-300.webp 300w"
     },
     {
       "id": "commercial-2022-006",
@@ -363,7 +450,10 @@
       "image": "./assets/img/photos/20220523.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/222742544497",
       "year": 2022,
-      "featured": false
+      "featured": false,
+      "imageWidth": 736,
+      "avif": "./assets/img/photos/opt/20220523-480.avif 480w, ./assets/img/photos/opt/20220523-736.avif 736w",
+      "webp": "./assets/img/photos/opt/20220523-480.webp 480w, ./assets/img/photos/opt/20220523-736.webp 736w"
     },
     {
       "id": "commercial-2022-007",
@@ -375,7 +465,10 @@
       "image": "./assets/img/photos/20220517.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/222735471678",
       "year": 2022,
-      "featured": false
+      "featured": false,
+      "imageWidth": 400,
+      "avif": "./assets/img/photos/opt/20220517-400.avif 400w",
+      "webp": "./assets/img/photos/opt/20220517-400.webp 400w"
     },
     {
       "id": "commercial-2022-008",
@@ -387,7 +480,10 @@
       "image": "./assets/img/photos/20220509.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/222725797026",
       "year": 2022,
-      "featured": false
+      "featured": false,
+      "imageWidth": 400,
+      "avif": "./assets/img/photos/opt/20220509-400.avif 400w",
+      "webp": "./assets/img/photos/opt/20220509-400.webp 400w"
     },
     {
       "id": "unmanned-2022-010",
@@ -399,7 +495,10 @@
       "image": "./assets/img/photos/20220420.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/222706165860",
       "year": 2022,
-      "featured": false
+      "featured": false,
+      "imageWidth": 736,
+      "avif": "./assets/img/photos/opt/20220420-480.avif 480w, ./assets/img/photos/opt/20220420-736.avif 736w",
+      "webp": "./assets/img/photos/opt/20220420-480.webp 480w, ./assets/img/photos/opt/20220420-736.webp 736w"
     },
     {
       "id": "unmanned-2022-011",
@@ -411,7 +510,10 @@
       "image": "./assets/img/photos/20220415.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/222700530541",
       "year": 2022,
-      "featured": false
+      "featured": false,
+      "imageWidth": 736,
+      "avif": "./assets/img/photos/opt/20220415-480.avif 480w, ./assets/img/photos/opt/20220415-736.avif 736w",
+      "webp": "./assets/img/photos/opt/20220415-480.webp 480w, ./assets/img/photos/opt/20220415-736.webp 736w"
     },
     {
       "id": "commercial-2022-009",
@@ -423,7 +525,10 @@
       "image": "./assets/img/photos/20220406.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/222693356520",
       "year": 2022,
-      "featured": false
+      "featured": false,
+      "imageWidth": 736,
+      "avif": "./assets/img/photos/opt/20220406-480.avif 480w, ./assets/img/photos/opt/20220406-736.avif 736w",
+      "webp": "./assets/img/photos/opt/20220406-480.webp 480w, ./assets/img/photos/opt/20220406-736.webp 736w"
     },
     {
       "id": "unmanned-2022-012",
@@ -435,7 +540,10 @@
       "image": "./assets/img/photos/20220331.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/222687822337",
       "year": 2022,
-      "featured": false
+      "featured": false,
+      "imageWidth": 736,
+      "avif": "./assets/img/photos/opt/20220331-480.avif 480w, ./assets/img/photos/opt/20220331-736.avif 736w",
+      "webp": "./assets/img/photos/opt/20220331-480.webp 480w, ./assets/img/photos/opt/20220331-736.webp 736w"
     },
     {
       "id": "unmanned-2022-013",
@@ -447,7 +555,10 @@
       "image": "./assets/img/photos/20220324.jpg",
       "blogUrl": "https://blog.naver.com/tabspacekr/222681735476",
       "year": 2022,
-      "featured": false
+      "featured": false,
+      "imageWidth": 736,
+      "avif": "./assets/img/photos/opt/20220324-480.avif 480w, ./assets/img/photos/opt/20220324-736.avif 736w",
+      "webp": "./assets/img/photos/opt/20220324-480.webp 480w, ./assets/img/photos/opt/20220324-736.webp 736w"
     }
   ]
 }

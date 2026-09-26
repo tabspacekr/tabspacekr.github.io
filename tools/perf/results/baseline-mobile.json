@@ -1,0 +1,112 @@
+{
+  "summary": {
+    "url": "https://127.0.0.1:8443/",
+    "profile": "mobile",
+    "throttled": true,
+    "runs": 3,
+    "heroVisibleMs": 7659,
+    "fcpMs": 3532,
+    "lcpMs": 3532,
+    "dclMs": 9772,
+    "loadMs": 11552,
+    "cls": 0.311,
+    "kb": 2089,
+    "thirdPartyKb": 617,
+    "requests": 62,
+    "lcpElement": "IMG https://127.0.0.1:8443/assets/",
+    "layoutWidth": 646,
+    "thirdPartyOrigins": [
+      "https://cdn.jsdelivr.net",
+      "https://www.googletagmanager.com",
+      "https://cdnjs.cloudflare.com",
+      "https://fonts.googleapis.com",
+      "https://fonts.gstatic.com",
+      "https://www.google-analytics.com",
+      "https://www.google.com"
+    ],
+    "failed": [],
+    "errors": [
+      "Failed to load resource: net::ERR_FAILED"
+    ]
+  },
+  "results": [
+    {
+      "hero": 7659,
+      "fcp": 3532,
+      "lcp": 3532,
+      "lcpEl": "IMG https://127.0.0.1:8443/assets/",
+      "cls": 0.31053794587419054,
+      "dcl": 9796.600000000035,
+      "load": 11684.5,
+      "layoutWidth": 646,
+      "requests": 62,
+      "bytes": 2139083,
+      "thirdPartyBytes": 631855,
+      "thirdPartyOrigins": [
+        "https://cdn.jsdelivr.net",
+        "https://www.googletagmanager.com",
+        "https://cdnjs.cloudflare.com",
+        "https://fonts.googleapis.com",
+        "https://fonts.gstatic.com",
+        "https://www.google-analytics.com",
+        "https://www.google.com"
+      ],
+      "failed": [],
+      "errors": [
+        "Failed to load resource: net::ERR_FAILED"
+      ]
+    },
+    {
+      "hero": 7670.299999999988,
+      "fcp": 3568,
+      "lcp": 3568,
+      "lcpEl": "IMG https://127.0.0.1:8443/assets/",
+      "cls": 0.3282948002284444,
+      "dcl": 9772,
+      "load": 11522.699999999953,
+      "layoutWidth": 646,
+      "requests": 62,
+      "bytes": 2139409,
+      "thirdPartyBytes": 632181,
+      "thirdPartyOrigins": [
+        "https://cdn.jsdelivr.net",
+        "https://www.googletagmanager.com",
+        "https://cdnjs.cloudflare.com",
+        "https://fonts.googleapis.com",
+        "https://fonts.gstatic.com",
+        "https://www.google-analytics.com",
+        "https://www.google.com"
+      ],
+      "failed": [],
+      "errors": [
+        "Failed to load resource: net::ERR_FAILED"
+      ]
+    },
+    {
+      "hero": 7643.899999999965,
+      "fcp": 3424,
+      "lcp": 3424,
+      "lcpEl": "IMG https://127.0.0.1:8443/assets/",
+      "cls": 0.30074541608230515,
+      "dcl": 9771.099999999977,
+      "load": 11551.899999999965,
+      "layoutWidth": 646,
+      "requests": 62,
+      "bytes": 2140385,
+      "thirdPartyBytes": 633203,
+      "thirdPartyOrigins": [
+        "https://cdn.jsdelivr.net",
+        "https://www.googletagmanager.com",
+        "https://cdnjs.cloudflare.com",
+        "https://fonts.googleapis.com",
+        "https://fonts.gstatic.com",
+        "https://www.google-analytics.com",
+        "https://www.google.com"
+      ],
+      "failed": [],
+      "errors": [
+        "Failed to load resource: net::ERR_FAILED"
+      ]
+    }
+  ]
+}

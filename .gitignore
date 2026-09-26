@@ -1,0 +1,5 @@
+# 빌드·측정 도구 의존성과 로컬 산출물
+tools/node_modules/
+tools/perf/.cert/
+tools/perf/results/*.trace.json
+.lighthouseci/

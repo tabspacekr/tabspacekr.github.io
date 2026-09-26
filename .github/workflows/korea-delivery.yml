@@ -1,0 +1,41 @@
+# 한국 통신사별 전달 계층 측정 (docs/homepage-performance-strategy.md §7 ④)
+# 매주 월요일, Globalping 의 KT·SKB·SKT·LGU+ 프로브에서 번들 CSS 를 두 번(10분 간격) 받아
+# 엣지 캐시가 식은 경우와 살아 있는 경우의 첫 바이트 시간을 작업 요약에 기록한다.
+# 공개 저장소의 예약 워크플로는 60일간 저장소 활동이 없으면 GitHub 이 자동으로 멈춘다.
+name: Korea delivery check
+
+on:
+  schedule:
+    - cron: '17 0 * * 1'   # 매주 월요일 09:17 KST
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  globalping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 한국 프로브 측정
+        run: |
+          CSS_PATH="/$(grep -o 'assets/dist/site\.[0-9a-f]*\.css' index.html)"
+          measure() {
+            ID=$(curl -s -X POST https://api.globalping.io/v1/measurements -H 'content-type: application/json' -d "{
+              \"type\":\"http\",\"target\":\"www.tabspace.kr\",
+              \"measurementOptions\":{\"protocol\":\"HTTPS\",\"request\":{\"path\":\"$CSS_PATH\"}},
+              \"locations\":[{\"asn\":4766},{\"asn\":9644},{\"asn\":9318},{\"asn\":17858}]}" | jq -r .id)
+            sleep 15
+            curl -s "https://api.globalping.io/v1/measurements/$ID" \
+              | jq -r '.results[] | "| \(.probe.asn) | \(.probe.city) | \(.result.timings.firstByte // "-") ms | \(.result.headers["x-cache"] // "-") |"'
+          }
+          {
+            echo "### $CSS_PATH"
+            echo "| ASN | 도시 | 첫 바이트 | x-cache |"
+            echo "|---|---|---|---|"
+            echo "| **1회차** | | | |"
+            measure
+            sleep 600
+            echo "| **2회차 (10분 뒤)** | | | |"
+            measure
+          } >> "$GITHUB_STEP_SUMMARY"

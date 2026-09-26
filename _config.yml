@@ -6,3 +6,6 @@ exclude:
   - README.txt          # 사내 설명 문서. https://www.tabspace.kr/README.txt 로 열람되던 파일
   - docs/               # 내부 문서
   - oled/ogpi_stats.py  # OLED 유틸리티 스크립트
+  - tools/              # 빌드·성능 측정 도구 (package.json, node_modules 포함)
+# _src/ (홈페이지 CSS·JS·이미지 원본)는 밑줄로 시작하는 폴더라 Jekyll 이 기본으로 배포하지 않는다.
+# 배포되는 결과물은 assets/dist/ 와 assets/img/ 이다. (docs/homepage-performance-strategy.md)
