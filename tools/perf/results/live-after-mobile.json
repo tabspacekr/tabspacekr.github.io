@@ -1,0 +1,96 @@
+{
+  "summary": {
+    "url": "https://www.tabspace.kr/",
+    "profile": "mobile",
+    "throttled": true,
+    "runs": 3,
+    "heroVisibleMs": 1644,
+    "fcpMs": 1644,
+    "lcpMs": 1644,
+    "dclMs": 2587,
+    "loadMs": 3010,
+    "cls": 0,
+    "kb": 352,
+    "thirdPartyKb": 171,
+    "requests": 22,
+    "lcpElement": "P 탭스페이스는 AI와 IoT를 융합하여\n         ",
+    "layoutWidth": 412,
+    "thirdPartyOrigins": [
+      "https://www.googletagmanager.com",
+      "https://www.google-analytics.com",
+      "https://www.google.com"
+    ],
+    "failed": [],
+    "errors": [
+      "Failed to load resource: net::ERR_FAILED"
+    ]
+  },
+  "results": [
+    {
+      "hero": 1644,
+      "fcp": 1644,
+      "lcp": 1644,
+      "lcpEl": "P 탭스페이스는 AI와 IoT를 융합하여\n         ",
+      "cls": 0,
+      "dcl": 2788.2999999999884,
+      "load": 3174.2999999999884,
+      "layoutWidth": 412,
+      "requests": 22,
+      "bytes": 360161,
+      "thirdPartyBytes": 175227,
+      "thirdPartyOrigins": [
+        "https://www.googletagmanager.com",
+        "https://www.google-analytics.com",
+        "https://www.google.com"
+      ],
+      "failed": [],
+      "errors": [
+        "Failed to load resource: net::ERR_FAILED"
+      ]
+    },
+    {
+      "hero": 1588,
+      "fcp": 1588,
+      "lcp": 1588,
+      "lcpEl": "P 탭스페이스는 AI와 IoT를 융합하여\n         ",
+      "cls": 0,
+      "dcl": 2552.5,
+      "load": 3009.7000000000116,
+      "layoutWidth": 412,
+      "requests": 22,
+      "bytes": 360134,
+      "thirdPartyBytes": 175212,
+      "thirdPartyOrigins": [
+        "https://www.googletagmanager.com",
+        "https://www.google-analytics.com",
+        "https://www.google.com"
+      ],
+      "failed": [],
+      "errors": [
+        "Failed to load resource: net::ERR_FAILED"
+      ]
+    },
+    {
+      "hero": 1724,
+      "fcp": 1724,
+      "lcp": 1724,
+      "lcpEl": "P 탭스페이스는 AI와 IoT를 융합하여\n         ",
+      "cls": 0,
+      "dcl": 2587.1999999999534,
+      "load": 2986.899999999965,
+      "layoutWidth": 412,
+      "requests": 22,
+      "bytes": 360152,
+      "thirdPartyBytes": 175200,
+      "thirdPartyOrigins": [
+        "https://www.googletagmanager.com",
+        "https://www.google-analytics.com",
+        "https://www.google.com"
+      ],
+      "failed": [],
+      "errors": [
+        "Failed to load resource: net::ERR_FAILED"
+      ]
+    }
+  ]
+}
