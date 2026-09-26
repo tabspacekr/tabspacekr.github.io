@@ -7,6 +7,8 @@
 
 > **표기 규칙**: **(측정)**은 도구로 실제로 잰 값이고, **(추정)**은 측정값에서 계산하거나 가정을 더한 값이다. 행 번호는 작성일의 저장소 상태 기준이다. 랩 측정은 대부분 "모바일 412px, 지연 150ms, 1.6Mbps, CPU 4배 감속" 조건으로 했다. 한국 LTE보다 느린 비관적 조건이므로 절대값보다 **변경 전후의 차이**를 근거로 삼는다. 시간은 표 안에서는 s·ms로, 본문에서는 초로 적는다.
 
+> **진행 상태 (2026-09-26)**: 0~2단계를 모두 적용했다. §6-1 결정 7건은 권고안대로 정했다. 개선 전 소스는 `backup/pre-performance-20260926` 브랜치에 있다. 결과와 이 문서와 달라진 점은 **§10**에 정리했다. 아래 §1~§9는 개선 전 진단 기록으로 남겨 둔다(행 번호도 개선 전 기준).
+
 > **용어** (이 문서에서 한 번만 설명한다)
 > - **히어로**: 첫 화면 상단의 큰 제목·소개문·버튼·그림 영역.
 > - **FCP**: 화면에 무엇이든 처음 그려지는 시점. **LCP**: 화면에서 가장 큰 글이나 그림이 그려지는 시점(체감 로딩 완료. 2.5초 이하 '좋음', 4초 초과 '나쁨').
@@ -583,7 +585,7 @@ KT·SKT·SKB·LGU+ 프로브의 `firstByte`와 `x-timer` 헤더를 기록한다.
 
 **⑥ 실기기 확인 (0단계·1단계 배포 전후 각 1회)**: 중저가 Android(갤럭시 A 시리즈, Chrome과 삼성 인터넷)와 iPhone(Safari)을 통신사 LTE(Wi-Fi 끔)로 연결해 ⑤ 체크리스트를 수행한다. 원격 디버깅(Chrome `chrome://inspect`, Safari 웹 속성)으로 Performance를 1회 기록한다. 기록할 것은 히어로 문구 표시 시점, 가로 넘침 여부, 스크롤 끊김이다. 카카오톡·네이버 앱 내 브라우저에서 `https://tabspace.kr`, `https://www.tabspace.kr` 링크가 열리는지도 확인한다. 이번 감사의 모든 측정은 GPU 없는 headless Chromium에서 했고, 변경은 동적 `import()`, IntersectionObserver, `<picture>`/AVIF, `aspect-ratio`, 폰트 preload, `hover:hover` 미디어쿼리처럼 브라우저별 차이가 있는 기능에 기대기 때문이다.
 
-**⑦ 측정·회귀 도구 마련 (0-0과 함께)**: 이번 감사에 쓴 측정 하네스는 작성 세션의 임시 작업 폴더에서만 돌렸고, **저장소에는 커밋하지 않았다.** 따라서 0-0 착수 시 저장소의 `tools/perf/`(`_config.yml` exclude에 추가) 또는 별도 저장소에 다음 기능을 갖춘 도구를 둔다. ⓐ 실사이트와 같은 HTTP/2·gzip 조건의 복제 서버. ⓑ 느린 4G·CPU 4배 조건에서 히어로 h1 표시 시점·FCP·DCL·전송량을 3회 재는 측정 스크립트. ⓒ 기능 회귀 검사: 페이지 오류 0, h1 opacity 1, 캐러셀 37개, 차트 4개, 오프캔버스, 이메일 확인하기 버튼, 412px에서 `scrollWidth == innerWidth`. ⓓ 전 요소 computed style 비교(C2 퍼지 검증용). 이 도구로 **변경 전 상태를 먼저 한 번 재서** §1 수치와 같은 조건인지 맞춘 뒤 전후를 비교하고, 이후 PR마다 ⓒ를 자동 실행한다.
+**⑦ 측정·회귀 도구**: `tools/perf/`에 있다(사용법은 `tools/README.md`). `server.js`(GitHub Pages 흉내 복제 서버), `measure.js`(느린 4G·CPU 4배, 3회 중앙값), `regress.js`(기능 회귀 검사: 히어로 표시, 레이아웃 폭, 아이콘, 모바일 메뉴, 스티키 헤더, 맨 위로 버튼, 챗봇 데모, 에너지 하이라이트, 차트 4개, 캐러셀 37개·다음 버튼·필터, 블로그 카드, 이메일 확인하기 버튼, 원본 Unicons 미요청, 페이지 오류·실패 요청 0), `idle.js`(로드 후 메인 스레드 사용률), `styles.js`(전 요소 computed style 비교)다. PR마다 `.github/workflows/homepage-perf.yml`이 빌드 일치 검사, `regress.js`, Lighthouse CI를 돌린다.
 
 ---
 
@@ -645,3 +647,69 @@ KT·SKT·SKB·LGU+ 프로브의 `firstByte`와 `x-timer` 헤더를 기록한다.
 | drop-shadow를 PNG에 미리 굽기 | 40px 글로우 때문에 이미지 크기가 커지고 레이아웃이 바뀐다 |
 | `?v=` 쿼리스트링만으로 캐시 무효화 | 엣지 캐시 키가 쿼리스트링을 무시한다(측정). 파일명을 바꾼다 |
 | preconnect 일괄 추가 | `<head>`의 스크립트는 이미 즉시 발견되고, CORS 모드가 다르면 연결 풀이 달라 효과가 없다. 남는 origin에만 적용(D3) |
+
+---
+
+## 10. 구현 결과 (2026-09-26)
+
+### 10-1. 전후 측정
+
+같은 복제 서버(HTTP/2, gzip, `max-age=600`), 같은 조건(느린 4G: 왕복 150ms·1.6Mbps, CPU 4배 감속, 빈 캐시)에서 3회 중앙값을 쟀다. 원자료는 `tools/perf/results/baseline-*.json`, `after-*.json`이다.
+
+| 지표 (측정) | 모바일 개선 전 | 모바일 개선 후 | 데스크톱 개선 전 | 데스크톱 개선 후 |
+|---|---|---|---|---|
+| **히어로 문구 표시** | 7.66s | **1.32s** | 5.76s | **1.44s** |
+| FCP | 3.53s | 1.32s | 3.53s | 1.44s |
+| LCP (브라우저 API) | 3.53s (로고) | 1.32s (히어로 소개문) | 6.63s | 1.52s |
+| DOMContentLoaded | 9.77s | 1.64s | 7.72s | 1.60s |
+| load | 11.55s | 2.49s | 8.49s | 2.47s |
+| 첫 화면 전송량 / 요청 | 2,089KB / 62 | **339KB / 22** | 1,523KB / 62 | 353KB / 25 |
+| 서드파티 전송량 | 617KB (origin 6곳) | 171KB (GA gtag.js 1곳) | 618KB | 171KB |
+| CLS | 0.31 | **0.000** | 0.16 | 0.000 |
+| 레이아웃 폭 | 646px (가로 넘침, 축소 표시) | **412px** | 1350px | 1350px |
+
+| 로드 후 가만히 있을 때 (측정, CPU 4배, 10초) | 개선 전 | 개선 후 |
+|---|---|---|
+| 첫 화면(히어로)에서 메인 스레드 사용률 | 모바일 99.2%, 데스크톱 97.8% | 모바일 43.9%, 데스크톱 47.6% (파티클 30fps, GPU 없는 환경) |
+| 히어로를 지나 `#Features`에서 | 모바일 62.6%, 데스크톱 72.3% | **모바일·데스크톱 0.3%** |
+| 초당 레이아웃 횟수 | 17~34회 | 0회 |
+
+**Lighthouse CI**(`tools/lighthouserc.json`, 모바일 시뮬레이션, 로컬 정적 서버, 3회): 개선 전 71점(FCP 3.2s, LCP 6.2s)에서 개선 후 94·98·99점(FCP 0.9~1.2s, LCP 2.0~2.2s, CLS 0)이 됐다. 두 실행 모두 샌드박스 브라우저가 외부 CDN에 닿지 못했다. 그래서 개선 전 값은 jQuery·three.js가 빠진 채 낙관적으로 나왔고(§8과 같은 한계), 개선 후 값에는 gtag.js(171KB)가 빠져 있다.
+
+**빌드 결과물**: 렌더 차단 CSS는 4개 파일 123KB gz에서 1개 파일 15.9KB gz가 됐다. Unicons 서브셋 3.2KB가 data URI로 들어 있다. 첫 로드 JS는 서드파티·자체를 합쳐 약 760KB 전송에서 자체 번들 1개 53KB gz가 됐다(gtag 171KB 별도). 프로젝트 사진 37장은 16.08MB에서 JPEG 1.78MB로 줄었고, 브라우저가 실제로 고르는 736px AVIF는 합계 0.79MB다.
+
+**기능 회귀**: `tools/perf/regress.js`로 모바일 20개·데스크톱 19개, 모두 39개 항목을 검사해 전부 통과했다. **CSS 퍼지**: `tools/perf/styles.js`로 퍼지 전 합본과 비교했다. 모바일 4개 상태(첫 화면·메뉴 열림·스티키 헤더·이메일 확인 후)의 약 640개 요소에서 차이는 0이다. 데스크톱은 요소 105개에서 폭이 최대 0.016px 달라졌다. 원인은 압축기가 `33.33333333%`를 `33.3333%`로 반올림한 것이다.
+
+### 10-2. 적용 내역
+
+| 항목 | 적용 내용 |
+|---|---|
+| §6-1 결정 | #1 히어로 등장 연출 제거, #2 `cyber-float` 제거(정지 유지), #3 데스크톱 WebGL 배경 제거(three.js·importmap 삭제), #4 모바일 파티클 유지·최적화, #5 스캔라인 유지(transform), #6 Manrope 유지(자체 호스팅), #7 메뉴바 흐림 유지. 모두 권고안이다 |
+| P1~P4 | 히어로 `data-cue` 제거와 이미지 크기 지정. `<head>`의 CDN 스크립트 3개(chart.js·GSAP·ScrollTrigger) 삭제. three.js 삭제. 스크립트는 `defer` 번들 1개로 합치고 Bootstrap 번들과 `chatbot-ui.js`는 뺐다 |
+| A1~A6 | 스캔라인 transform. 파티클은 화면 밖·백그라운드 탭에서 정지하고, 30fps 상한, DPR 1.5 상한, `shadowBlur` 대신 발광 스프라이트, 연결선 일괄 stroke. 홀로그램은 hover 기기에서 마우스를 올렸을 때만. 배경 그리드 정지. 불투명 카드와 오프캔버스의 `backdrop-filter` 삭제. 차트 갱신·에너지 순환·캐러셀 자동재생은 화면에 보일 때만. 스크롤 핸들러는 rAF와 높이 캐시로. `prefers-reduced-motion` 지원 |
+| J1~J5 | 차트는 섹션이 600px 이내로 오면 Chart.js(자체 호스팅)를 받아 생성. 캐러셀은 loop 대신 rewind, 모바일 점 제거, 섹션 근접 시 렌더, 필터는 캐러셀을 다시 만들지 않고 항목만 교체. `plugins.js` 23종 중 3종(Easing·Headhesive·Owl)과 `theme.init` 4개만 남김. SVGInject 해제. 챗봇 시나리오 31개는 `data/chatbot-scenarios.json`으로 분리해 지연 로드. 운영 `console.log`는 빌드 때 제거 |
+| I1~I5 | 문의 일러스트 lazy와 AVIF/WebP. 히어로 일러스트 `<picture>`(AVIF/WebP 600·800·1200w). 사업분야 아이콘 512→180px PNG-8(123KB→25KB). 프로젝트 사진은 같은 경로 736px JPEG와 480·736px AVIF/WebP, 자리 예약. favicon 48/96/192와 apple-touch-icon |
+| F1~F4 | Manrope 자체 호스팅(`font-display: swap`, preload). Unicons 서브셋(원본 face는 안전망으로 유지). `urbanist.css` 체인을 합침. 한글은 지금처럼 시스템 폰트 |
+| C1·C2 | `_src/css` 4개 파일을 PurgeCSS와 lightningcss로 단일 번들 |
+| D3·D4·D5 | 초기 경로의 서드파티 연결은 비동기 GA gtag 하나만 남았다(jQuery·Chart.js·web-vitals·Manrope 자체 호스팅). 결과물은 콘텐츠 해시 파일명. 방식 A(로컬 빌드 + 산출물 커밋)와 CI 일치 검사 |
+| 2-1~2-4 | `tools/build/build.mjs`, `tools/build/images.mjs`, `.github/workflows/homepage-perf.yml`(빌드 일치·기능 회귀·Lighthouse CI), `.github/workflows/korea-delivery.yml`(주 1회 Globalping 한국 4개 통신사 측정) |
+| 0-0 | RUM: web-vitals(자체 호스팅)와 `hero_visible`을 GA4 이벤트로 보낸다 |
+
+### 10-3. 이 문서와 달리 적용한 것
+
+- **파티클 수**: "폭 768px 미만 40개"로 하면 모바일 히어로(약 412×1400)가 눈에 띄게 비어 보였다. 그래서 캔버스 면적 1만 px²당 1개(40~100개)로 정했다. 모바일은 약 60개, 연결선 계산량은 기존의 약 1/3이다.
+- **소스와 배포 위치 분리**: 편집용 원본은 `_src/`로 옮겼다(Jekyll 비배포). `index.html`은 `assets/dist/`의 해시 결과물만 참조한다. D4 규칙에 따라 옛 파일(`assets/js/*`, `assets/css/*` 등)은 이번 배포에서 지우지 않았다(10-4).
+- **Chart.js**: CDN이 아니라 `assets/vendor/`에서 지연 로드한다(같은 origin, 추가 연결 없음).
+- **RUM 기준선**: 사용자 요청으로 모든 단계를 한 번에 적용했다. 그래서 개선 전 필드 기준선은 없다. 개선 전 값은 §1과 10-1의 랩 수치로 대신한다(§9 권고 2의 대안).
+
+### 10-4. 남은 일
+
+| 항목 | 담당 | 비고 |
+|---|---|---|
+| 옛 파일 삭제 | 개발 | 이번 변경이 배포되고 10분 이상 지난 뒤 별도 커밋으로 지운다. 대상: `assets/js/`(9개), `assets/css/plugins.css`·`style.css`·`cyber-theme.css`·`colors/`·`fonts/urbanist.css`, `assets/fonts/urbanist/`. `assets/fonts/unicons/`는 안전망이므로 남긴다. `assets/dist`의 옛 해시 파일은 `npm run build -- --prune`으로 지운다 |
+| D1 www 없는 주소 TLS, D2 DNS TTL | Vultr 서버·DNS 관리자 | 저장소 밖 작업 |
+| GA4 맞춤 측정기준 등록, BigQuery 내보내기 | GA 관리자 | `debug_target`, `lcp_render_delay`, `effective_type`, `layout_overflow`, `css_wait`. 내보내기는 켠 날부터 쌓인다 |
+| gtag 지연 | 보류 | §6-3 그대로. 현재 유일한 서드파티(171KB) |
+| 3단계(3-2~3-7) | 조건부 | RUM 데이터를 본 뒤 판단 |
+| I5 로고 크기 지정, 미사용 이미지 정리 | 최하 우선 | 사용자 속도 영향 없음 |
+| 실기기 확인(§7 ⑥) | 운영 | 중저가 Android, iPhone, 카카오톡·네이버 앱 내 브라우저 |
