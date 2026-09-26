@@ -10,35 +10,17 @@
   <title>탭스페이스 - AI 시대의 IoT 자동화 솔루션</title>
 
   <!-- Favicon -->
-  <link rel="shortcut icon" href="./assets/img/favicon.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="./assets/img/favicon-48.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="./assets/img/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="./assets/img/favicon-192.png">
+  <link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png">
 
-  <!-- Base Stylesheets -->
-  <link rel="stylesheet" href="./assets/css/plugins.css">
-  <link rel="stylesheet" href="./assets/css/style.css">
-  <link rel="stylesheet" href="./assets/css/colors/grape.css">
-
-  <!-- Cyber Theme CSS -->
-  <link rel="stylesheet" href="./assets/css/cyber-theme.css">
-
-  <!-- Fonts -->
-  <link rel="preload" href="./assets/css/fonts/urbanist.css" as="style" onload="this.rel='stylesheet'">
-
-  <!-- External Libraries (CDN) -->
-  <!-- Three.js for 3D Effects - Using ES Module via importmap -->
-  <script type="importmap">
-    {
-      "imports": {
-        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
-      }
-    }
-  </script>
-
-  <!-- Chart.js for Data Visualization -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-
-  <!-- GSAP for Advanced Animations (Optional) -->
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <!--
+    스타일·스크립트는 _src/ 의 원본을 tools/build 로 묶은 결과물이다. 직접 고치지 말고
+    _src/ 를 고친 뒤 `cd tools && npm run build` 로 다시 만든다. (docs/homepage-performance-strategy.md)
+  -->
+  <link rel="stylesheet" href="./assets/dist/site.9358615f3b.css">
+  <link rel="preload" href="./assets/fonts/manrope/manrope-latin-v20.woff2" as="font" type="font/woff2" crossorigin>
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-TNGS7LHP2X"></script>
@@ -48,12 +30,11 @@
     gtag('js', new Date());
     gtag('config', 'G-TNGS7LHP2X');
   </script>
+  <!-- 실사용자 측정(RUM): 히어로 문구가 실제로 보인 시점. 전송은 body 끝의 web-vitals 스크립트가 한다 -->
+  <script>(function p(){var h=document.querySelector('section h1');if(h&&parseFloat(getComputedStyle(h).opacity)>=0.99){window.__heroVisible=Math.round(performance.now());return;}if(performance.now()<15000)requestAnimationFrame(p);})();</script>
 </head>
 
 <body class="cyber-mode">
-  <!-- 3D Background Container -->
-  <div id="cyber-3d-background" style="position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: -1;"></div>
-
   <!-- Scanline Effect -->
   <div class="cyber-scanline"></div>
 
@@ -115,7 +96,7 @@
 
       <div class="container" style="position: relative; z-index: 1;">
         <div class="row gx-md-8 gx-xl-12 gy-10 align-items-center text-center text-lg-start">
-          <div class="col-lg-6" data-cues="slideInDown" data-group="page-title" data-delay="100">
+          <div class="col-lg-6">
             <h1 class="display-1 mb-4" style="word-break: keep-all; color: #ffffff; font-weight: bold;">
               AI 시대의 IoT
             </h1>
@@ -155,9 +136,13 @@
             </div>
           </div>
           <!--/column -->
-          <div class="col-lg-6 cyber-float" data-cue="fadeIn" data-delay="300">
+          <div class="col-lg-6">
             <div class="position-relative">
-              <img class="img-fluid" src="./assets/img/illustrations/3d2.png" srcset="./assets/img/illustrations/3d2@2x.png 2x" alt="IoT 3D Illustration" style="filter: drop-shadow(0 0 40px rgba(95, 244, 255, 0.3));" />
+              <picture>
+                <source type="image/avif" srcset="./assets/img/illustrations/3d2-600.avif 600w, ./assets/img/illustrations/3d2-800.avif 800w, ./assets/img/illustrations/3d2-1200.avif 1200w" sizes="(min-width: 992px) 50vw, 100vw">
+                <source type="image/webp" srcset="./assets/img/illustrations/3d2-600.webp 600w, ./assets/img/illustrations/3d2-800.webp 800w, ./assets/img/illustrations/3d2-1200.webp 1200w" sizes="(min-width: 992px) 50vw, 100vw">
+                <img class="img-fluid" src="./assets/img/illustrations/3d2.png" srcset="./assets/img/illustrations/3d2@2x.png 2x" width="800" height="925" alt="IoT 3D Illustration" style="filter: drop-shadow(0 0 40px rgba(95, 244, 255, 0.3));" />
+              </picture>
             </div>
           </div>
           <!--/column -->
@@ -195,7 +180,7 @@
           <div class="col-md-6 col-lg">
             <div class="cyber-card cyber-3d-card h-100 text-center">
               <div class="mb-4" style="font-size: 3rem;">
-                <img src="./assets/img/buildings.png" class="svg-inject icon-svg icon-svg-lg mb-3" alt="" style="filter: drop-shadow(0 0 20px rgba(95, 244, 255, 0.5));" />
+                <img src="./assets/img/buildings.png" class="icon-svg icon-svg-lg mb-3" width="60" height="60" loading="lazy" decoding="async" alt="" style="filter: drop-shadow(0 0 20px rgba(95, 244, 255, 0.5));" />
               </div>
               <h4 class="mb-3 cyber-text-glow">제로에너지 건축물</h4>
               <p class="mb-3" style="word-break: keep-all; color: #9499a3;">
@@ -209,7 +194,7 @@
           <div class="col-md-6 col-lg">
             <div class="cyber-card cyber-3d-card h-100 text-center">
               <div class="mb-4" style="font-size: 3rem;">
-                <img src="./assets/img/smarthome.png" class="svg-inject icon-svg icon-svg-lg mb-3" alt="" style="filter: drop-shadow(0 0 20px rgba(0, 128, 255, 0.5));" />
+                <img src="./assets/img/smarthome.png" class="icon-svg icon-svg-lg mb-3" width="60" height="60" loading="lazy" decoding="async" alt="" style="filter: drop-shadow(0 0 20px rgba(0, 128, 255, 0.5));" />
               </div>
               <h4 class="mb-3" style="color: #0080ff;">스마트홈/시티</h4>
               <p class="mb-3" style="word-break: keep-all; color: #9499a3;">
@@ -222,9 +207,9 @@
           <!-- Card 3: Smart Farm/Agriculture -->
           <div class="col-md-6 col-lg">
             <a href="https://blog.naver.com/PostList.naver?blogId=tabspacekr&from=postList&categoryNo=21" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
-              <div class="cyber-card cyber-3d-card h-100 text-center" style="cursor: pointer; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+              <div class="cyber-card cyber-3d-card h-100 text-center" style="cursor: pointer; transition: transform 0.3s ease;">
                 <div class="mb-4" style="font-size: 3rem;">
-                  <img src="./assets/img/smartfarm.png" class="svg-inject icon-svg icon-svg-lg mb-3" alt="" style="filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.5));" />
+                  <img src="./assets/img/smartfarm.png" class="icon-svg icon-svg-lg mb-3" width="60" height="60" loading="lazy" decoding="async" alt="" style="filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.5));" />
                 </div>
                 <h4 class="mb-3" style="color: #00ff88;">스마트팜/농업</h4>
                 <p class="mb-3" style="word-break: keep-all; color: #9499a3;">
@@ -239,7 +224,7 @@
           <div class="col-md-6 col-lg">
             <div class="cyber-card cyber-3d-card h-100 text-center">
               <div class="mb-4" style="font-size: 3rem;">
-                <img src="./assets/img/embedded_system.png" class="svg-inject icon-svg icon-svg-lg mb-3" alt="" style="filter: drop-shadow(0 0 20px rgba(128, 0, 255, 0.5));" />
+                <img src="./assets/img/embedded_system.png" class="icon-svg icon-svg-lg mb-3" width="60" height="60" loading="lazy" decoding="async" alt="" style="filter: drop-shadow(0 0 20px rgba(128, 0, 255, 0.5));" />
               </div>
               <h4 class="mb-3" style="color: #8000ff;">임베디드 시스템</h4>
               <p class="mb-3" style="word-break: keep-all; color: #9499a3;">
@@ -253,7 +238,7 @@
           <div class="col-md-6 col-lg">
             <div class="cyber-card cyber-3d-card h-100 text-center">
               <div class="mb-4" style="font-size: 3rem;">
-                <img src="./assets/img/store.png" class="svg-inject icon-svg icon-svg-lg mb-3" alt="" style="filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.5));" />
+                <img src="./assets/img/store.png" class="icon-svg icon-svg-lg mb-3" width="60" height="60" loading="lazy" decoding="async" alt="" style="filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.5));" />
               </div>
               <h4 class="mb-3 cyber-text-magenta">무인매장 관리</h4>
               <p class="mb-3" style="word-break: keep-all; color: #9499a3;">
@@ -289,7 +274,7 @@
                   <div class="cyber-badge me-3">NEW</div>
                   <h3 class="mb-0" style="color: #ffffff; font-weight: bold;">AI 챗봇 고객 지원</h3>
                 </div>
-                <button id="chatbot-refresh-btn" class="btn btn-sm p-0" onclick="refreshChatbotDemo()" style="border: none; background: transparent; cursor: pointer;" title="새로고침">
+                <button id="chatbot-refresh-btn" class="btn btn-sm p-0" onclick="refreshChatbotDemo(event)" style="border: none; background: transparent; cursor: pointer;" title="새로고침">
                   <i id="chatbot-refresh-icon" class="uil uil-sync" style="color: #5ff4ff; font-size: 1.5rem; transition: transform 0.3s ease, color 0.3s ease;" onmouseover="this.style.transform='rotate(180deg)'" onmouseout="this.style.transform='rotate(0deg)'"></i>
                 </button>
               </div>
@@ -507,7 +492,7 @@
                     온도 및 습도 실시간 트래킹
                   </p>
                 </div>
-                <button class="cyber-btn-filled btn btn-sm" onclick="if(window.dataVizInstance){window.dataVizInstance.startAutoUpdate('environment-chart', 5000); alert('실시간 업데이트가 시작되었습니다!');}">
+                <button class="cyber-btn-filled btn btn-sm" onclick="startEnvironmentUpdates()">
                   <i class="uil uil-play"></i> 실시간 업데이트 시작
                 </button>
               </div>
@@ -665,7 +650,7 @@
           <div class="col-md-6 col-lg-4">
             <div class="cyber-card h-100 p-4">
               <div class="d-flex align-items-start mb-3">
-                <img src="./assets/img/icons/solid/script.svg" class="svg-inject icon-svg icon-svg-sm me-3" style="filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
+                <img src="./assets/img/icons/solid/script.svg" class="icon-svg icon-svg-sm me-3" style="filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
                 <h3 class="h5 mb-0 cyber-text-glow">오픈소스 + 자체개발</h3>
               </div>
               <p class="mb-0 text-light">오픈소스 IoT 플랫폼인 'Home Assistant'를 기반으로 자체개발 컴포넌트 모듈을 적용하여, 지속가능한 기능개선 및 유지관리 서비스를 제공합니다.</p>
@@ -676,7 +661,7 @@
           <div class="col-md-6 col-lg-4">
             <div class="cyber-card h-100 p-4">
               <div class="d-flex align-items-start mb-3">
-                <img src="./assets/img/icons/solid/verify.svg" class="svg-inject icon-svg icon-svg-sm me-3" style="filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
+                <img src="./assets/img/icons/solid/verify.svg" class="icon-svg icon-svg-sm me-3" style="filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
                 <h3 class="h5 mb-0 cyber-text-magenta">네트워크 보안</h3>
               </div>
               <p class="mb-0 text-light">VPN과 SD-WAN의 기능을 결합한 'ZeroTier'의 제로 트러스트 네트워킹 솔루션을 자체 운영하여, 256비트 종단 간 암호화로 IoT 장비의 독립적인 네트워크 보안을 제공합니다.</p>
@@ -687,7 +672,7 @@
           <div class="col-md-6 col-lg-4">
             <div class="cyber-card h-100 p-4">
               <div class="d-flex align-items-start mb-3">
-                <img src="./assets/img/icons/solid/cloud-network.svg" class="svg-inject icon-svg icon-svg-sm me-3" style="filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
+                <img src="./assets/img/icons/solid/cloud-network.svg" class="icon-svg icon-svg-sm me-3" style="filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
                 <h3 class="h5 mb-0 cyber-text-cyan">클라우드 서비스</h3>
               </div>
               <p class="mb-0 text-light">나스닥 상장 글로벌 데이터 센터 기업인 'Equinix'의 서울 리전 'SL1(상암DMC 삼성SDS IDC)'을 사용하여 안정적인 무중단* 클라우드 서비스를 제공합니다. (*약관 적용)</p>
@@ -698,7 +683,7 @@
           <div class="col-md-6 col-lg-4">
             <div class="cyber-card h-100 p-4">
               <div class="d-flex align-items-start mb-3">
-                <img src="./assets/img/icons/solid/director.svg" class="svg-inject icon-svg icon-svg-sm me-3" style="filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
+                <img src="./assets/img/icons/solid/director.svg" class="icon-svg icon-svg-sm me-3" style="filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
                 <h3 class="h5 mb-0 cyber-text-glow">유/무선 통신기술</h3>
               </div>
               <p class="mb-0 text-light">TCP/IP, RS485, KNX, WiFi Mesh, Zigbee, BLE, LoRa, RF, IR, SIP, MQTT 등 IoT에 사용되는 유/무선 통신기술로 설비, 장비, 센서를 통합 및 제공합니다.</p>
@@ -709,7 +694,7 @@
           <div class="col-md-6 col-lg-4">
             <div class="cyber-card h-100 p-4">
               <div class="d-flex align-items-start mb-3">
-                <img src="./assets/img/icons/solid/setting.svg" class="svg-inject icon-svg icon-svg-sm me-3" style="filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
+                <img src="./assets/img/icons/solid/setting.svg" class="icon-svg icon-svg-sm me-3" style="filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
                 <h3 class="h5 mb-0 cyber-text-magenta">3D 모델링, 금형사출 설계</h3>
               </div>
               <p class="mb-0 text-light">자사 직원에 의한 샘플 모델링 설계(3D프린터 활용), 당사 협력 프로젝트 시제품 제작을 위한 3D 모델링 및 금형사출 전반에 대한 위탁 제작 서비스를 제공합니다.</p>
@@ -720,7 +705,7 @@
           <div class="col-md-6 col-lg-4">
             <div class="cyber-card h-100 p-4">
               <div class="d-flex align-items-start mb-3">
-                <img src="./assets/img/icons/solid/server.svg" class="svg-inject icon-svg icon-svg-sm me-3" style="filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
+                <img src="./assets/img/icons/solid/server.svg" class="icon-svg icon-svg-sm me-3" style="filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
                 <h3 class="h5 mb-0 cyber-text-cyan">하드웨어 및 펌웨어 설계</h3>
               </div>
               <p class="mb-0 text-light">'ESP32, ESP8266' SoC기반의 저전력 무선 통신 MCU 하드웨어 설계 및 'Tasmota' 펌웨어 커스터마이징 기술을 통해 IoT 산업 전반에 사용되는 센싱, 제어, 통신 기술을 제공합니다.</p>
@@ -738,7 +723,13 @@
       <div class="container pt-14 pt-md-16 pb-14 pb-md-16" id="Contact">
         <div class="row gx-3 gy-10 align-items-center">
           <div class="col-lg-6">
-            <figure><img class="w-auto" src="./assets/img/illustrations/3d5.png" srcset="./assets/img/illustrations/3d5@2x.png 2x" alt="" style="filter: drop-shadow(0 0 30px rgba(95, 244, 255, 0.3));" /></figure>
+            <figure>
+              <picture>
+                <source type="image/avif" srcset="./assets/img/illustrations/3d5-800.avif 1x, ./assets/img/illustrations/3d5-1600.avif 2x">
+                <source type="image/webp" srcset="./assets/img/illustrations/3d5-800.webp 1x, ./assets/img/illustrations/3d5-1600.webp 2x">
+                <img class="w-auto" src="./assets/img/illustrations/3d5.png" srcset="./assets/img/illustrations/3d5@2x.png 2x" alt="" loading="lazy" decoding="async" style="filter: drop-shadow(0 0 30px rgba(95, 244, 255, 0.3));" />
+              </picture>
+            </figure>
           </div>
           <!--/column -->
           <div class="col-lg-5 offset-lg-1">
@@ -750,7 +741,7 @@
             <!-- Address -->
             <div class="cyber-card mb-4 p-4">
               <div class="d-flex align-items-start">
-                <img src="./assets/img/icons/solid/pin.svg" class="svg-inject icon-svg icon-svg-xs me-3" style="width: 1.5rem; height: 1.5rem; filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
+                <img src="./assets/img/icons/solid/pin.svg" class="icon-svg icon-svg-xs me-3" style="width: 1.5rem; height: 1.5rem; filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
                 <div>
                   <h5 class="mb-2 cyber-text-glow">주소</h5>
                   <address class="text-light mb-0">서울특별시 마포구 매봉산로 18, 405호</address>
@@ -761,7 +752,7 @@
             <!-- Phone -->
             <div class="cyber-card mb-4 p-4">
               <div class="d-flex align-items-start">
-                <img src="./assets/img/icons/solid/rotary.svg" class="svg-inject icon-svg icon-svg-xs me-3" style="width: 1.5rem; height: 1.5rem; filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
+                <img src="./assets/img/icons/solid/rotary.svg" class="icon-svg icon-svg-xs me-3" style="width: 1.5rem; height: 1.5rem; filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
                 <div>
                   <h5 class="mb-2 cyber-text-magenta">전화</h5>
                   <p class="text-light mb-0">
@@ -776,7 +767,7 @@
             <!-- Email -->
             <div class="cyber-card p-4">
               <div class="d-flex align-items-start">
-                <img src="./assets/img/icons/solid/emails.svg" class="svg-inject icon-svg icon-svg-xs me-3" style="width: 1.5rem; height: 1.5rem; filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
+                <img src="./assets/img/icons/solid/emails.svg" class="icon-svg icon-svg-xs me-3" style="width: 1.5rem; height: 1.5rem; filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
                 <div>
                   <h5 class="mb-2 cyber-text-cyan">이메일</h5>
                   <p class="text-light mb-3">영업 · 기술 · 고객지원 문의</p>
@@ -879,103 +870,36 @@
       <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
     </svg>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="./assets/js/plugins.js"></script>
-  <script src="./assets/js/theme.js"></script>
+  <!-- 홈페이지 스크립트 번들: jQuery, 테마, 캐러셀, 차트(지연 로드), 챗봇 데모, 이메일 확인하기 버튼 등 -->
+  <script defer src="./assets/dist/home.52c1982406.js"></script>
 
-  <!-- Custom Cyber Theme Scripts -->
-  <script type="module" src="./assets/js/3d-effects.js"></script>
-  <script src="./assets/js/data-loader.js"></script>
-  <script src="./assets/js/chatbot-ui.js"></script>
-  <script src="./assets/js/contact-reveal.js"></script>
-  <script src="./assets/js/data-visualization.js"></script>
-
-  <!-- Initialization Script -->
-  <script>
-    // Initialize all systems on DOM ready
-    document.addEventListener('DOMContentLoaded', function() {
-      console.log('🚀 Initializing TabSpace Cyber Systems...');
-
-      // Set current year in footer
-      const yearElement = document.getElementById('current-year');
-      if (yearElement) {
-        yearElement.textContent = new Date().getFullYear();
-      }
-
-      // Initialize Data Visualization Charts (Live Demo Zone)
-      if (window.DataVisualization && document.getElementById('energy-chart')) {
-        try {
-          const dataViz = new DataVisualization();
-          dataViz.init();
-
-          // Create charts
-          dataViz.createEnergyChart('energy-chart');
-          dataViz.createDeviceStatusChart('device-status-chart');
-          dataViz.createEnvironmentChart('environment-chart');
-          dataViz.createProjectStatsChart('project-stats-chart');
-
-          // Start auto-update for energy chart
-          dataViz.startAutoUpdate('energy-chart', 5000);
-
-          window.dataVizInstance = dataViz;
-          console.log('✓ Data Visualization initialized');
-        } catch (error) {
-          console.error('Data Visualization initialization failed:', error);
-        }
-      }
-
-      // Initialize AI Chatbot - 향후 사용 예정
-      /*
-      if (window.ChatbotUI) {
-        try {
-          const chatbot = new ChatbotUI({
-            botName: 'TabSpace AI',
-            position: 'bottom-right'
-          });
-          // init() is called in constructor, no need to call again
-          window.chatbotInstance = chatbot;
-          console.log('✓ AI Chatbot initialized');
-        } catch (error) {
-          console.error('Chatbot initialization failed:', error);
-        }
-      }
-      */
-
-      console.log('🎉 All systems initialized successfully!');
-    });
-  </script>
-
-  <!-- Chatbot Demo Animation -->
-  <script src="./assets/js/chatbot-demo-animation.js"></script>
-
-  <!-- Energy Management Animation -->
-  <script src="./assets/js/energy-management-animation.js"></script>
-
-  <!-- Chatbot Demo Refresh Function -->
-  <script>
-    /**
-     * 챗봇 데모 새로고침 함수
-     * 새로고침 아이콘 클릭 시 호출됨
-     */
-    function refreshChatbotDemo() {
-      if (window.chatbotDemoInstance) {
-        // 아이콘 회전 애니메이션
-        const icon = event.currentTarget.querySelector('i');
-        if (icon) {
-          icon.style.transform = 'rotate(360deg)';
-          setTimeout(() => {
-            icon.style.transform = 'rotate(0deg)';
-          }, 300);
-        }
-
-        // 챗봇 데모 새로고침
-        window.chatbotDemoInstance.refresh();
-        console.log('🔄 Chatbot demo refreshed');
-      } else {
-        console.error('Chatbot demo instance not found');
-      }
-    }
+  <!-- 실사용자 측정(RUM): Core Web Vitals 와 히어로 표시 시점을 GA4 이벤트로 보낸다 (전략 문서 §7 ①) -->
+  <script type="module">
+    const report = async () => {
+      const { onLCP, onINP, onCLS, onFCP, onTTFB } = await import('./assets/vendor/web-vitals-5.3.0.attribution.js');
+      const ct = navigator.connection?.effectiveType || 'na';
+      const tgt = a => (a?.target || a?.interactionTarget || a?.largestShiftTarget || '').slice(0, 100);
+      const send = m => window.gtag && gtag('event', m.name, {
+        value: Math.round(m.name === 'CLS' ? m.delta * 1000 : m.delta),
+        metric_id: m.id, metric_value: m.value, metric_rating: m.rating,
+        debug_target: tgt(m.attribution),
+        lcp_render_delay: m.name === 'LCP' ? Math.round(m.attribution.elementRenderDelay) : undefined,
+        effective_type: ct
+      });
+      [onLCP, onINP, onCLS, onFCP, onTTFB].forEach(f => f(send));
+      setTimeout(() => {
+        const css = performance.getEntriesByType('resource')
+          .find(e => e.name.startsWith(location.origin) && e.name.endsWith('.css') && e.transferSize > 0);
+        const fcp = performance.getEntriesByName('first-contentful-paint')[0]?.startTime ?? 0;
+        window.gtag && gtag('event', 'hero_visible', {
+          value: window.__heroVisible == null ? -1 : Math.round(Math.max(window.__heroVisible, fcp)),
+          effective_type: ct,
+          layout_overflow: document.documentElement.scrollWidth > innerWidth ? 1 : 0,
+          css_wait: css ? Math.round(css.responseStart - css.requestStart) : -1
+        });
+      }, 3000);
+    };
+    document.readyState === 'complete' ? report() : addEventListener('load', report);
   </script>
 </body>
 
