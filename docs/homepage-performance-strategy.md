@@ -556,14 +556,14 @@ npx -y lighthouse@13 https://www.tabspace.kr/ --preset=desktop --only-categories
 # 측정 요청. 응답으로는 측정 id만 온다
 ID=$(curl -s -X POST https://api.globalping.io/v1/measurements -H 'content-type: application/json' -d '{
   "type":"http","target":"www.tabspace.kr",
-  "measurementOptions":{"protocol":"HTTPS","request":{"path":"/assets/css/cyber-theme.css"}},
+  "measurementOptions":{"protocol":"HTTPS","request":{"path":"/assets/dist/site.<해시>.css"}},
   "locations":[{"asn":4766},{"asn":9644},{"asn":9318},{"asn":17858}]}' | jq -r .id)
 # 수 초 뒤 결과 조회
 curl -s https://api.globalping.io/v1/measurements/$ID \
   | jq '.results[] | {asn: .probe.asn, firstByte: .result.timings.firstByte, xtimer: .result.headers["x-timer"]}'
 ```
 
-KT·SKT·SKB·LGU+ 프로브의 `firstByte`와 `x-timer` 헤더를 기록한다. 10분 간격으로 두 번 실행하면 엣지 캐시가 식은 경우와 살아 있는 경우를 모두 볼 수 있다. CSS 파일명이 바뀌면(D4) `path`도 바꾼다.
+KT·SKT·SKB·LGU+ 프로브의 `firstByte`와 `x-timer` 헤더를 기록한다. 10분 간격으로 두 번 실행하면 엣지 캐시가 식은 경우와 살아 있는 경우를 모두 볼 수 있다. CSS 파일명은 빌드마다 바뀌므로 `index.html`에서 현재 `assets/dist/site.*.css` 경로를 읽어 넣는다(`.github/workflows/korea-delivery.yml`이 그렇게 한다).
 
 **⑤ 기능 회귀 체크리스트 (모든 배포 전, 모바일(Android Chrome, iOS Safari)과 데스크톱 각각)**
 
@@ -674,6 +674,8 @@ KT·SKT·SKB·LGU+ 프로브의 `firstByte`와 `x-timer` 헤더를 기록한다.
 | 히어로를 지나 `#Features`에서 | 모바일 62.6%, 데스크톱 72.3% | **모바일·데스크톱 0.3%** |
 | 초당 레이아웃 횟수 | 17~34회 | 0회 |
 
+**실서비스(배포 후, 2026-09-26 22:00 UTC)**: 같은 조건(느린 4G, CPU 4배, 미국 경유 프록시)으로 `https://www.tabspace.kr/`을 쟀다. 모바일에서 히어로 문구 표시 1.64s, DCL 2.59s, 352KB·22건, CLS 0, 레이아웃 폭 412px였다(`tools/perf/results/live-after-mobile.json`). `regress.js` 39개 항목도 실서비스에서 모두 통과했다.
+
 **Lighthouse CI**(`tools/lighthouserc.json`, 모바일 시뮬레이션, 로컬 정적 서버, 3회): 개선 전 71점(FCP 3.2s, LCP 6.2s)에서 개선 후 94·98·99점(FCP 0.9~1.2s, LCP 2.0~2.2s, CLS 0)이 됐다. 두 실행 모두 샌드박스 브라우저가 외부 CDN에 닿지 못했다. 그래서 개선 전 값은 jQuery·three.js가 빠진 채 낙관적으로 나왔고(§8과 같은 한계), 개선 후 값에는 gtag.js(171KB)가 빠져 있다.
 
 **빌드 결과물**: 렌더 차단 CSS는 4개 파일 123KB gz에서 1개 파일 15.9KB gz가 됐다. Unicons 서브셋 3.2KB가 data URI로 들어 있다. 첫 로드 JS는 서드파티·자체를 합쳐 약 760KB 전송에서 자체 번들 1개 53KB gz가 됐다(gtag 171KB 별도). 프로젝트 사진 37장은 16.08MB에서 JPEG 1.78MB로 줄었고, 브라우저가 실제로 고르는 736px AVIF는 합계 0.79MB다.
@@ -706,7 +708,7 @@ KT·SKT·SKB·LGU+ 프로브의 `firstByte`와 `x-timer` 헤더를 기록한다.
 
 | 항목 | 담당 | 비고 |
 |---|---|---|
-| 옛 파일 삭제 | 개발 | 이번 변경이 배포되고 10분 이상 지난 뒤 별도 커밋으로 지운다. 대상: `assets/js/`(9개), `assets/css/plugins.css`·`style.css`·`cyber-theme.css`·`colors/`·`fonts/urbanist.css`, `assets/fonts/urbanist/`. `assets/fonts/unicons/`는 안전망이므로 남긴다. `assets/dist`의 옛 해시 파일은 `npm run build -- --prune`으로 지운다 |
+| ~~옛 파일 삭제~~ | 완료 | PR #27 배포 10분 뒤 `assets/js/`(9개), `assets/css/`(플러그인·테마·색상·urbanist), `assets/fonts/urbanist/`(쓰이지 않던 나눔고딕 5MB 포함)를 지웠다. `assets/fonts/unicons/`는 안전망으로 남겼다. 이후 빌드에서 생기는 옛 해시 파일은 `npm run build -- --prune`으로 지운다 |
 | D1 www 없는 주소 TLS, D2 DNS TTL | Vultr 서버·DNS 관리자 | 저장소 밖 작업 |
 | GA4 맞춤 측정기준 등록, BigQuery 내보내기 | GA 관리자 | `debug_target`, `lcp_render_delay`, `effective_type`, `layout_overflow`, `css_wait`. 내보내기는 켠 날부터 쌓인다 |
 | gtag 지연 | 보류 | §6-3 그대로. 현재 유일한 서드파티(171KB) |

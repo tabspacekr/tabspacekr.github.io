@@ -239,7 +239,7 @@ git grep -InE '[A-Za-z0-9._%+-]+@tabspace\.kr' -- \
 |---|---|---|---|
 | **Phase 0** ✅ | · 챗봇 JS 26건 평문 제거 ✅<br>· `_config.yml`에 `exclude` 추가 ✅<br>· `css/style.css`·`oled/ogpi_stats.py` 주석 정리 ✅<br>· `README.txt`·`index_2021.html`·`khu-che` 정리 ✅<br>· 수집 거부 문구 정정 및 푸터 상시 노출 ✅<br>· robots.txt 강화 ✅ | 노출 36 → 0건.<br>**투입 대비 효과가 가장 큼** | 완료 |
 | **Phase 1** ✅ | · `ceo@` 제거, `he086@` 단일 주소로 통합<br>· 챗봇 안내 문구의 영업/기술 구분 정리 | 노출 지점 단일화, 교체 지점 1곳으로 축소 | 완료 |
-| **Phase 2** ✅ | · "확인하기" 버튼 게이트 구현 (`assets/js/contact-reveal.js`)<br>· 인코딩 + `isTrusted` + 복사 버튼 + `<noscript>` 폴백 | T1·T2 완전 차단 | 완료 |
+| **Phase 2** ✅ | · "확인하기" 버튼 게이트 구현 (`assets/js/contact-reveal.js`, 2026-09-26부터 `_src/js/contact-reveal.js`에서 번들로 빌드)<br>· 인코딩 + `isTrusted` + 복사 버튼 + `<noscript>` 폴백 | T1·T2 완전 차단 | 완료 |
 | **Phase 3** | · 외부 문의 폼 도입 후 메인 CTA로 승격<br>· GitHub Actions 회귀 방지 검사 | 노출 필요성 자체 감소, 상태 유지 | 0.5일 |
 
 **전 단계가 정적 파일 수정만으로 완결된다.** 새로 추가되는 런타임 의존성은 없다 — 게이트는 순수 JS 수십 줄이며, 외부 CDN·라이브러리·서버 구성요소를 도입하지 않는다.
