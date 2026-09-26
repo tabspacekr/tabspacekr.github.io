@@ -252,12 +252,14 @@ class ProjectGalleryRenderer {
           </div>
           <div class="p-4">
             <h3 class="h5 mb-2 cyber-text-glow">${project.title}</h3>
-            <p class="text-light mb-2">
+            <p class="text-light mb-3">
               <i class="uil uil-map-marker"></i> ${project.location}
             </p>
+            ${'' /* 구축일자(YYYY-MM-DD) 표시는 숨긴다. 다시 보이려면 아래 <p> 를 주석 밖으로 꺼낸다.
             <p class="text-light mb-3">
               <i class="uil uil-calendar-alt"></i> ${project.date}
             </p>
+            */}
             <p class="small text-light mb-0">${project.subCategory}</p>
           </div>
         </div>
