@@ -1,0 +1,20 @@
+{
+  "name": "tabspace-homepage-tools",
+  "private": true,
+  "description": "홈페이지 빌드(번들·퍼지·해시 파일명)와 성능 측정 도구. docs/homepage-performance-strategy.md 참고",
+  "scripts": {
+    "build": "node build/build.mjs",
+    "images": "node build/images.mjs",
+    "check": "node build/build.mjs --check",
+    "serve": "node perf/server.js 8443 ..",
+    "measure": "node perf/measure.js https://127.0.0.1:8443/",
+    "regress": "node perf/regress.js https://127.0.0.1:8443/"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.10",
+    "lightningcss": "1.30.1",
+    "purgecss": "7.0.2",
+    "sharp": "0.34.4",
+    "playwright": "1.56.1"
+  }
+}

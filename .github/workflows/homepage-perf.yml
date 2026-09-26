@@ -1,0 +1,71 @@
+# 홈페이지 성능·회귀 검사 (docs/homepage-performance-strategy.md 2-1, 2-4)
+#  1) build-check : assets/dist 결과물과 index.html 참조가 _src 원본으로 다시 빌드한 결과와 같은지
+#  2) regress     : 모바일·데스크톱 기능 회귀 검사 (메뉴, 캐러셀, 차트, 이메일 확인하기 버튼 등)
+#  3) lighthouse  : Lighthouse CI 예산 검사 (CLS 는 실패, 나머지는 경고)
+# GitHub 러너는 미국에 있으므로 TTFB·절대 지연시간은 판정에 쓰지 않는다.
+name: Homepage performance
+
+on:
+  pull_request:
+    paths: ['index.html', '_src/**', 'assets/**', 'data/**', 'tools/**', '.github/workflows/homepage-perf.yml']
+  push:
+    branches: [main]
+    paths: ['index.html', '_src/**', 'assets/**', 'data/**', 'tools/**', '.github/workflows/homepage-perf.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: tools/package-lock.json
+      - run: npm ci
+        working-directory: tools
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+      - name: 결과물이 _src 와 일치하는지 검사
+        run: npm run check
+        working-directory: tools
+
+  regress:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: tools/package-lock.json
+      - run: npm ci
+        working-directory: tools
+      - run: npx playwright install --with-deps chromium
+        working-directory: tools
+      - name: 기능 회귀 검사
+        working-directory: tools
+        run: |
+          node perf/server.js 8443 .. &
+          sleep 2
+          node perf/regress.js https://127.0.0.1:8443/
+
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Lighthouse CI
+        run: npx -y @lhci/cli@0.15.1 autorun --config=tools/lighthouserc.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci
+          retention-days: 14

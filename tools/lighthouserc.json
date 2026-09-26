@@ -1,0 +1,22 @@
+{
+  "ci": {
+    "collect": {
+      "staticDistDir": ".",
+      "url": ["http://localhost/index.html"],
+      "numberOfRuns": 3
+    },
+    "assert": {
+      "assertions": {
+        "total-byte-weight": ["warn", { "maxNumericValue": 700000 }],
+        "cumulative-layout-shift": ["error", { "maxNumericValue": 0.1 }],
+        "largest-contentful-paint": ["warn", { "maxNumericValue": 2500 }],
+        "first-contentful-paint": ["warn", { "maxNumericValue": 2000 }],
+        "render-blocking-resources": ["warn", { "maxLength": 1 }]
+      }
+    },
+    "upload": {
+      "target": "filesystem",
+      "outputDir": ".lighthouseci"
+    }
+  }
+}
