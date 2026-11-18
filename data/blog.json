@@ -8,6 +8,42 @@
   },
   "posts": [
     {
+      "id": "blog-2026-022",
+      "title": "지진 통보를 받는 순간 설비가 움직인다 — 기상청 연계 AIoT 자동제어 실증",
+      "excerpt": "기상청 지진 통보를 받아 현장의 예상진도를 판단하고, 미리 정한 기준에 따라 가스 차단·출입문 개방 같은 설비 제어와 대피 안내까지 자동으로 이어지는 지진 AIoT 자동제어를 정부 실증 사업으로 검증하고 있습니다. 되돌리기 어려운 제어는 계기진도를 확인한 뒤에만 허용하는 안전 설계를 소개합니다.",
+      "content": "지진 통보부터 설비 제어까지 사람이 개입하기 어려운 수십 초를 자동화하는 것이 핵심입니다...",
+      "author": "탭스페이스 기술팀",
+      "date": "2026-10-20",
+      "category": "iot",
+      "tags": [
+        "스마트시티",
+        "지진",
+        "자동제어",
+        "기상청"
+      ],
+      "image": "",
+      "featured": true,
+      "readTime": "7분"
+    },
+    {
+      "id": "blog-2026-023",
+      "title": "문서 없는 설비를 IoT로 — 프로토콜 분석으로 레거시 장비 연결하기",
+      "excerpt": "제조사 문서나 공개 API가 없는 도어락·센서·공조 설비도 통신을 분석하면 IoT 플랫폼에 연결할 수 있습니다. 통신 관찰, 프레임 구조와 검증값 해석, 시험 환경에서의 재현, 에뮬레이터 검증으로 이어지는 단계별 접근과 안전·법적 유의사항을 정리했습니다.",
+      "content": "레거시 설비 연동은 장비를 바꾸지 않고도 자동화 범위를 넓히는 가장 현실적인 방법입니다...",
+      "author": "탭스페이스 개발팀",
+      "date": "2026-11-12",
+      "category": "automation",
+      "tags": [
+        "레거시연동",
+        "프로토콜분석",
+        "리버스엔지니어링",
+        "설비자동화"
+      ],
+      "image": "",
+      "featured": true,
+      "readTime": "8분"
+    },
+    {
       "id": "blog-2026-021",
       "title": "에이전틱 AI가 여는 자율 운영 IoT 시스템의 시대",
       "excerpt": "LLM 기반 AI 에이전트가 IoT 시스템 운영 전반에서 의사결정과 실행을 자동화하는 시대가 열렸습니다. 실시간 모니터링부터 이상 대응, 최적화까지 수행하는 에이전틱 AI의 실전 도입 사례와 구축 전략을 소개합니다.",
@@ -15,7 +51,12 @@
       "author": "탭스페이스 AI팀",
       "date": "2026-03-18",
       "category": "ai",
-      "tags": ["AI에이전트", "자율운영", "LLM", "AIOps"],
+      "tags": [
+        "AI에이전트",
+        "자율운영",
+        "LLM",
+        "AIOps"
+      ],
       "image": "./assets/img/blog/agentic-ai-iot.jpg",
       "featured": true,
       "readTime": "8분"
@@ -28,7 +69,12 @@
       "author": "탭스페이스 기술팀",
       "date": "2026-01-22",
       "category": "ai",
-      "tags": ["엣지AI", "온디바이스LLM", "SLM", "엣지컴퓨팅"],
+      "tags": [
+        "엣지AI",
+        "온디바이스LLM",
+        "SLM",
+        "엣지컴퓨팅"
+      ],
       "image": "./assets/img/blog/on-device-llm.jpg",
       "featured": true,
       "readTime": "7분"
@@ -41,7 +87,12 @@
       "author": "탭스페이스 솔루션팀",
       "date": "2025-10-28",
       "category": "iot",
-      "tags": ["Matter", "Thread", "상호운용성", "IoT표준"],
+      "tags": [
+        "Matter",
+        "Thread",
+        "상호운용성",
+        "IoT표준"
+      ],
       "image": "./assets/img/blog/matter-protocol.jpg",
       "featured": false,
       "readTime": "6분"
@@ -54,7 +105,12 @@
       "author": "탭스페이스 AI팀",
       "date": "2025-07-14",
       "category": "automation",
-      "tags": ["생성형AI", "무인매장", "운영자동화", "비전AI"],
+      "tags": [
+        "생성형AI",
+        "무인매장",
+        "운영자동화",
+        "비전AI"
+      ],
       "image": "./assets/img/blog/genai-unmanned-store.jpg",
       "featured": true,
       "readTime": "9분"
@@ -67,7 +123,12 @@
       "author": "탭스페이스 솔루션팀",
       "date": "2025-05-08",
       "category": "trend",
-      "tags": ["디지털트윈", "시뮬레이션", "BIM", "시설운영"],
+      "tags": [
+        "디지털트윈",
+        "시뮬레이션",
+        "BIM",
+        "시설운영"
+      ],
       "image": "./assets/img/blog/digital-twin-facility.jpg",
       "featured": false,
       "readTime": "8분"
@@ -80,7 +141,12 @@
       "author": "탭스페이스 기술팀",
       "date": "2025-01-15",
       "category": "ai",
-      "tags": ["AI", "스마트빌딩", "에너지최적화", "예측유지보수"],
+      "tags": [
+        "AI",
+        "스마트빌딩",
+        "에너지최적화",
+        "예측유지보수"
+      ],
       "image": "./assets/img/blog/ai-iot-future.jpg",
       "featured": true,
       "readTime": "5분"
@@ -93,7 +159,12 @@
       "author": "탭스페이스 비즈니스팀",
       "date": "2024-12-20",
       "category": "trend",
-      "tags": ["무인매장", "리테일테크", "무인결제", "재고관리"],
+      "tags": [
+        "무인매장",
+        "리테일테크",
+        "무인결제",
+        "재고관리"
+      ],
       "image": "./assets/img/blog/unmanned-store-trend.jpg",
       "featured": true,
       "readTime": "7분"
@@ -106,7 +177,12 @@
       "author": "탭스페이스 보안팀",
       "date": "2024-11-10",
       "category": "security",
-      "tags": ["ZeroTier", "IoT보안", "제로트러스트", "네트워크보안"],
+      "tags": [
+        "ZeroTier",
+        "IoT보안",
+        "제로트러스트",
+        "네트워크보안"
+      ],
       "image": "./assets/img/blog/zero-trust-security.jpg",
       "featured": false,
       "readTime": "6분"
@@ -119,7 +195,12 @@
       "author": "탭스페이스 개발팀",
       "date": "2024-10-05",
       "category": "iot",
-      "tags": ["HomeAssistant", "자동화", "오픈소스", "상업시설"],
+      "tags": [
+        "HomeAssistant",
+        "자동화",
+        "오픈소스",
+        "상업시설"
+      ],
       "image": "./assets/img/blog/home-assistant-commercial.jpg",
       "featured": false,
       "readTime": "8분"
@@ -132,7 +213,12 @@
       "author": "탭스페이스 기술팀",
       "date": "2024-09-15",
       "category": "iot",
-      "tags": ["MQTT", "실시간모니터링", "IoT프로토콜", "메시징"],
+      "tags": [
+        "MQTT",
+        "실시간모니터링",
+        "IoT프로토콜",
+        "메시징"
+      ],
       "image": "./assets/img/blog/mqtt-monitoring.jpg",
       "featured": false,
       "readTime": "10분"
@@ -145,7 +231,12 @@
       "author": "탭스페이스 AI팀",
       "date": "2024-08-22",
       "category": "ai",
-      "tags": ["AI챗봇", "고객경험", "자연어처리", "머신러닝"],
+      "tags": [
+        "AI챗봇",
+        "고객경험",
+        "자연어처리",
+        "머신러닝"
+      ],
       "image": "./assets/img/blog/ai-chatbot-cx.jpg",
       "featured": true,
       "readTime": "6분"
@@ -158,7 +249,12 @@
       "author": "탭스페이스 솔루션팀",
       "date": "2024-07-18",
       "category": "automation",
-      "tags": ["스마트센서", "에너지효율", "데이터분석", "비용절감"],
+      "tags": [
+        "스마트센서",
+        "에너지효율",
+        "데이터분석",
+        "비용절감"
+      ],
       "image": "./assets/img/blog/smart-sensor-energy.jpg",
       "featured": false,
       "readTime": "7분"
@@ -171,7 +267,12 @@
       "author": "탭스페이스 하드웨어팀",
       "date": "2024-06-10",
       "category": "iot",
-      "tags": ["ESP32", "Tasmota", "하드웨어개발", "펌웨어"],
+      "tags": [
+        "ESP32",
+        "Tasmota",
+        "하드웨어개발",
+        "펌웨어"
+      ],
       "image": "./assets/img/blog/esp32-development.jpg",
       "featured": false,
       "readTime": "12분"
@@ -184,7 +285,12 @@
       "author": "탭스페이스 AI팀",
       "date": "2024-05-25",
       "category": "ai",
-      "tags": ["머신러닝", "예측유지보수", "이상탐지", "시계열분석"],
+      "tags": [
+        "머신러닝",
+        "예측유지보수",
+        "이상탐지",
+        "시계열분석"
+      ],
       "image": "./assets/img/blog/ml-predictive-maintenance.jpg",
       "featured": false,
       "readTime": "9분"
@@ -197,7 +303,12 @@
       "author": "탭스페이스 자동화팀",
       "date": "2024-04-30",
       "category": "automation",
-      "tags": ["RPA", "업무자동화", "시설관리", "효율화"],
+      "tags": [
+        "RPA",
+        "업무자동화",
+        "시설관리",
+        "효율화"
+      ],
       "image": "./assets/img/blog/rpa-automation.jpg",
       "featured": false,
       "readTime": "7분"
@@ -210,7 +321,12 @@
       "author": "탭스페이스 솔루션팀",
       "date": "2024-03-15",
       "category": "automation",
-      "tags": ["출입관리", "RFID", "얼굴인식", "통합시스템"],
+      "tags": [
+        "출입관리",
+        "RFID",
+        "얼굴인식",
+        "통합시스템"
+      ],
       "image": "./assets/img/blog/smart-access-control.jpg",
       "featured": false,
       "readTime": "8분"
@@ -223,7 +339,12 @@
       "author": "탭스페이스 네트워크팀",
       "date": "2024-02-20",
       "category": "security",
-      "tags": ["VPN", "SD-WAN", "네트워크보안", "원격관리"],
+      "tags": [
+        "VPN",
+        "SD-WAN",
+        "네트워크보안",
+        "원격관리"
+      ],
       "image": "./assets/img/blog/vpn-sdwan-comparison.jpg",
       "featured": false,
       "readTime": "10분"
@@ -236,7 +357,12 @@
       "author": "탭스페이스 보안팀",
       "date": "2024-01-10",
       "category": "security",
-      "tags": ["OTA업데이트", "펌웨어보안", "암호화", "디바이스보안"],
+      "tags": [
+        "OTA업데이트",
+        "펌웨어보안",
+        "암호화",
+        "디바이스보안"
+      ],
       "image": "./assets/img/blog/ota-security.jpg",
       "featured": false,
       "readTime": "11분"
@@ -249,7 +375,12 @@
       "author": "탭스페이스 리서치팀",
       "date": "2023-12-15",
       "category": "trend",
-      "tags": ["스마트시티", "시장전망", "IoT적용사례", "도시인프라"],
+      "tags": [
+        "스마트시티",
+        "시장전망",
+        "IoT적용사례",
+        "도시인프라"
+      ],
       "image": "./assets/img/blog/smart-city-2024.jpg",
       "featured": false,
       "readTime": "9분"
@@ -262,7 +393,12 @@
       "author": "탭스페이스 비즈니스팀",
       "date": "2023-11-20",
       "category": "trend",
-      "tags": ["리테일테크", "AI", "무인점포", "유통혁신"],
+      "tags": [
+        "리테일테크",
+        "AI",
+        "무인점포",
+        "유통혁신"
+      ],
       "image": "./assets/img/blog/retail-tech-innovation.jpg",
       "featured": false,
       "readTime": "8분"

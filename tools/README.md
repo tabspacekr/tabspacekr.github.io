@@ -1,15 +1,22 @@
 # 홈페이지 빌드·성능 도구
 
-`index.html`이 쓰는 CSS·JS는 `_src/`의 원본을 묶은 결과물(`assets/dist/`)이다.
-**`assets/dist/`는 직접 고치지 않는다.** 배경은 `docs/homepage-performance-strategy.md`에 있다.
+홈페이지는 **메뉴별 페이지**로 되어 있다(2026-11 개편, SMARTCITY 공개 누리집 구조 + 흑백 톤 + 에이투지체).
+루트의 `index.html`, `about.html` … `404.html`, `sitemap.xml`, `assets/dist/`는 모두 **빌드 결과물**이다. 직접 고치지 않는다.
 
 ```
-_src/css/      plugins.css, style.css, grape.css, cyber-theme.css   (이 순서로 합쳐진다)
-_src/js/       jQuery, 플러그인(Easing·Headhesive·Owl), 테마, 히어로 효과, 차트, 데이터 로더, 챗봇 데모 등
-_src/fonts/    Unicons-home.woff2 (홈페이지가 쓰는 아이콘 19개 서브셋, 빌드 때 CSS 에 인라인)
-_src/img/      이미지 원본 (프로젝트 사진, 일러스트, 사업분야 아이콘)
-assets/dist/   빌드 결과물 site.<해시>.css, home.<해시>.js
+_src/pages/    페이지 본문. 첫 줄 <!--page {"key","title","description","lead"}--> 가 제목·설명·메뉴 위치를 정한다
+_src/css/      site.css (디자인 토큰 + 컴포넌트, 라이트/다크)
+_src/js/       shell(메뉴·테마) → filters → 차트 → 챗봇 → 에너지 → 이메일 확인 → home-init 순서로 합쳐진다
+_src/fonts/    Unicons-home.woff2 (에너지 데모 아이콘 서브셋, 빌드 때 CSS 에 인라인)
+tools/build/pages.mjs  메뉴 정의(GROUPS), 공용 머리·메뉴·푸터, SEO 태그, data/*.json 목록 미리 그리기
+assets/fonts/atoz/     에이투지체 400·700 서브셋(KS X 1001 2,350자 + 라틴). OFL 1.1
+assets/dist/   빌드 결과물 site.<해시>.css, site.<해시>.js
 ```
+
+- 메뉴를 바꾸려면 `tools/build/pages.mjs` 의 `GROUPS` 를 고치고, 페이지는 `_src/pages/<key>.html` 을 추가한다.
+- 프로젝트·인사이트 목록은 `data/projects.json`, `data/blog.json` 을 고친 뒤 빌드하면 페이지에 다시 그려진다.
+- GitHub Pages 는 정적 파일만 내보내므로 공용 머리·푸터가 각 페이지에 미리 들어간다. 생성 HTML 에는 Jekyll 머리말이 없어 그대로 복사된다.
+- 예전 원페이지 주소(`/#Projects` 등)는 `index.html` 의 작은 스크립트가 새 페이지로 옮긴다.
 
 `_src/`는 밑줄로 시작하므로 GitHub Pages(Jekyll)가 배포하지 않는다. `tools/`는 `_config.yml`의 `exclude`로 뺐다.
 
@@ -23,13 +30,13 @@ npm ci                     # Node 22
 ## CSS·JS를 고쳤을 때
 
 ```bash
-# 1) _src/css 또는 _src/js 수정
-# 2) 빌드: assets/dist 에 새 해시 파일이 생기고 index.html 참조가 바뀐다
+# 1) _src/pages, _src/css, _src/js 또는 data/*.json 수정
+# 2) 빌드: assets/dist 에 새 해시 파일이 생기고 모든 페이지와 sitemap.xml 이 다시 만들어진다
 npm run build
 # 3) 확인
 npm run serve &            # https://127.0.0.1:8443 (GitHub Pages 흉내: HTTP/2, gzip, max-age=600)
 npm run regress            # 기능 회귀 검사 (모바일·데스크톱)
-# 4) index.html, assets/dist 의 새 파일, _src 변경을 함께 커밋
+# 4) 루트 *.html, sitemap.xml, assets/dist 의 새 파일, _src 변경을 함께 커밋
 ```
 
 CI(`.github/workflows/homepage-perf.yml`)의 `npm run check`가 커밋된 결과물이 `_src`와 맞는지 검사한다.
@@ -41,24 +48,24 @@ GitHub Pages는 모든 파일을 10분(`max-age=600`) 캐시하고, 엣지 캐�
 **옛 결과물은 배포 후 10분 이상 지난 다음 커밋에서** 지운다.
 
 ```bash
-npm run build -- --prune   # index.html 이 참조하지 않는 assets/dist 파일 삭제
+npm run build -- --prune   # 페이지가 참조하지 않는 assets/dist 파일 삭제
 ```
 
 ## 아이콘(Unicons)을 추가했을 때
 
-서브셋에 없는 아이콘은 원본 폰트(122KB)가 자동으로 추가 다운로드되어 표시는 되지만 느려진다.
-`npm run regress`의 "원본 Unicons.woff2 요청 없음" 항목이 실패하면 코드포인트를 추가해 서브셋을 다시 만든다.
+Unicons 는 AI 솔루션 페이지의 에너지 관리 데모(`data-icon="uil-…"`)에만 쓴다. 메뉴·카드 아이콘은 `tools/build/pages.mjs` 의 `ICONS`(인라인 SVG)다.
+서브셋(`_src/fonts/Unicons-home.woff2`)에 없는 Unicons 아이콘은 **표시되지 않는다**(원본 글꼴 안전망은 2026-11 개편 때 뺐다).
+새 아이콘을 쓰려면 서브셋에 코드포인트를 더하고 `_src/css/site.css` 에 `.uil-<이름>::before { content: "\xxxx"; }` 를 추가한다.
 
 ```bash
 pip install fonttools brotli
 pyftsubset ../assets/fonts/unicons/Unicons.woff2 \
   --unicodes="U+eb40,U+ed06,U+e9dd,U+e9d6,U+e9d3,U+e9a4,U+e9ee,U+ebc5,U+ed26,U+ec5a,U+ec59,U+e987,U+e949,U+e94c,U+e9ba,U+ebe3,U+ed66,U+e951,U+ed3b" \
   --flavor=woff2 --no-hinting --output-file=../_src/fonts/Unicons-home.woff2
-# _src/css/cyber-theme.css 맨 위 Unicons @font-face 의 unicode-range 에도 같은 코드포인트를 추가한 뒤
 npm run build
 ```
 
-코드포인트는 `_src/css/style.css`의 `.uil-<이름>:before { content: "\xxxx" }`에서 찾는다.
+코드포인트는 개편 전 원본 `git show aa3207a:_src/css/style.css | grep -A2 'uil-<이름>:before'` 에서 찾는다.
 
 ## 이미지를 추가·교체했을 때
 

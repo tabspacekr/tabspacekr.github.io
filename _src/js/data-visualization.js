@@ -1,6 +1,6 @@
 /**
  * Data Visualization System
- * Real-time IoT data charts with cyber-themed styling
+ * Real-time IoT data charts (흑백 팔레트 — site.css 의 --chart-* 변수를 읽는다)
  * Dependencies: Chart.js (index.html 이 섹션 근접 시 assets/vendor 에서 지연 로드)
  *
  * 자동 갱신은 해당 차트가 화면에 보이고 탭이 활성일 때만 돈다 (전략 문서 J1, A5).
@@ -9,6 +9,12 @@
 class DataVisualization {
   constructor() {
     this.charts = {};
+    this.seriesColors = {   // chartId -> 데이터셋별 팔레트 키 (refreshTheme 이 쓴다)
+      'energy-chart': ['primary', 'secondary'],
+      'environment-chart': ['primary', 'secondary'],
+      'device-status-chart': [['primary', 'tertiary', 'quaternary']],
+      'project-stats-chart': ['primary', 'secondary', 'tertiary']
+    };
     this.updateIntervals = {};
     this.autoUpdates = {};   // chartId -> interval(ms), 요청된 자동 갱신
     this.visible = {};       // chartId -> 화면 표시 여부
@@ -16,15 +22,64 @@ class DataVisualization {
     document.addEventListener('visibilitychange', () => {
       Object.keys(this.autoUpdates).forEach(id => this.syncAutoUpdate(id));
     });
-    this.cyberColors = {
-      cyan: '#5ff4ff',
-      magenta: '#ff00ff',
-      electricBlue: '#0080ff',
-      purple: '#8000ff',
-      neonGreen: '#00ff88',
-      darkBg: '#0a0e27',
-      darkSurface: '#131829'
+    this.colors = this.readPalette();
+  }
+
+  /**
+   * site.css 의 --chart-* 변수(#RRGGBB)를 읽는다. 테마가 바뀌면 refreshTheme() 이 다시 읽는다.
+   */
+  readPalette() {
+    const css = getComputedStyle(document.documentElement);
+    // createGradient 가 알파 두 자리를 덧붙이므로 #RRGGBB 로 맞춘다(CSS 압축기가 #111111 을 #111 로 줄인다)
+    const full = (hex) => (/^#[0-9a-f]{3}$/i.test(hex) ? '#' + hex.slice(1).split('').map(ch => ch + ch).join('') : hex);
+    const v = (name, fallback) => full(css.getPropertyValue(name).trim() || fallback);
+    return {
+      primary: v('--chart-1', '#111111'),
+      secondary: v('--chart-2', '#6b6b6b'),
+      tertiary: v('--chart-3', '#a3a3a3'),
+      quaternary: v('--chart-4', '#d1d1d1'),
+      grid: v('--chart-grid', '#e5e5e5'),
+      text: v('--chart-text', '#1f1f1f'),
+      muted: v('--chart-muted', '#5c5c5c'),
+      surface: v('--surface', '#ffffff'),
+      tooltipBg: v('--chart-tip-bg', '#111111'),
+      tooltipText: v('--chart-tip-text', '#ffffff')
     };
+  }
+
+  /**
+   * 테마 전환 뒤 팔레트를 다시 읽고 차트를 같은 데이터로 다시 칠한다
+   */
+  refreshTheme() {
+    this.colors = this.readPalette();
+    if (typeof Chart === 'undefined') return;
+    this.configureChartDefaults();
+    const c = this.colors;
+    Object.keys(this.charts).forEach(id => {
+      const chart = this.charts[id];
+      const o = chart.options;
+      if (o.plugins && o.plugins.tooltip) Object.assign(o.plugins.tooltip, { backgroundColor: c.tooltipBg, titleColor: c.tooltipText, bodyColor: c.tooltipText, borderColor: c.tooltipBg });
+      if (o.plugins && o.plugins.legend && o.plugins.legend.labels) o.plugins.legend.labels.color = c.text;
+      Object.values(o.scales || {}).forEach(scale => {
+        if (scale.grid && scale.grid.color) scale.grid.color = c.grid;
+        if (scale.ticks) scale.ticks.color = c.muted;
+      });
+      (this.seriesColors[id] || []).forEach((key, i) => {
+        const ds = chart.data.datasets[i];
+        if (!ds) return;
+        if (Array.isArray(key)) {
+          ds.backgroundColor = key.map(k => c[k]);
+          ds.borderColor = c.surface;
+          return;
+        }
+        ds.borderColor = c[key];
+        if (ds.fill) ds.backgroundColor = this.createGradient(chart.ctx, c[key], id === 'environment-chart' ? 0.2 : 0.3);
+        else if (chart.config.type === 'bar') ds.backgroundColor = c[key];
+        if (ds.pointBackgroundColor) ds.pointBackgroundColor = c[key];
+        if (ds.pointBorderColor) ds.pointBorderColor = c.surface;
+      });
+      chart.update('none');
+    });
   }
 
   /**
@@ -47,9 +102,9 @@ class DataVisualization {
    * Configure Chart.js defaults with cyber theme
    */
   configureChartDefaults() {
-    Chart.defaults.color = '#e0e6ed';
-    Chart.defaults.borderColor = 'rgba(95, 244, 255, 0.1)';
-    Chart.defaults.font.family = 'Manrope, sans-serif';
+    Chart.defaults.color = this.colors.text;
+    Chart.defaults.borderColor = this.colors.grid;
+    Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
     Chart.defaults.plugins.legend.labels.usePointStyle = true;
     Chart.defaults.plugins.legend.labels.padding = 15;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -83,21 +138,21 @@ class DataVisualization {
           {
             label: '전력 소비 (kW)',
             data: currentData,
-            borderColor: this.cyberColors.cyan,
-            backgroundColor: this.createGradient(ctx, this.cyberColors.cyan),
+            borderColor: this.colors.primary,
+            backgroundColor: this.createGradient(ctx, this.colors.primary),
             borderWidth: 2,
             fill: true,
             tension: 0.4,
             pointRadius: 3,
             pointHoverRadius: 6,
-            pointBackgroundColor: this.cyberColors.cyan,
-            pointBorderColor: '#fff',
+            pointBackgroundColor: this.colors.primary,
+            pointBorderColor: this.colors.surface,
             pointBorderWidth: 2
           },
           {
             label: '예측 소비 (kW)',
             data: predictedData,
-            borderColor: this.cyberColors.magenta,
+            borderColor: this.colors.secondary,
             backgroundColor: 'transparent',
             borderWidth: 2,
             borderDash: [5, 5],
@@ -115,14 +170,14 @@ class DataVisualization {
             position: 'top',
             labels: {
               boxWidth: 12,
-              color: '#e0e6ed'
+              color: this.colors.text
             }
           },
           tooltip: {
-            backgroundColor: this.cyberColors.darkSurface,
-            titleColor: this.cyberColors.cyan,
-            bodyColor: '#e0e6ed',
-            borderColor: this.cyberColors.cyan,
+            backgroundColor: this.colors.tooltipBg,
+            titleColor: this.colors.tooltipText,
+            bodyColor: this.colors.tooltipText,
+            borderColor: this.colors.tooltipBg,
             borderWidth: 1,
             padding: 12,
             displayColors: true,
@@ -136,20 +191,20 @@ class DataVisualization {
         scales: {
           x: {
             grid: {
-              color: 'rgba(95, 244, 255, 0.1)',
+              color: this.colors.grid,
               drawBorder: false
             },
             ticks: {
-              color: '#9499a3'
+              color: this.colors.muted
             }
           },
           y: {
             grid: {
-              color: 'rgba(95, 244, 255, 0.1)',
+              color: this.colors.grid,
               drawBorder: false
             },
             ticks: {
-              color: '#9499a3',
+              color: this.colors.muted,
               callback: function(value) {
                 return value + ' kW';
               }
@@ -195,8 +250,8 @@ class DataVisualization {
           {
             label: '온도 (°C)',
             data: this.generateTemperatureData(12),
-            borderColor: this.cyberColors.electricBlue,
-            backgroundColor: this.createGradient(ctx, this.cyberColors.electricBlue, 0.2),
+            borderColor: this.colors.primary,
+            backgroundColor: this.createGradient(ctx, this.colors.primary, 0.2),
             borderWidth: 2,
             fill: true,
             tension: 0.4,
@@ -207,8 +262,8 @@ class DataVisualization {
           {
             label: '습도 (%)',
             data: this.generateHumidityData(12),
-            borderColor: this.cyberColors.neonGreen,
-            backgroundColor: this.createGradient(ctx, this.cyberColors.neonGreen, 0.2),
+            borderColor: this.colors.secondary,
+            backgroundColor: this.createGradient(ctx, this.colors.secondary, 0.2),
             borderWidth: 2,
             fill: true,
             tension: 0.4,
@@ -226,10 +281,10 @@ class DataVisualization {
             position: 'top'
           },
           tooltip: {
-            backgroundColor: this.cyberColors.darkSurface,
-            titleColor: this.cyberColors.cyan,
-            bodyColor: '#e0e6ed',
-            borderColor: this.cyberColors.cyan,
+            backgroundColor: this.colors.tooltipBg,
+            titleColor: this.colors.tooltipText,
+            bodyColor: this.colors.tooltipText,
+            borderColor: this.colors.tooltipBg,
             borderWidth: 1,
             padding: 12
           }
@@ -237,20 +292,20 @@ class DataVisualization {
         scales: {
           x: {
             grid: {
-              color: 'rgba(95, 244, 255, 0.1)'
+              color: this.colors.grid
             },
             ticks: {
-              color: '#9499a3'
+              color: this.colors.muted
             }
           },
           y: {
             type: 'linear',
             position: 'left',
             grid: {
-              color: 'rgba(95, 244, 255, 0.1)'
+              color: this.colors.grid
             },
             ticks: {
-              color: '#9499a3',
+              color: this.colors.muted,
               callback: function(value) {
                 return value + '°C';
               }
@@ -263,7 +318,7 @@ class DataVisualization {
               drawOnChartArea: false
             },
             ticks: {
-              color: '#9499a3',
+              color: this.colors.muted,
               callback: function(value) {
                 return value + '%';
               }
@@ -296,11 +351,11 @@ class DataVisualization {
         datasets: [{
           data: [deviceData.online, deviceData.warning, deviceData.offline],
           backgroundColor: [
-            this.cyberColors.neonGreen,
-            this.cyberColors.electricBlue,
-            this.cyberColors.magenta
+            this.colors.primary,
+            this.colors.tertiary,
+            this.colors.quaternary
           ],
-          borderColor: this.cyberColors.darkBg,
+          borderColor: this.colors.surface,
           borderWidth: 3,
           hoverOffset: 20
         }]
@@ -319,10 +374,10 @@ class DataVisualization {
             }
           },
           tooltip: {
-            backgroundColor: this.cyberColors.darkSurface,
-            titleColor: this.cyberColors.cyan,
-            bodyColor: '#e0e6ed',
-            borderColor: this.cyberColors.cyan,
+            backgroundColor: this.colors.tooltipBg,
+            titleColor: this.colors.tooltipText,
+            bodyColor: this.colors.tooltipText,
+            borderColor: this.colors.tooltipBg,
             borderWidth: 1,
             padding: 12,
             callbacks: {
@@ -365,22 +420,22 @@ class DataVisualization {
           {
             label: '무인매장',
             data: [22, 26, 12, 10],
-            backgroundColor: this.cyberColors.cyan,
-            borderColor: this.cyberColors.cyan,
+            backgroundColor: this.colors.primary,
+            borderColor: this.colors.primary,
             borderWidth: 2
           },
           {
             label: '상업시설',
             data: [10, 19, 63, 70],
-            backgroundColor: this.cyberColors.magenta,
-            borderColor: this.cyberColors.magenta,
+            backgroundColor: this.colors.secondary,
+            borderColor: this.colors.secondary,
             borderWidth: 2
           },
           {
             label: '공공영역',
             data: [3, 3, 2, 3],
-            backgroundColor: this.cyberColors.electricBlue,
-            borderColor: this.cyberColors.electricBlue,
+            backgroundColor: this.colors.tertiary,
+            borderColor: this.colors.tertiary,
             borderWidth: 2
           }
         ]
@@ -393,10 +448,10 @@ class DataVisualization {
             position: 'top'
           },
           tooltip: {
-            backgroundColor: this.cyberColors.darkSurface,
-            titleColor: this.cyberColors.cyan,
-            bodyColor: '#e0e6ed',
-            borderColor: this.cyberColors.cyan,
+            backgroundColor: this.colors.tooltipBg,
+            titleColor: this.colors.tooltipText,
+            bodyColor: this.colors.tooltipText,
+            borderColor: this.colors.tooltipBg,
             borderWidth: 1,
             padding: 12
           }
@@ -407,15 +462,15 @@ class DataVisualization {
               display: false
             },
             ticks: {
-              color: '#9499a3'
+              color: this.colors.muted
             }
           },
           y: {
             grid: {
-              color: 'rgba(95, 244, 255, 0.1)'
+              color: this.colors.grid
             },
             ticks: {
-              color: '#9499a3',
+              color: this.colors.muted,
               stepSize: 5
             },
             beginAtZero: true
@@ -529,12 +584,8 @@ class DataVisualization {
       const sign = savingsRate > 0 ? '+' : '';
       savingsElement.textContent = `${sign}${savingsRate.toFixed(1)}%`;
 
-      // Change color based on savings (negative is good, positive is bad)
-      if (savingsRate < 0) {
-        savingsElement.style.color = '#00ff88'; // Green for savings
-      } else {
-        savingsElement.style.color = '#ff00ff'; // Magenta for over-usage
-      }
+      // 흑백 화면이라 색 대신 data-trend 로 절감(down)·초과(up)를 표시한다
+      savingsElement.dataset.trend = savingsRate < 0 ? 'down' : 'up';
     }
   }
 
@@ -661,7 +712,7 @@ class DataVisualization {
   createGradient(ctx, color, alpha = 0.3) {
     const gradient = ctx.createLinearGradient(0, 0, 0, 400);
     gradient.addColorStop(0, color + Math.floor(alpha * 255).toString(16).padStart(2, '0'));
-    gradient.addColorStop(1, 'rgba(10, 14, 39, 0)');
+    gradient.addColorStop(1, color + '00');
     return gradient;
   }
 

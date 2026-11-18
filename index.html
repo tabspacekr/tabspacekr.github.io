@@ -1,879 +1,284 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AI 시대를 선도하는 IoT 자동화 솔루션 - 탭스페이스. 무인매장, 상업시설, 스마트빌딩을 위한 차세대 IoT 플랫폼">
-  <meta name="keywords" content="IoT, 사물인터넷, AI, 인공지능, 오픈소스, 홈어시스턴트, HomeAssistant, Tasmota, MQTT, 스타트업, startup, 무인매장, 상업시설, 스마트빌딩, 데이터시각화">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <meta name="author" content="탭스페이스">
   <title>탭스페이스 - AI 시대의 IoT 자동화 솔루션</title>
-
-  <!-- Favicon -->
+  <meta name="description" content="AI 시대를 선도하는 IoT 자동화 솔루션 - 탭스페이스. 무인매장, 상업시설, 스마트빌딩을 위한 차세대 IoT 플랫폼과 구축 사례를 소개합니다.">
+  <link rel="canonical" href="https://www.tabspace.kr/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="탭스페이스">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:title" content="탭스페이스 - AI 시대의 IoT 자동화 솔루션">
+  <meta property="og:description" content="AI 시대를 선도하는 IoT 자동화 솔루션 - 탭스페이스. 무인매장, 상업시설, 스마트빌딩을 위한 차세대 IoT 플랫폼과 구축 사례를 소개합니다.">
+  <meta property="og:url" content="https://www.tabspace.kr/">
+  <meta property="og:image" content="https://www.tabspace.kr/assets/img/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="탭스페이스 — AI 시대의 IoT">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="탭스페이스 - AI 시대의 IoT 자동화 솔루션">
+  <meta name="twitter:description" content="AI 시대를 선도하는 IoT 자동화 솔루션 - 탭스페이스. 무인매장, 상업시설, 스마트빌딩을 위한 차세대 IoT 플랫폼과 구축 사례를 소개합니다.">
+  <meta name="twitter:image" content="https://www.tabspace.kr/assets/img/og-image.jpg">
+  <meta name="keywords" content="IoT, 사물인터넷, AI, 인공지능, 오픈소스, 홈어시스턴트, HomeAssistant, Tasmota, MQTT, 무인매장, 상업시설, 스마트빌딩, 스마트팜, 데이터시각화, 탭스페이스">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.tabspace.kr/#organization","name":"탭스페이스","legalName":"주식회사 탭스페이스","alternateName":"TabSpace","url":"https://www.tabspace.kr/","logo":"https://www.tabspace.kr/assets/img/favicon-192.png","description":"AI와 IoT를 융합해 무인매장·상업시설·스마트빌딩 자동화 솔루션을 제공하는 IoT 전문기업","telephone":"+82-507-1399-7864","address":{"@type":"PostalAddress","streetAddress":"매봉산로 18, 405호","addressLocality":"마포구","addressRegion":"서울특별시","addressCountry":"KR"},"sameAs":["https://blog.naver.com/tabspacekr","https://smartstore.naver.com/tabspace","https://github.com/tabspacekr"]},{"@type":"WebSite","@id":"https://www.tabspace.kr/#website","url":"https://www.tabspace.kr/","name":"탭스페이스","inLanguage":"ko-KR","publisher":{"@id":"https://www.tabspace.kr/#organization"}}]}</script>
+  <!-- 테마: 첫 그리기 전에 정한다(깜빡임 방지). 선택은 shell.js 가 저장한다 -->
+  <script>(function(){var t;try{t=localStorage.getItem('ts-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)})();</script>
   <link rel="icon" type="image/png" sizes="48x48" href="./assets/img/favicon-48.png">
   <link rel="icon" type="image/png" sizes="96x96" href="./assets/img/favicon-96.png">
   <link rel="icon" type="image/png" sizes="192x192" href="./assets/img/favicon-192.png">
   <link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png">
-
-  <!--
-    스타일·스크립트는 _src/ 의 원본을 tools/build 로 묶은 결과물이다. 직접 고치지 말고
-    _src/ 를 고친 뒤 `cd tools && npm run build` 로 다시 만든다. (docs/homepage-performance-strategy.md)
-  -->
-  <link rel="stylesheet" href="./assets/dist/site.9358615f3b.css">
-  <link rel="preload" href="./assets/fonts/manrope/manrope-latin-v20.woff2" as="font" type="font/woff2" crossorigin>
-
+  <!-- 스타일·스크립트는 _src/ 원본을 tools/build 로 묶은 결과물이다. 이 파일도 빌드 결과물이므로 _src/pages/ 를 고친 뒤 `cd tools && npm run build` -->
+  <link rel="preload" href="./assets/fonts/atoz/atoz-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./assets/fonts/atoz/atoz-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="./assets/dist/site.835762ec1b.css">
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-TNGS7LHP2X"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-TNGS7LHP2X');
-  </script>
-  <!-- 실사용자 측정(RUM): 히어로 문구가 실제로 보인 시점. 전송은 body 끝의 web-vitals 스크립트가 한다 -->
-  <script>(function p(){var h=document.querySelector('section h1');if(h&&parseFloat(getComputedStyle(h).opacity)>=0.99){window.__heroVisible=Math.round(performance.now());return;}if(performance.now()<15000)requestAnimationFrame(p);})();</script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-TNGS7LHP2X');</script>
+  <!-- 실사용자 측정(RUM): 첫 화면 제목이 실제로 보인 시점. 전송은 body 끝 web-vitals 스크립트가 한다 -->
+  <script>(function p(){var h=document.querySelector('main h1');if(h&&parseFloat(getComputedStyle(h).opacity)>=0.99){window.__heroVisible=Math.round(performance.now());return;}if(performance.now()<15000)requestAnimationFrame(p);})();</script>
 </head>
-
-<body class="cyber-mode">
-  <!-- Scanline Effect -->
-  <div class="cyber-scanline"></div>
-
-  <div class="content-wrapper">
-    <header class="wrapper">
-      <nav class="navbar navbar-expand-lg center-nav transparent navbar-light caret-none">
-        <div class="container flex-lg-row flex-nowrap align-items-center">
-          <div class="navbar-brand w-100">
-            <a href="./index.html">
-              <img src="./assets/img/logo-light.png" srcset="./assets/img/logo-light@2x.png 2x" alt="탭스페이스 로고" height="60"/>
-            </a>
-          </div>
-          <div class="navbar-collapse offcanvas-nav">
-            <div class="offcanvas-header d-lg-none d-xl-none">
-              <a href="./index.html"><img src="./assets/img/logo-light.png" srcset="./assets/img/logo-light@2x.png 2x" alt="탭스페이스 로고 투명 화이트" height="60"/></a>
-              <button type="button" class="btn-close btn-close-white offcanvas-close offcanvas-nav-close" aria-label="Close"></button>
-            </div>
-            <ul class="navbar-nav">
-              <li class="nav-item"><a class="nav-link" href="#BusinessAreas">사업 분야</a></li>
-              <li class="nav-item"><a class="nav-link" href="#AISolutions">AI 솔루션</a></li>
-              <li class="nav-item"><a class="nav-link" href="#LiveDemo">라이브 데모</a></li>
-              <li class="nav-item"><a class="nav-link" href="#Projects">프로젝트</a></li>
-              <li class="nav-item"><a class="nav-link" href="#TechInsights">Tech Insights</a></li>
-              <li class="nav-item"><a class="nav-link" href="#Features">주요 특징</a></li>
-              <li class="nav-item"><a class="nav-link" href="#Contact">문의</a></li>
-            </ul>
-            <!-- /.navbar-nav -->
-          </div>
-          <!-- /.navbar-collapse -->
-          <div class="navbar-other w-100 d-flex ms-auto">
-            <ul class="navbar-nav flex-row align-items-center ms-auto" data-sm-skip="true">
-              <li class="nav-item">
-                <nav class="nav social social-muted justify-content-end text-end">
-                  <a href="https://github.com/tabspacekr/" target="_blank"><i class="uil uil-github"></i></a>
-                  <!-- <a href="#"><i class="uil uil-facebook-f"></i></a>
-                  <a href="#"><i class="uil uil-dribbble"></i></a>
-                  <a href="#"><i class="uil uil-instagram"></i></a> -->
-                </nav>
-                <!-- /.social -->
-              </li>
-              <li class="nav-item d-lg-none">
-                <div class="navbar-hamburger"><button class="hamburger animate plain" data-toggle="offcanvas-nav"><span></span></button></div>
-              </li>
-            </ul>
-            <!-- /.navbar-nav -->
-          </div>
-          <!-- /.navbar-other -->
-        </div>
-        <!-- /.container -->
-      </nav>
-      <!-- /.navbar -->
-    </header>
-    <!-- /header -->
-
-    <!-- Hero Section with Particle Effect -->
-    <section class="wrapper" style="position: relative; overflow: hidden; min-height: 100vh; display: flex; align-items: center;">
-      <!-- Hero Particle Canvas Background -->
-      <canvas id="hero-particles" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;"></canvas>
-
-      <div class="container" style="position: relative; z-index: 1;">
-        <div class="row gx-md-8 gx-xl-12 gy-10 align-items-center text-center text-lg-start">
-          <div class="col-lg-6">
-            <h1 class="display-1 mb-4" style="word-break: keep-all; color: #ffffff; font-weight: bold;">
-              AI 시대의 IoT
-            </h1>
-            <p class="lead fs-23 lh-sm mb-7" style="word-break: keep-all; color: #e0e6ed;">
-              <span class="cyber-text-magenta">탭스페이스</span>는 AI와 IoT를 융합하여
-              <span class="cyber-text-cyan">무인매장, 상업시설, 스마트빌딩</span>을 위한 <span class="cyber-text-glow">차세대 자동화 솔루션</span>을 제공합니다.
-            </p>
-            <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start mb-5">
-              <a href="#Projects" class="cyber-btn cyber-btn-filled">프로젝트 보기</a>
-              <a href="#Contact" class="cyber-btn">문의하기</a>
-            </div>
-            <div class="row gy-3">
-              <div class="col-6 col-md-3">
-                <div class="cyber-stat-card">
-                  <div class="cyber-stat-value">200+</div>
-                  <div class="small text-muted">프로젝트</div>
-                </div>
-              </div>
-              <div class="col-6 col-md-3">
-                <div class="cyber-stat-card">
-                  <div class="cyber-stat-value">5년+</div>
-                  <div class="small text-muted">경험</div>
-                </div>
-              </div>
-              <div class="col-6 col-md-3">
-                <div class="cyber-stat-card">
-                  <div class="cyber-stat-value">100%</div>
-                  <div class="small text-muted">맞춤형</div>
-                </div>
-              </div>
-              <div class="col-6 col-md-3">
-                <div class="cyber-stat-card">
-                  <div class="cyber-stat-value">24/7</div>
-                  <div class="small text-muted">지원</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!--/column -->
-          <div class="col-lg-6">
-            <div class="position-relative">
-              <picture>
-                <source type="image/avif" srcset="./assets/img/illustrations/3d2-600.avif 600w, ./assets/img/illustrations/3d2-800.avif 800w, ./assets/img/illustrations/3d2-1200.avif 1200w" sizes="(min-width: 992px) 50vw, 100vw">
-                <source type="image/webp" srcset="./assets/img/illustrations/3d2-600.webp 600w, ./assets/img/illustrations/3d2-800.webp 800w, ./assets/img/illustrations/3d2-1200.webp 1200w" sizes="(min-width: 992px) 50vw, 100vw">
-                <img class="img-fluid" src="./assets/img/illustrations/3d2.png" srcset="./assets/img/illustrations/3d2@2x.png 2x" width="800" height="925" alt="IoT 3D Illustration" style="filter: drop-shadow(0 0 40px rgba(95, 244, 255, 0.3));" />
-              </picture>
-            </div>
-          </div>
-          <!--/column -->
-        </div>
-        <!-- /.row -->
-      </div>
-      <!-- /.container -->
-    </section>
-    <!-- /Hero Section -->
-
-    <!-- Main Content Wrapper -->
-    <section class="wrapper cyber-bg-dark">
-      <div class="container-card">
-        <!--/.card -->
-      </div>
-      <!-- /.container-card -->
-    
-      <!-- 사업분야 시작 -->
-      <!-- Business Areas Section -->
-      <div class="container pt-14 pt-md-16 pb-14 pb-md-16" id="BusinessAreas">
-        <div class="row text-center mb-10">
-          <div class="col-lg-9 col-xl-8 col-xxl-7 mx-auto">
-            <h2 class="fs-16 text-uppercase cyber-text-glow mb-3">사업 분야</h2>
-            <h3 class="display-4 mb-3 text-white fw-bold" style="word-break: keep-all;">
-              IoT 전문성을 바탕으로 다양한 영역에 도전합니다
-            </h3>
-            <p class="lead text-light">
-              에너지 관리부터 무인 매장, 스마트 빌딩까지 - 비즈니스 혁신을 위한 맞춤형 IoT 솔루션
-            </p>
-          </div>
-        </div>
-
-        <div class="row gx-md-3 gy-4">
-          <!-- Card 1: Zero Energy Building -->
-          <div class="col-md-6 col-lg">
-            <div class="cyber-card cyber-3d-card h-100 text-center">
-              <div class="mb-4" style="font-size: 3rem;">
-                <img src="./assets/img/buildings.png" class="icon-svg icon-svg-lg mb-3" width="60" height="60" loading="lazy" decoding="async" alt="" style="filter: drop-shadow(0 0 20px rgba(95, 244, 255, 0.5));" />
-              </div>
-              <h4 class="mb-3 cyber-text-glow">제로에너지 건축물</h4>
-              <p class="mb-3" style="word-break: keep-all; color: #9499a3;">
-                조명, 공조, 환기 시스템의 지능형 제어로 에너지 최적화를 실현합니다
-              </p>
-              <div class="cyber-badge">AI 에너지 관리</div>
-            </div>
-          </div>
-
-          <!-- Card 2: Smart Home/City -->
-          <div class="col-md-6 col-lg">
-            <div class="cyber-card cyber-3d-card h-100 text-center">
-              <div class="mb-4" style="font-size: 3rem;">
-                <img src="./assets/img/smarthome.png" class="icon-svg icon-svg-lg mb-3" width="60" height="60" loading="lazy" decoding="async" alt="" style="filter: drop-shadow(0 0 20px rgba(0, 128, 255, 0.5));" />
-              </div>
-              <h4 class="mb-3" style="color: #0080ff;">스마트홈/시티</h4>
-              <p class="mb-3" style="word-break: keep-all; color: #9499a3;">
-                주거공간과 도시 인프라의 지능형 연결로 삶의 질을 향상시킵니다
-              </p>
-              <div class="cyber-badge">IoT 생태계</div>
-            </div>
-          </div>
-
-          <!-- Card 3: Smart Farm/Agriculture -->
-          <div class="col-md-6 col-lg">
-            <a href="https://blog.naver.com/PostList.naver?blogId=tabspacekr&from=postList&categoryNo=21" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
-              <div class="cyber-card cyber-3d-card h-100 text-center" style="cursor: pointer; transition: transform 0.3s ease;">
-                <div class="mb-4" style="font-size: 3rem;">
-                  <img src="./assets/img/smartfarm.png" class="icon-svg icon-svg-lg mb-3" width="60" height="60" loading="lazy" decoding="async" alt="" style="filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.5));" />
-                </div>
-                <h4 class="mb-3" style="color: #00ff88;">스마트팜/농업</h4>
-                <p class="mb-3" style="word-break: keep-all; color: #9499a3;">
-                  환경 모니터링과 자동화 시스템으로 농업 생산성을 극대화합니다
-                </p>
-                <div class="cyber-badge">정밀 농업</div>
-              </div>
-            </a>
-          </div>
-
-          <!-- Card 4: Embedded System -->
-          <div class="col-md-6 col-lg">
-            <div class="cyber-card cyber-3d-card h-100 text-center">
-              <div class="mb-4" style="font-size: 3rem;">
-                <img src="./assets/img/embedded_system.png" class="icon-svg icon-svg-lg mb-3" width="60" height="60" loading="lazy" decoding="async" alt="" style="filter: drop-shadow(0 0 20px rgba(128, 0, 255, 0.5));" />
-              </div>
-              <h4 class="mb-3" style="color: #8000ff;">임베디드 시스템</h4>
-              <p class="mb-3" style="word-break: keep-all; color: #9499a3;">
-                원격 설비 제어와 모니터링으로 운영 비용을 절감하고 안정성을 확보합니다
-              </p>
-              <div class="cyber-badge">원격 제어</div>
-            </div>
-          </div>
-
-          <!-- Card 5: Unmanned Store -->
-          <div class="col-md-6 col-lg">
-            <div class="cyber-card cyber-3d-card h-100 text-center">
-              <div class="mb-4" style="font-size: 3rem;">
-                <img src="./assets/img/store.png" class="icon-svg icon-svg-lg mb-3" width="60" height="60" loading="lazy" decoding="async" alt="" style="filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.5));" />
-              </div>
-              <h4 class="mb-3 cyber-text-magenta">무인매장 관리</h4>
-              <p class="mb-3" style="word-break: keep-all; color: #9499a3;">
-                출입, 조명, 환경제어를 하나의 앱으로 통합하여 운영 효율을 극대화합니다
-              </p>
-              <div class="cyber-badge">24/7 자동화</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- /Business Areas Section -->
-
-      <!-- AI Solutions Showcase Section -->
-      <div class="container pt-14 pt-md-16 pb-14 pb-md-16" id="AISolutions">
-        <div class="row text-center mb-10">
-          <div class="col-lg-9 col-xl-8 col-xxl-7 mx-auto">
-            <h2 class="fs-16 text-uppercase cyber-text-magenta mb-3">AI 솔루션 쇼케이스</h2>
-            <h3 class="display-4 mb-3 text-white fw-bold" style="word-break: keep-all;">
-              AI가 변화시키는 IoT의 미래
-            </h3>
-            <p class="lead text-light">
-              머신러닝과 빅데이터 분석으로 더 스마트한 자동화를 구현합니다
-            </p>
-          </div>
-        </div>
-
-        <div class="row gx-lg-8 gy-8 align-items-center">
-          <!-- AI Chatbot Demo -->
-          <div class="col-lg-6">
-            <div class="cyber-card cyber-card-holographic p-4">
-              <div class="d-flex align-items-center justify-content-between mb-4">
-                <div class="d-flex align-items-center">
-                  <div class="cyber-badge me-3">NEW</div>
-                  <h3 class="mb-0" style="color: #ffffff; font-weight: bold;">AI 챗봇 고객 지원</h3>
-                </div>
-                <button id="chatbot-refresh-btn" class="btn btn-sm p-0" onclick="refreshChatbotDemo(event)" style="border: none; background: transparent; cursor: pointer;" title="새로고침">
-                  <i id="chatbot-refresh-icon" class="uil uil-sync" style="color: #5ff4ff; font-size: 1.5rem; transition: transform 0.3s ease, color 0.3s ease;" onmouseover="this.style.transform='rotate(180deg)'" onmouseout="this.style.transform='rotate(0deg)'"></i>
-                </button>
-              </div>
-              <p class="mb-4" style="color: #9499a3;">
-                24시간 자동 응대 시스템으로 고객 문의에 즉시 대응합니다.
-                자연어 처리 기술로 맥락을 이해하고 정확한 답변을 제공합니다.
-              </p>
-              <div class="cyber-bg-dark-surface p-4 rounded" style="border: 1px solid rgba(95, 244, 255, 0.2); min-height: 480px;">
-                <!-- 챗봇 데모 메시지 컨테이너 -->
-                <div id="chatbot-demo-messages" class="mb-3" style="max-height: 420px; overflow-y: auto; overflow-x: hidden;">
-                  <!-- 메시지가 JavaScript로 동적으로 추가됩니다 -->
-                </div>
-                <!-- 챗봇 체험하기 버튼 - 향후 사용 예정
-                <button class="cyber-btn-filled btn btn-sm w-100" onclick="if(window.chatbotInstance) window.chatbotInstance.toggle();">
-                  챗봇 체험하기 →
-                </button>
-                -->
-              </div>
-            </div>
-          </div>
-
-          <!-- Predictive Maintenance -->
-          <div class="col-lg-6">
-            <div class="cyber-card cyber-card-holographic p-4">
-              <div class="d-flex align-items-center mb-4">
-                <div class="cyber-badge me-3">AI</div>
-                <h3 class="mb-0" style="color: #ffffff; font-weight: bold;">예측 유지보수</h3>
-              </div>
-              <p class="mb-4" style="color: #9499a3;">
-                센서 데이터를 실시간으로 분석하여 설비 고장을 사전에 예측합니다.
-                AI 알고리즘이 최적의 유지보수 시기를 제안합니다.
-              </p>
-              <div class="row gy-2">
-                <div class="col-6">
-                  <div class="cyber-stat-card predictive-maintenance-card">
-                    <div class="cyber-stat-value">95%</div>
-                    <div class="small">고장 예측 정확도</div>
-                  </div>
-                </div>
-                <div class="col-6">
-                  <div class="cyber-stat-card predictive-maintenance-card">
-                    <div class="cyber-stat-value">30%</div>
-                    <div class="small">유지비용 절감</div>
-                  </div>
-                </div>
-                <div class="col-6">
-                  <div class="cyber-stat-card predictive-maintenance-card">
-                    <div class="cyber-stat-value">24/7</div>
-                    <div class="small">실시간 모니터링</div>
-                  </div>
-                </div>
-                <div class="col-6">
-                  <div class="cyber-stat-card predictive-maintenance-card">
-                    <div class="cyber-stat-value">∞</div>
-                    <div class="small">학습 개선</div>
-                  </div>
-                </div>
-                <div class="col-6">
-                  <div class="cyber-stat-card predictive-maintenance-card">
-                    <div class="cyber-stat-value">85%</div>
-                    <div class="small">다운타임 감소</div>
-                  </div>
-                </div>
-                <div class="col-6">
-                  <div class="cyber-stat-card predictive-maintenance-card">
-                    <div class="cyber-stat-value">&lt;2h</div>
-                    <div class="small">평균 대응시간</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Energy Optimization -->
-          <div class="col-lg-6">
-            <div class="cyber-card cyber-card-holographic p-4">
-              <div class="d-flex align-items-center mb-4">
-                <div class="cyber-badge me-3">AI</div>
-                <h3 class="mb-0" style="color: #ffffff; font-weight: bold;">지능형 에너지 관리</h3>
-              </div>
-              <p class="mb-4" style="color: #9499a3;">
-                사용 패턴을 학습하여 에너지 소비를 최적화합니다.
-                자동으로 피크 시간대를 예측하고 스마트 제어를 수행합니다.
-              </p>
-              <div class="d-flex align-items-center gap-3">
-                <!-- Left: Feature List (70%) -->
-                <div style="flex: 0 0 70%;">
-                  <ul class="icon-list bullet-bg bullet-soft-cyan energy-feature-list" style="color: #e0e6ed; margin-bottom: 0;">
-                    <li data-icon="uil-chart-line" data-color="#5ff4ff"><i class="uil uil-check"></i>실시간 에너지 사용량 모니터링</li>
-                    <li data-icon="uil-brain" data-color="#ff00ff"><i class="uil uil-check"></i>AI 기반 사용 패턴 분석</li>
-                    <li data-icon="uil-clock" data-color="#0080ff"><i class="uil uil-check"></i>자동 피크 시간대 회피</li>
-                    <li data-icon="uil-chart" data-color="#00ff88"><i class="uil uil-check"></i>월 단위 에너지 절감 리포트</li>
-                    <li data-icon="uil-lightbulb-alt" data-color="#ffd700"><i class="uil uil-check"></i>스마트 조명 자동 제어</li>
-                    <li data-icon="uil-temperature" data-color="#ff6b6b"><i class="uil uil-check"></i>냉난방 시스템 최적화</li>
-                    <li data-icon="uil-plug" data-color="#8000ff"><i class="uil uil-check"></i>대기전력 자동 차단</li>
-                  </ul>
-                </div>
-                <!-- Right: Icon Display Area (30%) -->
-                <div style="flex: 0 0 30%;">
-                  <div class="energy-icon-display-compact text-center">
-                    <i id="energy-feature-icon" class="uil" style="font-size: 80px; transition: all 0.5s ease; opacity: 0;"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Smart Analytics -->
-          <div class="col-lg-6">
-            <div class="cyber-card cyber-card-holographic p-4">
-              <div class="d-flex align-items-center mb-4">
-                <div class="cyber-badge me-3">ANALYTICS</div>
-                <h3 class="mb-0" style="color: #ffffff; font-weight: bold;">비즈니스 인사이트</h3>
-              </div>
-              <p class="mb-4" style="color: #9499a3;">
-                방대한 IoT 데이터를 분석하여 비즈니스 의사결정을 지원합니다.
-                트렌드를 파악하고 성장 기회를 발견합니다.
-              </p>
-              <div class="cyber-chart-container mb-3">
-                <canvas id="project-stats-chart" style="max-height: 280px;"></canvas>
-              </div>
-              <div class="text-center mt-4 mb-0">
-                <a href="#LiveDemo" class="cyber-btn">
-                  라이브 데모 보기 →
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- /AI Solutions Showcase Section -->
-
-      <!-- Live Demo Zone Section -->
-      <div class="container pt-14 pt-md-16 pb-14 pb-md-16" id="LiveDemo">
-        <div class="row text-center mb-10">
-          <div class="col-lg-9 col-xl-8 col-xxl-7 mx-auto">
-            <h2 class="fs-16 text-uppercase cyber-text-glow mb-3">라이브 데모 존</h2>
-            <h3 class="display-4 mb-3 text-white fw-bold" style="word-break: keep-all;">
-              실시간으로 확인하는 IoT 데이터
-            </h3>
-            <p class="lead text-light">
-              실제 IoT 시스템에서 수집되는 데이터를 실시간으로 시각화합니다
-            </p>
-          </div>
-        </div>
-
-        <div class="row gy-6">
-          <!-- Real-time Energy Monitoring -->
-          <div class="col-lg-8">
-            <div class="cyber-card p-4">
-              <div class="d-flex justify-content-between align-items-center mb-4">
-                <div>
-                  <h3 class="mb-1" style="color: #ffffff; font-weight: bold;">에너지 모니터링</h3>
-                  <p class="mb-0 small" style="color: #9499a3;">
-                    <i class="uil uil-sync cyber-text-glow"></i> 실시간 업데이트 중...
-                  </p>
-                </div>
-                <div class="cyber-badge">LIVE</div>
-              </div>
-              <div class="cyber-chart-container" style="height: 300px;">
-                <canvas id="energy-chart"></canvas>
-              </div>
-              <div class="row mt-4 text-center">
-                <div class="col-4">
-                  <div class="small text-muted">현재 사용량</div>
-                  <div class="h4 cyber-text-glow mb-0" id="current-usage">18.5 kW</div>
-                </div>
-                <div class="col-4">
-                  <div class="small text-muted">예측 소비</div>
-                  <div class="h4 cyber-text-magenta mb-0" id="predicted-usage">20.2 kW</div>
-                </div>
-                <div class="col-4">
-                  <div class="small text-muted">절감률</div>
-                  <div class="h4" style="color: #00ff88;" id="savings-rate">-12%</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Device Status Overview -->
-          <div class="col-lg-4">
-            <div class="cyber-card p-4 h-100">
-              <h4 class="mb-4" style="color: #ffffff; font-weight: bold;">디바이스 상태</h4>
-              <div class="cyber-chart-container mb-4" style="height: 250px;">
-                <canvas id="device-status-chart"></canvas>
-              </div>
-              <div class="cyber-bg-dark-surface p-3 rounded">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <span class="small">전체 디바이스</span>
-                  <span class="cyber-text-glow"><strong id="total-devices">243</strong></span>
-                </div>
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <span class="small">정상 작동</span>
-                  <span style="color: #00ff88;"><strong id="devices-online">225</strong></span>
-                </div>
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <span class="small">경고</span>
-                  <span style="color: #0080ff;"><strong id="devices-warning">9</strong></span>
-                </div>
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="small">오프라인</span>
-                  <span style="color: #ff00ff;"><strong id="devices-offline">9</strong></span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Environmental Monitoring -->
-          <div class="col-lg-12">
-            <div class="cyber-card p-4">
-              <div class="d-flex justify-content-between align-items-center mb-4">
-                <div>
-                  <h3 class="mb-1" style="color: #ffffff; font-weight: bold;">환경 모니터링</h3>
-                  <p class="mb-0 small" style="color: #9499a3;">
-                    온도 및 습도 실시간 트래킹
-                  </p>
-                </div>
-                <button class="cyber-btn-filled btn btn-sm" onclick="startEnvironmentUpdates()">
-                  <i class="uil uil-play"></i> 실시간 업데이트 시작
-                </button>
-              </div>
-              <div class="cyber-chart-container" style="height: 300px;">
-                <canvas id="environment-chart"></canvas>
-              </div>
-              <div class="row mt-4 text-center gy-2">
-                <div class="col-6 col-md-3">
-                  <div class="cyber-stat-card environment-stat-card">
-                    <div class="small text-muted mb-1">평균 온도</div>
-                    <div class="cyber-stat-value" style="color: #0080ff;">22.4°C</div>
-                  </div>
-                </div>
-                <div class="col-6 col-md-3">
-                  <div class="cyber-stat-card environment-stat-card">
-                    <div class="small text-muted mb-1">평균 습도</div>
-                    <div class="cyber-stat-value" style="color: #00ff88;">58.2%</div>
-                  </div>
-                </div>
-                <div class="col-6 col-md-3">
-                  <div class="cyber-stat-card environment-stat-card">
-                    <div class="small text-muted mb-1">공기질 지수</div>
-                    <div class="cyber-stat-value" style="color: #00ff88;">Good</div>
-                  </div>
-                </div>
-                <div class="col-6 col-md-3">
-                  <div class="cyber-stat-card environment-stat-card">
-                    <div class="small text-muted mb-1">CO2 농도</div>
-                    <div class="cyber-stat-value cyber-text-glow">425 ppm</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- CTA -->
-          <div class="col-lg-12 text-center">
-            <div class="cyber-card cyber-card-holographic p-5">
-              <h3 class="mb-3" style="color: #ffffff; font-weight: bold;">이 기술을 귀사의 비즈니스에 적용해보세요</h3>
-              <p class="lead mb-4" style="color: #9499a3;">
-                실시간 모니터링과 AI 기반 분석으로 운영 효율성을 극대화하세요
-              </p>
-              <div class="d-flex flex-wrap gap-3 justify-content-center">
-                <a href="#Contact" class="cyber-btn">솔루션 및 도입 문의</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- /Live Demo Zone Section -->
-    </section>
-    <!-- /section -->
-
-    <!-- Projects Portfolio Section -->
-    <section class="wrapper cyber-bg-dark">
-      <div class="container pt-14 pt-md-16 pb-14 pb-md-16" id="Projects">
-        <div class="row text-center mb-10">
-          <div class="col-lg-9 col-xl-8 col-xxl-7 mx-auto">
-            <h2 class="fs-16 text-uppercase cyber-text-glow mb-3">프로젝트 포트폴리오</h2>
-            <h3 class="display-4 mb-3 text-white fw-bold">
-              200+개의 성공적인 IoT 프로젝트
-            </h3>
-            <p class="lead text-light mb-5">신용카드 출입인증, 원격제어, 에너지 최적화 등 다양한 IoT 기술이 적용된 프로젝트를 확인해보세요</p>
-          </div>
-        </div>
-
-        <!-- Project Filters -->
-        <div class="row mb-8">
-          <div class="col-12 text-center">
-            <div id="project-filters" class="d-flex flex-wrap justify-content-center gap-2">
-              <!-- Filters will be populated by data-loader.js -->
-            </div>
-          </div>
-        </div>
-
-        <!-- Project Gallery Carousel -->
-        <div id="project-gallery" class="project-carousel-container">
-          <!-- Projects will be dynamically loaded from projects.json via data-loader.js -->
-          <div class="text-center">
-            <div class="spinner-border text-cyan" role="status">
-              <span class="visually-hidden">Loading projects...</span>
-            </div>
-            <p class="mt-3 cyber-text-glow">프로젝트 로딩 중...</p>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- /Projects Portfolio Section -->
-
-    <!-- Tech Insights Blog Section -->
-    <section class="wrapper cyber-bg-dark">
-      <div class="container pt-14 pt-md-16 pb-14 pb-md-16" id="TechInsights">
-        <div class="row text-center mb-10">
-          <div class="col-lg-9 col-xl-8 col-xxl-7 mx-auto">
-            <h2 class="fs-16 text-uppercase cyber-text-magenta mb-3">Tech Insights</h2>
-            <h3 class="display-4 mb-3" style="color: #ffffff; font-weight: bold;">
-              AI와 IoT의 최신 트렌드
-            </h3>
-            <p class="lead text-light mb-5">기술 인사이트와 업계 동향을 공유합니다</p>
-          </div>
-        </div>
-
-        <!-- Blog Category Filters -->
-        <div class="row mb-8">
-          <div class="col-12 text-center">
-            <div id="blog-filters" class="d-flex flex-wrap justify-content-center gap-2">
-              <!-- Filters will be populated by data-loader.js -->
-            </div>
-          </div>
-        </div>
-
-        <!-- Blog Posts Grid -->
-        <div class="row gy-6" id="blog-container">
-          <!-- Blog posts will be dynamically loaded from blog.json via data-loader.js -->
-          <div class="col-12 text-center">
-            <div class="spinner-border text-magenta" role="status">
-              <span class="visually-hidden">Loading blog posts...</span>
-            </div>
-            <p class="mt-3 cyber-text-magenta">블로그 포스트 로딩 중...</p>
-          </div>
-        </div>
-
-        <!-- View All CTA -->
-        <div class="row mt-10">
-          <div class="col-12 text-center">
-            <div id="blog-cta" class="cyber-card cyber-card-holographic p-5 mx-auto" style="max-width: 600px;">
-              <h3 class="h4 mb-3 cyber-text-glow">더 많은 인사이트를 확인하세요</h3>
-              <p class="text-light mb-4">AI, IoT, 자동화 기술의 최신 동향과 실전 노하우를 공유합니다</p>
-              <a href="https://blog.naver.com/tabspacekr" target="_blank" rel="noopener noreferrer" class="cyber-btn-filled btn">
-                <i class="uil uil-blogger-alt me-2"></i>네이버 블로그 방문하기
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- /Tech Insights Blog Section -->
-
-    <!-- Features Section -->
-    <section class="wrapper cyber-bg-dark">
-      <div class="container pt-14 pt-md-16 pb-14 pb-md-16" id="Features">
-        <!-- 주요 특징 시작 -->
-        <div class="row text-center mb-10">
-          <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-            <h2 class="fs-16 text-uppercase cyber-text-glow mb-3">주요 특징</h2>
-            <h3 class="display-4 mb-3 text-white fw-bold">
-              특별하게 설계된 다양한 서비스
-            </h3>
-            <p class="lead text-light mb-5">고객의 요구사항을 충족하는 맞춤형 IoT 솔루션을 제공합니다</p>
-          </div>
-        </div>
-        <!-- /.row -->
-        <div class="row gy-6 mb-10">
-          <!-- Feature 1: 오픈소스 + 자체개발 -->
-          <div class="col-md-6 col-lg-4">
-            <div class="cyber-card h-100 p-4">
-              <div class="d-flex align-items-start mb-3">
-                <img src="./assets/img/icons/solid/script.svg" class="icon-svg icon-svg-sm me-3" style="filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
-                <h3 class="h5 mb-0 cyber-text-glow">오픈소스 + 자체개발</h3>
-              </div>
-              <p class="mb-0 text-light">오픈소스 IoT 플랫폼인 'Home Assistant'를 기반으로 자체개발 컴포넌트 모듈을 적용하여, 지속가능한 기능개선 및 유지관리 서비스를 제공합니다.</p>
-            </div>
-          </div>
-
-          <!-- Feature 2: 네트워크 보안 -->
-          <div class="col-md-6 col-lg-4">
-            <div class="cyber-card h-100 p-4">
-              <div class="d-flex align-items-start mb-3">
-                <img src="./assets/img/icons/solid/verify.svg" class="icon-svg icon-svg-sm me-3" style="filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
-                <h3 class="h5 mb-0 cyber-text-magenta">네트워크 보안</h3>
-              </div>
-              <p class="mb-0 text-light">VPN과 SD-WAN의 기능을 결합한 'ZeroTier'의 제로 트러스트 네트워킹 솔루션을 자체 운영하여, 256비트 종단 간 암호화로 IoT 장비의 독립적인 네트워크 보안을 제공합니다.</p>
-            </div>
-          </div>
-
-          <!-- Feature 3: 클라우드 서비스 -->
-          <div class="col-md-6 col-lg-4">
-            <div class="cyber-card h-100 p-4">
-              <div class="d-flex align-items-start mb-3">
-                <img src="./assets/img/icons/solid/cloud-network.svg" class="icon-svg icon-svg-sm me-3" style="filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
-                <h3 class="h5 mb-0 cyber-text-cyan">클라우드 서비스</h3>
-              </div>
-              <p class="mb-0 text-light">나스닥 상장 글로벌 데이터 센터 기업인 'Equinix'의 서울 리전 'SL1(상암DMC 삼성SDS IDC)'을 사용하여 안정적인 무중단* 클라우드 서비스를 제공합니다. (*약관 적용)</p>
-            </div>
-          </div>
-
-          <!-- Feature 4: 유/무선 통신기술 -->
-          <div class="col-md-6 col-lg-4">
-            <div class="cyber-card h-100 p-4">
-              <div class="d-flex align-items-start mb-3">
-                <img src="./assets/img/icons/solid/director.svg" class="icon-svg icon-svg-sm me-3" style="filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
-                <h3 class="h5 mb-0 cyber-text-glow">유/무선 통신기술</h3>
-              </div>
-              <p class="mb-0 text-light">TCP/IP, RS485, KNX, WiFi Mesh, Zigbee, BLE, LoRa, RF, IR, SIP, MQTT 등 IoT에 사용되는 유/무선 통신기술로 설비, 장비, 센서를 통합 및 제공합니다.</p>
-            </div>
-          </div>
-
-          <!-- Feature 5: 3D 모델링, 금형사출 설계 -->
-          <div class="col-md-6 col-lg-4">
-            <div class="cyber-card h-100 p-4">
-              <div class="d-flex align-items-start mb-3">
-                <img src="./assets/img/icons/solid/setting.svg" class="icon-svg icon-svg-sm me-3" style="filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
-                <h3 class="h5 mb-0 cyber-text-magenta">3D 모델링, 금형사출 설계</h3>
-              </div>
-              <p class="mb-0 text-light">자사 직원에 의한 샘플 모델링 설계(3D프린터 활용), 당사 협력 프로젝트 시제품 제작을 위한 3D 모델링 및 금형사출 전반에 대한 위탁 제작 서비스를 제공합니다.</p>
-            </div>
-          </div>
-
-          <!-- Feature 6: 하드웨어 및 펌웨어 설계 -->
-          <div class="col-md-6 col-lg-4">
-            <div class="cyber-card h-100 p-4">
-              <div class="d-flex align-items-start mb-3">
-                <img src="./assets/img/icons/solid/server.svg" class="icon-svg icon-svg-sm me-3" style="filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
-                <h3 class="h5 mb-0 cyber-text-cyan">하드웨어 및 펌웨어 설계</h3>
-              </div>
-              <p class="mb-0 text-light">'ESP32, ESP8266' SoC기반의 저전력 무선 통신 MCU 하드웨어 설계 및 'Tasmota' 펌웨어 커스터마이징 기술을 통해 IoT 산업 전반에 사용되는 센싱, 제어, 통신 기술을 제공합니다.</p>
-            </div>
-          </div>
-        </div>
-        <!-- 주요특징 끝 -->        
-      </div>
-      </div>
-    </section>
-    <!-- /Features Section -->
-
-    <!-- Contact Section -->
-    <section class="wrapper cyber-bg-dark">
-      <div class="container pt-14 pt-md-16 pb-14 pb-md-16" id="Contact">
-        <div class="row gx-3 gy-10 align-items-center">
-          <div class="col-lg-6">
-            <figure>
-              <picture>
-                <source type="image/avif" srcset="./assets/img/illustrations/3d5-800.avif 1x, ./assets/img/illustrations/3d5-1600.avif 2x">
-                <source type="image/webp" srcset="./assets/img/illustrations/3d5-800.webp 1x, ./assets/img/illustrations/3d5-1600.webp 2x">
-                <img class="w-auto" src="./assets/img/illustrations/3d5.png" srcset="./assets/img/illustrations/3d5@2x.png 2x" alt="" loading="lazy" decoding="async" style="filter: drop-shadow(0 0 30px rgba(95, 244, 255, 0.3));" />
-              </picture>
-            </figure>
-          </div>
-          <!--/column -->
-          <div class="col-lg-5 offset-lg-1">
-            <h2 class="fs-16 text-uppercase cyber-text-magenta mb-3">솔루션 및 도입 문의</h2>
-            <h3 class="display-4 mb-8 text-white fw-bold">
-              문의사항이 있으신가요?<br/>
-              아래로 연락주세요!
-            </h3>
-            <!-- Address -->
-            <div class="cyber-card mb-4 p-4">
-              <div class="d-flex align-items-start">
-                <img src="./assets/img/icons/solid/pin.svg" class="icon-svg icon-svg-xs me-3" style="width: 1.5rem; height: 1.5rem; filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
-                <div>
-                  <h5 class="mb-2 cyber-text-glow">주소</h5>
-                  <address class="text-light mb-0">서울특별시 마포구 매봉산로 18, 405호</address>
-                </div>
-              </div>
-            </div>
-
-            <!-- Phone -->
-            <div class="cyber-card mb-4 p-4">
-              <div class="d-flex align-items-start">
-                <img src="./assets/img/icons/solid/rotary.svg" class="icon-svg icon-svg-xs me-3" style="width: 1.5rem; height: 1.5rem; filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
-                <div>
-                  <h5 class="mb-2 cyber-text-magenta">전화</h5>
-                  <p class="text-light mb-0">
-                    대표번호 : <a href="tel:050713997864" class="cyber-link">0507-1399-7864</a><br>
-                    사무실(주간) : <a href="tel:07077805577" class="cyber-link">070-7780-5577</a><br>
-                    영업직통 : <a href="tel:01081787760" class="cyber-link">010-8178-7760</a>
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Email -->
-            <div class="cyber-card p-4">
-              <div class="d-flex align-items-start">
-                <img src="./assets/img/icons/solid/emails.svg" class="icon-svg icon-svg-xs me-3" style="width: 1.5rem; height: 1.5rem; filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));" alt="" />
-                <div>
-                  <h5 class="mb-2 cyber-text-cyan">이메일</h5>
-                  <p class="text-light mb-3">영업 · 기술 · 고객지원 문의</p>
-                  <!--
-                    이메일 주소는 소스에 평문으로 두지 않는다.
-                    사용자가 버튼을 직접 누른 경우에만 복원되어 화면에 표시된다. (_src/js/contact-reveal.js)
-                    주소 변경 시 아래 data-contact 값만 교체하면 된다.
-                  -->
-                  <div class="contact-reveal" data-contact="HARSS0YhFwQWEhISEwRNDgY=">
-                    <button type="button" class="cyber-btn contact-reveal-btn">이메일 주소 확인하기</button>
-                    <div class="contact-reveal-out" role="status" aria-live="polite" hidden></div>
-                  </div>
-                  <noscript>
-                    <p class="text-light mb-0">
-                      JavaScript가 꺼져 있어 이메일 주소를 표시할 수 없습니다.
-                      <a href="tel:07077805577" class="cyber-link">070-7780-5577</a>로 연락 주세요.
-                    </p>
-                  </noscript>
-                </div>
-              </div>
-            </div>
-          
-          </div>
-          <!--/column -->
-        </div>
-        <!--/.row -->
-      </div>
-    </section>
-    <!-- /Contact Section -->
-  </div>
-  <!-- /.content-wrapper -->
-
-  <!-- Footer -->
-  <footer class="cyber-footer">
-    <!-- /.container-card -->
-    <div class="container pb-7 pb-md-8">
-        <div class="row gy-6 gy-lg-0">
-      <div class="col-md-4 col-lg-4">
-        <div class="widget">
-          <img class="mb-4" src="./assets/img/logo-light.png" srcset="./assets/img/logo-light@2x.png 2x" alt="탭스페이스 로고" height="52"/>
-          <p class="mb-4">© 2021-<span id="current-year"></span> TabSpace. <br class="d-none d-lg-block" />All rights reserved.</p>
-          <p class="mb-4">통신판매업신고번호<br class="d-none d-lg-block" />- 제 2026-서울마포-0456 호</p>
-          <nav class="nav social">
-            <!-- <a href="#"><i class="uil uil-twitter"></i></a> -->
-            <!-- <a href="#"><i class="uil uil-facebook-f"></i></a> -->
-            <!-- <a href="https://blog.naver.com/tabspacekr" target="_blank"><i class="uil uil-blogger-alt"></i></a> -->
-            <!-- <a href="#"><i class="uil uil-instagram"></i></a> -->
-            <!-- <a href="#"><i class="uil uil-youtube"></i></a> -->
-          </nav>
-          <!-- /.social -->
-        </div>
-        <!-- /.widget -->
-      </div>
-      <div class="col-md-4 col-lg-4">
-        <div class="widget">
-          <h4 class="widget-title  mb-3" style="color: #ffffff; font-weight: bold;">안내</h4>
-          <ul class="list-unstyled text-reset mb-0">
-            <li><a href="https://doi.org/10.8080/4020220140199" target="_blank">상표 등록정보 조회</a></li>
-            <li><a href="#none" onclick="window.open('http://www.ftc.go.kr/bizCommPop.do?wrkr_no=4878801989', 'bizCommPop', 'width=750, height=950;');return false;">통신판매업 등록현황 조회</a></li>
-            <li><a href="https://www.kma.go.kr/kma/biz/biz_intro01.jsp" onclick="alert('확인 버튼을 클릭하시면 기상청 홈페이지로 이동합니다.\n\n기상사업자 등록현황 다운로드 버튼을 클릭하여 엑셀파일에서 기상 장비업으로 등록된 탭스페이스를 확인하실 수 있습니다.');" style="cursor:pointer" target="_blank">기상사업자 등록현황 조회</a></li>
-            <li><a href="https://www.rra.go.kr/ko/license/A_c_search.do" onclick="alert('확인 버튼을 클릭하시면 국립전파연구원 홈페이지로 이동합니다.\n\n인증등록연월일을 5년으로,\n상호를 탭스페이스로 입력하신 후\n검색버튼을 클릭해주세요.');" style="cursor:pointer" target="_blank">KC적합성평가 등록현황 조회</a></li>
-            <li><a href="#none" onclick="alert('본 웹사이트에 게시된 모든 이메일 주소의 무단수집을 거부하며, 자세한 내용은 하단을 참고하시기 바랍니다.\n\n본 웹사이트에 게시된 이메일 주소가 전자우편 수집 프로그램이나 그 밖의 기술적 장치를 이용하여 무단 수집되는 것을 거부하며, 이를 위반 시 정보통신망법에 의해 형사처벌됨을 유념하시기 바랍니다.\n이메일을 기술적 장치를 이용하여 무단으로 수집, 판매, 유통하거나 이를 이용한 자는 「정보통신망 이용촉진 및 정보보호 등에 관한 법률」 제50조의2 및 제74조에 따라 1년 이하의 징역 또는 1천만원 이하의 벌금에 처해집니다.\n\n01. 누구든지 전자우편주소의 수집을 거부하는 의사가 명시된 인터넷 홈페이지에서 자동으로 전자우편주소를 수집하는 프로그램, 그 밖의 기술적 장치를 이용하여 전자우편주소를 수집하여서는 아니 된다.\n02. 누구든지 제1항을 위반하여 수집된 전자우편주소를 판매·유통하여서는 아니 된다.\n03. 누구든지 제1항 및 제2항에 따라 수집·판매 및 유통이 금지된 전자우편주소임을 알고 이를 정보 전송에 이용하여서는 아니 된다.');return false;">이메일무단수집거부</a></li>
-          </ul>
-        </div>
-        <!-- /.widget -->
-      </div>
-      <div class="col-md-4 col-lg-4">
-        <div class="widget">
-          <h4 class="widget-title  mb-3" style="color: #ffffff; font-weight: bold;">사이트 링크</h4>
-          <ul class="list-unstyled text-reset mb-0">
-            <li><a href="https://blog.naver.com/tabspacekr" target="_blank">탭스페이스 네이버 블로그</a></li>
-            <li><a href="https://smartstore.naver.com/tabspace" target="_blank">탭스페이스 네이버 스마트스토어</a></li>
-            <li><a href="https://github.com/tabspacekr" target="_blank">탭스페이스 깃허브 리포지토리</a></li>
-          </ul>
-        </div>
-        <!-- /.widget -->
-      </div>
-    </div>
-    <!-- /.row -->
-
-    <!--
-      이메일 무단수집 거부 고지 (정보통신망법 제50조의2)
-      법적 보호는 "수집을 거부하는 의사가 명시된" 홈페이지에서만 성립하므로,
-      팝업 뒤에 두지 않고 렌더링된 본문에 상시 노출한다.
-    -->
-    <div class="row">
-      <div class="col-12">
-        <p class="email-collect-refusal mt-6 mb-0">
-          본 웹사이트에 게시된 이메일 주소가 전자우편 수집 프로그램이나 그 밖의 기술적 장치를 이용하여
-          무단으로 수집되는 것을 거부하며, 이를 위반 시 1년 이하의 징역 또는 1천만원 이하의 벌금에 처해질 수 있습니다.
-          (정보통신망 이용촉진 및 정보보호 등에 관한 법률 제50조의2, 제74조)
-        </p>
+<body data-page="home">
+  <a class="skip-link" href="#main">본문 바로가기</a>
+  <div class="topline">
+    <div class="inner">
+      <p class="svc">탭스페이스는 AI와 IoT를 융합해 무인매장·상업시설·스마트빌딩 자동화 솔루션을 만드는 IoT 전문기업입니다.</p>
+      <div class="theme-switch" role="group" aria-label="화면 테마">
+        <button type="button" data-theme-set="auto" aria-pressed="true">자동</button>
+        <button type="button" data-theme-set="light" aria-pressed="false">라이트</button>
+        <button type="button" data-theme-set="dark" aria-pressed="false">다크</button>
       </div>
     </div>
   </div>
-  <!-- /.container -->
+  <header class="site-header">
+    <div class="inner branding">
+      <a class="logo" href="./index.html"><span class="mark" role="img" aria-label="탭스페이스(tabspace)"></span><span class="tag">AI 시대의 IoT 자동화 솔루션</span></a>
+      <ul class="util">
+        <li><a href="https://blog.naver.com/tabspacekr" target="_blank" rel="noopener" title="새 창에서 열립니다">네이버 블로그 <svg class="ico ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg><span class="sr-only">(새 창)</span></a></li>
+        <li><a href="https://smartstore.naver.com/tabspace" target="_blank" rel="noopener" title="새 창에서 열립니다">스마트스토어 <svg class="ico ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg><span class="sr-only">(새 창)</span></a></li>
+        <li><a href="./contact.html">문의하기</a></li>
+      </ul>
+    </div>
+    <nav class="gnb-bar" aria-label="주 메뉴">
+      <div class="inner">
+        <ul class="gnb">
+        <li>
+          <a class="gnb-main" href="./about.html" aria-expanded="false">회사 소개</a>
+          <ul class="gnb-sub"><li><a href="./about.html">회사 개요</a></li><li><a href="./technology.html">기술 역량</a></li></ul>
+        </li>
+        <li>
+          <a class="gnb-main" href="./business.html" aria-expanded="false">사업 분야</a>
+          <ul class="gnb-sub"><li><a href="./business.html">사업 분야</a></li><li><a href="./solutions.html">AI 솔루션</a></li><li><a href="./reverse-engineering.html">리버스 엔지니어링</a></li></ul>
+        </li>
+        <li>
+          <a class="gnb-main" href="./projects.html" aria-expanded="false">구축 사례</a>
+          <ul class="gnb-sub"><li><a href="./projects.html">프로젝트</a></li><li><a href="./live-demo.html">라이브 데모</a></li></ul>
+        </li>
+        <li>
+          <a class="gnb-main" href="./insights.html" aria-expanded="false">고객 지원</a>
+          <ul class="gnb-sub"><li><a href="./insights.html">기술 인사이트</a></li><li><a href="./contact.html">문의하기</a></li></ul>
+        </li>
+        </ul>
+        <button type="button" class="allmenu-btn" aria-expanded="false" aria-controls="allmenu"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span class="sr-only">전체 메뉴 보기</span></button>
+      </div>
+    </nav>
+    <div class="allmenu" id="allmenu" role="dialog" aria-modal="true" aria-labelledby="allmenuTitle" hidden>
+      <div class="allmenu-dim"></div>
+      <div class="allmenu-box">
+        <div class="allmenu-hd"><h2 id="allmenuTitle">전체 메뉴</h2><button type="button" class="allmenu-x"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="sr-only">전체 메뉴 닫기</span></button></div>
+        <div class="allmenu-grid">
+          <section>
+            <h3>회사 소개</h3>
+            <ul><li><a href="./about.html">회사 개요</a></li><li><a href="./technology.html">기술 역량</a></li></ul>
+          </section>
+          <section>
+            <h3>사업 분야</h3>
+            <ul><li><a href="./business.html">사업 분야</a></li><li><a href="./solutions.html">AI 솔루션</a></li><li><a href="./reverse-engineering.html">리버스 엔지니어링</a></li></ul>
+          </section>
+          <section>
+            <h3>구축 사례</h3>
+            <ul><li><a href="./projects.html">프로젝트</a></li><li><a href="./live-demo.html">라이브 데모</a></li></ul>
+          </section>
+          <section>
+            <h3>고객 지원</h3>
+            <ul><li><a href="./insights.html">기술 인사이트</a></li><li><a href="./contact.html">문의하기</a></li></ul>
+          </section>
+          <section>
+            <h3>사이트 정책</h3>
+            <ul><li><a href="./email-policy.html">이메일무단수집거부</a></li></ul>
+          </section>
+          <section>
+            <h3>바로가기</h3>
+            <ul><li><a href="https://blog.naver.com/tabspacekr" target="_blank" rel="noopener" title="새 창에서 열립니다">네이버 블로그 <svg class="ico ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg><span class="sr-only">(새 창)</span></a></li><li><a href="https://smartstore.naver.com/tabspace" target="_blank" rel="noopener" title="새 창에서 열립니다">네이버 스마트스토어 <svg class="ico ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg><span class="sr-only">(새 창)</span></a></li><li><a href="https://github.com/tabspacekr" target="_blank" rel="noopener" title="새 창에서 열립니다">깃허브 저장소 <svg class="ico ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg><span class="sr-only">(새 창)</span></a></li></ul>
+          </section>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <main id="main" tabindex="-1" class="">
+<script>
+  // 예전 원페이지의 구역 주소(#Projects 등)로 들어오면 해당 메뉴 페이지로 옮긴다. GitHub Pages 는 서버 리다이렉트가 없다.
+  (function () {
+    var map = { BusinessAreas: 'business.html', AISolutions: 'solutions.html', LiveDemo: 'live-demo.html', Projects: 'projects.html', TechInsights: 'insights.html', Features: 'technology.html', Contact: 'contact.html' };
+    var to = map[location.hash.slice(1)];
+    if (to) location.replace('./' + to);
+  })();
+</script>
+<section class="hero" aria-labelledby="heroTitle">
+  <div class="inner">
+    <div>
+      <h1 id="heroTitle">AI 시대의 IoT</h1>
+      <p class="desc"><b>탭스페이스</b>는 AI와 IoT를 융합하여 <b>무인매장, 상업시설, 스마트빌딩</b>을 위한 <b>차세대 자동화 솔루션</b>을 제공합니다.</p>
+      <div class="cta">
+        <a class="btn accent" href="./projects.html">프로젝트 보기 <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn on-deep outline" href="./contact.html">문의하기</a>
+      </div>
+      <dl class="hero-stats">
+        <div class="hero-stat"><dt>프로젝트</dt><dd>200+</dd></div>
+        <div class="hero-stat"><dt>경험</dt><dd>5년+</dd></div>
+        <div class="hero-stat"><dt>맞춤형</dt><dd>100%</dd></div>
+        <div class="hero-stat"><dt>지원</dt><dd>24/7</dd></div>
+      </dl>
+    </div>
+    <div class="hero-art">
+      <picture>
+        <source type="image/avif" srcset="./assets/img/illustrations/3d2-600.avif 600w, ./assets/img/illustrations/3d2-800.avif 800w, ./assets/img/illustrations/3d2-1200.avif 1200w" sizes="(min-width: 1024px) 520px, 300px">
+        <source type="image/webp" srcset="./assets/img/illustrations/3d2-600.webp 600w, ./assets/img/illustrations/3d2-800.webp 800w, ./assets/img/illustrations/3d2-1200.webp 1200w" sizes="(min-width: 1024px) 520px, 300px">
+        <img src="./assets/img/illustrations/3d2.png" width="800" height="925" alt="전구와 노트북 사이를 떠다니는 사람 3D 일러스트" fetchpriority="high">
+      </picture>
+    </div>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="introTitle">
+  <div class="inner">
+    <h2 class="sec-title center" id="introTitle">탭스페이스 알아보기</h2>
+    <p class="sec-desc center">사업 분야와 AI 솔루션, 실시간 데모를 각 페이지에서 자세히 안내합니다.</p>
+    <ul class="cards">
+      <li class="card link">
+        <span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="3" width="10" height="18" rx="1"/><path d="M14 9h6v12h-6"/><path d="M7 7h1M10 7h1M7 11h1M10 11h1M7 15h1M10 15h1M17 13h1M17 17h1"/></svg></span>
+        <h3>사업 분야</h3>
+        <p>제로에너지 건축물, 스마트홈·시티, 스마트팜, 임베디드 시스템, 무인매장 관리까지 IoT 전문성을 바탕으로 다양한 영역에 도전합니다.</p>
+        <a class="btn-text more stretch" href="./business.html">자세히 보기 <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </li>
+      <li class="card link">
+        <span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg></span>
+        <h3>AI 솔루션</h3>
+        <p>AI 챗봇 고객 지원, 예측 유지보수, 지능형 에너지 관리, 비즈니스 인사이트로 더 스마트한 자동화를 구현합니다.</p>
+        <a class="btn-text more stretch" href="./solutions.html">자세히 보기 <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </li>
+      <li class="card link">
+        <span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg></span>
+        <h3>라이브 데모</h3>
+        <p>에너지·디바이스 상태·온습도 데이터를 실시간 차트로 시각화한 IoT 모니터링 화면을 직접 확인하세요.</p>
+        <a class="btn-text more stretch" href="./live-demo.html">자세히 보기 <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="zone" aria-labelledby="quickTitle">
+  <div class="inner">
+    <h2 class="sec-title center" id="quickTitle">바로가기</h2>
+    <p class="sec-desc center">찾으시는 정보를 선택하세요.</p>
+    <ul class="quick">
+      <li><a href="./about.html"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 21l5-3 5 3-1.5-7"/></svg></span>회사 개요</a></li>
+      <li><a href="./technology.html"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9.5" y="9.5" width="5" height="5"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></span>기술 역량</a></li>
+      <li><a href="./projects.html"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg></span>구축 사례</a></li>
+      <li><a href="./insights.html"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9V16h7v-2.1A6 6 0 0 0 12 3z"/></svg></span>기술 인사이트</a></li>
+      <li><a href="./contact.html"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>도입 문의</a></li>
+      <li><a href="https://blog.naver.com/tabspacekr" target="_blank" rel="noopener" title="새 창에서 열립니다"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/><path d="M8 7h7M8 11h5"/></svg></span>네이버 블로그<span class="sr-only">(새 창)</span></a></li>
+    </ul>
+  </div>
+</section>
+
+<section class="zone" aria-label="새 소식" style="padding-top:0">
+  <div class="inner boards">
+    <div class="board">
+      <div class="board-head"><h2>최근 구축 사례</h2><a class="btn secondary sm" href="./projects.html">전체 보기</a></div>
+      <ul>
+            <li><div class="row"><span class="badge">공유오피스</span><span class="tit">[FASTFIVE] 아이콘삼성커먼즈</span><span class="date"></span></div></li>
+            <li><div class="row"><span class="badge">공유오피스</span><span class="tit">[FASTFIVE] 마곡나루1호점</span><span class="date">서울 강서</span></div></li>
+            <li><div class="row"><span class="badge">공유오피스</span><span class="tit">[FASTFIVE] 뚝섬1호점</span><span class="date">서울 성동</span></div></li>
+            <li><div class="row"><span class="badge">공유오피스</span><span class="tit">[FASTFIVE] 신사2호점</span><span class="date">서울 강남</span></div></li>
+            <li><div class="row"><span class="badge">공유오피스</span><span class="tit">[FASTFIVE] 서초3호점</span><span class="date">서울 서초</span></div></li>
+      </ul>
+    </div>
+    <div class="board">
+      <div class="board-head"><h2>기술 인사이트</h2><a class="btn secondary sm" href="./insights.html">전체 보기</a></div>
+      <ul>
+            <li><a href="./insights.html#blog-2026-023"><span class="badge">자동화 &amp; 효율화</span><span class="tit">문서 없는 설비를 IoT로 — 프로토콜 분석으로 레거시 장비 연결하기</span><time class="date" datetime="2026-11-12">2026-11-12</time></a></li>
+            <li><a href="./insights.html#blog-2026-022"><span class="badge">IoT Technology</span><span class="tit">지진 통보를 받는 순간 설비가 움직인다 — 기상청 연계 AIoT 자동제어 실증</span><time class="date" datetime="2026-10-20">2026-10-20</time></a></li>
+            <li><a href="./insights.html#blog-2026-021"><span class="badge">AI &amp; Machine Learning</span><span class="tit">에이전틱 AI가 여는 자율 운영 IoT 시스템의 시대</span><time class="date" datetime="2026-03-18">2026-03-18</time></a></li>
+            <li><a href="./insights.html#blog-2026-020"><span class="badge">AI &amp; Machine Learning</span><span class="tit">온디바이스 LLM으로 진화하는 엣지 IoT</span><time class="date" datetime="2026-01-22">2026-01-22</time></a></li>
+            <li><a href="./insights.html#blog-2025-019"><span class="badge">IoT Technology</span><span class="tit">Matter 1.4로 완성되는 IoT 상호운용성의 진화</span><time class="date" datetime="2025-10-28">2025-10-28</time></a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+  </main>
+  <nav class="foot-quick" aria-label="바로가기">
+    <div class="inner">
+      <ul>
+        <li><a href="./contact.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>솔루션 도입 문의</a></li>
+        <li><a href="./projects.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg>구축 사례</a></li>
+        <li><a href="https://blog.naver.com/tabspacekr" target="_blank" rel="noopener" title="새 창에서 열립니다"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/><path d="M8 7h7M8 11h5"/></svg>네이버 블로그 <svg class="ico ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg><span class="sr-only">(새 창)</span></a></li>
+        <li><a href="https://smartstore.naver.com/tabspace" target="_blank" rel="noopener" title="새 창에서 열립니다"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 8h14l-1 13H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>스마트스토어 <svg class="ico ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg><span class="sr-only">(새 창)</span></a></li>
+      </ul>
+    </div>
+  </nav>
+  <footer class="site-footer">
+    <div class="inner">
+      <div class="foot-top">
+        <div>
+          <span class="foot-logo" role="img" aria-label="탭스페이스(tabspace)"></span>
+          <address class="foot-info">
+            <span>주식회사 탭스페이스</span><span>서울특별시 마포구 매봉산로 18, 405호</span><br>
+            <span>대표번호 <a href="tel:050713997864">0507-1399-7864</a></span><span>사무실(주간) <a href="tel:07077805577">070-7780-5577</a></span><br>
+            <span>통신판매업신고번호 제 2026-서울마포-0456 호</span>
+          </address>
+        </div>
+        <div class="foot-links">
+          <section>
+            <h2>안내</h2>
+            <ul>
+              <li><a class="strong" href="./email-policy.html">이메일무단수집거부</a></li>
+              <li><a href="./about.html#registrations">등록·인증 현황</a></li>
+              <li><a href="./contact.html">문의하기</a></li>
+            </ul>
+          </section>
+          <section>
+            <h2>사이트 링크</h2>
+            <ul>
+              <li><a href="https://blog.naver.com/tabspacekr" target="_blank" rel="noopener" title="새 창에서 열립니다">탭스페이스 네이버 블로그 <svg class="ico ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg><span class="sr-only">(새 창)</span></a></li>
+              <li><a href="https://smartstore.naver.com/tabspace" target="_blank" rel="noopener" title="새 창에서 열립니다">탭스페이스 네이버 스마트스토어 <svg class="ico ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg><span class="sr-only">(새 창)</span></a></li>
+              <li><a href="https://github.com/tabspacekr" target="_blank" rel="noopener" title="새 창에서 열립니다">탭스페이스 깃허브 저장소 <svg class="ico ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg><span class="sr-only">(새 창)</span></a></li>
+            </ul>
+          </section>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <!-- 이메일 무단수집 거부 고지(정보통신망법 제50조의2): 법적 보호는 "수집을 거부하는 의사가 명시된" 홈페이지에서만 성립하므로 모든 페이지 본문에 상시 노출한다 -->
+        <p class="email-collect-refusal">본 웹사이트에 게시된 이메일 주소가 전자우편 수집 프로그램이나 그 밖의 기술적 장치를 이용하여 무단으로 수집되는 것을 거부하며, 이를 위반 시 1년 이하의 징역 또는 1천만원 이하의 벌금에 처해질 수 있습니다. (정보통신망 이용촉진 및 정보보호 등에 관한 법률 제50조의2, 제74조)</p>
+        <p class="copyright">© 2021-<span id="current-year"></span> TabSpace. All rights reserved.</p>
+      </div>
+    </div>
   </footer>
-  <div class="progress-wrap">
-    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-      <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
-    </svg>
-  </div>
-  <!-- 홈페이지 스크립트 번들: jQuery, 테마, 캐러셀, 차트(지연 로드), 챗봇 데모, 이메일 확인하기 버튼 등 -->
-  <script defer src="./assets/dist/home.c0fde5f7a3.js"></script>
-
-  <!-- 실사용자 측정(RUM): Core Web Vitals 와 히어로 표시 시점을 GA4 이벤트로 보낸다 (전략 문서 §7 ①) -->
+  <aside class="quickmenu" aria-label="빠른 메뉴">
+    <ul class="quickmenu-list" id="quickmenuList">
+      <li><a href="./contact.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>도입 문의</a></li>
+      <li><a href="./projects.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg>구축 사례</a></li>
+      <li><a href="./live-demo.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg>라이브 데모</a></li>
+      <li><a href="https://blog.naver.com/tabspacekr" target="_blank" rel="noopener" title="새 창에서 열립니다"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/><path d="M8 7h7M8 11h5"/></svg>블로그<span class="sr-only">(새 창)</span></a></li>
+    </ul>
+    <button type="button" class="quickmenu-btn quickmenu-tog" aria-expanded="false" aria-controls="quickmenuList"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg><span class="sr-only">빠른 메뉴 펴기</span></button>
+    <button type="button" class="quickmenu-btn to-top"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 15l6-6 6 6"/></svg><span class="sr-only">맨 위로</span></button>
+  </aside>
+  <script defer src="./assets/dist/site.9cef7a37df.js"></script>
   <script type="module">
     const report = async () => {
       const { onLCP, onINP, onCLS, onFCP, onTTFB } = await import('./assets/vendor/web-vitals-5.3.0.attribution.js');
@@ -884,7 +289,7 @@
         metric_id: m.id, metric_value: m.value, metric_rating: m.rating,
         debug_target: tgt(m.attribution),
         lcp_render_delay: m.name === 'LCP' ? Math.round(m.attribution.elementRenderDelay) : undefined,
-        effective_type: ct
+        effective_type: ct, page_key: document.body.dataset.page
       });
       [onLCP, onINP, onCLS, onFCP, onTTFB].forEach(f => f(send));
       setTimeout(() => {
@@ -893,7 +298,7 @@
         const fcp = performance.getEntriesByName('first-contentful-paint')[0]?.startTime ?? 0;
         window.gtag && gtag('event', 'hero_visible', {
           value: window.__heroVisible == null ? -1 : Math.round(Math.max(window.__heroVisible, fcp)),
-          effective_type: ct,
+          effective_type: ct, page_key: document.body.dataset.page,
           layout_overflow: document.documentElement.scrollWidth > innerWidth ? 1 : 0,
           css_wait: css ? Math.round(css.responseStart - css.requestStart) : -1
         });
@@ -902,5 +307,4 @@
     document.readyState === 'complete' ? report() : addEventListener('load', report);
   </script>
 </body>
-
 </html>

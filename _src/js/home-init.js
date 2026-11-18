@@ -29,7 +29,9 @@
   }
 
   function initCharts() {
-    if (!window.DataVisualization || !document.getElementById('energy-chart')) return;
+    // 차트는 AI 솔루션(project-stats-chart)·라이브 데모(나머지 3개) 두 페이지에 나뉘어 있다
+    var ids = ['project-stats-chart', 'energy-chart', 'device-status-chart', 'environment-chart'];
+    if (!window.DataVisualization || !ids.some(function (id) { return document.getElementById(id); })) return;
 
     var dataViz = new DataVisualization();
     window.dataVizInstance = dataViz;
@@ -40,11 +42,14 @@
       created = true;
       loadChartJs().then(function () {
         dataViz.init();
-        dataViz.createEnergyChart('energy-chart');
-        dataViz.createDeviceStatusChart('device-status-chart');
-        dataViz.createEnvironmentChart('environment-chart');
-        dataViz.createProjectStatsChart('project-stats-chart');
-        dataViz.startAutoUpdate('energy-chart', 5000);
+        var has = function (id) { return !!document.getElementById(id); };
+        if (has('energy-chart')) {
+          dataViz.createEnergyChart('energy-chart');
+          dataViz.startAutoUpdate('energy-chart', 5000);
+        }
+        if (has('device-status-chart')) dataViz.createDeviceStatusChart('device-status-chart');
+        if (has('environment-chart')) dataViz.createEnvironmentChart('environment-chart');
+        if (has('project-stats-chart')) dataViz.createProjectStatsChart('project-stats-chart');
       }).catch(function (error) {
         created = false;
         console.error('Data Visualization initialization failed:', error);
@@ -92,9 +97,11 @@
   };
 
   function init() {
-    var yearElement = document.getElementById('current-year');
-    if (yearElement) yearElement.textContent = new Date().getFullYear();
     initCharts();
+    // 라이트·다크 전환 시 차트를 새 팔레트로 다시 칠한다 (shell.js 가 보내는 이벤트)
+    document.addEventListener('ts:themechange', function () {
+      if (window.dataVizInstance) window.dataVizInstance.refreshTheme();
+    });
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

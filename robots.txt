@@ -54,3 +54,7 @@ Disallow: /
 # ── 그 외 ──
 User-agent: *
 Allow: /
+
+
+# ── 사이트맵 (메뉴별 페이지 목록, tools/build 가 생성) ──
+Sitemap: https://www.tabspace.kr/sitemap.xml

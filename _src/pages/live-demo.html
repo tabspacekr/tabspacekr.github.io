@@ -1,0 +1,49 @@
+<!--page {"key":"live-demo","title":"라이브 데모","description":"실제 IoT 시스템에서 수집되는 에너지 사용량, 디바이스 상태, 온도·습도 데이터를 실시간 차트로 시각화한 탭스페이스 IoT 모니터링 데모입니다.","lead":"실시간으로 확인하는 IoT 데이터 — 실제 IoT 시스템에서 수집되는 데이터를 실시간으로 시각화합니다."}-->
+<div class="inner" id="LiveDemo">
+  <section class="sec" aria-label="실시간 모니터링">
+    <div class="grid-demo">
+      <div class="panel">
+        <div class="panel-head">
+          <div><h3>에너지 모니터링</h3><p><i class="uil uil-sync" aria-hidden="true"></i> 실시간 업데이트 중…</p></div>
+          <div class="tags"><span class="live">LIVE</span></div>
+        </div>
+        <div class="chart-box"><canvas id="energy-chart" role="img" aria-label="시간대별 전력 소비와 예측 소비 선 차트"></canvas></div>
+        <div class="stat-row">
+          <div class="stat"><div class="k">현재 사용량</div><div class="v" id="current-usage">18.5 kW</div></div>
+          <div class="stat"><div class="k">예측 소비</div><div class="v" id="predicted-usage">20.2 kW</div></div>
+          <div class="stat"><div class="k">절감률</div><div class="v" id="savings-rate">-12%</div></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><div><h3>디바이스 상태</h3></div></div>
+        <div class="chart-box sm"><canvas id="device-status-chart" role="img" aria-label="정상·경고·오프라인 디바이스 비율 도넛 차트"></canvas></div>
+        <ul class="stat-list">
+          <li><span>전체 디바이스</span><b id="total-devices">243</b></li>
+          <li><span>정상 작동</span><b id="devices-online">225</b></li>
+          <li><span>경고</span><b id="devices-warning">9</b></li>
+          <li><span>오프라인</span><b id="devices-offline">9</b></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:24px">
+      <div class="panel-head">
+        <div><h3>환경 모니터링</h3><p>온도 및 습도 실시간 트래킹</p></div>
+        <button class="btn sm" type="button" onclick="startEnvironmentUpdates()">실시간 업데이트 시작</button>
+      </div>
+      <div class="chart-box"><canvas id="environment-chart" role="img" aria-label="시간대별 온도와 습도 선 차트"></canvas></div>
+      <div class="stat-row c4">
+        <div class="stat"><div class="k">평균 온도</div><div class="v">22.4°C</div></div>
+        <div class="stat"><div class="k">평균 습도</div><div class="v">58.2%</div></div>
+        <div class="stat"><div class="k">공기질 지수</div><div class="v">Good</div></div>
+        <div class="stat"><div class="k">CO2 농도</div><div class="v">425 ppm</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-box">
+    <div><h2>이 기술을 귀사의 비즈니스에 적용해보세요</h2><p>실시간 모니터링과 AI 기반 분석으로 운영 효율성을 극대화하세요.</p></div>
+    <div class="btns"><a class="btn accent" href="./contact.html">솔루션 및 도입 문의</a></div>
+  </div>
+</div>

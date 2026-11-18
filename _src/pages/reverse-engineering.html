@@ -1,0 +1,81 @@
+<!--page {"key":"reverse-engineering","title":"리버스 엔지니어링","description":"문서나 공개 API가 없는 도어락·월패드·공조기·제어보드도 통신을 분석해 IoT 플랫폼에 연결합니다. 탭스페이스의 상호운용성 중심 리버스 엔지니어링 사례를 소개합니다.","lead":"제조사 문서가 없거나 지원이 끝난 설비도 통신 방식을 분석해 다시 연결하고, 오래 쓸 수 있게 만듭니다."}-->
+<div class="inner">
+  <section class="sec" aria-labelledby="whyTitle">
+    <h2 class="sec-title" id="whyTitle">왜 리버스 엔지니어링인가</h2>
+    <div class="prose">
+      <p>현장의 설비는 대부분 제조사가 정한 방식으로만 동작합니다. 제조사 서비스가 끝나거나 문서가 없으면, 멀쩡한 장비도 다른 시스템과 연결하지 못해 교체 대상이 됩니다.</p>
+      <p>탭스페이스는 장비가 주고받는 통신을 관찰하고 구조를 해석해, 기존 장비를 그대로 두고 IoT 플랫폼과 연결합니다. 교체 비용을 줄이고, 여러 제조사의 장비를 하나의 화면에서 운영할 수 있게 합니다.</p>
+    </div>
+    <ul class="flow" aria-label="분석 절차">
+      <li><span class="ic">{{icon:pulse}}</span><div><b>관찰</b><span>정상 동작 중의 통신 기록</span></div></li>
+      <li><span class="ic">{{icon:code}}</span><div><b>해석</b><span>메시지 구조와 의미 정리</span></div></li>
+      <li><span class="ic">{{icon:wrench}}</span><div><b>재현·연동</b><span>시험 환경 검증 후 현장 적용</span></div></li>
+    </ul>
+  </section>
+
+  <section class="sec" aria-labelledby="caseTitle">
+    <h2 class="sec-title" id="caseTitle">수행 사례</h2>
+    <p class="sec-desc">고객사와 제조사 정보는 비공개로 처리했습니다.</p>
+    <ul class="cards">
+      <li class="card">
+        <div class="head"><span class="badge tag">서비스 종료 대응</span><span class="meta">2026</span></div>
+        <h3>상업용 무선 사물함 잠금장치 복원</h3>
+        <p>제조사 서비스가 끝난 무선 사물함 잠금장치의 통신을 분석해 자체 제어 서버로 다시 연결했습니다. 원격 개방과 상태 조회를 복원해 장비 교체 없이 운영을 이어 가고 있습니다.</p>
+        <p class="meta more">근거리 무선 · 자체 제어 서버</p>
+      </li>
+      <li class="card">
+        <div class="head"><span class="badge tag">클라우드 의존 축소</span><span class="meta">2026</span></div>
+        <h3>공유 공간 스마트 도어락 로컬 제어</h3>
+        <p>공유 공간에 설치된 스마트 도어락을 외부 클라우드 없이 자체 플랫폼에서 운영하도록 연결했습니다. 원격 개방, 출입 비밀번호 관리, 출입 이력을 자체 앱과 웹 콘솔로 제공합니다.</p>
+        <p class="meta more">근거리 무선 · 브리지 · 앱·웹 콘솔</p>
+      </li>
+      <li class="card">
+        <div class="head"><span class="badge tag">분석 도구</span><span class="meta">2026</span></div>
+        <h3>유선 설비 통신 자동 분석 도구</h3>
+        <p>월패드·승강기 호출 라인처럼 유선 시리얼 통신을 쓰는 설비의 메시지 경계와 검증값, 필드 구조를 자동으로 찾아내는 현장용 분석 도구를 만들었습니다. 버튼을 누른 시점의 메시지를 추적해 기능을 빠르게 짝지어 줍니다.</p>
+        <p class="meta more">유선 시리얼 · 현장용 웹 도구</p>
+      </li>
+      <li class="card">
+        <div class="head"><span class="badge tag">가전 연동</span><span class="meta">2026</span></div>
+        <h3>적외선 리모컨 신호 수집과 재생</h3>
+        <p>에어컨·팬코일 같은 적외선 리모컨 가전의 신호를 수집하고 해석하는 도구를 만들어, 현장의 팬코일 설비를 IoT 플랫폼에서 냉난방 제어할 수 있게 했습니다.</p>
+        <p class="meta more">적외선 · 신호 데이터베이스</p>
+      </li>
+      <li class="card">
+        <div class="head"><span class="badge tag">하드웨어 재활용</span><span class="meta">2026</span></div>
+        <h3>출입 제어보드 자체 펌웨어 전환</h3>
+        <p>고객사의 출입 제어보드를 분석해 회로 구성을 파악하고, 고객사 운영 방식에 맞는 자체 펌웨어로 바꿨습니다. 기존 보드를 그대로 재활용해 하드웨어 교체 비용을 줄였습니다.</p>
+        <p class="meta more">제어보드 · 펌웨어</p>
+      </li>
+      <li class="card">
+        <div class="head"><span class="badge tag">게이트웨이 호환</span><span class="meta">2026</span></div>
+        <h3>업무용 공조기 게이트웨이 호환 장치</h3>
+        <p>업무용 공조기를 상위 관제 시스템에 연결하는 게이트웨이와 같은 방식으로 동작하는 호환 장치를 저비용 IoT 보드로 구현했습니다. 상위 시스템은 기존 게이트웨이와 똑같이 인식합니다.</p>
+        <p class="meta more">공조 · 호환 게이트웨이</p>
+      </li>
+      <li class="card">
+        <div class="head"><span class="badge tag">호환 모듈</span><span class="meta">2026</span></div>
+        <h3>아파트 도어락 통신 모듈 호환 설계</h3>
+        <p>아파트 도어락의 연동 모듈 슬롯 규격을 실측으로 확인해, 기존 모듈을 대신할 수 있는 근거리 무선 통신 모듈의 회로와 펌웨어를 자체 설계했습니다.</p>
+        <p class="meta more">도어락 · 회로·펌웨어 설계</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="sec" aria-labelledby="ruleTitle">
+    <h2 class="sec-title" id="ruleTitle">수행 원칙</h2>
+    <table class="info-table">
+      <tbody>
+        <tr><th scope="row">대상</th><td>고객이 소유하거나 운영 권한을 가진 장비만 다룹니다.</td></tr>
+        <tr><th scope="row">목적</th><td>상호운용성 확보, 서비스 종료 대응, 장비 재활용을 위한 분석만 수행합니다.</td></tr>
+        <tr><th scope="row">안전</th><td>시험 환경에서 충분히 검증한 뒤 현장에 적용하고, 원래 상태로 되돌릴 수 있게 백업을 남깁니다.</td></tr>
+        <tr><th scope="row">비밀 유지</th><td>분석 결과와 고객사·제조사 정보는 외부에 공개하지 않습니다.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="cta-box">
+    <div><h2>연결이 막힌 설비가 있으신가요?</h2><p>장비 종류와 현재 상태를 알려 주시면 연동 가능성을 검토해 드립니다.</p></div>
+    <div class="btns"><a class="btn accent" href="./contact.html">연동 문의</a></div>
+  </div>
+</div>

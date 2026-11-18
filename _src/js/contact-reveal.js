@@ -53,7 +53,7 @@
 
     var link = document.createElement('a');
     link.href = 'mailto:' + address;
-    link.className = 'cyber-link contact-reveal-address';
+    link.className = 'contact-reveal-address';
     link.textContent = address;
 
     out.appendChild(link);

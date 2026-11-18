@@ -1,0 +1,93 @@
+<!--page {"key":"home","title":"홈","description":"AI 시대를 선도하는 IoT 자동화 솔루션 - 탭스페이스. 무인매장, 상업시설, 스마트빌딩을 위한 차세대 IoT 플랫폼과 구축 사례를 소개합니다.","changefreq":"weekly","keywords":"IoT, 사물인터넷, AI, 인공지능, 오픈소스, 홈어시스턴트, HomeAssistant, Tasmota, MQTT, 무인매장, 상업시설, 스마트빌딩, 스마트팜, 데이터시각화, 탭스페이스"}-->
+<script>
+  // 예전 원페이지의 구역 주소(#Projects 등)로 들어오면 해당 메뉴 페이지로 옮긴다. GitHub Pages 는 서버 리다이렉트가 없다.
+  (function () {
+    var map = { BusinessAreas: 'business.html', AISolutions: 'solutions.html', LiveDemo: 'live-demo.html', Projects: 'projects.html', TechInsights: 'insights.html', Features: 'technology.html', Contact: 'contact.html' };
+    var to = map[location.hash.slice(1)];
+    if (to) location.replace('./' + to);
+  })();
+</script>
+<section class="hero" aria-labelledby="heroTitle">
+  <div class="inner">
+    <div>
+      <h1 id="heroTitle">AI 시대의 IoT</h1>
+      <p class="desc"><b>탭스페이스</b>는 AI와 IoT를 융합하여 <b>무인매장, 상업시설, 스마트빌딩</b>을 위한 <b>차세대 자동화 솔루션</b>을 제공합니다.</p>
+      <div class="cta">
+        <a class="btn accent" href="./projects.html">프로젝트 보기 {{icon:arrow}}</a>
+        <a class="btn on-deep outline" href="./contact.html">문의하기</a>
+      </div>
+      <dl class="hero-stats">
+        <div class="hero-stat"><dt>프로젝트</dt><dd>200+</dd></div>
+        <div class="hero-stat"><dt>경험</dt><dd>5년+</dd></div>
+        <div class="hero-stat"><dt>맞춤형</dt><dd>100%</dd></div>
+        <div class="hero-stat"><dt>지원</dt><dd>24/7</dd></div>
+      </dl>
+    </div>
+    <div class="hero-art">
+      <picture>
+        <source type="image/avif" srcset="./assets/img/illustrations/3d2-600.avif 600w, ./assets/img/illustrations/3d2-800.avif 800w, ./assets/img/illustrations/3d2-1200.avif 1200w" sizes="(min-width: 1024px) 520px, 300px">
+        <source type="image/webp" srcset="./assets/img/illustrations/3d2-600.webp 600w, ./assets/img/illustrations/3d2-800.webp 800w, ./assets/img/illustrations/3d2-1200.webp 1200w" sizes="(min-width: 1024px) 520px, 300px">
+        <img src="./assets/img/illustrations/3d2.png" width="800" height="925" alt="전구와 노트북 사이를 떠다니는 사람 3D 일러스트" fetchpriority="high">
+      </picture>
+    </div>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="introTitle">
+  <div class="inner">
+    <h2 class="sec-title center" id="introTitle">탭스페이스 알아보기</h2>
+    <p class="sec-desc center">사업 분야와 AI 솔루션, 실시간 데모를 각 페이지에서 자세히 안내합니다.</p>
+    <ul class="cards">
+      <li class="card link">
+        <span class="ic">{{icon:building}}</span>
+        <h3>사업 분야</h3>
+        <p>제로에너지 건축물, 스마트홈·시티, 스마트팜, 임베디드 시스템, 무인매장 관리까지 IoT 전문성을 바탕으로 다양한 영역에 도전합니다.</p>
+        <a class="btn-text more stretch" href="./business.html">자세히 보기 {{icon:arrow}}</a>
+      </li>
+      <li class="card link">
+        <span class="ic">{{icon:chat}}</span>
+        <h3>AI 솔루션</h3>
+        <p>AI 챗봇 고객 지원, 예측 유지보수, 지능형 에너지 관리, 비즈니스 인사이트로 더 스마트한 자동화를 구현합니다.</p>
+        <a class="btn-text more stretch" href="./solutions.html">자세히 보기 {{icon:arrow}}</a>
+      </li>
+      <li class="card link">
+        <span class="ic">{{icon:pulse}}</span>
+        <h3>라이브 데모</h3>
+        <p>에너지·디바이스 상태·온습도 데이터를 실시간 차트로 시각화한 IoT 모니터링 화면을 직접 확인하세요.</p>
+        <a class="btn-text more stretch" href="./live-demo.html">자세히 보기 {{icon:arrow}}</a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="zone" aria-labelledby="quickTitle">
+  <div class="inner">
+    <h2 class="sec-title center" id="quickTitle">바로가기</h2>
+    <p class="sec-desc center">찾으시는 정보를 선택하세요.</p>
+    <ul class="quick">
+      <li><a href="./about.html"><span class="ic">{{icon:badge}}</span>회사 개요</a></li>
+      <li><a href="./technology.html"><span class="ic">{{icon:chip}}</span>기술 역량</a></li>
+      <li><a href="./projects.html"><span class="ic">{{icon:grid}}</span>구축 사례</a></li>
+      <li><a href="./insights.html"><span class="ic">{{icon:bulb}}</span>기술 인사이트</a></li>
+      <li><a href="./contact.html"><span class="ic">{{icon:mail}}</span>도입 문의</a></li>
+      <li><a href="https://blog.naver.com/tabspacekr" target="_blank" rel="noopener" title="새 창에서 열립니다"><span class="ic">{{icon:book}}</span>네이버 블로그<span class="sr-only">(새 창)</span></a></li>
+    </ul>
+  </div>
+</section>
+
+<section class="zone" aria-label="새 소식" style="padding-top:0">
+  <div class="inner boards">
+    <div class="board">
+      <div class="board-head"><h2>최근 구축 사례</h2><a class="btn secondary sm" href="./projects.html">전체 보기</a></div>
+      <ul>
+            {{recent-projects}}
+      </ul>
+    </div>
+    <div class="board">
+      <div class="board-head"><h2>기술 인사이트</h2><a class="btn secondary sm" href="./insights.html">전체 보기</a></div>
+      <ul>
+            {{recent-posts}}
+      </ul>
+    </div>
+  </div>
+</section>

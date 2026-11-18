@@ -16,7 +16,7 @@ const INIT = `(() => {
   new PerformanceObserver(l => l.getEntries().forEach(e => { M.lcp = e.startTime; M.lcpEl = e.element ? e.element.tagName + ' ' + (e.element.textContent || e.url || '').trim().slice(0, 30) : e.url; })).observe({ type: 'largest-contentful-paint', buffered: true });
   new PerformanceObserver(l => l.getEntries().forEach(e => { if (!e.hadRecentInput) M.cls += e.value; })).observe({ type: 'layout-shift', buffered: true });
   const tick = () => {
-    const h = document.querySelector('section h1');
+    const h = document.querySelector('main h1');
     if (h && parseFloat(getComputedStyle(h).opacity) >= 0.99) { M.hero = performance.now(); return; }
     requestAnimationFrame(tick);
   };
