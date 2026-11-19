@@ -509,6 +509,25 @@ html.lightbox-open { overflow: hidden; }
 .bars-axis { display: flex; justify-content: space-between; margin-top: 8px; font: 400 var(--fs-xsmall) var(--font-sans); color: var(--ink-muted); }
 @media (max-width: 1023px) { .shots.cam { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 767px) { .shots.cam { grid-template-columns: minmax(0, 1fr); } .bars { gap: 2px; height: 120px; } .hbars { padding: 18px 16px 14px; } }
+/* 사업 분야 하위 영역 페이지(area-*.html) */
+.area-hero { display: flex; gap: 28px; align-items: flex-start; }
+.area-hero .ic { display: grid; place-items: center; width: 88px; height: 88px; flex: none; border-radius: 50%; background: var(--accent-fill); }
+.area-hero .ic img { width: 52px; height: 52px; }
+.area-hero .prose p:first-child { font-size: var(--fs-large); color: var(--ink-primary); }
+.issues { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; list-style: none; margin: 0; padding: 0; }
+.issue { padding: 22px 24px; border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface); }
+.issue .q { display: flex; gap: 10px; font: 700 var(--fs-medium)/1.5 var(--font-sans); color: var(--ink-primary); }
+.issue .q::before { content: "문제"; flex: none; align-self: flex-start; margin-top: 2px; padding: 2px 8px; border-radius: var(--r-xs); background: var(--surface-active); font: 700 var(--fs-xsmall)/1.4 var(--font-sans); color: var(--ink-muted); }
+.issue .a { display: flex; gap: 10px; margin-top: 10px; font: 400 var(--fs-small)/1.6 var(--font-sans); color: var(--ink-body); }
+.issue .a::before { content: "해법"; flex: none; align-self: flex-start; margin-top: 1px; padding: 2px 8px; border-radius: var(--r-xs); background: var(--accent-fill); font: 700 var(--fs-xsmall)/1.4 var(--font-sans); color: var(--primary); }
+.points { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 32px; list-style: none; margin: 0; padding: 0; }
+.points li { display: flex; flex-direction: column; gap: 4px; padding: 14px 0 14px 18px; border-left: 3px solid var(--accent-solid); }
+.points b { font: 700 var(--fs-medium) var(--font-sans); color: var(--ink-primary); }
+.points span { font: 400 var(--fs-small)/1.6 var(--font-sans); color: var(--ink-body); }
+.sec-title .count { font: 400 var(--fs-medium) var(--font-sans); color: var(--ink-muted); margin-left: 6px; }
+.shots.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 1023px) { .shots.four { grid-template-columns: repeat(2, minmax(0, 1fr)); } .issues, .points { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 767px) { .shots.four { grid-template-columns: minmax(0, 1fr); } .area-hero { flex-direction: column; gap: 16px; } .area-hero .ic { width: 64px; height: 64px; } .area-hero .ic img { width: 38px; height: 38px; } }
 .result-line { margin: 0 0 16px; font: 400 var(--fs-small) var(--font-sans); color: var(--ink-body); }
 .result-line b { color: var(--primary); }
 

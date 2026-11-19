@@ -17,7 +17,7 @@ import crypto from 'node:crypto';
 import { PurgeCSS } from 'purgecss';
 import { transform as cssTransform } from 'lightningcss';
 import { transform as jsTransform } from 'esbuild';
-import { parsePage, renderPage, loadData, outName, ORIGIN } from './pages.mjs';
+import { parsePage, renderPage, loadData, outName, ORIGIN, areaPages } from './pages.mjs';
 
 const ROOT = path.resolve(import.meta.dirname, '..', '..');
 const r = (...p) => path.join(ROOT, ...p);
@@ -50,9 +50,11 @@ const SAFELIST = {
 const hash = (buf) => crypto.createHash('sha256').update(buf).digest('hex').slice(0, 10);
 const read = (...p) => fs.readFileSync(r(...p), 'utf8');
 
-const pageSources = fs.readdirSync(PAGES_DIR).filter((f) => f.endsWith('.html')).sort()
-  .map((f) => parsePage(read('_src', 'pages', f), f));
 const data = loadData(ROOT);
+// _src/pages 의 손으로 쓴 페이지 + _src/areas.json 으로 만드는 사업 분야 하위 영역 페이지
+const pageSources = fs.readdirSync(PAGES_DIR).filter((f) => f.endsWith('.html')).sort()
+  .map((f) => parsePage(read('_src', 'pages', f), f))
+  .concat(areaPages(ROOT, data));
 
 async function buildCss(htmlForPurge) {
   let css = CSS_SOURCES.map((f) => read('_src', 'css', f)).join('\n');

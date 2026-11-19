@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta name="author" content="탭스페이스">
+  <title>스마트팜·농업 | 탭스페이스</title>
+  <meta name="description" content="시설 하우스의 보온커튼·차광막·보온커버를 원격으로 개폐하고 시각·일출일몰·외기 조건으로 자동화하는 스마트팜 원격제어 플랫폼과, 스마트팜에 필요한 IoT 기술을 소개합니다.">
+  <link rel="canonical" href="https://www.tabspace.kr/area-smart-farm.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="탭스페이스">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:title" content="스마트팜·농업 | 탭스페이스">
+  <meta property="og:description" content="시설 하우스의 보온커튼·차광막·보온커버를 원격으로 개폐하고 시각·일출일몰·외기 조건으로 자동화하는 스마트팜 원격제어 플랫폼과, 스마트팜에 필요한 IoT 기술을 소개합니다.">
+  <meta property="og:url" content="https://www.tabspace.kr/area-smart-farm.html">
+  <meta property="og:image" content="https://www.tabspace.kr/assets/img/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="탭스페이스 — AI 시대의 IoT">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="스마트팜·농업 | 탭스페이스">
+  <meta name="twitter:description" content="시설 하우스의 보온커튼·차광막·보온커버를 원격으로 개폐하고 시각·일출일몰·외기 조건으로 자동화하는 스마트팜 원격제어 플랫폼과, 스마트팜에 필요한 IoT 기술을 소개합니다.">
+  <meta name="twitter:image" content="https://www.tabspace.kr/assets/img/og-image.jpg">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Service","@id":"https://www.tabspace.kr/area-smart-farm.html#service","name":"스마트팜·농업","serviceType":"스마트팜·농업","description":"시설 하우스의 보온커튼·차광막·보온커버를 원격으로 개폐하고 시각·일출일몰·외기 조건으로 자동화하는 스마트팜 원격제어 플랫폼과, 스마트팜에 필요한 IoT 기술을 소개합니다.","provider":{"@id":"https://www.tabspace.kr/#organization"},"areaServed":{"@type":"Country","name":"KR"}},{"@type":"WebPage","@id":"https://www.tabspace.kr/area-smart-farm.html","url":"https://www.tabspace.kr/area-smart-farm.html","name":"스마트팜·농업","description":"시설 하우스의 보온커튼·차광막·보온커버를 원격으로 개폐하고 시각·일출일몰·외기 조건으로 자동화하는 스마트팜 원격제어 플랫폼과, 스마트팜에 필요한 IoT 기술을 소개합니다.","inLanguage":"ko-KR","isPartOf":{"@id":"https://www.tabspace.kr/#website"},"publisher":{"@id":"https://www.tabspace.kr/#organization"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://www.tabspace.kr/"},{"@type":"ListItem","position":2,"name":"사업 분야","item":"https://www.tabspace.kr/business.html"},{"@type":"ListItem","position":3,"name":"스마트팜·농업","item":"https://www.tabspace.kr/area-smart-farm.html"}]}]}</script>
+  <!-- 테마: 첫 그리기 전에 정한다(깜빡임 방지). 선택은 shell.js 가 저장한다 -->
+  <script>(function(){var t;try{t=localStorage.getItem('ts-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)})();</script>
+  <link rel="icon" type="image/png" sizes="48x48" href="./assets/img/favicon-48.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="./assets/img/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="./assets/img/favicon-192.png">
+  <link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png">
+  <!-- 스타일·스크립트는 _src/ 원본을 tools/build 로 묶은 결과물이다. 이 파일도 빌드 결과물이므로 _src/pages/ 를 고친 뒤 `cd tools && npm run build` -->
+  <link rel="preload" href="./assets/fonts/atoz/atoz-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./assets/fonts/atoz/atoz-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="./assets/dist/site.864bbaea99.css">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TNGS7LHP2X"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-TNGS7LHP2X');</script>
+  <!-- 실사용자 측정(RUM): 첫 화면 제목이 실제로 보인 시점. 전송은 body 끝 web-vitals 스크립트가 한다 -->
+  <script>(function p(){var h=document.querySelector('main h1');if(h&&parseFloat(getComputedStyle(h).opacity)>=0.99){window.__heroVisible=Math.round(performance.now());return;}if(performance.now()<15000)requestAnimationFrame(p);})();</script>
+</head>
+<body data-page="area-smart-farm">
+  <a class="skip-link" href="#main">본문 바로가기</a>
+  <div class="topline">
+    <div class="inner">
+      <p class="svc">탭스페이스는 AI와 IoT를 융합해 무인매장·상업시설·스마트빌딩 자동화 솔루션을 만드는 IoT 전문기업입니다.</p>
+      <div class="theme-switch" role="group" aria-label="화면 테마">
+        <button type="button" data-theme-set="auto" aria-pressed="true">자동</button>
+        <button type="button" data-theme-set="light" aria-pressed="false">라이트</button>
+        <button type="button" data-theme-set="dark" aria-pressed="false">다크</button>
+      </div>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="inner branding">
+      <a class="logo" href="./index.html"><span class="mark" role="img" aria-label="탭스페이스(tabspace)"></span><span class="tag">AI 시대의 IoT 자동화 솔루션</span></a>
+      <ul class="util">
+        <li><a href="https://blog.naver.com/tabspacekr" target="_blank" rel="noopener" title="새 창에서 열립니다">네이버 블로그 <svg class="ico ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg><span class="sr-only">(새 창)</span></a></li>
+        <li><a href="https://smartstore.naver.com/tabspace" target="_blank" rel="noopener" title="새 창에서 열립니다">스마트스토어 <svg class="ico ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg><span class="sr-only">(새 창)</span></a></li>
+        <li><a href="./contact.html">문의하기</a></li>
+      </ul>
+    </div>
+    <nav class="gnb-bar" aria-label="주 메뉴">
+      <div class="inner">
+        <ul class="gnb">
+        <li>
+          <a class="gnb-main" href="./about.html" aria-expanded="false">회사 소개</a>
+          <ul class="gnb-sub"><li><a href="./about.html">회사 개요</a></li><li><a href="./technology.html">기술 역량</a></li></ul>
+        </li>
+        <li>
+          <a class="gnb-main is-current" href="./business.html" aria-expanded="false">사업 분야</a>
+          <ul class="gnb-sub"><li><a href="./business.html">사업 분야</a></li><li><a href="./area-zeb.html">제로에너지 건축물</a></li><li><a href="./area-smart-city.html">스마트홈·시티</a></li><li><a href="./area-smart-farm.html" aria-current="page">스마트팜·농업</a></li><li><a href="./area-embedded.html">임베디드 시스템</a></li><li><a href="./area-unmanned.html">무인매장 관리</a></li></ul>
+        </li>
+        <li>
+          <a class="gnb-main" href="./solutions.html" aria-expanded="false">솔루션</a>
+          <ul class="gnb-sub"><li><a href="./solutions.html">AI 솔루션</a></li><li><a href="./product-development.html">IoT 제품 개발</a></li><li><a href="./reverse-engineering.html">리버스 엔지니어링</a></li></ul>
+        </li>
+        <li>
+          <a class="gnb-main" href="./projects.html" aria-expanded="false">구축 사례</a>
+          <ul class="gnb-sub"><li><a href="./projects.html">프로젝트</a></li><li><a href="./live-demo.html">라이브 데모</a></li></ul>
+        </li>
+        <li>
+          <a class="gnb-main" href="./insights.html" aria-expanded="false">고객 지원</a>
+          <ul class="gnb-sub"><li><a href="./insights.html">기술 인사이트</a></li><li><a href="./contact.html">문의하기</a></li></ul>
+        </li>
+        </ul>
+        <button type="button" class="allmenu-btn" aria-expanded="false" aria-controls="allmenu"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span class="sr-only">전체 메뉴 보기</span></button>
+      </div>
+    </nav>
+    <div class="allmenu" id="allmenu" role="dialog" aria-modal="true" aria-labelledby="allmenuTitle" hidden>
+      <div class="allmenu-dim"></div>
+      <div class="allmenu-box">
+        <div class="allmenu-hd"><h2 id="allmenuTitle">전체 메뉴</h2><button type="button" class="allmenu-x"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="sr-only">전체 메뉴 닫기</span></button></div>
+        <div class="allmenu-grid">
+          <section>
+            <h3>회사 소개</h3>
+            <ul><li><a href="./about.html">회사 개요</a></li><li><a href="./technology.html">기술 역량</a></li></ul>
+          </section>
+          <section>
+            <h3>사업 분야</h3>
+            <ul><li><a href="./business.html">사업 분야</a></li><li><a href="./area-zeb.html">제로에너지 건축물</a></li><li><a href="./area-smart-city.html">스마트홈·시티</a></li><li><a href="./area-smart-farm.html" aria-current="page">스마트팜·농업</a></li><li><a href="./area-embedded.html">임베디드 시스템</a></li><li><a href="./area-unmanned.html">무인매장 관리</a></li></ul>
+          </section>
+          <section>
+            <h3>솔루션</h3>
+            <ul><li><a href="./solutions.html">AI 솔루션</a></li><li><a href="./product-development.html">IoT 제품 개발</a></li><li><a href="./reverse-engineering.html">리버스 엔지니어링</a></li></ul>
+          </section>
+          <section>
+            <h3>구축 사례</h3>
+            <ul><li><a href="./projects.html">프로젝트</a></li><li><a href="./live-demo.html">라이브 데모</a></li></ul>
+          </section>
+          <section>
+            <h3>고객 지원</h3>
+            <ul><li><a href="./insights.html">기술 인사이트</a></li><li><a href="./contact.html">문의하기</a></li></ul>
+          </section>
+          <section>
+            <h3>사이트 정책</h3>
+            <ul><li><a href="./email-policy.html">이메일무단수집거부</a></li></ul>
+          </section>
+          <section>
+            <h3>바로가기</h3>
+            <ul><li><a href="https://blog.naver.com/tabspacekr" target="_blank" rel="noopener" title="새 창에서 열립니다">네이버 블로그 <svg class="ico ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg><span class="sr-only">(새 창)</span></a></li><li><a href="https://smartstore.naver.com/tabspace" target="_blank" rel="noopener" title="새 창에서 열립니다">네이버 스마트스토어 <svg class="ico ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg><span class="sr-only">(새 창)</span></a></li><li><a href="https://github.com/tabspacekr" target="_blank" rel="noopener" title="새 창에서 열립니다">깃허브 저장소 <svg class="ico ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg><span class="sr-only">(새 창)</span></a></li></ul>
+          </section>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="subhead">
+    <div class="inner">
+      <ol class="crumb" aria-label="현재 위치">
+        <li class="home"><a href="./index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 8h-3v9h-5v-6h-2v6H6v-9H3z"/></svg>홈</a></li>
+        <li><a href="./business.html">사업 분야</a></li>
+        <li aria-current="page">스마트팜·농업</li>
+      </ol>
+    </div>
+  </div>
+  <nav class="subnav" aria-label="사업 분야 하위 메뉴"><div class="inner"><ul><li><a href="./business.html">사업 분야</a></li><li><a href="./area-zeb.html">제로에너지 건축물</a></li><li><a href="./area-smart-city.html">스마트홈·시티</a></li><li><a href="./area-smart-farm.html" aria-current="page">스마트팜·농업</a></li><li><a href="./area-embedded.html">임베디드 시스템</a></li><li><a href="./area-unmanned.html">무인매장 관리</a></li></ul></div></nav>
+  <main id="main" tabindex="-1" class="page">
+<div class="inner page-head"><h1 class="page-title">스마트팜·농업</h1><p class="page-desc">하우스 설비를 스마트폰으로 열고 닫고, 시간과 날씨에 맞춰 자동으로 움직이게 하는 스마트팜 원격제어 플랫폼을 만듭니다.</p></div>
+<div class="inner">
+  <section class="sec area-intro" aria-label="스마트팜·농업 소개">
+    <div class="area-hero">
+      <span class="ic"><img src="./assets/img/smartfarm.png" width="60" height="60" alt=""></span>
+      <div class="prose"><p>시설 원예는 온도·습도·빛·물의 작은 변화가 생산량과 품질을 좌우합니다. 하지만 농가가 하루 종일 하우스를 지키며 커튼을 여닫고 물을 줄 수는 없습니다.</p><p>스마트팜은 센서로 환경을 측정하고, 개폐기·차광·관수·난방 같은 설비를 원격과 자동으로 제어해 이 일을 덜어 줍니다. 탭스페이스는 시설 하우스 설비의 원격 개폐와 자동화를 위한 제어 플랫폼을 직접 구축했습니다.</p></div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="issueTitle">
+    <h2 class="sec-title" id="issueTitle">스마트팜이 해결해야 할 문제와 IoT 해법</h2>
+    <ul class="issues">
+        <li class="issue"><p class="q">하우스 상태를 보려면 직접 가야 합니다</p><p class="a">환경 값과 설비 상태를 스마트폰으로 확인하고 원격으로 조작합니다.</p></li>
+        <li class="issue"><p class="q">해 뜨고 질 때마다 커튼을 여닫아야 합니다</p><p class="a">일출·일몰과 시각에 맞춰 보온커튼·차광막을 자동으로 움직입니다.</p></li>
+        <li class="issue"><p class="q">갑작스러운 고온·저온에 대응이 늦습니다</p><p class="a">외기 조건이 기준을 넘는 순간 정해 둔 동작을 실행합니다.</p></li>
+        <li class="issue"><p class="q">넓은 농지에 통신선을 깔기 어렵습니다</p><p class="a">LTE·저전력 장거리 무선으로 멀리 떨어진 설비를 연결합니다.</p></li>
+    </ul>
+  </section>
+
+  <section class="sec" aria-labelledby="featTitle">
+    <h2 class="sec-title" id="featTitle">스마트팜에 필요한 IoT 기술</h2>
+    <p class="sec-desc">시설 원예 스마트팜에서 일반적으로 쓰이는 IoT 기술입니다. 현장 여건과 기존 설비에 맞춰 필요한 것을 골라 구성합니다.</p>
+    <ul class="cards">
+        <li class="card"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg></span><h3>생육 환경 센싱</h3><p>온습도·CO2·광량·토양 수분·EC·pH를 측정해 기록합니다.</p></li>
+        <li class="card"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg></span><h3>개폐·차광·보온 자동화</h3><p>측창·천창 개폐기, 차광막, 보온커튼을 온도와 일사량에 맞춰 움직입니다.</p></li>
+        <li class="card"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 18a4.5 4.5 0 0 1-.5-9A6 6 0 0 1 18 8.5a4.8 4.8 0 0 1-.5 9.5z"/></svg></span><h3>관수·양액 자동 공급</h3><p>토양 수분과 시간표에 따라 관수하고 양액 공급을 조절합니다.</p></li>
+        <li class="card"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9V16h7v-2.1A6 6 0 0 0 12 3z"/></svg></span><h3>냉난방·유동팬 제어</h3><p>난방기·유동팬·보광등을 환경 기준에 맞춰 운전합니다.</p></li>
+        <li class="card"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><h3>경보와 원격 제어</h3><p>기준을 벗어나거나 설비가 멈추면 알리고, 스마트폰으로 바로 조치합니다.</p></li>
+        <li class="card"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4v16h16"/><path d="M8 15l4-5 3 3 5-6"/></svg></span><h3>데이터 기록과 분석</h3><p>누적된 환경 데이터로 재배 기준을 다듬고 작기별로 비교합니다.</p></li>
+    </ul>
+  </section>
+
+  <section class="sec" aria-labelledby="caseTitle">
+    <h2 class="sec-title" id="caseTitle">구축 사례: 시설 하우스 원격제어·자동화 플랫폼</h2>
+    <p class="sec-desc">비닐 연동 온실의 보온·차광 설비를 원격으로 제어하고 자동화하는 웹 플랫폼을 구축했습니다. 화면은 설비가 오프라인인 상태에서 캡처한 실제 운영 화면이며, 농원 이름과 주소는 가렸습니다.</p>
+    <ul class="shots ui four">
+        <li><figure class="shot"><a href="./assets/img/farm/farm-2d-1200.jpg" data-lightbox="area" title="크게 보기"><picture>
+          <source type="image/avif" srcset="./assets/img/farm/farm-2d-600.avif 600w, ./assets/img/farm/farm-2d-1200.avif 1200w" sizes="(min-width: 1024px) 285px, (min-width: 768px) 50vw, 100vw">
+          <source type="image/webp" srcset="./assets/img/farm/farm-2d-600.webp 600w, ./assets/img/farm/farm-2d-1200.webp 1200w" sizes="(min-width: 1024px) 285px, (min-width: 768px) 50vw, 100vw">
+          <img src="./assets/img/farm/farm-2d-600.jpg" width="600" height="375" alt="농장 배치도 2D 화면: 외기 온도·습도·일사량 카드와 하우스 도면 위 설비 위치" loading="lazy" decoding="async"></picture><span class="sr-only">(크게 보기)</span></a>
+          <figcaption><b>농장 배치도 — 2D</b><span>설비 위치와 상태를 도면 위에서 확인</span></figcaption></figure></li>
+        <li><figure class="shot"><a href="./assets/img/farm/farm-3d-1200.jpg" data-lightbox="area" title="크게 보기"><picture>
+          <source type="image/avif" srcset="./assets/img/farm/farm-3d-600.avif 600w, ./assets/img/farm/farm-3d-1200.avif 1200w" sizes="(min-width: 1024px) 285px, (min-width: 768px) 50vw, 100vw">
+          <source type="image/webp" srcset="./assets/img/farm/farm-3d-600.webp 600w, ./assets/img/farm/farm-3d-1200.webp 1200w" sizes="(min-width: 1024px) 285px, (min-width: 768px) 50vw, 100vw">
+          <img src="./assets/img/farm/farm-3d-600.jpg" width="600" height="375" alt="농장 배치도 3D 화면: 하우스와 커튼·차광막 설비를 입체로 표시" loading="lazy" decoding="async"></picture><span class="sr-only">(크게 보기)</span></a>
+          <figcaption><b>농장 배치도 — 3D</b><span>하우스와 설비를 입체로 보고 제어</span></figcaption></figure></li>
+        <li><figure class="shot"><a href="./assets/img/farm/farm-automation-1200.jpg" data-lightbox="area" title="크게 보기"><picture>
+          <source type="image/avif" srcset="./assets/img/farm/farm-automation-600.avif 600w, ./assets/img/farm/farm-automation-1200.avif 1200w" sizes="(min-width: 1024px) 285px, (min-width: 768px) 50vw, 100vw">
+          <source type="image/webp" srcset="./assets/img/farm/farm-automation-600.webp 600w, ./assets/img/farm/farm-automation-1200.webp 1200w" sizes="(min-width: 1024px) 285px, (min-width: 768px) 50vw, 100vw">
+          <img src="./assets/img/farm/farm-automation-600.jpg" width="600" height="375" alt="자동화 화면: 자동화 전체 스위치와 외기 조건·일출일몰 규칙의 안전 규칙 설명" loading="lazy" decoding="async"></picture><span class="sr-only">(크게 보기)</span></a>
+          <figcaption><b>자동화 설정</b><span>시각·일출일몰·외기 조건 규칙과 안전장치</span></figcaption></figure></li>
+        <li><figure class="shot"><a href="./assets/img/farm/farm-mobile-780.jpg" data-lightbox="area" title="크게 보기"><picture>
+          <source type="image/avif" srcset="./assets/img/farm/farm-mobile-600.avif 600w, ./assets/img/farm/farm-mobile-780.avif 780w" sizes="(min-width: 1024px) 285px, (min-width: 768px) 50vw, 100vw">
+          <source type="image/webp" srcset="./assets/img/farm/farm-mobile-600.webp 600w, ./assets/img/farm/farm-mobile-780.webp 780w" sizes="(min-width: 1024px) 285px, (min-width: 768px) 50vw, 100vw">
+          <img src="./assets/img/farm/farm-mobile-600.jpg" width="600" height="375" alt="모바일 대시보드 화면: 외기 온도·습도·일사량과 설비 연결 상태 카드" loading="lazy" decoding="async"></picture><span class="sr-only">(크게 보기)</span></a>
+          <figcaption><b>모바일 대시보드</b><span>스마트폰에서 같은 화면으로 확인·제어</span></figcaption></figure></li>
+    </ul>
+    <ul class="points" style="margin-top:32px">
+          <li><b>원격 개폐와 개도율 제어</b><span>일중(보온)커튼 2대, 차광막 1대, 측면 다겹보온커버 2대 등 설비 5대를 원격으로 열고 닫으며 개도율(%)을 지정합니다.</span></li>
+          <li><b>현장 통신</b><span>현장 LTE 회선 2개로 설비 컨트롤러를 연결하고, MQTT로 서버와 통신합니다.</span></li>
+          <li><b>농장 배치도 대시보드</b><span>2D·3D 배치도에서 설비 위치와 상태를 보고, 설비를 눌러 바로 제어합니다.</span></li>
+          <li><b>자동화 규칙 3가지</b><span>정해진 시각·요일, 일출·일몰 기준, 외기 조건(기온·습도·일사가 기준을 넘는 순간)으로 동작을 예약합니다. 외기 값은 기상청 초단기실황 실측을 씁니다.</span></li>
+          <li><b>안전장치</b><span>자동화 전체 스위치는 기본으로 꺼져 있고, 사람이 조작한 설비는 30분간 자동화가 건너뜁니다. 오프라인 설비는 건너뛰고 이력에 남기며, 제어와 규칙 변경에는 PIN 확인을 거칩니다.</span></li>
+          <li><b>동작 이력</b><span>명령·자동화·장치 응답 이력을 검색하고 CSV로 내보냅니다. 모바일 화면과 다크 모드를 지원합니다.</span></li>
+    </ul>
+  </section>
+  <section class="sec" aria-labelledby="techTitle">
+    <h2 class="sec-title" id="techTitle">적용 기술</h2>
+    <table class="info-table">
+      <tbody>
+        <tr><th scope="row">센서</th><td>온습도·CO2·광량(일사)·토양 수분·EC·pH 센서, 기상 관측 데이터 연계</td></tr>
+        <tr><th scope="row">구동기</th><td>개폐기 모터, 차광·보온커튼, 관수 밸브·펌프, 난방기·유동팬 릴레이</td></tr>
+        <tr><th scope="row">통신</th><td>LTE, Wi-Fi, 저전력 장거리 무선, 산업용 유선 통신(양액기 등 연동), MQTT</td></tr>
+        <tr><th scope="row">운영</th><td>웹 대시보드(2D·3D 배치도), 자동화 규칙, PIN 확인, 동작 이력</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="sec" aria-labelledby="relTitle">
+    <h2 class="sec-title" id="relTitle">함께 보면 좋은 내용</h2>
+    <ul class="cards">
+        <li class="card link"><h3>정밀 농업 구축 후기</h3><p>현장 구축 과정은 네이버 블로그에서 소개합니다.</p><a class="btn-text more stretch" href="https://blog.naver.com/PostList.naver?blogId=tabspacekr&from=postList&categoryNo=21" target="_blank" rel="noopener" title="새 창에서 열립니다">자세히 보기 <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="sr-only">(새 창)</span></a></li>
+        <li class="card link"><h3>임베디드 시스템</h3><p>현장 설비를 원격 제어하는 하드웨어·펌웨어 기술입니다.</p><a class="btn-text more stretch" href="./area-embedded.html">자세히 보기 <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+        <li class="card link"><h3>IoT 제품 개발</h3><p>농가 맞춤 장비가 필요하면 회로부터 앱까지 함께 개발합니다.</p><a class="btn-text more stretch" href="./product-development.html">자세히 보기 <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+    </ul>
+  </section>
+
+  <div class="cta-box">
+    <div><h2>스마트팜·농업 도입을 검토하고 계신가요?</h2><p>현장 환경과 기존 설비를 알려 주시면 맞춤 구성을 제안해 드립니다.</p></div>
+    <div class="btns"><a class="btn accent" href="./contact.html">도입 문의</a></div>
+  </div>
+</div>
+  </main>
+  <nav class="foot-quick" aria-label="바로가기">
+    <div class="inner">
+      <ul>
+        <li><a href="./contact.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>솔루션 도입 문의</a></li>
+        <li><a href="./projects.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg>구축 사례</a></li>
+        <li><a href="https://blog.naver.com/tabspacekr" target="_blank" rel="noopener" title="새 창에서 열립니다"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/><path d="M8 7h7M8 11h5"/></svg>네이버 블로그 <svg class="ico ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg><span class="sr-only">(새 창)</span></a></li>
+        <li><a href="https://smartstore.naver.com/tabspace" target="_blank" rel="noopener" title="새 창에서 열립니다"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 8h14l-1 13H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>스마트스토어 <svg class="ico ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg><span class="sr-only">(새 창)</span></a></li>
+      </ul>
+    </div>
+  </nav>
+  <footer class="site-footer">
+    <div class="inner">
+      <div class="foot-top">
+        <div>
+          <span class="foot-logo" role="img" aria-label="탭스페이스(tabspace)"></span>
+          <address class="foot-info">
+            <span>주식회사 탭스페이스</span><span>서울특별시 마포구 매봉산로 18, 405호</span><br>
+            <span>대표번호 <a href="tel:050713997864">0507-1399-7864</a></span><span>사무실(주간) <a href="tel:07077805577">070-7780-5577</a></span><br>
+            <span>통신판매업신고번호 제 2026-서울마포-0456 호</span>
+          </address>
+        </div>
+        <div class="foot-links">
+          <section>
+            <h2>안내</h2>
+            <ul>
+              <li><a class="strong" href="./email-policy.html">이메일무단수집거부</a></li>
+              <li><a href="./about.html#registrations">등록·인증 현황</a></li>
+              <li><a href="./contact.html">문의하기</a></li>
+            </ul>
+          </section>
+          <section>
+            <h2>사이트 링크</h2>
+            <ul>
+              <li><a href="https://blog.naver.com/tabspacekr" target="_blank" rel="noopener" title="새 창에서 열립니다">탭스페이스 네이버 블로그 <svg class="ico ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg><span class="sr-only">(새 창)</span></a></li>
+              <li><a href="https://smartstore.naver.com/tabspace" target="_blank" rel="noopener" title="새 창에서 열립니다">탭스페이스 네이버 스마트스토어 <svg class="ico ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg><span class="sr-only">(새 창)</span></a></li>
+              <li><a href="https://github.com/tabspacekr" target="_blank" rel="noopener" title="새 창에서 열립니다">탭스페이스 깃허브 저장소 <svg class="ico ext" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg><span class="sr-only">(새 창)</span></a></li>
+            </ul>
+          </section>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <!-- 이메일 무단수집 거부 고지(정보통신망법 제50조의2): 법적 보호는 "수집을 거부하는 의사가 명시된" 홈페이지에서만 성립하므로 모든 페이지 본문에 상시 노출한다 -->
+        <p class="email-collect-refusal">본 웹사이트에 게시된 이메일 주소가 전자우편 수집 프로그램이나 그 밖의 기술적 장치를 이용하여 무단으로 수집되는 것을 거부하며, 이를 위반 시 1년 이하의 징역 또는 1천만원 이하의 벌금에 처해질 수 있습니다. (정보통신망 이용촉진 및 정보보호 등에 관한 법률 제50조의2, 제74조)</p>
+        <p class="copyright">© 2021-<span id="current-year"></span> TabSpace. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <aside class="quickmenu" aria-label="빠른 메뉴">
+    <ul class="quickmenu-list" id="quickmenuList">
+      <li><a href="./contact.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>도입 문의</a></li>
+      <li><a href="./projects.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg>구축 사례</a></li>
+      <li><a href="./live-demo.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg>라이브 데모</a></li>
+      <li><a href="https://blog.naver.com/tabspacekr" target="_blank" rel="noopener" title="새 창에서 열립니다"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/><path d="M8 7h7M8 11h5"/></svg>블로그<span class="sr-only">(새 창)</span></a></li>
+    </ul>
+    <button type="button" class="quickmenu-btn quickmenu-tog" aria-expanded="false" aria-controls="quickmenuList"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg><span class="sr-only">빠른 메뉴 펴기</span></button>
+    <button type="button" class="quickmenu-btn to-top"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 15l6-6 6 6"/></svg><span class="sr-only">맨 위로</span></button>
+  </aside>
+  <script defer src="./assets/dist/site.00076f00e8.js"></script>
+  <script type="module">
+    const report = async () => {
+      const { onLCP, onINP, onCLS, onFCP, onTTFB } = await import('./assets/vendor/web-vitals-5.3.0.attribution.js');
+      const ct = navigator.connection?.effectiveType || 'na';
+      const tgt = a => (a?.target || a?.interactionTarget || a?.largestShiftTarget || '').slice(0, 100);
+      const send = m => window.gtag && gtag('event', m.name, {
+        value: Math.round(m.name === 'CLS' ? m.delta * 1000 : m.delta),
+        metric_id: m.id, metric_value: m.value, metric_rating: m.rating,
+        debug_target: tgt(m.attribution),
+        lcp_render_delay: m.name === 'LCP' ? Math.round(m.attribution.elementRenderDelay) : undefined,
+        effective_type: ct, page_key: document.body.dataset.page
+      });
+      [onLCP, onINP, onCLS, onFCP, onTTFB].forEach(f => f(send));
+      setTimeout(() => {
+        const css = performance.getEntriesByType('resource')
+          .find(e => e.name.startsWith(location.origin) && e.name.endsWith('.css') && e.transferSize > 0);
+        const fcp = performance.getEntriesByName('first-contentful-paint')[0]?.startTime ?? 0;
+        window.gtag && gtag('event', 'hero_visible', {
+          value: window.__heroVisible == null ? -1 : Math.round(Math.max(window.__heroVisible, fcp)),
+          effective_type: ct, page_key: document.body.dataset.page,
+          layout_overflow: document.documentElement.scrollWidth > innerWidth ? 1 : 0,
+          css_wait: css ? Math.round(css.responseStart - css.requestStart) : -1
+        });
+      }, 3000);
+    };
+    document.readyState === 'complete' ? report() : addEventListener('load', report);
+  </script>
+</body>
+</html>

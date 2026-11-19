@@ -15,7 +15,8 @@ const GA_ID = 'G-TNGS7LHP2X';
 // 메인 메뉴 묶음: [화면 키, 이름, 주소]. 바깥 주소는 새 창으로 연다.
 export const GROUPS = [
   ['회사 소개', [['about', '회사 개요', 'about.html'], ['technology', '기술 역량', 'technology.html']]],
-  ['사업 분야', [['business', '사업 분야', 'business.html'], ['solutions', 'AI 솔루션', 'solutions.html'], ['product-development', 'IoT 제품 개발', 'product-development.html'], ['reverse-engineering', '리버스 엔지니어링', 'reverse-engineering.html']]],
+  ['사업 분야', [['business', '사업 분야', 'business.html'], ['area-zeb', '제로에너지 건축물', 'area-zeb.html'], ['area-smart-city', '스마트홈·시티', 'area-smart-city.html'], ['area-smart-farm', '스마트팜·농업', 'area-smart-farm.html'], ['area-embedded', '임베디드 시스템', 'area-embedded.html'], ['area-unmanned', '무인매장 관리', 'area-unmanned.html']]],
+  ['솔루션', [['solutions', 'AI 솔루션', 'solutions.html'], ['product-development', 'IoT 제품 개발', 'product-development.html'], ['reverse-engineering', '리버스 엔지니어링', 'reverse-engineering.html']]],
   ['구축 사례', [['projects', '프로젝트', 'projects.html'], ['live-demo', '라이브 데모', 'live-demo.html']]],
   ['고객 지원', [['insights', '기술 인사이트', 'insights.html'], ['contact', '문의하기', 'contact.html']]],
 ];
@@ -234,9 +235,13 @@ function jsonLd(meta, url) {
   const crumbs = [['홈', `${ORIGIN}/`]];
   if (group) crumbs.push([group[0], `${ORIGIN}/${group[1][0][2]}`]);
   crumbs.push([meta.title, url]);
+  const service = meta.service
+    ? [{ '@type': 'Service', '@id': `${url}#service`, name: meta.title, serviceType: meta.title, description: meta.description, provider: { '@id': ORG['@id'] }, areaServed: { '@type': 'Country', name: 'KR' } }]
+    : [];
   return {
     '@context': 'https://schema.org',
     '@graph': [
+      ...service,
       { '@type': 'WebPage', '@id': url, url, name: meta.title, description: meta.description, inLanguage: 'ko-KR', isPartOf: { '@id': `${ORIGIN}/#website` }, publisher: { '@id': ORG['@id'] } },
       { '@type': 'BreadcrumbList', itemListElement: crumbs.map(([name, item], i) => ({ '@type': 'ListItem', position: i + 1, name, item })) },
     ],
@@ -377,6 +382,111 @@ function renderData(data) {
     'recent-projects': recentProjects,
     'recent-posts': recentPosts,
   };
+}
+
+
+/* ── 사업 분야 하위 영역 페이지(_src/areas.json → area-*.html) ──
+   다섯 영역이 같은 틀(소개 → 문제·해법 → 기능 → 구축 사례 → 기술 → 관련 사례 → 문의)을 쓴다. */
+function relLink(href) {
+  return /^https?:/.test(href) ? `href="${href}"${NEW_WIN}` : `href="./${href}"`;
+}
+function areaShot(dir, name, big, alt, title, desc) {
+  const sm = `./assets/img/${dir}/${name}-600`;
+  const bg = `./assets/img/${dir}/${name}-${big}`;
+  const sizes = '(min-width: 1024px) 285px, (min-width: 768px) 50vw, 100vw';
+  return `<li><figure class="shot"><a href="${bg}.jpg" data-lightbox="area" title="크게 보기"><picture>
+          <source type="image/avif" srcset="${sm}.avif 600w, ${bg}.avif ${big}w" sizes="${sizes}">
+          <source type="image/webp" srcset="${sm}.webp 600w, ${bg}.webp ${big}w" sizes="${sizes}">
+          <img src="${sm}.jpg" width="600" height="375" alt="${esc(alt)}" loading="lazy" decoding="async"></picture><span class="sr-only">(크게 보기)</span></a>
+          <figcaption><b>${esc(title)}</b><span>${esc(desc)}</span></figcaption></figure></li>`;
+}
+export function areaPages(root, data) {
+  const file = path.join(root, '_src', 'areas.json');
+  const { areas } = JSON.parse(fs.readFileSync(file, 'utf8'));
+  const pc = data.projects.categories;
+  return areas.map((a) => {
+    const meta = { key: a.key, title: a.menu, description: a.description, lead: a.lead, service: true };
+    const issues = a.issues.map(([q, ans]) => `<li class="issue"><p class="q">${esc(q)}</p><p class="a">${esc(ans)}</p></li>`).join('\n        ');
+    const features = a.features.map(([ic, t, d]) => `<li class="card"><span class="ic">${icon(ic)}</span><h3>${esc(t)}</h3><p>${esc(d)}</p></li>`).join('\n        ');
+    const tech = a.tech.map(([k, v]) => `<tr><th scope="row">${esc(k)}</th><td>${esc(v)}</td></tr>`).join('\n        ');
+    const related = a.related.map(([t, d, href]) => `<li class="card link"><h3>${esc(t)}</h3><p>${esc(d)}</p><a class="btn-text more stretch" ${relLink(href)}>자세히 보기 ${icon('arrow')}${/^https?:/.test(href) ? '<span class="sr-only">(새 창)</span>' : ''}</a></li>`).join('\n        ');
+    let caseBlock = '';
+    if (a.case) {
+      const pts = a.case.points.map(([t, d]) => `<li><b>${esc(t)}</b><span>${esc(d)}</span></li>`).join('\n          ');
+      const shots = a.case.shots.map(([n, big, alt, t, d]) => areaShot('farm', n, big, alt, t, d)).join('\n        ');
+      caseBlock = `
+  <section class="sec" aria-labelledby="caseTitle">
+    <h2 class="sec-title" id="caseTitle">${esc(a.case.title)}</h2>
+    <p class="sec-desc">${esc(a.case.desc)}</p>
+    <ul class="shots ui four">
+        ${shots}
+    </ul>
+    <ul class="points" style="margin-top:32px">
+          ${pts}
+    </ul>
+  </section>`;
+    }
+    let projBlock = '';
+    if (a.projectCategories.length) {
+      const list = data.projects.projects.filter((p) => a.projectCategories.includes(p.category));
+      const cards = list.slice(0, 8).map((p) => {
+        const body = `<div class="ph">${projectPicture(p)}<span class="badge solid">${esc(pc[p.category] || p.category)}</span></div><div class="bd"><h3>${esc(p.title)}</h3><p class="loc">${icon('pin')}${p.location ? `${esc(p.location)} · ` : ''}${esc(p.subCategory)}</p></div>`;
+        return `<li>${p.blogUrl ? `<a class="proj" href="${p.blogUrl}"${NEW_WIN}>${body}<span class="sr-only">(새 창)</span></a>` : `<div class="proj">${body}</div>`}</li>`;
+      }).join('\n        ');
+      projBlock = `
+  <section class="sec" aria-labelledby="projTitle">
+    <div class="board-head"><h2 class="sec-title" id="projTitle" style="margin:0">구축 사례 <small class="count">${list.length}건</small></h2><a class="btn secondary sm" href="./projects.html#${a.projectCategories[0]}">전체 보기</a></div>
+    <ul class="proj-grid" style="margin-top:24px">
+        ${cards}
+    </ul>
+  </section>`;
+    }
+    const body = `<div class="inner">
+  <section class="sec area-intro" aria-label="${esc(a.menu)} 소개">
+    <div class="area-hero">
+      <span class="ic"><img src="${a.icon}" width="60" height="60" alt=""></span>
+      <div class="prose">${a.intro.map((t) => `<p>${esc(t)}</p>`).join('')}</div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="issueTitle">
+    <h2 class="sec-title" id="issueTitle">${esc(a.issuesTitle || '현장의 문제와 해법')}</h2>
+    <ul class="issues">
+        ${issues}
+    </ul>
+  </section>
+
+  <section class="sec" aria-labelledby="featTitle">
+    <h2 class="sec-title" id="featTitle">${esc(a.featuresTitle || '주요 기능')}</h2>
+    ${a.featuresDesc ? `<p class="sec-desc">${esc(a.featuresDesc)}</p>` : ''}
+    <ul class="cards">
+        ${features}
+    </ul>
+  </section>
+${caseBlock}${projBlock}
+  <section class="sec" aria-labelledby="techTitle">
+    <h2 class="sec-title" id="techTitle">적용 기술</h2>
+    <table class="info-table">
+      <tbody>
+        ${tech}
+      </tbody>
+    </table>
+  </section>
+
+  <section class="sec" aria-labelledby="relTitle">
+    <h2 class="sec-title" id="relTitle">함께 보면 좋은 내용</h2>
+    <ul class="cards">
+        ${related}
+    </ul>
+  </section>
+
+  <div class="cta-box">
+    <div><h2>${esc(a.menu)} 도입을 검토하고 계신가요?</h2><p>현장 환경과 기존 설비를 알려 주시면 맞춤 구성을 제안해 드립니다.</p></div>
+    <div class="btns"><a class="btn accent" href="./contact.html">도입 문의</a></div>
+  </div>
+</div>`;
+    return { meta, body };
+  });
 }
 
 /* ── 페이지 조립 ── */

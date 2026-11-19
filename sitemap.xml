@@ -12,4 +12,9 @@
   <url><loc>https://www.tabspace.kr/reverse-engineering.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.tabspace.kr/solutions.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.tabspace.kr/technology.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.tabspace.kr/area-zeb.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.tabspace.kr/area-smart-city.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.tabspace.kr/area-smart-farm.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.tabspace.kr/area-embedded.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.tabspace.kr/area-unmanned.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 </urlset>
