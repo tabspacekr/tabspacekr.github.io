@@ -15,7 +15,7 @@ const GA_ID = 'G-TNGS7LHP2X';
 // 메인 메뉴 묶음: [화면 키, 이름, 주소]. 바깥 주소는 새 창으로 연다.
 export const GROUPS = [
   ['회사 소개', [['about', '회사 개요', 'about.html'], ['technology', '기술 역량', 'technology.html']]],
-  ['사업 분야', [['business', '사업 분야', 'business.html'], ['solutions', 'AI 솔루션', 'solutions.html'], ['reverse-engineering', '리버스 엔지니어링', 'reverse-engineering.html']]],
+  ['사업 분야', [['business', '사업 분야', 'business.html'], ['solutions', 'AI 솔루션', 'solutions.html'], ['product-development', 'IoT 제품 개발', 'product-development.html'], ['reverse-engineering', '리버스 엔지니어링', 'reverse-engineering.html']]],
   ['구축 사례', [['projects', '프로젝트', 'projects.html'], ['live-demo', '라이브 데모', 'live-demo.html']]],
   ['고객 지원', [['insights', '기술 인사이트', 'insights.html'], ['contact', '문의하기', 'contact.html']]],
 ];

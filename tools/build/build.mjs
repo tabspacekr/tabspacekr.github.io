@@ -33,6 +33,7 @@ const CSS_SOURCES = ['site.css'];
 const JS_SOURCES = [
   'shell.js',
   'filters.js',
+  'lightbox.js',
   'data-visualization.js',
   'chatbot-demo-animation.js',
   'energy-management-animation.js',
@@ -42,7 +43,7 @@ const JS_SOURCES = [
 
 // 소스에 글자로 나타나지 않고 JS 가 런타임에 붙이는 클래스·속성
 const SAFELIST = {
-  standard: ['is-mega', 'is-hot', 'on', 'highlight', 'fade-in', 'fade-out', 'allmenu-open', /^uil-/],
+  standard: ['is-mega', 'is-hot', 'on', 'highlight', 'fade-in', 'fade-out', 'allmenu-open', 'lightbox-open', 'single', /^uil-/],
   greedy: [/data-theme/, /aria-pressed/, /aria-current/, /hidden/],
 };
 

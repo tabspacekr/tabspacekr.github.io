@@ -7,7 +7,7 @@ const base = (process.argv[2] || 'https://127.0.0.1:8443/').replace(/\/?$/, '/')
 const ROOT = path.join(__dirname, '..', '..');
 const projects = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'projects.json'), 'utf8')).projects;
 const posts = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'blog.json'), 'utf8')).posts;
-const PAGES = ['index', 'about', 'technology', 'business', 'solutions', 'reverse-engineering', 'projects', 'live-demo', 'insights', 'contact', 'email-policy'];
+const PAGES = ['index', 'about', 'technology', 'business', 'solutions', 'product-development', 'reverse-engineering', 'projects', 'live-demo', 'insights', 'contact', 'email-policy'];
 
 async function check(browser, profile) {
   const out = [];

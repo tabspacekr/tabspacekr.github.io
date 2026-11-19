@@ -92,17 +92,8 @@ class ChatbotDemoAnimation {
   updateRefreshButton(isAnimating) {
     if (!this.refreshBtn || !this.refreshIcon) return;
 
-    if (isAnimating) {
-      // 애니메이션 진행 중 - 버튼 비활성화 (회색)
-      this.refreshBtn.disabled = true;
-      this.refreshBtn.style.cursor = 'not-allowed';
-      this.refreshIcon.style.color = '#9499a3'; // 회색
-    } else {
-      // 애니메이션 완료 - 버튼 활성화 (하늘색)
-      this.refreshBtn.disabled = false;
-      this.refreshBtn.style.cursor = 'pointer';
-      this.refreshIcon.style.color = '#5ff4ff'; // 하늘색
-    }
+    // 색과 커서는 CSS(.icon-btn:disabled)가 테마에 맞춰 정한다 — 재생 중에는 누를 수 없게만 한다
+    this.refreshBtn.disabled = !!isAnimating;
   }
 
   /**

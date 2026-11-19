@@ -7,6 +7,7 @@
   <url><loc>https://www.tabspace.kr/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
   <url><loc>https://www.tabspace.kr/insights.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.tabspace.kr/live-demo.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.tabspace.kr/product-development.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.tabspace.kr/projects.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.tabspace.kr/reverse-engineering.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.tabspace.kr/solutions.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
